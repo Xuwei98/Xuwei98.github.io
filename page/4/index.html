@@ -398,77 +398,29 @@
       
         
           
-            <h2 id="课程回顾"><a href="#课程回顾" class="headerlink" title="课程回顾"></a>课程回顾</h2><ul>
-<li>操作系统通过状态和队列来组织进程</li>
-<li>多进程如何切换<ul>
-<li>将切换进程分割为 切换指令流（切换线程） + 切换资源（内存管理）</li>
-</ul>
-</li>
-</ul>
-<h2 id="课程重点总结"><a href="#课程重点总结" class="headerlink" title="课程重点总结"></a>课程重点总结</h2><h3 id="进程表的指令切换（线程"><a href="#进程表的指令切换（线程" class="headerlink" title="进程表的指令切换（线程"></a>进程表的指令切换（线程</h3><ol>
-<li><p>基本图像</p>
-<p><img src="https://i.loli.net/2018/09/13/5b9a544bdeb52.jpg" alt></p>
-</li>
-<li><p>能否只切换指令序列而资源不动？（线程切换）</p>
-<p>进程 = 资源(内存中的映射表等) + 指令执行序列</p>
-<ul>
-<li><p>将资源和指令执行分开</p>
-</li>
-<li><p>一个资源 + 多个指令执行序列</p>
-</li>
-</ul>
-</li>
-</ol>
-<ul>
-<li><p>线程：保留了并发的有点，避免了进程切换代价</p>
-<ul>
-<li>从一段程序切换到另一个程序</li>
-<li>共用进程代码，进程数据，进程资源</li>
-</ul>
-</li>
-<li><p>如果内存中资源和指令序列切换，就是进程间的切换了</p>
-</li>
-</ul>
-<h3 id="线程存在的价值"><a href="#线程存在的价值" class="headerlink" title="线程存在的价值"></a>线程存在的价值</h3><p>执行一个应用，不同的线程进行不同的操作。</p>
-<p>例如在网页浏览器中，线性执行程序的话，等待时间过长，用户体验不佳，而使用多个线程的话，执行效率较高。</p>
-<p>当然，同一进程中线程共享资源，相互合作的。</p>
-<h4 id="浏览器实例理解"><a href="#浏览器实例理解" class="headerlink" title="浏览器实例理解"></a>浏览器实例理解</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">WebExplorer</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123; </span><br><span class="line">    <span class="keyword">char</span> URI[]=<span class="string">"http://cms.hit.edu.cn"</span>; </span><br><span class="line">    <span class="keyword">char</span> buffer[<span class="number">1000</span>]; </span><br><span class="line">    pthread_create(..., GetData, URL, buffer); </span><br><span class="line">    pthread_create(..., Show, buffer);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">GetData</span><span class="params">(<span class="keyword">char</span> * URL, <span class="keyword">char</span> *p)</span></span>&#123;...&#125;; <span class="comment">//读写磁盘等是核心级线程</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Show</span><span class="params">(<span class="keyword">char</span> *p)</span></span>&#123;...&#125;;</span><br></pre></td></tr></table></figure>
-<p><img src="https://i.loli.net/2018/09/13/5b9a5e9df17d6.jpg" alt></p>
-<p>create实现同时触发，Yield函数实现交替执行，实现了同时触发，交替执行的多线程模型</p>
-<h4 id="Yield"><a href="#Yield" class="headerlink" title="Yield"></a>Yield</h4><p>Yield是核心，Create只需要制造出第一次切换时的样子</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">100</span>:A()&#123;</span><br><span class="line">    B();</span><br><span class="line">    <span class="number">104</span>:...</span><br><span class="line">&#125;</span><br><span class="line"><span class="number">200</span>:B()&#123;</span><br><span class="line">    yield();</span><br><span class="line">    <span class="number">204</span>:...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="number">300</span>:C()&#123;</span><br><span class="line">    D();</span><br><span class="line">    <span class="number">304</span>:...</span><br><span class="line">&#125;</span><br><span class="line"><span class="number">400</span>:D()&#123;</span><br><span class="line">    yield();</span><br><span class="line">    <span class="number">404</span>:...</span><br><span class="line">&#125;</span><br><span class="line">yeald()&#123;</span><br><span class="line">    找到 ?;</span><br><span class="line">    jump ?;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>此程序的运行，从A（）函数运行，压栈地址指针104，运行到B（）函数中的yield（）并且压栈204，a县城停止，再跳到C（）函数，压栈并执行到D()函数中的yield()再次压栈，这次yield（）的含义是在于跳回到204执行，然而共用一个栈的话，执行完B（）后ret弹栈，弹到了404地址 ，获得了错误的地址。所以线程模型就像进程模型一样需要有单独的内存区域，放栈。并通过TCB（由进程管理的一种数据结构），存放跳转前栈的信息。在下面函数中，当A线程中104、204先后压栈，跳到B线程中304、、405后压栈，又通过切换寄存器的栈指针跳回到a线程中来执行，此时弹栈，继续执行204。</p>
-<ul>
-<li><p>两个执行序列和一个栈</p>
-<ul>
-<li>二者共用一栈，参数压栈后，执行完程序后ret。会导致栈中数据不正确。</li>
-</ul>
-</li>
-<li><p>一个栈变成两个栈</p>
-<ul>
-<li><p>Yield中应该先切回属于跳转的栈</p>
-</li>
-<li><p>栈存放在TCB(全局数据结构)中:例如 TCB1： esp = 1000， TCB2： esp= 2000</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Yield</span><span class="params">()</span></span>&#123; </span><br><span class="line">    TCB2. esp=esp;    <span class="comment">//切换栈</span></span><br><span class="line">    esp=TCB1. esp;		<span class="comment">//寄存器中的esp被赋值</span></span><br><span class="line">   <span class="comment">//// jmp 204;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>两个线程的样子：两个TCB，两个栈，切换的TCB在栈中</p>
-<h4 id="ThreadCreate"><a href="#ThreadCreate" class="headerlink" title="ThreadCreate"></a>ThreadCreate</h4></li>
-</ul>
-</li>
-</ul>
-<p>ThreadCreate的核心就是用程序做出这三样东西</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">ThreadCreate</span><span class="params">(A)</span></span>&#123;</span><br><span class="line">    TCB * tcb=<span class="built_in">malloc</span>();		<span class="comment">//申请一段内存作为栈</span></span><br><span class="line">    * <span class="built_in">stack</span>=<span class="built_in">malloc</span>();</span><br><span class="line">    * <span class="built_in">stack</span>=A;		<span class="comment">//100</span></span><br><span class="line">    tcb. esp=<span class="built_in">stack</span>;  <span class="comment">//栈和TCB关联</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="组合"><a href="#组合" class="headerlink" title="组合"></a>组合</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">WebExplorer</span><span class="params">()</span>	<span class="comment">//main()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	Threadcreate(GetData，URI，buffer);	<span class="comment">//创建线程</span></span><br><span class="line">	<span class="keyword">while</span>（<span class="number">1</span>）Yield();</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">void</span> GetData（charURL，charp）</span><br><span class="line">&#123;</span><br><span class="line">	<span class="comment">//连接URL;</span></span><br><span class="line">	<span class="comment">//下载;</span></span><br><span class="line">	Yield();...		<span class="comment">//调用函数实现跳转，</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">void</span> Threadcreate（func，arg1）</span><br><span class="line">&#123;</span><br><span class="line">	<span class="comment">//申请栈;</span></span><br><span class="line">	<span class="comment">//申请TCB;</span></span><br><span class="line">	<span class="comment">//func等入栈;			</span></span><br><span class="line">	<span class="comment">//关联TCB与栈;..			//生成可执行的出现</span></span><br><span class="line">	</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Yield</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="comment">//压入现场;</span></span><br><span class="line">	<span class="comment">//esp放在当前TCB中;</span></span><br><span class="line">	<span class="comment">//Next();</span></span><br><span class="line">	<span class="comment">//从下个TcB取出esp;弹栈切换线程;  </span></span><br><span class="line">    <span class="comment">// Yield的&#125;进行贪占</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>通过<code>gcc-o explorer get.c yield.c…或gcc get.c..-lthread</code>链接在一起。</p>
-<p>这个模型通过用户手段跳转，用户级线程其实是内核级线程的子类型。</p>
-<h3 id="为什么用户级线程–Yield是用户程序"><a href="#为什么用户级线程–Yield是用户程序" class="headerlink" title="为什么用户级线程–Yield是用户程序"></a>为什么用户级线程–Yield是用户程序</h3><p>同步、调度、管理线程都用函数来控制线程，不需要用户态/核心太切换。速度快，内核不知道多线程的存在，因此一个线程阻塞会使得整个进程（包括所有的线程）阻塞。采用的是时间片轮询。同一个线程中的线程只能分时复用。</p>
-<p>用户级线程系统中，CPU调度单位以进程为单位，处于运行状态中的多个线程，由用户程序控制线程的轮换执行。</p>
-<p><del>弊端：用户级线程中无法感知到内核中进程的阻塞，如果启动多重序列，用户处一旦阻塞，内核会无法察觉，直接切换到另一个内核进程，这种并发性并没有任何效果。Yield()用户不可见，调度点由系统决定。Yield由用户主动释放</del></p>
-<h3 id="核心级线程（Schedule）"><a href="#核心级线程（Schedule）" class="headerlink" title="核心级线程（Schedule）"></a>核心级线程（Schedule）</h3><p>ThreadCreate是系统调用，会进入内核，内核知道TCB。如果知道某一线程阻塞，系统会自动切换到另一个线程，只会导致该线程被中断。</p>
-<p>在内核支持的系统中，CPU调度以线程为单位，有操作系统的调度程序负责线程的调度。</p>
-<p>内核级的并发性优于用户级线程。</p>
+          课程回顾
+操作系统通过状态和队列来组织进程
+多进程如何切换
+将切换进程分割为 切换指令流（切换线程） + 切换资源（内存管理）
 
-          
+
+
+课程重点总结进程表的指令切换（线程
+基本图像
+
+
+能否只切换指令序列而资源不动？（线程切换）
+进程 = 资源(内存中的映射表等) + 指令执行序列
+
+将资源和指令执行
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/09/13/2018-09-13-L10用户级线程/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -649,94 +601,28 @@
       
         
           
-            <h2 id="重点回顾"><a href="#重点回顾" class="headerlink" title="重点回顾"></a>重点回顾</h2><ol>
-<li>取出指令，执行指令，让程序执行其起来</li>
-<li>启动“进程”，CPU开始工作。启动多个“进程”，提高CPU的利用率。</li>
-</ol>
-<h2 id="课程重点解析"><a href="#课程重点解析" class="headerlink" title="课程重点解析"></a>课程重点解析</h2><h3 id="提出问题"><a href="#提出问题" class="headerlink" title="提出问题"></a>提出问题</h3><ul>
-<li>什么是多进程图像?</li>
-<li>操作系统为了实现多进程图像应该做一些什么事情?<ul>
-<li>在后文会更加详细的讲解</li>
-</ul>
-</li>
-</ul>
-<h3 id="多个进程使用CPU的图像"><a href="#多个进程使用CPU的图像" class="headerlink" title="多个进程使用CPU的图像"></a>多个进程使用CPU的图像</h3><ol>
-<li>通过PID标示不同进程</li>
-<li>为每个进程创建一个结构体PCB，记录信息。根据PCB按照合理的次序进行推进各个进程执行（分配资源，进行调度）。</li>
-<li>用户只需要关心进程推进的样子。</li>
-</ol>
-<h3 id="从启动到关机结束"><a href="#从启动到关机结束" class="headerlink" title="从启动到关机结束"></a>从启动到关机结束</h3><ul>
-<li>main中的fork()创建了第一个进程，<code>if(!fork()){init();}</code><ul>
-<li>init执行了shell（Windows桌面）</li>
-</ul>
-</li>
-<li>shell再启动其他进程、、一命令启动另一个进程，返回shell再启动其他进程</li>
-</ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span> <span class="params">(<span class="keyword">int</span> aegc, <span class="keyword">char</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">while</span>(<span class="number">1</span>) &#123;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%s"</span>,cmd);</span><br><span class="line">    	<span class="keyword">if</span>(!fork())&#123;</span><br><span class="line">            exec(cmd);</span><br><span class="line">        &#125;</span><br><span class="line">        wait();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>crtl + shift + esc打开任务管理器，观察进程列表。</li>
-<li>用户使用计算机，就是启动一堆进程；用户管理计算机，用户就是管理进程。</li>
-</ul>
-<h3 id="多进程如何组织"><a href="#多进程如何组织" class="headerlink" title="多进程如何组织"></a>多进程如何组织</h3><ol>
-<li>操作系统感知,组织进程全靠PCB(Process Control Block)。</li>
-<li>根据PCB信息放在不同的队列中，就绪队列，磁盘等待队列。</li>
-<li>用状态来推进进程，状态转化。</li>
-</ol>
-<h4 id="多进程的组织"><a href="#多进程的组织" class="headerlink" title="多进程的组织"></a>多进程的组织</h4><p>​    进程状态图</p>
-<p><img src="https://i.loli.net/2018/09/12/5b99221570e70.png" alt="图一"></p>
-<ul>
-<li>将进程通过状态分类，方便管理。</li>
-<li>更加容易认识进程生存期。</li>
-<li>进程从创建（Linux下调用fork()）到结束的整个过程就是进程的生命期，进程在其生命期中的运行轨迹实际上就表现为进程状态的多次切换，如进程创建以后会成为就绪态；当该进程被调度以后会切换到运行态；在运行的过程中如果启动了一个文件读写操作，操作系统会将该进程切换到阻塞态（等待态）从而让出CPU；当文件读写完毕以后，操作系统会在将其切换成就绪态，等待进程调度算法来调度该进程执行……</li>
-</ul>
-<h3 id="多个进程如何交替"><a href="#多个进程如何交替" class="headerlink" title="多个进程如何交替"></a>多个进程如何交替</h3><p>（略讲）</p>
-<p>启动磁盘读写;<br>pCur.state=’W’;  //状态变为阻塞态<br>将pCur放到DiskWaitQueue;  //放入阻塞队列中<br>schedule()； // 切换函数</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">schedule()</span><br><span class="line">&#123;</span><br><span class="line">    pNew = getNext(ReadyQueue)； <span class="comment">// 从就绪队列中调度</span></span><br><span class="line">    switch_to(PCur, pNew);	<span class="comment">//切换</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>交替的三个部分：队列操作 + 调度 + 切换</p>
-<h3 id="进程调度"><a href="#进程调度" class="headerlink" title="进程调度"></a>进程调度</h3><h4 id="FIFO"><a href="#FIFO" class="headerlink" title="FIFO"></a>FIFO</h4><ul>
-<li>first in，first out 先入先出</li>
-<li>并没有考虑进程执行的任务的区别</li>
-</ul>
-<h4 id="优先级"><a href="#优先级" class="headerlink" title="优先级"></a>优先级</h4><p>如何设置优先级？可能会使某些进程饥饿</p>
-<h4 id="调度详解"><a href="#调度详解" class="headerlink" title="调度详解"></a>调度详解</h4><ol>
-<li>物理CPU切换前需要保存上一次进程的信息，然后将存放在进程PCB的信息拷贝到CPU</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">switch to(pCur, pNew)&#123;</span><br><span class="line">pCur.ax=CPU.ax;   //从CPU赋值给PCB</span><br><span class="line">pCur.bx=CPU.bx; </span><br><span class="line">	...</span><br><span class="line">pCur.cs=CPU.cs;		//从CPU给PCB赋值</span><br><span class="line">pCur.retpc=CPU.pc; </span><br><span class="line"></span><br><span class="line">CPU.ax=pNew.ax;		//将存放的信息赋值给CPU </span><br><span class="line">CPU.bx=pNew.bx; </span><br><span class="line">	...	</span><br><span class="line">CPU.cs=pNew.cs; </span><br><span class="line">CPU.retpc=pNew.pc;&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="多进程如何影响？"><a href="#多进程如何影响？" class="headerlink" title="多进程如何影响？"></a>多进程如何影响？</h3><p>多进程交替执行，可能会相互影响。因为都放在了内存中。某一进程代码可能跳转错误，影响到另一进程使其崩溃。</p>
-<p>解决办法：限制对地址xxx的读写</p>
-<p>多进程的地址空间分离：内存管理的主要内容</p>
-<h4 id="解决办法详解"><a href="#解决办法详解" class="headerlink" title="解决办法详解"></a>解决办法详解</h4><ul>
-<li><p>基本思想（内存管理）：通过映射表实现地址空间分离</p>
-<ul>
-<li>映射表：操作系统内存管理的核心</li>
-<li>内存管理为多进程管理服务</li>
-<li>不同进程中相同地址通过自己的映射表实现访问不同的物理内存，实现共存</li>
-</ul>
-</li>
-</ul>
-<h3 id="多进程如何合作"><a href="#多进程如何合作" class="headerlink" title="多进程如何合作"></a>多进程如何合作</h3><p>生产者-消费者实例</p>
-<p>#####生产者进程<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span>(<span class="literal">true</span>)&#123;</span><br><span class="line">    <span class="keyword">while</span>(counter == BUFFER_SIZE)</span><br><span class="line">    	;</span><br><span class="line">    buffer[in] = item;</span><br><span class="line">    in = (in + <span class="number">1</span>) % BUFFER_SIZE;</span><br><span class="line">    counter++;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h5 id="消费者进程"><a href="#消费者进程" class="headerlink" title="消费者进程"></a>消费者进程</h5><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">while</span>(<span class="literal">true</span>)&#123;</span><br><span class="line">    <span class="keyword">while</span>(counter == <span class="number">0</span>)</span><br><span class="line">    	;</span><br><span class="line">    item = buffer[out];</span><br><span class="line">    out = (out + <span class="number">1</span>) % BUFFER_SIZE;</span><br><span class="line">    counter--;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h5 id="共享数据"><a href="#共享数据" class="headerlink" title="共享数据"></a>共享数据</h5><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> BUFFER_SIZE 10</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span>&#123;</span>...&#125;item; </span><br><span class="line">item buffer[BUFFER_SIZE]; </span><br><span class="line"><span class="keyword">int</span> in = out = counter = <span class="number">0</span>;</span><br></pre></td></tr></table></figure>
-<p>造成的问题：可能因为某一进程未执行完毕，就被切断，造成counter赋值错误。</p>
-<h4 id="解决方法：实现进程同步"><a href="#解决方法：实现进程同步" class="headerlink" title="解决方法：实现进程同步"></a>解决方法：实现进程同步</h4><p>写counter时阻断其他进程的访问，给counter上锁。</p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ol>
-<li><p>读写PCB，OS中最重要的结构，贯穿始终 </p>
-</li>
-<li><p>要操作寄存器完成切换（L10，L11，L12）</p>
-</li>
-<li><p>要写调度程序（L13，L14）</p>
-</li>
-<li><p>要有进程同步与合作（L16，L17）</p>
-</li>
-<li><p>要有地址映射（L20）</p>
-</li>
-</ol>
-<blockquote>
-<p>做细 ， 做实</p>
-</blockquote>
+          重点回顾
+取出指令，执行指令，让程序执行其起来
+启动“进程”，CPU开始工作。启动多个“进程”，提高CPU的利用率。
 
-          
+课程重点解析提出问题
+什么是多进程图像?
+操作系统为了实现多进程图像应该做一些什么事情?
+在后文会更加详细的讲解
+
+
+
+多个进程使用CPU的图像
+通过PID标示不同进程
+为每个进程
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/09/12/2018-09-12-L9多进程图像/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -917,33 +803,37 @@
       
         
           
-            <h2 id="域名解析"><a href="#域名解析" class="headerlink" title="域名解析"></a>域名解析</h2><p>新购买的域名成功使用了一周之后，无法被解析成功。 </p>
-<p>后通过实名认证，才能继续使用。</p>
-<p>域名可能存在着一周的试用期。一定要去实名认证啊！</p>
-<p>下面是配置表格</p>
-<table>
-<thead>
-<tr>
-<th>记录类型</th>
-<th>主机记录</th>
-<th>记录值</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>A</td>
-<td>@</td>
-<td>185.199.109.153</td>
-</tr>
-<tr>
-<td>CNAME</td>
-<td>www</td>
-<td>xuwei98.github.io</td>
-</tr>
-</tbody>
-</table>
+          域名解析新购买的域名成功使用了一周之后，无法被解析成功。 
+后通过实名认证，才能继续使用。
+域名可能存在着一周的试用期。一定要去实名认证啊！
+下面是配置表格
 
-          
+
+
+记录类型
+主机记录
+记录值
+
+
+
+
+A
+@
+185.199.109.153
+
+
+CNAME
+www
+xuwei98.github.io
+
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/09/11/2018-09-11-博客搭建/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1124,42 +1014,22 @@
       
         
           
-            <h2 id="重点回顾"><a href="#重点回顾" class="headerlink" title="重点回顾"></a>重点回顾</h2><ul>
-<li>操作系统是管理计算机中的硬件</li>
-</ul>
-<p>操作系统系统管理CPU引发出了多进程管理。<br>通过管理CPU，进而管理相关的硬件， 指向出多进程管理的核心要素。  </p>
-<h2 id="知识重点解析"><a href="#知识重点解析" class="headerlink" title="知识重点解析"></a>知识重点解析</h2><h3 id="如何使用CPU"><a href="#如何使用CPU" class="headerlink" title="如何使用CPU"></a>如何使用CPU</h3><ol>
-<li><p>CPU的工作原理： 通过地址总线传出地址（PC = xxx），获得指令并传回CPU，执行指令。</p>
-</li>
-<li><p>CPU怎么工作：自动取址—执行。给予一个首地址，PC自动累加，不断取址执行。</p>
-</li>
-<li><p>CPU如何管理：设置好初值</p>
-</li>
-<li><p>提出问题：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc,<span class="keyword">char</span>* argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i, to, *fp, sum = <span class="number">0</span>;</span><br><span class="line">    to = atoi(argv[<span class="number">1</span>]);</span><br><span class="line">    <span class="keyword">for</span>(i = <span class="number">1</span>;i&lt;= to;i++)&#123;</span><br><span class="line">        sum = sum + i;</span><br><span class="line">        <span class="built_in">fprintf</span>(fp,<span class="string">"%d"</span>, sum);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>如果用一条计算语句替代 fprintf，时间差异如图所示</p>
-<p><img src="https://i.loli.net/2018/09/10/5b966416a66d9.png" alt="1536582655(1).png"></p>
-<p>接近10^6:1。I/O执行，可能需要从磁盘读取等情况,造成二者执行速度差距巨大，如果I/O占据比例过多，易造成CPU利用率低。</p>
-</li>
-<li><p>解决方案： 当遇到磁盘读写时，切到另一个程序执行，再次遇到磁盘读写时，再切回来。<br>多个程序在内存中，来回切换。多道程序， 交替执行，能够充分利用CPU。成为CPU管理核心部分。</p>
-<ul>
-<li><p>一个CPU上交替的执行多个程序：<em>并发</em></p>
-</li>
-<li><p>OS修改PC实现并发。</p>
-</li>
-<li><p>为了实现跳回原程序，记录程序执行瞬间信息的结构：PCB(进程管理块)。</p>
-</li>
-</ul>
-</li>
-</ol>
-<h3 id="引入“进程”"><a href="#引入“进程”" class="headerlink" title="引入“进程”"></a>引入“进程”</h3><p>进行中的程序。</p>
-<p>所有的信息都存放在PCB中。</p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>因为要提高CPU的利用率，需要完成切换，需要记录执行起来的程序，静态程序和执行中的程序很不一样，所以引入了“进程”概念。</p>
-<h3 id="CPU管理"><a href="#CPU管理" class="headerlink" title="CPU管理"></a>CPU管理</h3><p>启动一个进程，让CPU执行。</p>
-<p>CPU执行多个进程，提升了利用率，</p>
-<p>CPU执行多个进程就是CPU管理的核心样子。这就是多进程图像。</p>
+          重点回顾
+操作系统是管理计算机中的硬件
 
-          
+操作系统系统管理CPU引发出了多进程管理。通过管理CPU，进而管理相关的硬件， 指向出多进程管理的核心要素。  
+知识重点解析如何使用CPU
+CPU的工作原理： 通过地址总线传出地址（PC = xxx），获得指令并传回CPU，执行指令。
+
+CPU怎么工作：自
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/09/10/2018-09-10-L8CPU管理的直观想法/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1340,280 +1210,23 @@
       
         
           
-            <h2 id="Default-Constructor的构造操作"><a href="#Default-Constructor的构造操作" class="headerlink" title="Default Constructor的构造操作"></a>Default Constructor的构造操作</h2><p>通常c++程序员会有两个误解：</p>
-<ul>
-<li>任何class即使没有提供默认构造函数，都会被合成出来</li>
-<li>编译器合成出来的构造函数都会显示设定每个成员变量的 初始值。  </li>
-</ul>
-<p>然而 </p>
-<ul>
-<li>’default constructors‘是在被需要的时候才会被合成的。</li>
-<li>被合成出来的construcor只执行编译器所需的行动。并不会主动将成员变量初始化。</li>
-<li>如果程序员没有申明任何的显式构造函数,就会有一个默认构造函数被隐式申明出来,这个构造函数是无用的。  </li>
-</ul>
-<p>以下介绍四种情况在未主动申明构造函数时,编译器将会隐式合成必要的构造函数。</p>
-<h3 id="”带有Default-Constructor“的-Member-Class-Object"><a href="#”带有Default-Constructor“的-Member-Class-Object" class="headerlink" title="”带有Default Constructor“的 Member Class Object"></a>”带有Default Constructor“的 Member Class Object</h3><p>如果一个class没有定义任何构造函数,却包含一个成员对象,并且这个成员对象有默认构造函数。这时候这个class的隐式构造函数是有用的,编译器就会选择合成出这个默认构造函数。<br>在c++的不同编译模块中,编译通过将默认构造函数,拷贝构造函数,析构函数,析构函数,拷贝赋值函数都通过inline方式完成,如果函数过于复杂,会合成一个显示静态实例。<br>例如一个类A有着两个数据对象,<code>char Cstr</code>和<code>string str</code>,并且A中没有申明构造函数,那么编译器只会生成初始化对象str的默认构造函数,并不会提供对char类型的初始化。<br>如果类A已经定义了<code>A::A{Cstr = ‘asd’;}</code>,因为无法再生成另一个构造函数,那么编译器将会扩充这个被程序员定义好的构造函数。在定义好的代码前插入必要的默认构造函数。如果有底盘和成员对象都要求构造函数初始化操作,默认构造函数的调用将按照在类中声明的顺序。</p>
-<h3 id="带有默认构造函数的基类"><a href="#带有默认构造函数的基类" class="headerlink" title="带有默认构造函数的基类"></a>带有默认构造函数的基类</h3><p>如果这个没有任何构造函数的类从带有默认构造函数的基类中派生,那么编译器将会这个派生类合成构造函数,并按照声明顺序调用。<br>如果程序员没有定义默认构造函数,而是定义了多个构造函数,编译器会将所有构造函数进行扩充、添加调用所需要的默认构造函数。<br>如果同时存在带有默认构造函数的成员对象,在所有基类构造函数后也会被调用。</p>
-<h3 id="带有虚函数的Class"><a href="#带有虚函数的Class" class="headerlink" title="带有虚函数的Class"></a>带有虚函数的Class</h3><p>类中声明或继承了虚函数,或者从虚基类中派生。上述两种情况,编译器都会合成vtbl(里面存放着类虚函数的地址)和在对象中合成额外的指针(vptr,里面是vtbl的地址),并完成初始化.<br>例如原来代码为<code>duck.say()</code>,将会被改写为<code>(*duck.vptr[1])(&amp;duck)</code>。<br>-</p>
-<h3 id="带有虚基类的类"><a href="#带有虚基类的类" class="headerlink" title="带有虚基类的类"></a>带有虚基类的类</h3><p>这种情况下，对于类中每一个构造函数，编译器都会插入“允许每一个虚基类的执行期存取操作”的代码，没有构造函数的话将会合成一个默认构造函数。</p>
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ul>
-<li>合成出来的构造函数只会满足编译器的需要</li>
-<li>合成出来的默认构造函数只是去调用“成员对象过着基类的构造函数”或者是满足“虚函数继承或者是虚基类的机制”而完成的。</li>
-<li>合成出来的构造函数不会对成员变量进行初始化。这些初始化应该是程序员提供的。</li>
-</ul>
-<h2 id="拷贝构造函数的构造操作"><a href="#拷贝构造函数的构造操作" class="headerlink" title="拷贝构造函数的构造操作"></a>拷贝构造函数的构造操作</h2><p>如果显示定义了拷贝构造函数<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">X::X(<span class="keyword">const</span> X&amp; xval);</span><br><span class="line">Y::Y(<span class="keyword">const</span> Y&amp; y, <span class="keyword">int</span> = <span class="number">0</span>);</span><br></pre></td></tr></table></figure></p>
-<p>那么在大部分情况下，当一个对象以另一个同类实例作为初值，一般有三种情况： </p>
-<ul>
-<li>显式地以一个类对象作为另一个类对象的初值， X xx = x；</li>
-<li>以类对象作为参数交给函数</li>
-<li>函数返回一个对象</li>
-</ul>
-<h3 id="默认逐成员拷贝初始化"><a href="#默认逐成员拷贝初始化" class="headerlink" title="默认逐成员拷贝初始化"></a>默认逐成员拷贝初始化</h3><p>没有提供显示拷贝构造函数的话，采用逐成员拷贝初始化（Default Memberwise Initialization）。把每个成员变量的值拷贝到另一个对象中，如果存在成员对象，采用递归的方式执行”逐成员初始化”的方式。<br>拷贝构造函数和默认构造函数一样，只会在编译器认为有用的情况下才会被合成。</p>
-<h3 id="Bitwise-Copy-Semantics（位逐次拷贝）"><a href="#Bitwise-Copy-Semantics（位逐次拷贝）" class="headerlink" title="Bitwise Copy Semantics（位逐次拷贝）"></a>Bitwise Copy Semantics（位逐次拷贝）</h3><p>Default Memberwise Initialization的具体实现方式就是位逐次拷贝。<br>如果能采用位逐次拷贝实现“一个对象以另一个同类实例作为初值”，则不会采用拷贝构造函数。<br>有四种情况位逐次拷贝不能完成“一个对象以另一个同类实例作为初值”，将会合成拷贝构造函数。</p>
-<ul>
-<li>当类内含一个成员对象，而后者的类声明有一个拷贝构造函数时（不论是设 计者定义的还是编译器合成的）。</li>
-<li>当类继承自一个基类，而后者存在着一个拷贝构造函数是（不论是被显式声明还是被合成所得）</li>
-<li>当class声明了一个或多个虚函数时</li>
-<li>当类的派生串链中包含有一个或多个虚基类  </li>
-</ul>
-<p>前两种情况是编译器必须将成员或者基类的“拷贝构造调用参数”安插到拷贝构造函数中。完成“一个类对象以另一个同类实体作为初值”的工作。  </p>
-<p>对于有虚函数的类而言，如果是同类型的派生类，位逐次拷贝是能胜任的。而对于不同父类的派生类来说，采用位逐次拷贝是无法指向自己的父类的，产生不可预料的后果。这时候就需要拷贝构造函数，显示设定对象中的vptr指向父类的vtbl。<br>对于继承链中的有虚基类的子对象来说，需要特殊处理。问题出现在需要去维护“位置的完整性”，而位逐次拷贝会破坏这个位置，所以编译器只能自己去合成拷贝构造函数。</p>
-<h2 id="程序转化语意学"><a href="#程序转化语意学" class="headerlink" title="程序转化语意学"></a>程序转化语意学</h2><h3 id="显式的初始化操作"><a href="#显式的初始化操作" class="headerlink" title="显式的初始化操作"></a>显式的初始化操作</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">X x0;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">foo_bar</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="function">X <span class="title">x1</span><span class="params">(x0)</span></span>;</span><br><span class="line">    X x2 = x0;</span><br><span class="line">    X x3 = X(x0);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ol>
-<li>重写每一个定义，初始化操作被剥除。</li>
-<li>拷贝构造函数添加<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">foo_bar</span><span class="params">()</span></span>&#123;</span><br><span class="line">	X x1;</span><br><span class="line">	X x2;</span><br><span class="line">	X x3;</span><br><span class="line"></span><br><span class="line">	x1.X::X(x0);</span><br><span class="line">	x2.X::X(x0);</span><br><span class="line">	x3.X::x(x0);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<h3 id="参数初始化"><a href="#参数初始化" class="headerlink" title="参数初始化"></a>参数初始化</h3><p>把一个class object当做参数传给一个函数（或者作为一个函数的返回值），相当于以下操作：<code>X  xx = arg;</code><br>其中，xx代表形式参数或返回值，arg为真正的参数值（即实参）。<br>下面这样的调用方式：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 已知foo函数的声明</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">foo</span><span class="params">(X x0)</span></span>;</span><br><span class="line"></span><br><span class="line">X xx;</span><br><span class="line"><span class="comment">// ...</span></span><br><span class="line">foo(xx);</span><br></pre></td></tr></table></figure></p>
-<p>转化为<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// C++伪码</span></span><br><span class="line"><span class="comment">// 编译器产生的临时对象</span></span><br><span class="line">X __temp0;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 编译器调用copy constructor</span></span><br><span class="line">__temp0.X::X(xx);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 重新改写函数的调用操作，以便使用上述临时对象</span></span><br><span class="line">foo(__temp0);</span><br></pre></td></tr></table></figure></p>
-<h3 id="返回值的初始化"><a href="#返回值的初始化" class="headerlink" title="返回值的初始化"></a>返回值的初始化</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">X bar()</span><br><span class="line">&#123;</span><br><span class="line">    X xx;</span><br><span class="line">    // ... 处理xx</span><br><span class="line">    return xx;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>双阶段优化</li>
-</ul>
-<ol>
-<li>首先加入一个额外参数，类型是class object的一个reference。该参数用来存放“拷贝构建”而得的返回值。 </li>
-<li>在return指令之前安插一个copy constructor调用操作，以便将欲传回object的内容当做上述新增参数的初值。 </li>
-<li>函数的返回值为return，不返回任何值。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">// C++伪码</span><br><span class="line">void bar(X &amp;__result)</span><br><span class="line">&#123;</span><br><span class="line">    X xx;</span><br><span class="line">    // bar()函数调用时，编译器调用X的default constructor</span><br><span class="line">    xx.X::X();</span><br><span class="line"></span><br><span class="line">    // 编译器调用copy constructor</span><br><span class="line">    __result.X::X(xx);</span><br><span class="line"></span><br><span class="line">    return;     </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>函数指针转化<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">X(*pf)();</span><br><span class="line">pf = bar;</span><br><span class="line"><span class="comment">//转化为</span></span><br><span class="line"><span class="keyword">void</span>(*pf)(X&amp;)</span><br><span class="line">pf = bar;</span><br></pre></td></tr></table></figure></p>
-<h3 id="使用这层面做优化"><a href="#使用这层面做优化" class="headerlink" title="使用这层面做优化"></a>使用这层面做优化</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">X <span class="title">bar</span> <span class="params">(<span class="keyword">const</span> T &amp;y, <span class="keyword">const</span> T&amp;z)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	X xx;</span><br><span class="line">	<span class="keyword">return</span> xx;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//可定义为</span></span><br><span class="line"><span class="comment">// C++伪码</span></span><br><span class="line"><span class="function">X <span class="title">bar</span> <span class="params">(<span class="keyword">const</span> T &amp;y, <span class="keyword">const</span> T &amp;z)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> X(y,z);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//c++伪代码</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">bar</span><span class="params">(X &amp;__result)</span></span>&#123;</span><br><span class="line">	__result.X::X(y ,z);</span><br><span class="line">	<span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="Copy-Constructor：要还是不要？"><a href="#Copy-Constructor：要还是不要？" class="headerlink" title="Copy Constructor：要还是不要？"></a>Copy Constructor：要还是不要？</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Point3d</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    Point3d(<span class="keyword">float</span> x, <span class="keyword">float</span> y, <span class="keyword">float</span> z);</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="keyword">float</span> _x, _y, _z;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>在需要大量memberwise初始化的操作中，例如以传值的方式传回对象里，就需要显式的拷贝构造函数，采用NRV优化。而单一少量的赋值初始化，采用位逐次拷贝快速，安全。</p>
-<h4 id="NRV优化-书面解释"><a href="#NRV优化-书面解释" class="headerlink" title="NRV优化 书面解释"></a>NRV优化 书面解释</h4><p>Named Return Value，若A a = f()，f()中申请并使用了局部对象，并且要返回这个返回这个对象的值，此时会将a的值传入到F()中，然后不让F()申请要要返回的对象b的空间，用a的地址来代替b并进行初始化，对对象a进行直接处理，这时候当要返回对象b的时候，不发生拷贝，省去了创建临时对象b，拷贝b的过程。</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">f ()</span><br><span class="line">&#123;</span><br><span class="line">    X xx;</span><br><span class="line">    <span class="comment">// ...处理 xx  </span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> xx;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 增加参数 __result  </span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">f</span><span class="params">(X &amp;__result)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">//调用构造函数  </span></span><br><span class="line">    </span><br><span class="line">    __result.X::();</span><br><span class="line">    <span class="comment">//直接处理__result   </span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="成员们的初始化队伍"><a href="#成员们的初始化队伍" class="headerlink" title="成员们的初始化队伍"></a>成员们的初始化队伍</h2><p>编译器会对member initialization list一一处理并进行排序，反映出members的声明顺序，安插一些代码到constructor体内，并置于显式代码之前</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Word::Word():_vut(), _name(<span class="number">0</span>)</span><br><span class="line">&#123;</span><br><span class="line">    ;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">///////</span></span><br><span class="line">Word::Word( <span class="comment">/* this pointer goes here*/</span>)</span><br><span class="line">&#123;</span><br><span class="line">    _name.String::String(<span class="number">0</span>);</span><br><span class="line">    _cnt = <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>以下四种情况必须使用成员初始化列：</p>
-<ol>
-<li>当初始化一个引用类型的数据成员时；</li>
-<li>当初始化一个const数据成员时；</li>
-<li>当调用基类的带参构造函数时；</li>
-<li>当调object类型的数据成员的带参构造函数时；</li>
-</ol>
-<p>前两者因为要求定义时初始化，所以必须明确的在初始化队列中给他们提供初值。后两者因为需要显式的调用它们的带参构造函数而非默认构造函数在定义时初始化它们。</p>
-<p>在所有需要定义时初始化的都需要使用初始化列表。</p>
+          Default Constructor的构造操作通常c++程序员会有两个误解：
 
-          
-        
-      
-    </div>
-    
-    
-    
+任何class即使没有提供默认构造函数，都会被合成出来
+编译器合成出来的构造函数都会显示设定每个成员变量的 初始值。  
 
-    
+然而 
 
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://xwdidi.com/2018/09/06/2018-09-06-c++对象模型-前言/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Xuwei98">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="偽のブログ">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/09/06/2018-09-06-c++对象模型-前言/" itemprop="url">深度探索c++对象模型 前言</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-06T00:00:00+08:00">
-                2018-09-06
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/深度探索c-对象模型/" itemprop="url" rel="index">
-                    <span itemprop="name">深度探索c++对象模型</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/09/06/2018-09-06-c++对象模型-前言/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/09/06/2018-09-06-c++对象模型-前言/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  331
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  1
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="前记"><a href="#前记" class="headerlink" title="前记"></a>前记</h2><p>这本书把第二章阅读完之后，才慢慢开始写笔记的。<br>语言描述略微有丶晦涩 ，通过回想之前的一些记忆勉强能进行理解。<br>缺乏了对这本书实际验证，Clang和gcc编译环境下可能存在一定的底层实现区别。<br>希望自己之后的学习看书中，有“求真”的意识，而不是死读书。<br>可能之后读完这本书也会再来写一点</p>
-<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>这本书是由编译器设计者向大家讲解编译器底层实现机制。</p>
-<h3 id="三种对象模型"><a href="#三种对象模型" class="headerlink" title="三种对象模型"></a>三种对象模型</h3><ol>
-<li>与编译器息息相关的转换</li>
-<li>语言语意转换<ul>
-<li>第二章着重讲解。</li>
-<li>构造、析构函数的合成和扩展，memberwise初始化等等、对于memberwise copy 的支持、在程序代码中安插 conversion operakors、临时性对象，以及对constructor/destructor 调用。</li>
-</ul>
-</li>
-<li>程序代码和对象模型的转换<ul>
-<li>第三到第五章着重讲解</li>
-<li>虚函数，虚表等各种实现机制，非常重要。</li>
-</ul>
-</li>
-</ol>
-<hr>
-<h2 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h2><p>希望读完这本书，能对c++的实现机制有进一步理解，知道编译器在这个代码会干什么。消除对c++的各种错误认识。对c++的实现与底层汇编转换有着更好的交融。</p>
-
-          
+’default constructors‘是在被需要的时候才会被合成的。
+被合成出
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/09/08/2018-09-08-c++对象模型-第二章/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1794,57 +1407,206 @@
       
         
           
-            <p>c语言本身没有支持“数据和函数”之间的关联性，也就是<em>程序性的<br>(procedural)</em> 。  </p>
-<h2 id="c-的额外成本"><a href="#c-的额外成本" class="headerlink" title="c++的额外成本"></a>c++的额外成本</h2><p>c++与c不仅在程序风格上有着不同，连程序的思考也有着明显的差异。<br>面向过程(Procedure Oriented)与面向对象(Object Oriented)是二者最大的差异。c++的类比较与c的结构体来说，不仅仅包含了数据，还包含了对数据的操作。<br>封装，继承，类，多态使得c++更加强大。<br>再不聚以及存取实践中上主要的额外负担是有virtual引起的。、</p>
-<ul>
-<li>virtual function机制：用来支持一个有效率的“执行期绑定”。</li>
-<li>virtual base class ：虚基类机制，用来实现共享虚基类的subobject。  </li>
-</ul>
-<p>一般而言，没有什么天生的理由说C++一定比c程序迟缓。</p>
-<h2 id="C-对象模式"><a href="#C-对象模式" class="headerlink" title="C++对象模式"></a>C++对象模式</h2><p>在C++中，有两种类数据成员：静态和非静态，以及三种成员函数：成员函数，非静态函数，虚函数。有三种对象模型，简单对象模型，表格驱动对象模型，c++对象模型。前两者的部分优点或者局部在部分机制中使用到。<br>假设有一个Point类，以下为代码，看看在各种模型的中实现。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Point</span>&#123;</span></span><br><span class="line">	<span class="keyword">public</span>:  </span><br><span class="line">    Point( <span class="keyword">float</span> xval ); </span><br><span class="line">    <span class="keyword">virtual</span> ~Point();      </span><br><span class="line">    <span class="function"><span class="keyword">float</span> <span class="title">x</span><span class="params">()</span> <span class="keyword">const</span></span>;  </span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">int</span> <span class="title">PointCount</span><span class="params">()</span></span>;  </span><br><span class="line"></span><br><span class="line"><span class="keyword">protected</span>:  </span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> ostream&amp;  <span class="title">print</span><span class="params">( ostream &amp;os )</span> <span class="keyword">const</span></span>;</span><br><span class="line">    <span class="keyword">float</span> _x;  </span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">int</span> _point_count;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="简单对象模型"><a href="#简单对象模型" class="headerlink" title="简单对象模型"></a>简单对象模型</h3><p>一个c++对象中存储着所有成员的指针。存储指针的顺序是按照其声明顺序的。所有member本身并没有放在object中。<br><img src="http://www.roading.org/images/2011-11/image_thumb10.png" alt><br>对象大小= 指针大小乘成员个数。<br>简单对象模型对于编译器来说虽然极尽简单,但同时付出的代价是空间和执行期的效率。<br>降低了c++编译器的设计复杂度，但牺牲了空间和执行期的效率。 </p>
-<h3 id="表格驱动对象模型"><a href="#表格驱动对象模型" class="headerlink" title="表格驱动对象模型"></a>表格驱动对象模型</h3><p>表格驱动对象将所有members相关的信息抽出来，对象里只存储指向数据成员表和函数表的两个指针。将所有数据成员抽出来建立数据表。将所有函数抽取出来，建立一个成员函数表。<br><img src="http://www.roading.org/images/2011-11/image11_thumb1.png" alt><br>这是原书截图。在翻译本中，对象和函数表之间应该增加一个虚箭头，并且保存一个指向函数表的指针。<br>当然也没有采用这个模型，却以此模型应用于虚函数的方案。</p>
-<h3 id="C-对象模型"><a href="#C-对象模型" class="headerlink" title="C++对象模型"></a>C++对象模型</h3><p>该模型由简单对象模型派生而来，对内存空间和存取时间做了优化。<br>非静态数据成员存在于每一个对象本身，而静态数据成员和成员函数都在对象之外。<br>在每一个class的表头都会附加上type_info对象。<br>此外，用一个指针(vtpl)指向相关的vtbl(virtual table)。</p>
-<p><img src="http://www.roading.org/images/2011-11/image17_thumb1.png" alt>  </p>
-<p>这种表格模型用过间接调用有较大的弹性，不过也付出了空间和执行效率两方面的代价。</p>
-<h3 id="关于继承"><a href="#关于继承" class="headerlink" title="关于继承"></a>关于继承</h3><ol>
-<li>第一种内存模型：每一个父类等在子类的一个slot指出，内含父类对象的地址。子类对象不会因为父类对象改变。</li>
-<li>第二种内存模型：类似于虚表，每一个对象有一个父表指针bptr,<br>能被初始化指向父类表。无须改变对象本身，就能更改base class table。</li>
-</ol>
-<ul>
-<li>最开始采用的继承模型并不运用任何间接性，直接将父类成员放到子类对象中。后再采用了virtual base clss。将在3.4详细讨论。</li>
-</ul>
-<h2 id="关键词带来的差异"><a href="#关键词带来的差异" class="headerlink" title="关键词带来的差异"></a>关键词带来的差异</h2><h3 id="class与struct"><a href="#class与struct" class="headerlink" title="class与struct"></a>class与struct</h3><p>struct与class在c++中都能够构造、析构、继承。strcut默认的权限是public，class默认权限为private。其实本质上区别并不大，非常的相似。不过我觉得strcut应该遵循c的愿意，以免混淆。</p>
-<h2 id="对象的差异"><a href="#对象的差异" class="headerlink" title="对象的差异"></a>对象的差异</h2><h3 id="c-程序设计模型"><a href="#c-程序设计模型" class="headerlink" title="c++程序设计模型"></a>c++程序设计模型</h3><ol>
-<li>程序模型：c语言的面向过程模型。</li>
-<li>抽象数据类型模型（ADT）：通过类封装基础数据类型。</li>
-<li>面向对象模型：利用封装、继承、多态特性。<ul>
-<li>纯粹使用一种范式写程序，有助于整体的稳固，混合多重后，可能会带来意想不到的后果。例如将子类对象直接赋值给父类对象，不会发生多态，而是子类对象被切割，原属于父类对象的部分赋值给父类。  </li>
-</ul>
-</li>
-<li>c++通过下列方法支持多态<ul>
-<li>通过隐式转换，子类对象指针转化为父类对象指针。’shape *ps = new circle();’</li>
-<li>经由virtual function机制；</li>
-<li>经由dynamic_casthe和type_id运算符，转化成父类指针。’if (circle <em>pc = dynamic_cast&lt;circle</em>&gt;(ps))’</li>
-</ul>
-</li>
-</ol>
-<h3 id="指针的类型"><a href="#指针的类型" class="headerlink" title="指针的类型"></a>指针的类型</h3><ul>
-<li>“指针类型”决定了编译器如何解释某个特定的地址中的内存内容及其大小。</li>
-</ul>
-<h3 id="一个类的对象的内存大小包括："><a href="#一个类的对象的内存大小包括：" class="headerlink" title="一个类的对象的内存大小包括："></a>一个类的对象的内存大小包括：</h3><ul>
-<li>所有非静态数据成员的大小。</li>
-<li>由内存对齐而填补的内存大小。</li>
-<li>为了支持virtual有内部产生的额外负担。<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ZooAnimal</span>&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	ZooAnimal();</span><br><span class="line">	<span class="keyword">virtual</span> ~ZooAnimal();</span><br><span class="line">	<span class="comment">//...</span></span><br><span class="line">	<span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">rotate</span><span class="params">()</span></span>;</span><br><span class="line"><span class="keyword">protected</span>:</span><br><span class="line">	<span class="keyword">int</span> loc;</span><br><span class="line">	String name;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p><img src="http://www.roading.org/images/2011-12/image21_thumb.png" alt>  </p>
-<p>32位计算机中占据16字节的内存，int四字节，String是传统的8字节（一个4字节的字符指针和一个用来表示字符串长度的整数），一个vptr指针四字节。子类大小为基类的内存大小加上本身数据的大小。</p>
-<h3 id="多态"><a href="#多态" class="headerlink" title="多态"></a>多态</h3><p>一个指针或者引用之所以支持多态，是他们并不引发任何“与类型有关的内存委托操作”，受到改变的是，只有他们所指向的内存的“大小和内容解释方式”而已。</p>
-<h3 id="面向对象"><a href="#面向对象" class="headerlink" title="面向对象"></a>面向对象</h3><p>通过抽象public的接口之后，封装相关的类型，通过额外的间接性（pointer和reference）来支持多态，这就是OO。</p>
+          c语言本身没有支持“数据和函数”之间的关联性，也就是程序性的(procedural) 。  
+c++的额外成本c++与c不仅在程序风格上有着不同，连程序的思考也有着明显的差异。面向过程(Procedure Oriented)与面向对象(Object Oriented)是二者最大的差异。c++的类比较
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/09/06/2018-09-06-c++对象模型-第一章/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://xwdidi.com/2018/09/06/2018-09-06-c++对象模型-前言/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Xuwei98">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="偽のブログ">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/09/06/2018-09-06-c++对象模型-前言/" itemprop="url">深度探索c++对象模型 前言</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-06T00:00:00+08:00">
+                2018-09-06
+              </time>
+            
+
+            
+
+            
+          </span>
 
           
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/深度探索c-对象模型/" itemprop="url" rel="index">
+                    <span itemprop="name">深度探索c++对象模型</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/09/06/2018-09-06-c++对象模型-前言/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/09/06/2018-09-06-c++对象模型-前言/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  331
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  1
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          前记这本书把第二章阅读完之后，才慢慢开始写笔记的。语言描述略微有丶晦涩 ，通过回想之前的一些记忆勉强能进行理解。缺乏了对这本书实际验证，Clang和gcc编译环境下可能存在一定的底层实现区别。希望自己之后的学习看书中，有“求真”的意识，而不是死读书。可能之后读完这本书也会再来写一点
+前言这本书是由编
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/09/06/2018-09-06-c++对象模型-前言/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -2025,42 +1787,26 @@
       
         
           
-            <h2 id="回顾"><a href="#回顾" class="headerlink" title="回顾"></a>回顾</h2><ul>
-<li>多任务处理</li>
-<li>文件操作<br>让Unix和Linux获得成功</li>
-</ul>
-<h2 id="课程重点总结"><a href="#课程重点总结" class="headerlink" title="课程重点总结"></a>课程重点总结</h2><p>学习任务分解</p>
-<h3 id="操作系统"><a href="#操作系统" class="headerlink" title="操作系统"></a>操作系统</h3><h4 id="操作系统是管理硬件的软件："><a href="#操作系统是管理硬件的软件：" class="headerlink" title="操作系统是管理硬件的软件："></a>操作系统是管理硬件的软件：</h4><ul>
-<li>cpu管理，内存管理(多进程view)  </li>
-<li>管理I/O设备，磁盘，产生文件(文件view)  </li>
-</ul>
-<h4 id="系统的启动"><a href="#系统的启动" class="headerlink" title="系统的启动"></a>系统的启动</h4><ul>
-<li>将操作系统从磁盘读出来放到内存中</li>
-<li>mem_map(L3中提到过)，初始化，设置相关的数据结构</li>
-<li>启动的目的:将操作系统放到内存中，根据相应的设备初始化相应的数据结构。</li>
-<li>启动shell，等用户使用计算机硬件</li>
-<li>通过系统调用-&gt;”int 0x80”-&gt;syste_call();</li>
-</ul>
-<h3 id="下节知识（单CPU）"><a href="#下节知识（单CPU）" class="headerlink" title="下节知识（单CPU）"></a>下节知识（单CPU）</h3><h3 id="进程view"><a href="#进程view" class="headerlink" title="进程view"></a>进程view</h3><h4 id="cpu管理，"><a href="#cpu管理，" class="headerlink" title="cpu管理，"></a>cpu管理，</h4><ul>
-<li>进程fork()是什么，为什么能管理cpu?</li>
-</ul>
-<h4 id="内存管理"><a href="#内存管理" class="headerlink" title="内存管理"></a>内存管理</h4><ul>
-<li>通过地址 ‘(*p =7)’ ,最后是怎么使用内存,为什么能与多进程关联，为什么和cpu合在一起？</li>
-<li>内存的概念</li>
-</ul>
-<h3 id="FlieView"><a href="#FlieView" class="headerlink" title="FlieView"></a>FlieView</h3><ul>
-<li>磁盘管理，</li>
-<li>终端设备管理</li>
-</ul>
-<h4 id="解决的问题"><a href="#解决的问题" class="headerlink" title="解决的问题"></a>解决的问题</h4><ul>
-<li>如何驱动设备</li>
-<li>open设备文件(dev/xxx)是怎么样的</li>
-<li>磁盘的含义</li>
-<li>open磁盘文件又是什么含义</li>
-<li>为什么操作设备就能够操作显示器</li>
-</ul>
+          回顾
+多任务处理
+文件操作让Unix和Linux获得成功
 
-          
+课程重点总结学习任务分解
+操作系统操作系统是管理硬件的软件：
+cpu管理，内存管理(多进程view)  
+管理I/O设备，磁盘，产生文件(文件view)  
+
+系统的启动
+将操作系统从磁盘读出来放到内存中
+mem_map(L3中提到过)，初
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/09/05/2018-09-05-L7我们的任务/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -2241,97 +1987,22 @@
       
         
           
-            <h2 id="前情提要"><a href="#前情提要" class="headerlink" title="前情提要"></a>前情提要</h2><p>前面五篇blog，系统启动的大致流程解释完毕。<br>下一节拆解细致讲解。</p>
-<h3 id="操作系统的历史"><a href="#操作系统的历史" class="headerlink" title="操作系统的历史"></a>操作系统的历史</h3><h3 id="第一条历史"><a href="#第一条历史" class="headerlink" title="第一条历史"></a>第一条历史</h3><h4 id="上古神机IBM7094"><a href="#上古神机IBM7094" class="headerlink" title="上古神机IBM7094"></a>上古神机IBM7094</h4><ul>
-<li>(IBSYS监控系统)</li>
-<li>1955-1965</li>
-<li>计算机使用原则：只专注于计算</li>
-<li>批处理操作系统</li>
-<li>一个作业完成，自动读入下一个作业。一个作业中途不会停止。</li>
-<li>配备监控系统，修改PC指针执行下一个任务。</li>
-</ul>
-<h4 id="科学计算（IBM7094），银行（IBM-1401）"><a href="#科学计算（IBM7094），银行（IBM-1401）" class="headerlink" title="科学计算（IBM7094），银行（IBM 1401）"></a>科学计算（IBM7094），银行（IBM 1401）</h4><ul>
-<li>1965-1980</li>
-<li>多道程序(multiprogramming)。交替，切换，调度。</li>
-<li>作业之间的切换和调度成为核心：因为既有IO任务，又有计算任务，需要让CPU忙碌。</li>
-<li>多进程结构和进程管理开始萌芽。</li>
-<li>(OS/360)(360表示全方位服务)。</li>
-</ul>
-<h4 id="MULTICS"><a href="#MULTICS" class="headerlink" title="MULTICS"></a>MULTICS</h4><ul>
-<li>MULTIplexed Information and Computing Service，多路复用信息与计算服务。</li>
-<li>分时系统(timesharing)。分时切换。</li>
-<li>多人同时使用。(服务器)</li>
-<li>核心为任务切换，资源复用的思想影响深远。</li>
-</ul>
-<h4 id="UNIX"><a href="#UNIX" class="headerlink" title="UNIX"></a>UNIX</h4><ul>
-<li>小型机，PDP-1开始出现，成本降低。</li>
-<li>PDP-7上开发了MULTICS，就是之后的UNIX。</li>
-<li>核心概念与MULTICS差不多。</li>
-</ul>
-<h4 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h4><ul>
-<li>推出IBM PC</li>
-<li>很多人接触UNIX</li>
-<li>1987年Andrew Tanenbaum发布了MINIX（非常类似UNIX）用于教学</li>
-<li>Linus Torvalds在386sx兼容微机上学习minix，作出小Linux于1991年发布</li>
-<li>1994年，Linux1.0发布并采用GPL协议，1998年以后互联网世界里展开了一场历史性的Linux产业化运动</li>
-</ul>
-<h3 id="总结历史"><a href="#总结历史" class="headerlink" title="总结历史"></a>总结历史</h3><p>IBSYS&gt; 0S/360 &gt; MULTICS &gt; Unix &gt; Linux</p>
-<h4 id="核心思想、技术"><a href="#核心思想、技术" class="headerlink" title="核心思想、技术"></a>核心思想、技术</h4><ol>
-<li>用户用过执行程序来使用计算机（吻合冯诺依曼的思想）</li>
-<li>操作系统要进行进程管理让多个程序合理推进。</li>
-<li>多进程（用户）推进时需要内存复用等等。</li>
-</ol>
-<h4 id="软件实现"><a href="#软件实现" class="headerlink" title="软件实现"></a>软件实现</h4><ol>
-<li>对于操作系统，实现很重要 OS360&gt;UNIX</li>
-<li>需要真正的群体智慧 UNIX-&gt;Linux</li>
-</ol>
-<h1 id="重点"><a href="#重点" class="headerlink" title="重点"></a>重点</h1><p>掌握操作系统的 <em>多进程图谱</em> 并实现它，改造它。</p>
-<h3 id="第二条历史"><a href="#第二条历史" class="headerlink" title="第二条历史"></a>第二条历史</h3><h4 id="PC与DOS"><a href="#PC与DOS" class="headerlink" title="PC与DOS"></a>PC与DOS</h4><ol>
-<li>1975年，为Altair 8800开发了 CP/M（写命令让用户用，执行命令对应的程序，单任务执行）</li>
-<li>1980年，出现8086 16位芯片，在上述系统上开发了QDOS（Quick and Dirty OS）。</li>
-<li>1975年，22岁的Paul Allen和20岁的BillGates为Altair8800开发了BASIC解释器，据此开创了微软</li>
-<li>1977年，Bill Gates开发FAT管理磁盘</li>
-<li>QDOS的成功在于以CP/M为基础将BASIC和FAT包了进来</li>
-<li>1981年，微软买下QDOS，改名为MS-DOS（Disk OS），和IBMPC打包一起出售</li>
-</ol>
-<ul>
-<li>以CP/M为基础将BASIC和FAT包了进来，文件管理和编程环境是用户关心的</li>
-</ul>
-<h4 id="MS-DOS-gt-Windows"><a href="#MS-DOS-gt-Windows" class="headerlink" title="MS_DOS-&gt;Windows"></a>MS_DOS-&gt;Windows</h4><ol>
-<li>1989年，MS-DOS4.0出现，支持了鼠标和键盘，此时微软已经决定要放弃MS-DOS</li>
-<li>Windows 3.0大获成功</li>
-</ol>
-<ul>
-<li>文件、开发环境、图形界面对于OS的重要性</li>
-</ul>
-<h4 id="IOS与Mac-OS"><a href="#IOS与Mac-OS" class="headerlink" title="IOS与Mac OS"></a>IOS与Mac OS</h4><ol>
-<li>Mac机，System X系统。</li>
-</ol>
-<ul>
-<li>MacOS核心是UNIX，专注于界面、文件、媒体等和用户有关的内容</li>
-</ul>
-<h4 id="核心思想、技术-1"><a href="#核心思想、技术-1" class="headerlink" title="核心思想、技术"></a>核心思想、技术</h4><ol>
-<li>仍然是程序执行、多进程、程序执行<br>带动其他设备使用的基本结构</li>
-<li>但用户的使用感觉倍加重视了：各<br>种文件、编程环境、图形界面</li>
-</ol>
-<h4 id="软件实现-1"><a href="#软件实现-1" class="headerlink" title="软件实现"></a>软件实现</h4><ol>
-<li>如何通过文件存储代码、执行代码、操作屏幕.</li>
-<li>如何让文件和操作变成图标、点击或触碰…</li>
-</ol>
-<h1 id="操作系统核心思想"><a href="#操作系统核心思想" class="headerlink" title="操作系统核心思想"></a>操作系统核心思想</h1><ol>
-<li>掌握、实现操作系统的多进程图谱；</li>
-</ol>
-<ul>
-<li>cpu管理，内存。</li>
-</ul>
-<ol start="2">
-<li>掌握、实现操作系统的文件操作视图。</li>
-</ol>
-<ul>
-<li>I/O设备，磁盘管理</li>
-</ul>
-
-          
+          前情提要前面五篇blog，系统启动的大致流程解释完毕。下一节拆解细致讲解。
+操作系统的历史第一条历史上古神机IBM7094
+(IBSYS监控系统)
+1955-1965
+计算机使用原则：只专注于计算
+批处理操作系统
+一个作业完成，自动读入下一个作业。一个作业中途不会停止。
+配备监控系统，修改PC指针执
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/09/03/2018-09-03-L6操作系统的历史/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -2512,29 +2183,22 @@
       
         
           
-            <h3 id="实验操作"><a href="#实验操作" class="headerlink" title="实验操作"></a>实验操作</h3><ul>
-<li>借用别人的了。。不过都存在一定缺陷（对于我来说）。</li>
-<li>放到bochs里进行编译一直出现问题，找不到解决办法。等找个时间再做一次吧，很多东西有点混淆。</li>
-<li>啊啊啊啊啊啊啊啊啊啊啊，烦死了</li>
-</ul>
-<h4 id="实验参考"><a href="#实验参考" class="headerlink" title="实验参考"></a>实验参考</h4><p><a href="https://www.shiyanlou.com/courses/reports/1287942" target="_blank" rel="noopener">实验</a></p>
-<h3 id="强调，思路，实验方法"><a href="#强调，思路，实验方法" class="headerlink" title="强调，思路，实验方法"></a>强调，思路，实验方法</h3><ol>
-<li>在include/unistd.h中添加系统调用号，文件尾部声明函数类型。</li>
-<li>在linux/sys.h中添加外部引用（extern sys_xxx),并且在fn_ptr_sys_tablep[]末尾按照声明顺序添加sys_xxx。</li>
-<li>在system_call.s中修改nr_sys_calls的值。</li>
-<li>在who.c中编写sys_iam,sys_whoami的函数，放在kernel中。</li>
-<li>修改makefile,具体见实验指导提示。</li>
-<li>编写who.h 声明iam，whoami要调用的syscall。根据参数个数编写。</li>
-<li>编写目标程序iam.c,whoami.c放在bochs挂载后的usr/root中，ustid.h,who.h放在usr/include中,sys.h放在usr/include/linux中。</li>
-<li>将testlab2.sh和testlab2.c放在usr/root中。</li>
-<li>编译目标程序，运行脚本检查结果。</li>
-</ol>
-<ul>
-<li>利用get_fs_byte(const char * addr)获得一个字节的用户空间中的数据。</li>
-<li>利用put_fs_byte(char val,char *addr)将地址处的字符放到想要的地方。</li>
-</ul>
-<h1 id="頑張って"><a href="#頑張って" class="headerlink" title="頑張って"></a>頑張って</h1>
-          
+          实验操作
+借用别人的了。。不过都存在一定缺陷（对于我来说）。
+放到bochs里进行编译一直出现问题，找不到解决办法。等找个时间再做一次吧，很多东西有点混淆。
+啊啊啊啊啊啊啊啊啊啊啊，烦死了
+
+实验参考实验
+强调，思路，实验方法
+在include/unistd.h中添加系统调用号，文件尾部声明函数类型
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/08/28/2018-08-28-实验-系统调用/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
