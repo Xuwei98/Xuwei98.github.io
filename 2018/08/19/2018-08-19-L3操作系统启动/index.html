@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="操作系统,汇编语言,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="偽のブログ" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="回顾 计算机工作本质：取址执行。将磁盘上的内容载入到内存中。 bootsec.s的作用： 将setup.s读入内存， 显示Logo。 将system.s读入内存。   汇编语言能精确控制执行的内容。  知识重点解析BIOS中断大全简单了解实模式与保护模式的寻址方式(非常重要) setup.s骨干代码段解析图一 12345678910111213141516171819202122232425262">
+<meta name="keywords" content="操作系统,汇编语言">
+<meta property="og:type" content="article">
+<meta property="og:title" content="操作系统基础 L3 setup.s,system模块解析">
+<meta property="og:url" content="http://xwdidi.com/2018/08/19/2018-08-19-L3操作系统启动/index.html">
+<meta property="og:site_name" content="偽のブログ">
+<meta property="og:description" content="回顾 计算机工作本质：取址执行。将磁盘上的内容载入到内存中。 bootsec.s的作用： 将setup.s读入内存， 显示Logo。 将system.s读入内存。   汇编语言能精确控制执行的内容。  知识重点解析BIOS中断大全简单了解实模式与保护模式的寻址方式(非常重要) setup.s骨干代码段解析图一 12345678910111213141516171819202122232425262">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://i.loli.net/2018/08/19/5b792c0e55566.jpeg">
+<meta property="og:updated_time" content="2019-04-06T12:47:27.737Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="操作系统基础 L3 setup.s,system模块解析">
+<meta name="twitter:description" content="回顾 计算机工作本质：取址执行。将磁盘上的内容载入到内存中。 bootsec.s的作用： 将setup.s读入内存， 显示Logo。 将system.s读入内存。   汇编语言能精确控制执行的内容。  知识重点解析BIOS中断大全简单了解实模式与保护模式的寻址方式(非常重要) setup.s骨干代码段解析图一 12345678910111213141516171819202122232425262">
+<meta name="twitter:image" content="https://i.loli.net/2018/08/19/5b792c0e55566.jpeg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Xuwei98'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://xwdidi.com/2018/08/19/2018-08-19-L3操作系统启动/">
+
+
+
+
+
+  <title>操作系统基础 L3 setup.s,system模块解析 | 偽のブログ</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">偽のブログ</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://xwdidi.com/2018/08/19/2018-08-19-L3操作系统启动/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Xuwei98">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="偽のブログ">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">操作系统基础 L3 setup.s,system模块解析</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-19T01:00:00+09:00">
+                2018-08-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/操作系统/" itemprop="url" rel="index">
+                    <span itemprop="name">操作系统</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/08/19/2018-08-19-L3操作系统启动/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/08/19/2018-08-19-L3操作系统启动/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  4
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="回顾"><a href="#回顾" class="headerlink" title="回顾"></a>回顾</h2><ol>
+<li>计算机工作本质：取址执行。将磁盘上的内容载入到内存中。</li>
+<li>bootsec.s的作用：<ol>
+<li>将setup.s读入内存，</li>
+<li>显示Logo。</li>
+<li>将system.s读入内存。</li>
+</ol>
+</li>
+<li>汇编语言能精确控制执行的内容。</li>
+</ol>
+<h2 id="知识重点解析"><a href="#知识重点解析" class="headerlink" title="知识重点解析"></a>知识重点解析</h2><p><a href="https://wenku.baidu.com/view/fd0ee4d428ea81c758f5788e.html" target="_blank" rel="noopener">BIOS中断大全</a><br><a href="https://blog.csdn.net/rosetta/article/details/8933200" target="_blank" rel="noopener">简单了解实模式与保护模式的寻址方式</a>(非常重要)</p>
+<h3 id="setup-s骨干代码段解析"><a href="#setup-s骨干代码段解析" class="headerlink" title="setup.s骨干代码段解析"></a>setup.s骨干代码段解析</h3><p>图一<img src="https://i.loli.net/2018/08/19/5b792c0e55566.jpeg" alt="图一.jpeg"></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line">start:</span><br><span class="line">	mov ax，#INITSEG </span><br><span class="line">	mov ds，ax 		</span><br><span class="line">	mov ah，#<span class="number">0x03</span></span><br><span class="line">	xor bh，bh </span><br><span class="line">	<span class="keyword">int</span> <span class="number">0x10</span> 		<span class="comment">//取光标位置dx </span></span><br><span class="line"></span><br><span class="line">	mov [<span class="number">0</span>]，dx</span><br><span class="line">	mov ah,#<span class="number">0x88</span> </span><br><span class="line">	<span class="keyword">int</span> <span class="number">0x15</span> 		<span class="comment">//读取 扩展内存大小(当前内存-1M的值），获取的值放到ax中 //便于管理</span></span><br><span class="line">	mov [<span class="number">2</span>], ax ...	<span class="comment">//间接寻址，ds(0x90002)</span></span><br><span class="line">	cli				<span class="comment">///不允许中断</span></span><br><span class="line">	mov ax，#<span class="number">0x0000</span> </span><br><span class="line">	cld				<span class="comment">//另DF=0了，  STD令DF=1。</span></span><br><span class="line"></span><br><span class="line">	内存地址 |长度|名称</span><br><span class="line">	<span class="number">0x90000</span> |<span class="number">2</span>|光标位置</span><br><span class="line">	<span class="number">0x90002</span> |<span class="number">2</span>|扩展内存数</span><br><span class="line">	<span class="number">0x9000C</span> |<span class="number">2</span>|显卡参数</span><br><span class="line">	<span class="number">0x901FC2</span>|<span class="number">2</span>|根设备号</span><br><span class="line"></span><br><span class="line">do_move:</span><br><span class="line">	mov es,ax 		 <span class="comment">//es = 0;</span></span><br><span class="line">	add ax,#<span class="number">0x1000</span></span><br><span class="line">	cmp ax,#<span class="number">0x9000</span> </span><br><span class="line">	jz end_move 	<span class="comment">//ds = 0x9000;</span></span><br><span class="line">	mov ds,ax </span><br><span class="line">	sub di,di 		</span><br><span class="line">	sub si,si </span><br><span class="line">	mov cx,#<span class="number">0x8000</span></span><br><span class="line">	rep				</span><br><span class="line">	movsw			<span class="comment">//ds:si-&gt;es:di //将system块转入0地址处  拷贝完一字节，si,di自增2</span></span><br><span class="line">	jmp do_move</span><br><span class="line"></span><br><span class="line">call empty <span class="number">8042</span> </span><br><span class="line">mov al，#<span class="number">0xD1</span> </span><br><span class="line">out #<span class="number">0x64</span>，al</span><br><span class="line">	<span class="comment">//8042是键盘控制器，其输出端口P2用来控制A20地址线</span></span><br><span class="line">call empty <span class="number">8042</span> </span><br><span class="line">mov al，#<span class="number">0xDF</span> </span><br><span class="line">out #<span class="number">0x60</span>，al</span><br><span class="line">	<span class="comment">//选通A20地址线</span></span><br><span class="line">call empty <span class="number">8042</span>  </span><br><span class="line">	<span class="comment">//初始化8259（中断控制）//一段非常机械化的程序</span></span><br><span class="line">mov ax,#<span class="number">0x0001</span></span><br><span class="line">mov cr0,ax,#<span class="number">0x0001</span></span><br><span class="line">jmpi <span class="number">0</span>,<span class="number">8</span>				<span class="comment">//setup最后执行的命令，CS&lt;&lt;4+ip 采用保护模式寻址，cs=8用来查GDT表，表内偏移为0；</span></span><br><span class="line">						</span><br><span class="line">						<span class="comment">//根据图一可得到地址为0x0000，跳转到system模块</span></span><br><span class="line"></span><br><span class="line">						<span class="comment">//empty_8042:</span></span><br><span class="line">							. word <span class="number">0x00eb</span>,<span class="number">0x00eb</span> in al,#<span class="number">0x64</span></span><br><span class="line">							test al,#<span class="number">2</span></span><br><span class="line">							jnz empty_8042</span><br><span class="line">							ret</span><br><span class="line"></span><br><span class="line"><span class="comment">// cr0寄存器</span></span><br><span class="line">	CR0包括指示处理器工作方式的控制位，包含启用和禁止分页管理机制的控制位，包含控制浮点协处理器操作的控制位。  </span><br><span class="line">	最低位PE=<span class="number">1</span>启动保护模式,最高位PG=<span class="number">1</span>启动分页。</span><br><span class="line"><span class="comment">//  通过硬件帮助gdt生成，快速</span></span><br><span class="line"></span><br><span class="line">end move:	</span><br><span class="line">	mov ax,#SETUPSEG </span><br><span class="line">	mov ds,ax </span><br><span class="line">	lidt idt <span class="number">48</span> </span><br><span class="line">        lgdt gdt <span class="number">48</span><span class="comment">//设置保护模式下的中断和寻址</span></span><br><span class="line">	<span class="comment">//进入保护模式的命令.</span></span><br><span class="line">idt <span class="number">48</span>： .word <span class="number">0</span> .word <span class="number">0</span>,<span class="number">0</span>					<span class="comment">//保护模式中断函数表</span></span><br><span class="line">gdt <span class="number">48</span>： .word <span class="number">0x800</span>.word <span class="number">512</span>+gdt,<span class="number">0x9</span></span><br><span class="line">gdt： .word <span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span></span><br><span class="line">	  .word <span class="number">0x07FE</span>, <span class="number">0x0000</span>, <span class="number">0x9A00</span>, <span class="number">0x00C0</span>   <span class="comment">//表初始化</span></span><br><span class="line">	  .word <span class="number">0x07FF</span>, <span class="number">0X0000</span>, <span class="number">0X9200</span>, <span class="number">0x00C0</span></span><br></pre></td></tr></table></figure>
+<h4 id="setup-s作用"><a href="#setup-s作用" class="headerlink" title="setup.s作用"></a>setup.s作用</h4><ol>
+<li>读取硬件参数。</li>
+<li>挪动system模块</li>
+<li>启动保护模式，运用32位的汇编指令跳回0地址处。</li>
+</ol>
+<h3 id="system模块解析"><a href="#system模块解析" class="headerlink" title="system模块解析"></a>system模块解析</h3><ol>
+<li>镜像文件image由makefile产生，形成bootsec，setup, system顺序结构<br>2.<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$(LD) boot/head.o init/main.o $(DRIVERS)...…o tools/system</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>最后一步将head.o main.o 驱动等文件进行链接。</p>
+<ol start="2">
+<li>模块第一部分代码head.s(jumpi 0, 8 地质处)</li>
+</ol>
+<h4 id="head-s解析"><a href="#head-s解析" class="headerlink" title="head.s解析"></a>head.s解析</h4><ol>
+<li>setup是进入保护模式，head是进入之后的初始化。</li>
+<li>又一次初始化了idt表和gdt表。</li>
+<li>然后开启20号地址线，这样就可以访问4G的内存了</li>
+<li>head.s执行完后调到main.c。</li>
+</ol>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">after page tables：</span><br><span class="line">		pushl $<span class="number">0</span> </span><br><span class="line">		pushl $<span class="number">0</span> </span><br><span class="line">		pushl $<span class="number">0</span> 				</span><br><span class="line">		pushl $L6 </span><br><span class="line">		pushl $_main </span><br><span class="line">		jmp set_paging 			<span class="comment">//设置页表</span></span><br><span class="line">L6：	    jmp L6                      <span class="comment">// 将来学到！</span></span><br><span class="line">setup paging： </span><br><span class="line">		*设置页表* </span><br><span class="line">		ret</span><br><span class="line"></span><br><span class="line">		<span class="comment">//将各参数压栈，最后压入main函数，ret返回main函数地址</span></span><br><span class="line">		<span class="comment">//进入main（）后的栈为0，0，0，L6， </span></span><br><span class="line">		<span class="comment">//main（）函数的三个参数是0，0，0（envp，argv,argc）</span></span><br><span class="line"></span><br><span class="line">在init/main.c中<span class="keyword">void</span> main（<span class="keyword">void</span>）</span><br><span class="line">&#123;	mem_init();</span><br><span class="line">	trap_init();</span><br><span class="line">	<span class="function">blk_dev <span class="title">init</span><span class="params">()</span></span>;</span><br><span class="line">	chr_dev_init();</span><br><span class="line">	tty_init();</span><br><span class="line">	time_init();			<span class="comment">//时钟初始化</span></span><br><span class="line">	<span class="function">sched <span class="title">init</span><span class="params">()</span></span>;</span><br><span class="line">	buffer_init();			<span class="comment">//缓冲区初始化</span></span><br><span class="line">	hd_init();</span><br><span class="line">	floppy_init();</span><br><span class="line">	sti();</span><br><span class="line">	move to user mode（）;</span><br><span class="line">	<span class="keyword">if</span>(！fork())init(); 		<span class="comment">// 这一步启动了shell //永远不会退出main。</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 执行L6</span></span><br></pre></td></tr></table></figure>
+<h4 id="mem-init-解析"><a href="#mem-init-解析" class="headerlink" title="mem_init..解析"></a>mem_init..解析</h4><ul>
+<li>内存初始化<h5 id="代码段"><a href="#代码段" class="headerlink" title="代码段"></a>代码段</h5><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> mem_init（<span class="keyword">long</span> start_mem，<span class="keyword">long</span> end_mem） <span class="comment">//从0x90002得到</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">int</span> i；</span><br><span class="line">	<span class="keyword">for</span>(i=<span class="number">0</span>；i&lt;PAGING_PAGES；i++)</span><br><span class="line">		mem_map[i] = USED；			<span class="comment">//初始化mem_map数组</span></span><br><span class="line">	i = MAP_NR(start_mem)；</span><br><span class="line">	end_mem -= start_mem；</span><br><span class="line">	end_mem &gt;&gt;= <span class="number">12</span>；					<span class="comment">//右移12位,除以2^12=4kb。</span></span><br><span class="line">	<span class="keyword">while</span>(end_mem --&gt; <span class="number">0</span>)</span><br><span class="line">		mem_map[i++] = <span class="number">0</span>； 			<span class="comment">// 将每页4kb进行初始化。</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ol>
+<li>boot将操作系统读入内存</li>
+<li>setup初始化部分gdt，页表。</li>
+<li>main进行内存初始化等等。</li>
+<li>操作系统就是用数据结构+算法来管理硬件的。</li>
+</ol>
+<ul>
+<li>读入内存</li>
+<li>完成初始化</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/操作系统/" rel="tag"># 操作系统</a>
+          
+            <a href="/tags/汇编语言/" rel="tag"># 汇编语言</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/08/16/2018-08-16-L1什么是操作系统/" rel="next" title="操作系统基础  L1 什么是操作系统">
+                <i class="fa fa-chevron-left"></i> 操作系统基础  L1 什么是操作系统
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/08/20/2018-08-20-L4操作系统接口/" rel="prev" title="操作系统基础 L4 操作系统接口">
+                操作系统基础 L4 操作系统接口 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="Xuwei98">
+            
+              <p class="site-author-name" itemprop="name">Xuwei98</p>
+              <p class="site-description motion-element" itemprop="description">圈地自萌,自娱自乐</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">51</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">31</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/Xuwei98" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:z1002280879@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+<br>
+<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=1350129459&auto=1&height=66"></iframe>
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#回顾"><span class="nav-number">1.</span> <span class="nav-text">回顾</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#知识重点解析"><span class="nav-number">2.</span> <span class="nav-text">知识重点解析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#setup-s骨干代码段解析"><span class="nav-number">2.1.</span> <span class="nav-text">setup.s骨干代码段解析</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#setup-s作用"><span class="nav-number">2.1.1.</span> <span class="nav-text">setup.s作用</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#system模块解析"><span class="nav-number">2.2.</span> <span class="nav-text">system模块解析</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#head-s解析"><span class="nav-number">2.2.1.</span> <span class="nav-text">head.s解析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#mem-init-解析"><span class="nav-number">2.2.2.</span> <span class="nav-text">mem_init..解析</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#代码段"><span class="nav-number">2.2.2.1.</span> <span class="nav-text">代码段</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">2.3.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Xuwei98</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">47.7k</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://xuwei98.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://xwdidi.com/2018/08/19/2018-08-19-L3操作系统启动/';
+          this.page.identifier = '2018/08/19/2018-08-19-L3操作系统启动/';
+          this.page.title = '操作系统基础 L3 setup.s,system模块解析';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://xuwei98.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

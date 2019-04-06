@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="MFC,Windows编程,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="偽のブログ" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="剖析基于mfc的框架程序文档视图结构CMainFrame and CTestAppCwnd封装跟窗口操作相关的类。   线路通过WinMain函数，设计窗口类，注册, 产生，显示，更新，消息循环。将消息路由到窗口中处理。 WinMain函数WinMain函数是通过链接到程序中的。通过在..\VC\atlmfc\src 中搜索文件内容WinMain查找WinMain函数所在文件。在23行打断点，f5">
+<meta name="keywords" content="MFC,Windows编程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="孙鑫MFC第三节     剖析基于mfc的框架程序">
+<meta property="og:url" content="http://xwdidi.com/2018/07/08/2018-07-17- 孙鑫MFC第三节/index.html">
+<meta property="og:site_name" content="偽のブログ">
+<meta property="og:description" content="剖析基于mfc的框架程序文档视图结构CMainFrame and CTestAppCwnd封装跟窗口操作相关的类。   线路通过WinMain函数，设计窗口类，注册, 产生，显示，更新，消息循环。将消息路由到窗口中处理。 WinMain函数WinMain函数是通过链接到程序中的。通过在..\VC\atlmfc\src 中搜索文件内容WinMain查找WinMain函数所在文件。在23行打断点，f5">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://xwdidi.com/img/MFC/file8.jpg">
+<meta property="og:image" content="http://xwdidi.com/img/MFC/file9.jpg">
+<meta property="og:image" content="http://xwdidi.com/img/MFC/file10.jpg">
+<meta property="og:image" content="http://xwdidi.com/img/MFC/file11.jpg">
+<meta property="og:image" content="http://xwdidi.com/img/MFC/file12.jpg">
+<meta property="og:image" content="http://xwdidi.com/img/MFC/file13.jpg">
+<meta property="og:image" content="http://xwdidi.com/img/MFC/file14.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/Nise98/Nise98.github.io/master/img/MFC/process/1.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/Nise98/Nise98.github.io/master/img/MFC/process/2.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/Nise98/Nise98.github.io/master/img/MFC/process/3.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/Nise98/Nise98.github.io/master/img/MFC/process/4.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/Nise98/Nise98.github.io/master/img/MFC/process/5.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/Nise98/Nise98.github.io/master/img/MFC/process/6.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/Nise98/Nise98.github.io/master/img/MFC/process/8.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/Nise98/Nise98.github.io/master/img/MFC/process/7.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/Nise98/Nise98.github.io/master/img/MFC/process/9.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/Nise98/Nise98.github.io/master/img/MFC/process/10.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/Nise98/Nise98.github.io/master/img/MFC/process/12.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/Nise98/Nise98.github.io/master/img/MFC/process/11.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/Nise98/Nise98.github.io/master/img/MFC/process/8.jpg">
+<meta property="og:image" content="http://xwdidi.com/img/MFC/捕获4.jpg">
+<meta property="og:image" content="http://xwdidi.com/img/MFC/捕获5.jpg">
+<meta property="og:image" content="http://xwdidi.com/img/MFC/捕获6.jpg">
+<meta property="og:updated_time" content="2019-04-06T12:37:47.196Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="孙鑫MFC第三节     剖析基于mfc的框架程序">
+<meta name="twitter:description" content="剖析基于mfc的框架程序文档视图结构CMainFrame and CTestAppCwnd封装跟窗口操作相关的类。   线路通过WinMain函数，设计窗口类，注册, 产生，显示，更新，消息循环。将消息路由到窗口中处理。 WinMain函数WinMain函数是通过链接到程序中的。通过在..\VC\atlmfc\src 中搜索文件内容WinMain查找WinMain函数所在文件。在23行打断点，f5">
+<meta name="twitter:image" content="http://xwdidi.com/img/MFC/file8.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Xuwei98'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://xwdidi.com/2018/07/08/2018-07-17- 孙鑫MFC第三节/">
+
+
+
+
+
+  <title>孙鑫MFC第三节     剖析基于mfc的框架程序 | 偽のブログ</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">偽のブログ</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://xwdidi.com/2018/07/08/2018-07-17- 孙鑫MFC第三节/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Xuwei98">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="偽のブログ">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">孙鑫MFC第三节     剖析基于mfc的框架程序</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-08T01:00:00+09:00">
+                2018-07-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/MFC/" itemprop="url" rel="index">
+                    <span itemprop="name">MFC</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/07/08/2018-07-17- 孙鑫MFC第三节/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/07/08/2018-07-17- 孙鑫MFC第三节/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2.5k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  10
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="剖析基于mfc的框架程序"><a href="#剖析基于mfc的框架程序" class="headerlink" title="剖析基于mfc的框架程序"></a>剖析基于mfc的框架程序</h1><h1 id="文档视图结构"><a href="#文档视图结构" class="headerlink" title="文档视图结构"></a>文档视图结构</h1><h2 id="CMainFrame-and-CTestApp"><a href="#CMainFrame-and-CTestApp" class="headerlink" title="CMainFrame and CTestApp"></a>CMainFrame and CTestApp</h2><h3 id="Cwnd"><a href="#Cwnd" class="headerlink" title="Cwnd"></a>Cwnd</h3><p>封装跟窗口操作相关的类。  </p>
+<h3 id="线路"><a href="#线路" class="headerlink" title="线路"></a>线路</h3><p>通过WinMain函数，设计窗口类，注册, 产生，显示，更新，消息循环。<br>将消息路由到窗口中处理。</p>
+<h3 id="WinMain函数"><a href="#WinMain函数" class="headerlink" title="WinMain函数"></a>WinMain函数</h3><p>WinMain函数是通过链接到程序中的。<br>通过在..\VC\atlmfc\src 中搜索文件内容WinMain查找WinMain函数所在文件。<br><img src="/img/MFC/file8.jpg" alt><br>在23行打断点，f5调试运行，程序中断。  </p>
+<h4 id="函数执行顺序"><a href="#函数执行顺序" class="headerlink" title="函数执行顺序"></a>函数执行顺序</h4><p>CtestApp::CtestApp()构造函数在WinMain前运行。<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">CtestApp::CtestApp()</span><br><span class="line">&#123;</span><br><span class="line">	m_bHiColorIcons = TRUE;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 支持重新启动管理器</span></span><br><span class="line">    </span><br><span class="line">	m_dwRestartManagerSupportFlags = AFX_RESTART_MANAGER_SUPPORT_ALL_ASPECTS;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> _MANAGED</span></span><br><span class="line">    </span><br><span class="line">	<span class="comment">// 如果应用程序是利用公共语言运行时支持(/clr)构建的，则: </span></span><br><span class="line">    </span><br><span class="line">	<span class="comment">//     1) 必须有此附加设置，“重新启动管理器”支持才能正常工作。</span></span><br><span class="line">    </span><br><span class="line">	<span class="comment">//     2) 在您的项目中，您必须按照生成顺序向 System.Windows.Forms 添加引用。</span></span><br><span class="line">    </span><br><span class="line">	System::Windows::Forms::Application::SetUnhandledExceptionMode(System::Windows::Forms::UnhandledExceptionMode::ThrowException);</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line"></span><br><span class="line">	<span class="comment">// <span class="doctag">TODO:</span> 将以下应用程序 ID 字符串替换为唯一的 ID 字符串；建议的字符串格式</span></span><br><span class="line">    </span><br><span class="line">	<span class="comment">//为 CompanyName.ProductName.SubProduct.VersionInformation</span></span><br><span class="line">    </span><br><span class="line">	SetAppID(_T(<span class="string">"test.AppID.NoVersion"</span>));</span><br><span class="line"></span><br><span class="line">	<span class="comment">// <span class="doctag">TODO:</span> 在此处添加构造代码，</span></span><br><span class="line">    </span><br><span class="line">	<span class="comment">// 将所有重要的初始化放置在 InitInstance 中</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 唯一的一个 CtestApp 对象</span></span><br><span class="line"></span><br><span class="line">CtestApp theApp;</span><br></pre></td></tr></table></figure></p>
+<p>通过打断点可知，先定义theApp，在执行构造函数，最后指向WinMain函数。  </p>
+<h5 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h5><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CPiont</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	<span class="keyword">public</span>:CPoint()</span><br><span class="line">	&#123;</span><br><span class="line">		;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">CPoint pt;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc,<span class="keyword">char</span>* argv)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>执行顺序：<br>1.为全局变量、全局对象率先分配内存空间。<br>2.执行构造函数。<br>3.执行main函数。  </p>
+<h4 id="定义theApp全局对象的原因与作用"><a href="#定义theApp全局对象的原因与作用" class="headerlink" title="定义theApp全局对象的原因与作用"></a>定义theApp全局对象的原因与作用</h4><p>theApp 应用程序对象。<br>每个mfc程序有且仅有一个从CTestApp派生出来的类。<br>有且仅有一个从应用程序类实例化的对象。<br>表示应用程序本身。  </p>
+<p>在win32 sdk中通过winmain函数表示，通过应用程序实例号、标识来表示应用程序。<br>在mfc中通过应用程序类来唯一标识应用程序。  </p>
+<p>通过继承将微软提供的基类与其子类关联起来。 </p>
+<h4 id="分析CWinApp类"><a href="#分析CWinApp类" class="headerlink" title="分析CWinApp类"></a>分析CWinApp类</h4><p>CWinApp的构造函数存在缺省值NULL，所以在子类CTestApp时使用构造函数不用另外对父类构造函数赋值。<br><img src="/img/MFC/file9.jpg" alt><br>父类函数中使用this，在子类对象中是指向子类对象自己。  </p>
+<h3 id="WinMain函数-1"><a href="#WinMain函数-1" class="headerlink" title="WinMain函数"></a>WinMain函数</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> afxWinMain(....)</span><br></pre></td></tr></table></figure>
+<p>afx：ApplicationFramework，一套应用程序框架。x是多余的。<br>函数前带Afx，表明是应用程序框架函数,是全局函数。<br>afxWinMain函数定义在winmain.cpp中。<br><img src="/img/MFC/file10.jpg" alt="iamge"><br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CWinApp* pApp = AfxGetApp();<span class="comment">//派生类对象的指针</span></span><br></pre></td></tr></table></figure></p>
+<p>AfxGetApp()获得一个指向CWinApp的指针，实际是上述构造函数的this指针的变量。<br>pApp是指向子类TheApp的指针。CWinThread同理。<br><img src="/img/MFC/file11.jpg" alt><br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// AFX internal initialization</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (!AfxWinInit(hInstance, hPrevInstance, lpCmdLine, nCmdShow))</span><br><span class="line">	<span class="keyword">goto</span> InitFailure;</span><br><span class="line"></span><br><span class="line"><span class="comment">// App global initializations (rare)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (pApp != <span class="literal">NULL</span> &amp;&amp; !pApp-&gt;InitApplication())<span class="comment">//mfc内部管理调用的函数</span></span><br><span class="line">       </span><br><span class="line">	<span class="keyword">goto</span> InitFailure;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Perform specific initializations</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (!pThread-&gt;InitInstance())	</span><br><span class="line">       <span class="comment">//virtual InitInstance 是一个虚函数，所以是子类的函数。</span></span><br><span class="line">       </span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">if</span> (pThread-&gt;m_pMainWnd != <span class="literal">NULL</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		TRACE(traceAppMsg, <span class="number">0</span>, <span class="string">"Warning: Destroying non-NULL m_pMainWnd\n"</span>);</span><br><span class="line">		pThread-&gt;m_pMainWnd-&gt;DestroyWindow();</span><br><span class="line">	&#125;</span><br><span class="line">	nReturnCode = pThread-&gt;ExitInstance();</span><br><span class="line">	<span class="keyword">goto</span> InitFailure;</span><br><span class="line">&#125;</span><br><span class="line">nReturnCode = pThread-&gt;Run(); <span class="comment">//完成了消息循环。</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="窗口注册函数"><a href="#窗口注册函数" class="headerlink" title="窗口注册函数"></a>窗口注册函数</h3><p>wincore.cpp中AfxEndDeferRegisterClass(….)函数<br>已经定义设计好了带缺省值的窗口类。<br>只需要调用该函数进行注册就行，根据产生不同的程序选择不同的窗口类。<br><img src="/img/MFC/file12.jpg" alt><br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">BOOL AFXAPI <span class="title">AfxRegisterClass</span><span class="params">(WNDCLASS* lpWndClass)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	WNDCLASS wndcls;		</span><br><span class="line">	<span class="keyword">if</span> (GetClassInfo(lpWndClass-&gt;hInstance, lpWndClass-&gt;lpszClassName,</span><br><span class="line">		&amp;wndcls))</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="comment">// class already registered</span></span><br><span class="line">		<span class="keyword">return</span> TRUE;</span><br><span class="line">	&#125;	<span class="comment">//获取类的信息，判断是否已经被注册</span></span><br><span class="line">    </span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (!RegisterClass(lpWndClass)) <span class="comment">//调用最开始所知道的窗口注册函数</span></span><br><span class="line">        </span><br><span class="line">	&#123;</span><br><span class="line">		TRACE(traceAppMsg, <span class="number">0</span>, _T(<span class="string">"Can't register window class named %Ts\n"</span>),</span><br><span class="line">			lpWndClass-&gt;lpszClassName);</span><br><span class="line">		<span class="keyword">return</span> FALSE;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	BOOL bRet = TRUE;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (afxContextIsDLL)</span><br><span class="line">	&#123;</span><br><span class="line">		AfxLockGlobals(CRIT_REGCLASSLIST);</span><br><span class="line">		TRY</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="comment">// class registered successfully, add to registered list</span></span><br><span class="line">            </span><br><span class="line">			AFX_MODULE_STATE* pModuleState = AfxGetModuleState();</span><br><span class="line">			pModuleState-&gt;m_strUnregisterList+=lpWndClass-&gt;lpszClassName;</span><br><span class="line">			pModuleState-&gt;m_strUnregisterList+=<span class="string">'\n'</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		CATCH_ALL(e)</span><br><span class="line">		&#123;</span><br><span class="line">			AfxUnlockGlobals(CRIT_REGCLASSLIST);</span><br><span class="line">			THROW_LAST();</span><br><span class="line">			<span class="comment">// Note: DELETE_EXCEPTION not required.</span></span><br><span class="line">            </span><br><span class="line">		&#125;</span><br><span class="line">		END_CATCH_ALL</span><br><span class="line">		AfxUnlockGlobals(CRIT_REGCLASSLIST);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> bRet;</span><br><span class="line">&#125; <span class="comment">//注册完窗口类</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="产生窗口"><a href="#产生窗口" class="headerlink" title="产生窗口"></a>产生窗口</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">class CFrameWnd : public Cwnd&#123;</span><br><span class="line">	;</span><br><span class="line">&#125;</span><br><span class="line">class CMainFrame : public CFrameWnd&#123;</span><br><span class="line">	; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>从CWnd派生出来的都是窗口类。<br>CMainFrame叫做框架窗口、整个应用程序窗口。</p>
+<h4 id="子窗口"><a href="#子窗口" class="headerlink" title="子窗口"></a>子窗口</h4><p>CTestView 也是从Cwnd派生出来的。</p>
+<p><img src="/img/MFC/file13.jpg" alt><br>CMainFrame::PreCreateWindow(…)在winfrm.cpp中定义。<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">BOOL CFrameWnd::PreCreateWindow(CREATESTRUCT&amp; cs)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">if</span> (cs.lpszClass == <span class="literal">NULL</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		VERIFY(AfxDeferRegisterClass(AFX_WNDFRAMEORVIEW_REG)); <span class="comment">//判断当前窗口类是否被注册，没有注册，就注册AFX_WNDFRAMEORVIEW_REG</span></span><br><span class="line">        </span><br><span class="line">		cs.lpszClass = _afxWndFrameOrView;  <span class="comment">// COLOR_WINDOW background</span></span><br><span class="line">        </span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (cs.style &amp; FWS_ADDTOTITLE)</span><br><span class="line">		cs.style |= FWS_PREFIXTITLE;</span><br><span class="line"></span><br><span class="line">	cs.dwExStyle |= WS_EX_CLIENTEDGE;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> TRUE;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#define AfxDeferRegisterClass(fClass) AfxEndDeferRegisterClass(fClass)</span><br></pre></td></tr></table></figure>
+<p><img src="/img/MFC/file14.jpg" alt><br>在处理shell命令时就完成窗口的注册。  </p>
+<h4 id="MFC窗口注册顺序"><a href="#MFC窗口注册顺序" class="headerlink" title="MFC窗口注册顺序"></a>MFC窗口注册顺序</h4><p>因为创建的是单文档程序，牵扯到文档管理，造成在注册窗口前调用创建窗口函数CreateWindow。<br>正常情况：<br>1.PreCreateWindow去调用父类CFrameWnd::PreCreateWindow。<br>2.调用AfxEndDeferRegisterClass这个函数去注册。  </p>
+<h3 id="创建窗口"><a href="#创建窗口" class="headerlink" title="创建窗口"></a>创建窗口</h3><p>CreateWindow在wincore.cpp中定义。</p>
+<h3 id="执行顺序："><a href="#执行顺序：" class="headerlink" title="执行顺序："></a>执行顺序：</h3><ol>
+<li>全局对象<br><img src="https://raw.githubusercontent.com/Nise98/Nise98.github.io/master/img/MFC/process/1.jpg" alt>  </li>
+<li>构造函数<br><img src="https://raw.githubusercontent.com/Nise98/Nise98.github.io/master/img/MFC/process/2.jpg" alt>  </li>
+<li>WinMain函数<br><img src="https://raw.githubusercontent.com/Nise98/Nise98.github.io/master/img/MFC/process/3.jpg" alt>  </li>
+<li>pThread实际是派生类的指针，形成多态。<br><img src="https://raw.githubusercontent.com/Nise98/Nise98.github.io/master/img/MFC/process/4.jpg" alt>  </li>
+<li>调用子类的InitInstance。<br><img src="https://raw.githubusercontent.com/Nise98/Nise98.github.io/master/img/MFC/process/5.jpg" alt>  </li>
+<li>进入AfxEndDeferRegisterClass注册窗口类。<br><img src="https://raw.githubusercontent.com/Nise98/Nise98.github.io/master/img/MFC/process/6.jpg" alt>  </li>
+<li>进入到CMainFrame框架类,此函数内部调用父类PreCreateWindows。<br><img src="https://raw.githubusercontent.com/Nise98/Nise98.github.io/master/img/MFC/process/8.jpg" alt>  </li>
+<li>进入到父类函数中，内部会再次调用AfxDeferRegisterClass去注册窗口类。<br><img src="https://raw.githubusercontent.com/Nise98/Nise98.github.io/master/img/MFC/process/7.jpg" alt>  </li>
+<li>调用AfxEndDeferRegisterClass。<br>#define AfxDeferRegisterClass(fClass) AfxEndDeferRegisterClass(fClass)<br><img src="https://raw.githubusercontent.com/Nise98/Nise98.github.io/master/img/MFC/process/9.jpg" alt><br>10.<br><img src="https://raw.githubusercontent.com/Nise98/Nise98.github.io/master/img/MFC/process/10.jpg" alt>  </li>
+<li>CreateEx是CWnd中的函数，将会调用该函数。<br><img src="https://raw.githubusercontent.com/Nise98/Nise98.github.io/master/img/MFC/process/12.jpg" alt> </li>
+<li>进入CreateEx。<br><img src="https://raw.githubusercontent.com/Nise98/Nise98.github.io/master/img/MFC/process/11.jpg" alt>  </li>
+<li>又回到PreCreateWindow.<br><img src="https://raw.githubusercontent.com/Nise98/Nise98.github.io/master/img/MFC/process/8.jpg" alt>  </li>
+<li>最后进入到<a href="#jump">消息循环</a> 。</li>
+</ol>
+<h4 id="在CreateEx中使用PreCreateWindo的好处"><a href="#在CreateEx中使用PreCreateWindo的好处" class="headerlink" title="在CreateEx中使用PreCreateWindo的好处"></a>在CreateEx中使用PreCreateWindo的好处</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (!PreCreateWindow(cs)) <span class="comment">//虚函数</span></span><br><span class="line">    </span><br><span class="line">	&#123;</span><br><span class="line">		PostNcDestroy();</span><br><span class="line">		<span class="keyword">return</span> FALSE;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//PreCreateWindow的定义</span></span><br><span class="line">BOOL CWnd::PreCreateWindow(CREATESTRUCT&amp; cs)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">if</span> (cs.lpszClass == <span class="literal">NULL</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="comment">// make sure the default window class is registered</span></span><br><span class="line">        </span><br><span class="line">		VERIFY(AfxDeferRegisterClass(AFX_WND_REG));</span><br><span class="line"></span><br><span class="line">		<span class="comment">// no WNDCLASS provided - use child window default</span></span><br><span class="line">        </span><br><span class="line">		ASSERT(cs.style &amp; WS_CHILD);</span><br><span class="line">		cs.lpszClass = _afxWnd;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> ((cs.hMenu == <span class="literal">NULL</span>) &amp;&amp; (cs.style &amp; WS_CHILD))</span><br><span class="line">	&#123;</span><br><span class="line">		cs.hMenu = (HMENU)(UINT_PTR)<span class="keyword">this</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> TRUE;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>虚函数，调用子类的PreCreateWindow。</p>
+<h4 id="CREATESTRUCT与CreateWindow比较"><a href="#CREATESTRUCT与CreateWindow比较" class="headerlink" title="CREATESTRUCT与CreateWindow比较"></a>CREATESTRUCT与CreateWindow比较</h4><p>二者内部一致。<br>前者为了产生窗口之前，有机会修改外观。</p>
+<h4 id="在上述流程图中5和6之间一个CMainFrame-LoadFrame函数（MainFrm-cpp）。"><a href="#在上述流程图中5和6之间一个CMainFrame-LoadFrame函数（MainFrm-cpp）。" class="headerlink" title="在上述流程图中5和6之间一个CMainFrame::LoadFrame函数（MainFrm.cpp）。"></a>在上述流程图中5和6之间一个CMainFrame::LoadFrame函数（MainFrm.cpp）。</h4><h3 id="显示窗口"><a href="#显示窗口" class="headerlink" title="显示窗口"></a>显示窗口</h3><p>在InitStance()函数中<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 调度在命令行中指定的命令。  如果</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">// 用 /RegServer、/Register、/Unregserver 或 /Unregister 启动应用程序，则返回 FALSE。</span></span><br><span class="line">	<span class="keyword">if</span> (!ProcessShellCommand(cmdInfo))</span><br><span class="line">		<span class="keyword">return</span> FALSE;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 唯一的一个窗口已初始化，因此显示它并对其进行更新</span></span><br><span class="line"></span><br><span class="line">	m_pMainWnd-&gt;ShowWindow(SW_SHOW);</span><br><span class="line">	m_pMainWnd-&gt;UpdateWindow();</span><br><span class="line">	<span class="keyword">return</span> TRUE;</span><br></pre></td></tr></table></figure></p>
+<p>m_pMainWnd保存了指向应用程序窗口的指针。<br>ProcessShellCommand执行完成后，框架窗口已经创建完成。<br>使用成员类函数ShowWindow显示窗口。<br>UpdateWindow更新窗口。</p>
+<h3 id="消息循环-消息循环"><a href="#消息循环-消息循环" class="headerlink" title="消息循环  消息循环"></a>消息循环  <span id="jump">消息循环</span></h3><p>在WinMain中会调用pThread-&gt;run();<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> CWinThread::Run()</span><br><span class="line">&#123;</span><br><span class="line">	ASSERT_VALID(<span class="keyword">this</span>);</span><br><span class="line">	_AFX_THREAD_STATE* pState = AfxGetThreadState();</span><br><span class="line"></span><br><span class="line">	<span class="comment">// for tracking the idle time state</span></span><br><span class="line">    </span><br><span class="line">	BOOL bIdle = TRUE;</span><br><span class="line">	LONG lIdleCount = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// acquire and dispatch messages until a WM_QUIT message is received.</span></span><br><span class="line">    </span><br><span class="line">	<span class="keyword">for</span> (;;)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="comment">// phase1: check to see if we can do idle work</span></span><br><span class="line">        </span><br><span class="line">		<span class="keyword">while</span> (bIdle &amp;&amp;</span><br><span class="line">			!::PeekMessage(&amp;(pState-&gt;m_msgCur), <span class="literal">NULL</span>, <span class="literal">NULL</span>, <span class="literal">NULL</span>, PM_NOREMOVE))</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="comment">// call OnIdle while in bIdle state</span></span><br><span class="line">            </span><br><span class="line">			<span class="keyword">if</span> (!OnIdle(lIdleCount++))</span><br><span class="line">				bIdle = FALSE; <span class="comment">// assume "no idle" state</span></span><br><span class="line">            </span><br><span class="line">		&#125;</span><br><span class="line">      </span><br><span class="line"></span><br><span class="line">		<span class="comment">// phase2: pump messages while available</span></span><br><span class="line">        </span><br><span class="line">		<span class="keyword">do</span></span><br><span class="line">		&#123;</span><br><span class="line">			<span class="comment">// pump message, but quit on WM_QUIT</span></span><br><span class="line">            </span><br><span class="line">			<span class="keyword">if</span> (!PumpMessage())</span><br><span class="line">				<span class="keyword">return</span> ExitInstance();</span><br><span class="line"></span><br><span class="line">			<span class="comment">// reset "no idle" state after pumping "normal" message</span></span><br><span class="line">            </span><br><span class="line">			<span class="comment">//if (IsIdleMessage(&amp;m_msgCur))</span></span><br><span class="line">            </span><br><span class="line">			<span class="keyword">if</span> (IsIdleMessage(&amp;(pState-&gt;m_msgCur)))</span><br><span class="line">			&#123;</span><br><span class="line">				bIdle = TRUE;</span><br><span class="line">				lIdleCount = <span class="number">0</span>;</span><br><span class="line">			&#125;</span><br><span class="line"></span><br><span class="line">		&#125; <span class="keyword">while</span> (::PeekMessage(&amp;(pState-&gt;m_msgCur), <span class="literal">NULL</span>, <span class="literal">NULL</span>, <span class="literal">NULL</span>, PM_NOREMOVE));</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>进行了for和do、while循环。</p>
+<h4 id="解析PumpMessgae函数"><a href="#解析PumpMessgae函数" class="headerlink" title="解析PumpMessgae函数"></a>解析PumpMessgae函数</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">BOOL CWinThread::PumpMessage()</span><br><span class="line">&#123;</span><br><span class="line">  <span class="keyword">return</span> AfxInternalPumpMessage();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后进入AfxInternalPumpMessage的定义。<br>利用::TranslateMessage(&amp;(pState-&gt;m_msgCur)); ::DispatchMessage(&amp;(pState-&gt;m_msgCur));组合键产生新的WM_CHAR消息，利用后者将消息路由给操作系统，然后交给窗口进行处理。</p>
+<h3 id="解析AfxEndDeferRegisterClass内部"><a href="#解析AfxEndDeferRegisterClass内部" class="headerlink" title="解析AfxEndDeferRegisterClass内部"></a>解析AfxEndDeferRegisterClass内部</h3><p>wndcls.lpfnWndProc = DefWindowProc;<br>使用缺省窗口过程。<br>表面上交给缺省窗口处理，实际上mfc当中采用消息映射，由消息响应函数进行处理。  </p>
+<h2 id="CTestView"><a href="#CTestView" class="headerlink" title="CTestView"></a>CTestView</h2><p>CMainFrame类表示的窗口是CTestview类窗口的副窗口。 </p>
+<h2 id="CTestDoc"><a href="#CTestDoc" class="headerlink" title="CTestDoc"></a>CTestDoc</h2><p>从CDocument类派生。<br>是一个文档类。  </p>
+<h3 id="文档视图作用"><a href="#文档视图作用" class="headerlink" title="文档视图作用"></a>文档视图作用</h3><p>将数据本身和显示分离开了。<br>数据存储、加载有文档类完成。<br>显示、修改由窗口类完成。  </p>
+<h2 id="二者如何组合在一起"><a href="#二者如何组合在一起" class="headerlink" title="二者如何组合在一起"></a>二者如何组合在一起</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">CSingleDocTemplate* pDocTemplate;</span><br><span class="line">	pDocTemplate = <span class="keyword">new</span> CSingleDocTemplate(</span><br><span class="line">		IDR_MAINFRAME,</span><br><span class="line">		RUNTIME_CLASS(CtestDoc),</span><br><span class="line">		RUNTIME_CLASS(CMainFrame),       <span class="comment">// 主 SDI 框架窗口</span></span><br><span class="line">        </span><br><span class="line">		RUNTIME_CLASS(CtestView));</span><br><span class="line">	<span class="keyword">if</span> (!pDocTemplate)</span><br><span class="line">		<span class="keyword">return</span> FALSE;</span><br><span class="line">	AddDocTemplate(pDocTemplate);</span><br></pre></td></tr></table></figure>
+<p>通过单文档模板将文档类、框架类、View类组合在一起。<br>利用AddDocTemplate函数当当文档模板增加到模板中。 </p>
+<h2 id="CDialog对话框类"><a href="#CDialog对话框类" class="headerlink" title="CDialog对话框类"></a>CDialog对话框类</h2><p>继承CWnd类。</p>
+<h2 id="mfc框架中通过明明与api同名函数，降低-使用困难。"><a href="#mfc框架中通过明明与api同名函数，降低-使用困难。" class="headerlink" title="mfc框架中通过明明与api同名函数，降低 使用困难。"></a>mfc框架中通过明明与api同名函数，降低 使用困难。</h2><h1 id="CWnd的基本架构示例，窗口跟窗口类关联，封装。"><a href="#CWnd的基本架构示例，窗口跟窗口类关联，封装。" class="headerlink" title="CWnd的基本架构示例，窗口跟窗口类关联，封装。"></a>CWnd的基本架构示例，窗口跟窗口类关联，封装。</h1><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CWnd</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function">BOOL <span class="title">CreateEx</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">		DWORD dwExStyle,</span></span></span><br><span class="line"><span class="function"><span class="params">		LPCTSTR lpClassName,</span></span></span><br><span class="line"><span class="function"><span class="params">		LPCTSTR lpWindowName,</span></span></span><br><span class="line"><span class="function"><span class="params">		DWORD dwStyle,</span></span></span><br><span class="line"><span class="function"><span class="params">		<span class="keyword">int</span> x,</span></span></span><br><span class="line"><span class="function"><span class="params">		<span class="keyword">int</span> y,</span></span></span><br><span class="line"><span class="function"><span class="params">		<span class="keyword">int</span> nWidth,</span></span></span><br><span class="line"><span class="function"><span class="params">		<span class="keyword">int</span> nHeight,</span></span></span><br><span class="line"><span class="function"><span class="params">		HWND hWndParent,</span></span></span><br><span class="line"><span class="function"><span class="params">		HMENU hMenu,</span></span></span><br><span class="line"><span class="function"><span class="params">		HINSTANCE hInstance,</span></span></span><br><span class="line"><span class="function"><span class="params">		LPVOID lpParam</span></span></span><br><span class="line"><span class="function"><span class="params">)</span></span></span><br><span class="line"><span class="function">	BOOL <span class="title">ShowWindoW</span><span class="params">(<span class="keyword">int</span> nCmdShow)</span></span>;</span><br><span class="line">	<span class="function">BOOL <span class="title">UpdateWindow</span><span class="params">()</span></span>;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	HWND m_hwnd;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">BOOL CWnd::CreateEx(</span><br><span class="line">		DWORD dwExStyle,</span><br><span class="line">		LPCTSTR lpClassName,</span><br><span class="line">		LPCTSTR lpWindowName,</span><br><span class="line">		DWORD dwStyle,</span><br><span class="line">		<span class="keyword">int</span> x,</span><br><span class="line">		<span class="keyword">int</span> y,</span><br><span class="line">		<span class="keyword">int</span> nWidth,</span><br><span class="line">		<span class="keyword">int</span> nHeight,</span><br><span class="line">		HWND hWndParent,</span><br><span class="line">		HMENU hMenu,</span><br><span class="line">		HINSTANCE hInstance,</span><br><span class="line">		LPVOID lpParam</span><br><span class="line">)</span><br><span class="line">&#123;</span><br><span class="line">	m_hwnd = CreateWindowEx(</span><br><span class="line">		dwExStyle,</span><br><span class="line">		lpClassName,</span><br><span class="line">		lpClassName,</span><br><span class="line">		x,</span><br><span class="line">		y,</span><br><span class="line">		nWidth,</span><br><span class="line">		nHeight,</span><br><span class="line">		hWndParent,</span><br><span class="line">		hMenu,</span><br><span class="line">		hInstance,</span><br><span class="line">		lpParam)；</span><br><span class="line"><span class="keyword">if</span>(m_hwnd!= <span class="literal">NULL</span>)</span><br><span class="line">	<span class="keyword">return</span> TRUE;</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">	<span class="keyword">return</span> FALSE;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">BOOL CWnd::ShowWindow(<span class="keyword">int</span> nCmdShow)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">return</span> ::ShowWindow(m_hwnd,nCmdShow); <span class="comment">//通过全局表示符 :: 调用sdk api。</span></span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line">BOOL CWnd::UpdateWindow()</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">return</span> ::UpdateWindow(m_hwnd);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> WINAPI <span class="title">WinMain</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">  HINSTANCE hInstance, </span></span></span><br><span class="line"><span class="function"><span class="params">  HINSTANCE hPrevInstance, </span></span></span><br><span class="line"><span class="function"><span class="params">  LPWSTR lpCmdLine, </span></span></span><br><span class="line"><span class="function"><span class="params">  <span class="keyword">int</span> nShowCmd </span></span></span><br><span class="line"><span class="function"><span class="params">)</span></span>&#123;</span><br><span class="line">	WNDCLASS wndcls;</span><br><span class="line">	wndcls.cbClsExtra = <span class="number">0</span>;</span><br><span class="line">	wndcls.cbwndExtra = <span class="number">0</span>;</span><br><span class="line">	......</span><br><span class="line">	RegisterClass(&amp;wndcls);</span><br><span class="line"></span><br><span class="line">	Cwnd wnd;</span><br><span class="line">	wnd.CreateEx(...);</span><br><span class="line">	wnd.ShowWindow(SW_SHOWNORMAL);</span><br><span class="line">	wnd.UpdateWindow();</span><br><span class="line"></span><br><span class="line">	......</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="mfc框架中采用与api同名函数，降低使用的困难。"><a href="#mfc框架中采用与api同名函数，降低使用的困难。" class="headerlink" title="mfc框架中采用与api同名函数，降低使用的困难。"></a>mfc框架中采用与api同名函数，降低使用的困难。</h2><h2 id="有些通过构造函数就能直接初始化对象。"><a href="#有些通过构造函数就能直接初始化对象。" class="headerlink" title="有些通过构造函数就能直接初始化对象。"></a>有些通过构造函数就能直接初始化对象。</h2><h2 id="CButton"><a href="#CButton" class="headerlink" title="CButton"></a>CButton</h2><p>构造CButton对象，利用Create创造窗口。</p>
+<h3 id="CButton-Create"><a href="#CButton-Create" class="headerlink" title="CButton::Create"></a>CButton::Create</h3><ol>
+<li>按钮控件文本</li>
+<li>类型。</li>
+<li>结构体，表示一个矩形,通过构造函数构造CRect对象。</li>
+<li>父窗口指针。</li>
+<li>标识号。</li>
+</ol>
+<p>窗口产生之后，产生button控件。<br>OnCreate响应控件创建。<br><img src="/img/MFC/捕获4.jpg" alt><br>创建完框架窗口工具栏等，在创建button窗口。<br>在return 0;之前加入<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">CButton btn;</span><br><span class="line">btn.Create(<span class="string">"你好"</span>,WS_CHILD | BS_DEFPUSHBUTTON, CRect(<span class="number">0</span>, <span class="number">0</span>, <span class="number">100</span>, <span class="number">100</span>), <span class="keyword">this</span>, <span class="number">123</span>);</span><br></pre></td></tr></table></figure></p>
+<p>然而并没有产生，因为已经被析构。 </p>
+<h4 id="正确方法"><a href="#正确方法" class="headerlink" title="正确方法"></a>正确方法</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//将CButton声明放到头文件</span></span><br><span class="line"></span><br><span class="line">m_btn.Create(L(<span class="string">"asdsadas"</span>),WS_CHILD | BS_DEFPUSHBUTTON, CRect(<span class="number">0</span>, <span class="number">0</span>, <span class="number">100</span>, <span class="number">100</span>), <span class="keyword">this</span>, <span class="number">123</span>);</span><br><span class="line">m_btn.ShowWindow(SW_SHOWNORMAL);</span><br></pre></td></tr></table></figure>
+<p>通过对WM_CREATE消息进行响应，创建窗口。</p>
+<ol>
+<li>先在头文件声明 CButton m_btn。  </li>
+<li>可以通过类视图下方属性添加相关消息处理函数。<br>会自动生成消息响应函数在进行加工。<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> CtestView::OnCreate(LPCREATESTRUCT lpCreateStruct)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">if</span> (CView::OnCreate(lpCreateStruct) == <span class="number">-1</span>)</span><br><span class="line">		<span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// <span class="doctag">TODO:</span>  在此添加您专用的创建代码</span></span><br><span class="line">    </span><br><span class="line">	m_btn.Create(__T(<span class="string">"年后"</span>), WS_CHILD | BS_DEFPUSHBUTTON, CRect(<span class="number">0</span>, <span class="number">0</span>, <span class="number">100</span>, <span class="number">100</span>), <span class="keyword">this</span>, <span class="number">123</span>);</span><br><span class="line">	m_btn.ShowWindow(SW_SHOWNORMAL);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p><img src="/img/MFC/捕获5.jpg" alt>  </p>
+<ol start="3">
+<li>在属性出采用WS_VISIBLE，就可以不使用ShowWindow直接显示出来。  </li>
+<li>使用GetParent()获取父窗口指针。<br><img src="/img/MFC/捕获6.jpg" alt><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">m_btn.Create(__T(<span class="string">"年后"</span>), WS_CHILD | WS_VISIBLE | BS_AUTO3STATE, </span><br><span class="line">	CRect(<span class="number">0</span>, <span class="number">0</span>, <span class="number">100</span>, <span class="number">100</span>), GetParent(), <span class="number">123</span>);</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/MFC/" rel="tag"># MFC</a>
+          
+            <a href="/tags/Windows编程/" rel="tag"># Windows编程</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/07/08/2018-07-08- 孙鑫MFC第二节/" rel="next" title="孙鑫MFC第二节   c++要点复习">
+                <i class="fa fa-chevron-left"></i> 孙鑫MFC第二节   c++要点复习
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/08/14/2018-08-14- 孙鑫MFC第四节/" rel="prev" title="孙鑫MFC第四节   MFC消息映射机制的剖析(1)">
+                孙鑫MFC第四节   MFC消息映射机制的剖析(1) <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="Xuwei98">
+            
+              <p class="site-author-name" itemprop="name">Xuwei98</p>
+              <p class="site-description motion-element" itemprop="description">圈地自萌,自娱自乐</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">51</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">31</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/Xuwei98" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:z1002280879@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+<br>
+<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=1350129459&auto=1&height=66"></iframe>
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#剖析基于mfc的框架程序"><span class="nav-number">1.</span> <span class="nav-text">剖析基于mfc的框架程序</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#文档视图结构"><span class="nav-number">2.</span> <span class="nav-text">文档视图结构</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#CMainFrame-and-CTestApp"><span class="nav-number">2.1.</span> <span class="nav-text">CMainFrame and CTestApp</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Cwnd"><span class="nav-number">2.1.1.</span> <span class="nav-text">Cwnd</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#线路"><span class="nav-number">2.1.2.</span> <span class="nav-text">线路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#WinMain函数"><span class="nav-number">2.1.3.</span> <span class="nav-text">WinMain函数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#函数执行顺序"><span class="nav-number">2.1.3.1.</span> <span class="nav-text">函数执行顺序</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#原因"><span class="nav-number">2.1.3.1.1.</span> <span class="nav-text">原因</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#定义theApp全局对象的原因与作用"><span class="nav-number">2.1.3.2.</span> <span class="nav-text">定义theApp全局对象的原因与作用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#分析CWinApp类"><span class="nav-number">2.1.3.3.</span> <span class="nav-text">分析CWinApp类</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#WinMain函数-1"><span class="nav-number">2.1.4.</span> <span class="nav-text">WinMain函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#窗口注册函数"><span class="nav-number">2.1.5.</span> <span class="nav-text">窗口注册函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#产生窗口"><span class="nav-number">2.1.6.</span> <span class="nav-text">产生窗口</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#子窗口"><span class="nav-number">2.1.6.1.</span> <span class="nav-text">子窗口</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#MFC窗口注册顺序"><span class="nav-number">2.1.6.2.</span> <span class="nav-text">MFC窗口注册顺序</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建窗口"><span class="nav-number">2.1.7.</span> <span class="nav-text">创建窗口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#执行顺序："><span class="nav-number">2.1.8.</span> <span class="nav-text">执行顺序：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#在CreateEx中使用PreCreateWindo的好处"><span class="nav-number">2.1.8.1.</span> <span class="nav-text">在CreateEx中使用PreCreateWindo的好处</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CREATESTRUCT与CreateWindow比较"><span class="nav-number">2.1.8.2.</span> <span class="nav-text">CREATESTRUCT与CreateWindow比较</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#在上述流程图中5和6之间一个CMainFrame-LoadFrame函数（MainFrm-cpp）。"><span class="nav-number">2.1.8.3.</span> <span class="nav-text">在上述流程图中5和6之间一个CMainFrame::LoadFrame函数（MainFrm.cpp）。</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#显示窗口"><span class="nav-number">2.1.9.</span> <span class="nav-text">显示窗口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#消息循环-消息循环"><span class="nav-number">2.1.10.</span> <span class="nav-text">消息循环  消息循环</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#解析PumpMessgae函数"><span class="nav-number">2.1.10.1.</span> <span class="nav-text">解析PumpMessgae函数</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解析AfxEndDeferRegisterClass内部"><span class="nav-number">2.1.11.</span> <span class="nav-text">解析AfxEndDeferRegisterClass内部</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CTestView"><span class="nav-number">2.2.</span> <span class="nav-text">CTestView</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CTestDoc"><span class="nav-number">2.3.</span> <span class="nav-text">CTestDoc</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#文档视图作用"><span class="nav-number">2.3.1.</span> <span class="nav-text">文档视图作用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二者如何组合在一起"><span class="nav-number">2.4.</span> <span class="nav-text">二者如何组合在一起</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CDialog对话框类"><span class="nav-number">2.5.</span> <span class="nav-text">CDialog对话框类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mfc框架中通过明明与api同名函数，降低-使用困难。"><span class="nav-number">2.6.</span> <span class="nav-text">mfc框架中通过明明与api同名函数，降低 使用困难。</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CWnd的基本架构示例，窗口跟窗口类关联，封装。"><span class="nav-number">3.</span> <span class="nav-text">CWnd的基本架构示例，窗口跟窗口类关联，封装。</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#mfc框架中采用与api同名函数，降低使用的困难。"><span class="nav-number">3.1.</span> <span class="nav-text">mfc框架中采用与api同名函数，降低使用的困难。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#有些通过构造函数就能直接初始化对象。"><span class="nav-number">3.2.</span> <span class="nav-text">有些通过构造函数就能直接初始化对象。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CButton"><span class="nav-number">3.3.</span> <span class="nav-text">CButton</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#CButton-Create"><span class="nav-number">3.3.1.</span> <span class="nav-text">CButton::Create</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#正确方法"><span class="nav-number">3.3.1.1.</span> <span class="nav-text">正确方法</span></a></li></ol></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Xuwei98</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">47.7k</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://xuwei98.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://xwdidi.com/2018/07/08/2018-07-17- 孙鑫MFC第三节/';
+          this.page.identifier = '2018/07/08/2018-07-17- 孙鑫MFC第三节/';
+          this.page.title = '孙鑫MFC第三节     剖析基于mfc的框架程序';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://xuwei98.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

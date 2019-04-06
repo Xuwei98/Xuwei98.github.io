@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="操作系统,汇编语言,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="偽のブログ" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="回顾 层次： 应用软件-OS-硬件 应用软件通过接口使用。  课程重点总结图灵机 模拟人类纸上计算 一个计算模型  通用图灵机 “一个能看懂菜谱的厨师”， 看的懂“菜谱”逻辑。  冯诺依曼思想 存储程序的主要思想：将程序和数据存放到计算机内部的存储器中，计算机在程序的控制下一步一步进行处理 计算机由五大部件组成：输入设备、输出设备、存储器、运算器、控制器   程序存到内存里，用IP指针指向它，进行">
+<meta name="keywords" content="操作系统,汇编语言">
+<meta property="og:type" content="article">
+<meta property="og:title" content="操作系统基础   L2 bootsect.s解析">
+<meta property="og:url" content="http://xwdidi.com/2018/08/16/2018-08-16-L2开始揭开钢琴的盖子/index.html">
+<meta property="og:site_name" content="偽のブログ">
+<meta property="og:description" content="回顾 层次： 应用软件-OS-硬件 应用软件通过接口使用。  课程重点总结图灵机 模拟人类纸上计算 一个计算模型  通用图灵机 “一个能看懂菜谱的厨师”， 看的懂“菜谱”逻辑。  冯诺依曼思想 存储程序的主要思想：将程序和数据存放到计算机内部的存储器中，计算机在程序的控制下一步一步进行处理 计算机由五大部件组成：输入设备、输出设备、存储器、运算器、控制器   程序存到内存里，用IP指针指向它，进行">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://i.loli.net/2018/08/16/5b757af9bcc66.jpg">
+<meta property="og:image" content="https://i.loli.net/2018/08/17/5b75d0a1d990c.jpg">
+<meta property="og:updated_time" content="2019-04-06T12:46:17.151Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="操作系统基础   L2 bootsect.s解析">
+<meta name="twitter:description" content="回顾 层次： 应用软件-OS-硬件 应用软件通过接口使用。  课程重点总结图灵机 模拟人类纸上计算 一个计算模型  通用图灵机 “一个能看懂菜谱的厨师”， 看的懂“菜谱”逻辑。  冯诺依曼思想 存储程序的主要思想：将程序和数据存放到计算机内部的存储器中，计算机在程序的控制下一步一步进行处理 计算机由五大部件组成：输入设备、输出设备、存储器、运算器、控制器   程序存到内存里，用IP指针指向它，进行">
+<meta name="twitter:image" content="https://i.loli.net/2018/08/16/5b757af9bcc66.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Xuwei98'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://xwdidi.com/2018/08/16/2018-08-16-L2开始揭开钢琴的盖子/">
+
+
+
+
+
+  <title>操作系统基础   L2 bootsect.s解析 | 偽のブログ</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">偽のブログ</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://xwdidi.com/2018/08/16/2018-08-16-L2开始揭开钢琴的盖子/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Xuwei98">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="偽のブログ">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">操作系统基础   L2 bootsect.s解析</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-16T01:00:00+09:00">
+                2018-08-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/操作系统/" itemprop="url" rel="index">
+                    <span itemprop="name">操作系统</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/08/16/2018-08-16-L2开始揭开钢琴的盖子/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/08/16/2018-08-16-L2开始揭开钢琴的盖子/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.1k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  4
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="回顾"><a href="#回顾" class="headerlink" title="回顾"></a>回顾</h2><ol>
+<li>层次： 应用软件-OS-硬件</li>
+<li>应用软件通过接口使用。</li>
+</ol>
+<h2 id="课程重点总结"><a href="#课程重点总结" class="headerlink" title="课程重点总结"></a>课程重点总结</h2><h3 id="图灵机"><a href="#图灵机" class="headerlink" title="图灵机"></a>图灵机</h3><ol>
+<li>模拟人类纸上计算</li>
+<li>一个计算模型</li>
+</ol>
+<h3 id="通用图灵机"><a href="#通用图灵机" class="headerlink" title="通用图灵机"></a>通用图灵机</h3><ul>
+<li>“一个能看懂菜谱的厨师”， 看的懂“菜谱”逻辑。</li>
+</ul>
+<h3 id="冯诺依曼思想"><a href="#冯诺依曼思想" class="headerlink" title="冯诺依曼思想"></a>冯诺依曼思想</h3><ol>
+<li>存储程序的主要思想：将程序和数据存放到计算机内部的存储器中，计算机在程序的控制下一步一步进行处理</li>
+<li>计算机由五大部件组成：输入设备、输出设备、存储器、运算器、控制器</li>
+</ol>
+<ul>
+<li>程序存到内存里，用IP指针指向它，进行取址执行（自动循环）。<br><img src="https://i.loli.net/2018/08/16/5b757af9bcc66.jpg" alt></li>
+</ul>
+<h3 id="x86-PC开机"><a href="#x86-PC开机" class="headerlink" title="x86 PC开机"></a>x86 PC开机</h3><ul>
+<li>ROM BIOS是固化的，固化在0xFFFF0中。</li>
+</ul>
+<ol>
+<li>x86PC刚开机时属于实模式。</li>
+<li>将CS = 0XFFFF；IP = 0X0000;</li>
+<li>执行BIOS内部代码。</li>
+<li>检查ROM，键盘， 显示器， 软硬磁盘， 主板等。</li>
+<li><p>将磁盘0磁道0扇区读入0X7c00处。（一个扇区大小为521B）。</p>
+<ul>
+<li><p>0磁道0扇区为引导扇区(启动设备的第一个扇区)，是第一个扇区。</p>
+</li>
+<li><p>第一个扇区存放着开机后执行的第一段我们可以控制的程序。</p>
+</li>
+</ul>
+</li>
+<li>设置CS = 0X07c0；IP = 0X0000。<h4 id="引导扇区代码：bootsect-s"><a href="#引导扇区代码：bootsect-s" class="headerlink" title="引导扇区代码：bootsect.s"></a>引导扇区代码：bootsect.s</h4><ul>
+<li>通过汇编代码对程序进行完整的控制<br><a href="https://blog.csdn.net/qq_26025363/article/details/72566093" target="_blank" rel="noopener">简单了解as86汇编语法</a>  </li>
+</ul>
+</li>
+</ol>
+<ul>
+<li>bootsect.s<h4 id="代码段解析"><a href="#代码段解析" class="headerlink" title="代码段解析"></a>代码段解析</h4>  <img src="https://i.loli.net/2018/08/17/5b75d0a1d990c.jpg" alt="OS3"></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br></pre></td><td class="code"><pre><span class="line">//	BOOTSEG = 0x07c0</span><br><span class="line">//	INITSEG = 0x9000</span><br><span class="line">//	SETUPSEG = 0x9020</span><br><span class="line"></span><br><span class="line"> .globl begtext，begdata，begbss，endtext，enddata，endbss  //全局标识符，供ld86链接用的</span><br><span class="line">.text 				//文本段(伪操作符)</span><br><span class="line">begtext：</span><br><span class="line">.data 				//数据段</span><br><span class="line">begdata：</span><br><span class="line">.bss 				//未初始化数据段</span><br><span class="line">begbss：</span><br><span class="line">entry start	//关键字entry告诉链接器程序入口</span><br><span class="line">start:</span><br><span class="line">	mov ax，#BooTSEG </span><br><span class="line">	mov ds，ax</span><br><span class="line">	mov ax，#INITSEG </span><br><span class="line">	mor es，ax </span><br><span class="line">	mov cx，#256</span><br><span class="line">	sub si，si </span><br><span class="line">	sub di，di </span><br><span class="line">	rep movw	//段间转义指令，转移次数由cx决定。将0×07c0：0×0000处的256个字移动到0×9000：0×0000处(ds:si-&gt;es:di)</span><br><span class="line">	jmpi go，INITSEG  //段间跳转指令。IP = go，CS = INITSEG</span><br><span class="line"></span><br><span class="line">go:</span><br><span class="line">	mov ax，cs		//cs=0x9000为call做准备！</span><br><span class="line">	mov ds，ax </span><br><span class="line">	mov es，ax </span><br><span class="line">	mov ss，ax 		//stack pointer 栈顶指针</span><br><span class="line">	mov sp，#0xff00</span><br><span class="line"></span><br><span class="line">1oad_setup:			//载入setup模块</span><br><span class="line">	mov dx，#0x0000 </span><br><span class="line">	mov cx，#0x0002</span><br><span class="line">	mov bx，#0x0200</span><br><span class="line">	mov ax，#0x0200+SETUPLEN </span><br><span class="line">	int 0x13			//BIOS中断,从0x90200读取四个扇区</span><br><span class="line">	jnc ok_load_setup </span><br><span class="line">	mov dx，#0x0000</span><br><span class="line">	mov ax，#0x0000		//复位</span><br><span class="line">	int 0x13 			</span><br><span class="line">	j   load_setup 			//重读</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">// BIOS中断功能0BH</span><br><span class="line">			0x13是BIOS读磁盘扇区的中断：</span><br><span class="line">				ah = 0×02-读磁盘，</span><br><span class="line">				al = 扇区数量（SETUPLEN=4），</span><br><span class="line">				ch = 柱面号，</span><br><span class="line">				cl = 开始扇区，</span><br><span class="line">				dh = 磁头号</span><br><span class="line">				dl = 驱动器号，</span><br><span class="line">				es:bx=内存地址</span><br><span class="line">		</span><br><span class="line">		- 一个扇区512B，所以第二块扇区的地址为 0x90000+0x200 = 0x90200</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">// ok_load代码段</span><br><span class="line"></span><br><span class="line">ok_1oad setup://载入setup模块</span><br><span class="line">	mov dl，#0x00 </span><br><span class="line">	mov ax，#0x0800		//ah=8获得磁盘参数</span><br><span class="line">	int 0x13 </span><br><span class="line">	mov ch，#0x00 </span><br><span class="line">	mov sectors，cx </span><br><span class="line">	mov ah，#0x03 </span><br><span class="line">	xor bh，bh</span><br><span class="line">	int 0x10 	//读光标</span><br><span class="line">	mov cx，#24 			//重复输出字符次数</span><br><span class="line">	mov bx，#0x0007		//7是显示属性！</span><br><span class="line">	mov bp，#msg1 </span><br><span class="line">	mov ax，#1301		</span><br><span class="line">	int 0x10 			//显示Logo</span><br><span class="line">	mov ax，#SYSSEG		//SYSSEG=0x1000 </span><br><span class="line">	mov es，ax </span><br><span class="line">	ca11 read_it 		//读入system模块</span><br><span class="line">	jmpi 0，SETUPSEG		//最后转入0x9020：0x0000,将执行权交给setup.s</span><br><span class="line">														</span><br><span class="line">	//boot工作，读setup，读system，display logo			</span><br><span class="line"></span><br><span class="line">//功能int 10H</span><br><span class="line">|功能描述：在Teletype模式下显示字符串</span><br><span class="line">|入口参数：AH=13H</span><br><span class="line">|BH=页码</span><br><span class="line">|BL=属性（若AL=00H或01H）CX=显示字符串长度</span><br><span class="line">（DH、DL）=坐标（行、列）ES:BP=显示字符串的地址AL=显示输出方式</span><br><span class="line">0—字符串中只含显示字符，其显示属性在BL中。显示后，光标位置不变</span><br><span class="line">1一字符串中只含显示字符，其显示属性在BL中。显示后，光标位置改变</span><br><span class="line">2一字符串中含显示字符和显示属性。显示后，光标位置不变</span><br><span class="line">3一字符串中含显示字符和显示属性。显示后，光标位置改变</span><br><span class="line"></span><br><span class="line">// read_it代码段//读入system模块</span><br><span class="line"></span><br><span class="line">read it:</span><br><span class="line">	mov ax，es </span><br><span class="line">	cmp ax，#ENDSEG 		//ENDSEG=SYSSEG+SYSSIZE,SYSSIZE=0x8000/该变量可根据,Image大小设定（编译操作系统时）</span><br><span class="line">	jb ok1_read  		//system模块可能很大，要跨越磁道，定义一个函数</span><br><span class="line">	ret</span><br><span class="line">ok1_read:</span><br><span class="line">	mov ax，sectors </span><br><span class="line">	sub ax，sread		//sread是当前磁道已读扇区数，ax未读扇区数</span><br><span class="line">	call read_track		//读磁道.…</span><br><span class="line"></span><br><span class="line">.org 510</span><br><span class="line">    //引导扇区的末尾</span><br><span class="line">    //BIOS用以识别引导扇区,否则会显示非引导设备</span><br><span class="line">    .word 0xAA55     //本扇区的最后两个字节</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//bootsect.s中的数据 	//在文件末尾</span><br><span class="line"></span><br><span class="line">sectors: </span><br><span class="line">	.word 0	//磁道扇区数</span><br><span class="line">msg1：</span><br><span class="line">	.byte 13，10</span><br><span class="line">	.ascii &quot;Loading system...&quot;</span><br><span class="line">	.byte 13，10, 13，10</span><br><span class="line"></span><br><span class="line">....</span><br><span class="line"></span><br><span class="line">.text</span><br><span class="line">endtext:</span><br><span class="line">.data</span><br><span class="line">enddata:</span><br><span class="line">.bss</span><br><span class="line">endbss:</span><br></pre></td></tr></table></figure>
+<h3 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h3><p>可以转入jmpi 0，SETUPSEG<br>IP = 0，CS = SETUPSEG = 0x9000 + 0x200</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/操作系统/" rel="tag"># 操作系统</a>
+          
+            <a href="/tags/汇编语言/" rel="tag"># 汇编语言</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/08/14/2018-08-14- 孙鑫MFC第四节/" rel="next" title="孙鑫MFC第四节   MFC消息映射机制的剖析(1)">
+                <i class="fa fa-chevron-left"></i> 孙鑫MFC第四节   MFC消息映射机制的剖析(1)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/08/16/2018-08-16-L1什么是操作系统/" rel="prev" title="操作系统基础  L1 什么是操作系统">
+                操作系统基础  L1 什么是操作系统 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="Xuwei98">
+            
+              <p class="site-author-name" itemprop="name">Xuwei98</p>
+              <p class="site-description motion-element" itemprop="description">圈地自萌,自娱自乐</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">51</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">31</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/Xuwei98" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:z1002280879@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+<br>
+<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=1350129459&auto=1&height=66"></iframe>
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#回顾"><span class="nav-number">1.</span> <span class="nav-text">回顾</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#课程重点总结"><span class="nav-number">2.</span> <span class="nav-text">课程重点总结</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#图灵机"><span class="nav-number">2.1.</span> <span class="nav-text">图灵机</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#通用图灵机"><span class="nav-number">2.2.</span> <span class="nav-text">通用图灵机</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#冯诺依曼思想"><span class="nav-number">2.3.</span> <span class="nav-text">冯诺依曼思想</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#x86-PC开机"><span class="nav-number">2.4.</span> <span class="nav-text">x86 PC开机</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#引导扇区代码：bootsect-s"><span class="nav-number">2.4.1.</span> <span class="nav-text">引导扇区代码：bootsect.s</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#代码段解析"><span class="nav-number">2.4.2.</span> <span class="nav-text">代码段解析</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#最后"><span class="nav-number">2.5.</span> <span class="nav-text">最后</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Xuwei98</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">47.7k</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://xuwei98.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://xwdidi.com/2018/08/16/2018-08-16-L2开始揭开钢琴的盖子/';
+          this.page.identifier = '2018/08/16/2018-08-16-L2开始揭开钢琴的盖子/';
+          this.page.title = '操作系统基础   L2 bootsect.s解析';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://xuwei98.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

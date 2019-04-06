@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="操作系统,汇编,内存,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="偽のブログ" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="课程总结​    如何管理CPU,多进程图像切换or同步等, 操作系统如何管理内存? 内存如何使用 计算机如何工作 取指-执行-取指-执行-……. 是从内存中取出, 因为使用了内存,才能取出. 内存使用:将程序放到内存中,PC指向开始地址    如何让程序加载到程序中 12345678.text_entry:			//入口地址	call _main	call _exit_main:	...	ret">
+<meta name="keywords" content="操作系统,汇编,内存">
+<meta property="og:type" content="article">
+<meta property="og:title" content="内存管理     L20 内存使用与分段">
+<meta property="og:url" content="http://xwdidi.com/2018/10/23/2018-10-23-L20内存使用与分段/index.html">
+<meta property="og:site_name" content="偽のブログ">
+<meta property="og:description" content="课程总结​    如何管理CPU,多进程图像切换or同步等, 操作系统如何管理内存? 内存如何使用 计算机如何工作 取指-执行-取指-执行-……. 是从内存中取出, 因为使用了内存,才能取出. 内存使用:将程序放到内存中,PC指向开始地址    如何让程序加载到程序中 12345678.text_entry:			//入口地址	call _main	call _exit_main:	...	ret">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://i.loli.net/2018/10/23/5bcf2b03ee289.jpg">
+<meta property="og:image" content="https://i.loli.net/2018/10/23/5bcf335525a5c.jpg">
+<meta property="og:image" content="https://i.loli.net/2018/10/24/5bd06a892dcdb.jpg">
+<meta property="og:updated_time" content="2019-04-06T13:50:40.930Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="内存管理     L20 内存使用与分段">
+<meta name="twitter:description" content="课程总结​    如何管理CPU,多进程图像切换or同步等, 操作系统如何管理内存? 内存如何使用 计算机如何工作 取指-执行-取指-执行-……. 是从内存中取出, 因为使用了内存,才能取出. 内存使用:将程序放到内存中,PC指向开始地址    如何让程序加载到程序中 12345678.text_entry:			//入口地址	call _main	call _exit_main:	...	ret">
+<meta name="twitter:image" content="https://i.loli.net/2018/10/23/5bcf2b03ee289.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Xuwei98'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://xwdidi.com/2018/10/23/2018-10-23-L20内存使用与分段/">
+
+
+
+
+
+  <title>内存管理     L20 内存使用与分段 | 偽のブログ</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">偽のブログ</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://xwdidi.com/2018/10/23/2018-10-23-L20内存使用与分段/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Xuwei98">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="偽のブログ">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">内存管理     L20 内存使用与分段</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-23T01:00:00+09:00">
+                2018-10-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/操作系统/" itemprop="url" rel="index">
+                    <span itemprop="name">操作系统</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/10/23/2018-10-23-L20内存使用与分段/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/10/23/2018-10-23-L20内存使用与分段/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.4k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  5
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="课程总结"><a href="#课程总结" class="headerlink" title="课程总结"></a>课程总结</h2><p>​    如何管理CPU,多进程图像切换or同步等,</p>
+<p>操作系统如何管理内存?</p>
+<h3 id="内存如何使用"><a href="#内存如何使用" class="headerlink" title="内存如何使用"></a>内存如何使用</h3><ol>
+<li><p>计算机如何工作</p>
+<p>取指-执行-取指-执行-…….</p>
+<p>是从内存中取出,</p>
+<p>因为使用了内存,才能取出.</p>
+<p><strong>内存使用</strong>:将程序放到内存中,PC指向开始地址</p>
+</li>
+</ol>
+<ol start="2">
+<li><p>如何让程序加载到程序中</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">.text</span><br><span class="line">_entry:			//入口地址</span><br><span class="line"></span><br><span class="line">	call _main</span><br><span class="line">	call _exit</span><br><span class="line">_main:</span><br><span class="line">	...</span><br><span class="line">	ret</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">_entry://入口地址</span><br><span class="line"></span><br><span class="line">	call 40</span><br><span class="line">	call xx</span><br><span class="line">main://偏移是40</span><br></pre></td></tr></table></figure>
+<p>通过entry跳回到从开头偏移40的main函数,</p>
+<hr>
+<p>编译完放到磁盘中,通过读入磁盘放进内存中.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">内存地址		物理内存</span><br><span class="line">   			...</span><br><span class="line">40 			_main:mov [300],0</span><br><span class="line">			...</span><br><span class="line">   			call xx</span><br><span class="line"> 0 			call 40</span><br></pre></td></tr></table></figure>
+<p>call 40,跳回到40执行通过地址总线发送40,物理地址40的位置就是main函数的第一条命令(也就是入口地址).</p>
+<p>IP = 0,<code>call 40</code>就跳入到了main函数,</p>
+<p>缺点在于,程序起始位置必须放到固定物理内存0地址处.PC指针等于0,才能正确执行.0地址处不一定存在空闲,而且这样的话也容易与新程序冲突.而且0地址开始处放入的是操作系统程序.</p>
+<p><strong>所以</strong>应该把程序放到空闲内存处,如果程序其实地址为1000,那么<code>call 40</code>不应该跳入到40地址处.应该跳入到1040地址处.</p>
+<p>这时候应该<strong>重定位</strong>(PE文件相关知识):修改程序中的地址(是相对地址)(逻辑地址).在程序放入到内存中,将40修改成1040.<code>300</code>必成1300.</p>
+<ul>
+<li><p>什么时候完成重定位?</p>
+<p><u>编译时</u>,不现实,在PC中,需要知道执行时的内存空闲位置几乎不可能知道.然而在一些卫星,嵌入式中(静态系统中),可以实现.不够灵活.编译时重定位的程序只能放在内存固定位置,效率高.</p>
+<p><u>载入时</u>,更容易实现,更灵活,只需要将所有地址都加上基地址的值就可以了.更加灵活.载入时重定位的程序一旦载入内存就不能动了,速度较慢.</p>
+<ul>
+<li><p>程序载入后还需要移动</p>
+<p>交换(swap):内存资源紧张,磁盘较大,磁盘中的虚拟内存和内存进行数据交换</p>
+<p><img src="https://i.loli.net/2018/10/23/5bcf2b03ee289.jpg" alt></p>
+</li>
+</ul>
+<p>所以是<strong>执行每条指令时</strong>进行<strong>重定位</strong>,每执行一条指令都要地址翻译.基地址+偏移地址= 物理地址.(地址翻译)</p>
+<ul>
+<li><p>如何去存放基地址呢? 如何去更换基地址?</p>
+<p>进程中发生的这些变化的依据<u>基地址</u>都放在进程的PCB中,基地址会随着加载内存地址的改变而改变.</p>
+<p>执行指令时第一步先从PCB中取出这个基地址.</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h4 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h4><p>   编译好程序 </p>
+<p>   在内存中寻找空闲内存,创建进程,PCB</p>
+<p>   将空闲地址放入到PCB中,</p>
+<p>   基地址放在基地址寄存器中.switch_to()时,也切换PCB.</p>
+<pre><code>可执行程序找到空闲内存,拿出基地址放入PCB中,然后放入到这段空闲内存中,上下文切换时,PCB的基地址等于基地址寄存器的值,每次地址执行时,都要进行地址翻译,寻找到物理地址,执行.
+</code></pre><ol>
+<li>假设执行<code>mov ax,[100]</code></li>
+</ol>
+<ul>
+<li>PCB中基地址赋值给寄存器,从寄存器取出地址后,要访问100这个地址,通过地址翻译(基地址+100),找到实际的地址.得到该处数据.</li>
+</ul>
+<ol start="2">
+<li>执行switch</li>
+</ol>
+<ul>
+<li><p>然后将进程2的PCB中的基地址写入到基地址寄存器中.2000变为1000.再执行<code>mov ax,[100]</code>,就去访问了1100.</p>
+<p><img src="https://i.loli.net/2018/10/23/5bcf335525a5c.jpg" alt></p>
+</li>
+</ul>
+<h3 id="引入分段"><a href="#引入分段" class="headerlink" title="引入分段"></a>引入分段</h3><p>是将整个程序载入到内存中吗?</p>
+<p>程序是由若干段组成的,堆(.heap),栈(.heap),代码区,初始化数据段,未初始化数据段.</p>
+<p>符合用户观点,独立考虑每个段的特点,用途(分治)可以通过&lt;段号.段内偏移&gt;访问.例如<code>mov [es:bx],ax</code>. 如果所有程序全放在一起,是无法分小段载入.</p>
+<h4 id="不是将整个程序，是将各段分别放入内存"><a href="#不是将整个程序，是将各段分别放入内存" class="headerlink" title="不是将整个程序，是将各段分别放入内存"></a>不是将整个程序，是将各段分别放入内存</h4><p>​    如果不是分段存储,而是整段放入的话.栈是会持续增长的,如果存储空间不够,需要申请新的较大内存空间,然后再将原数据拷贝到那,此时会造成二者空间皆不可用造成内存的浪费.</p>
+<p>​    如果分段放入,只需要移动单一的栈存储空间,提高了内存的使用率,也符合了人们的使用习惯</p>
+<p>指令: <code>&lt;段号.段内偏移&gt;</code></p>
+<p>当然这也会造成各段基地址不一样, 所以需要通过查询<strong>段表</strong>来记录每个段相应的基地 址. </p>
+<p>比如之前<code>jmp 0, 8</code>通过0去查询gdt表获得基地址CS&lt;&lt;4+ip 采用保护模式寻址，cs=8用来查GDT表，表内偏移为0;然而GDT的表是处理操作系统的.每个进程有自己的段表<strong>LDT</strong>.</p>
+<p>所以最后采用GDT+LDT的寻址方式,获得自己的基地址处.每次进行地址翻译时,根据LDT表中的段地址进行查询.</p>
+<p><img src="https://i.loli.net/2018/10/24/5bd06a892dcdb.jpg" alt></p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>一个程序多个段,然后每个段在内存中找到内存空闲处,将基地址放入到LDT表中,LDT查询表是由多个LDT表线性组成,</p>
+<p>初始化LDT表后,</p>
+<p>赋值给PCB,</p>
+<p>设好初始地址,</p>
+<p>PC指针取值执行,每次执行时,进行查表查找基地址,然后找到物理地址.</p>
+<p>就能进行相关操作了.</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/操作系统/" rel="tag"># 操作系统</a>
+          
+            <a href="/tags/汇编/" rel="tag"># 汇编</a>
+          
+            <a href="/tags/内存/" rel="tag"># 内存</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/10/19/2018-10-19-实验-进程运行轨迹的跟踪与统计/" rel="next" title="进程运行轨迹的跟踪与统计">
+                <i class="fa fa-chevron-left"></i> 进程运行轨迹的跟踪与统计
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/10/25/2018-10-25-L21内存分区与分页/" rel="prev" title="内存管理   L21 内存分区与分页">
+                内存管理   L21 内存分区与分页 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="Xuwei98">
+            
+              <p class="site-author-name" itemprop="name">Xuwei98</p>
+              <p class="site-description motion-element" itemprop="description">圈地自萌,自娱自乐</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">51</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">31</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/Xuwei98" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:z1002280879@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+<br>
+<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=1350129459&auto=1&height=66"></iframe>
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#课程总结"><span class="nav-number">1.</span> <span class="nav-text">课程总结</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#内存如何使用"><span class="nav-number">1.1.</span> <span class="nav-text">内存如何使用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#小结"><span class="nav-number">1.1.1.</span> <span class="nav-text">小结</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#引入分段"><span class="nav-number">1.2.</span> <span class="nav-text">引入分段</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#不是将整个程序，是将各段分别放入内存"><span class="nav-number">1.2.1.</span> <span class="nav-text">不是将整个程序，是将各段分别放入内存</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">1.3.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Xuwei98</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">47.7k</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://xuwei98.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://xwdidi.com/2018/10/23/2018-10-23-L20内存使用与分段/';
+          this.page.identifier = '2018/10/23/2018-10-23-L20内存使用与分段/';
+          this.page.title = '内存管理     L20 内存使用与分段';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://xuwei98.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
