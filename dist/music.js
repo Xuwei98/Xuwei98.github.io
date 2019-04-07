@@ -5,7 +5,7 @@ const ap = new APlayer({
     audio: [{
             name: 'For you',
             artist: 'Androp',
-            url: 'https://link.hhtjim.com/163/1347159126.mp3',
+            url: 'foryou-androp.mp3',
             cover: 'http://www.littleoslo.com/lyj/home/wp-content/uploads/2018/11/koi-450x450.jpg'
         }]
 });
