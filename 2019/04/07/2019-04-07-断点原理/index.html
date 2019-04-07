@@ -89,7 +89,7 @@
 <meta property="og:site_name" content="偽のブログ">
 <meta property="og:description" content="CC断点F2断点.\ 设置无数个. 将断下的指令地址处的第一个字节设置为0xCC 0xCC对应int3,专门用来调试的中断指令. 触发EXCEPTION_BREAKPOINT的异常,进行相应的处理 检测检测首地址是否为CCH 内存断点或者是PAGE_GUARD  A: 内存访问断点，OD将目标内存所在的页面（范围圆整为1000h的倍数）设置为PAGE_NOACCESS，当被调试程序对这个内存进行任">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-04-07T05:02:27.384Z">
+<meta property="og:updated_time" content="2019-04-07T08:11:24.797Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="2019-04-07-断点原理">
 <meta name="twitter:description" content="CC断点F2断点.\ 设置无数个. 将断下的指令地址处的第一个字节设置为0xCC 0xCC对应int3,专门用来调试的中断指令. 触发EXCEPTION_BREAKPOINT的异常,进行相应的处理 检测检测首地址是否为CCH 内存断点或者是PAGE_GUARD  A: 内存访问断点，OD将目标内存所在的页面（范围圆整为1000h的倍数）设置为PAGE_NOACCESS，当被调试程序对这个内存进行任">
@@ -303,7 +303,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-07T13:33:23+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-07T14:33:23+09:00">
                 2019-04-07
               </time>
             
@@ -372,7 +372,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  292
+                  372
                 </span>
               
 
@@ -426,7 +426,16 @@
 <p>四个寄存器 最多四个断点.</p>
 <p>DR7是控制位,控制断点方式.DR6显示断点原因</p>
 <p><strong><a href="https://www.pediy.com/kssd/pediy06/pediy6751.htm" target="_blank" rel="noopener">学习大佬的文章</a></strong></p>
-
+<h3 id="单步执行"><a href="#单步执行" class="headerlink" title="单步执行"></a>单步执行</h3><ol>
+<li><p>通过调试符号获取当前对应的行信息, 并保存该信息.</p>
+</li>
+<li><p>设置TF位, 开始CPU的单步执行,产生单步异常</p>
+</li>
+<li><p>处理单步执行异常程序,TF置为0 </p>
+</li>
+</ol>
+<pre><code>等读完张银奎老师的软件调试再来做细致修改和改正
+</code></pre>
       
     </div>
     
@@ -635,7 +644,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#CC断点"><span class="nav-number">1.</span> <span class="nav-text">CC断点</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#检测"><span class="nav-number">1.1.</span> <span class="nav-text">检测</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#内存断点"><span class="nav-number">2.</span> <span class="nav-text">内存断点</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#检测-1"><span class="nav-number">2.1.</span> <span class="nav-text">检测</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#反反内存断点"><span class="nav-number">2.2.</span> <span class="nav-text">反反内存断点</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#硬件断点"><span class="nav-number">3.</span> <span class="nav-text">硬件断点</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#CC断点"><span class="nav-number">1.</span> <span class="nav-text">CC断点</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#检测"><span class="nav-number">1.1.</span> <span class="nav-text">检测</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#内存断点"><span class="nav-number">2.</span> <span class="nav-text">内存断点</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#检测-1"><span class="nav-number">2.1.</span> <span class="nav-text">检测</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#反反内存断点"><span class="nav-number">2.2.</span> <span class="nav-text">反反内存断点</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#硬件断点"><span class="nav-number">3.</span> <span class="nav-text">硬件断点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#单步执行"><span class="nav-number">4.</span> <span class="nav-text">单步执行</span></a></li></ol></div>
             
 
           </div>
@@ -669,7 +678,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">48k</span>
+    <span title="Site words total count">48.1k</span>
   
 </div>
 
