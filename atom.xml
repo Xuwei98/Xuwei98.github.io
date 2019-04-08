@@ -69,33 +69,6 @@
   </entry>
   
   <entry>
-    <title>语言复习       查漏补缺 不定时更新</title>
-    <link href="http://xwdidi.com/2019/03/15/2019-3-13-%E8%AF%AD%E8%A8%80%E8%A6%81%E7%82%B9%E5%A4%8D%E4%B9%A0/"/>
-    <id>http://xwdidi.com/2019/03/15/2019-3-13-语言要点复习/</id>
-    <published>2019-03-14T16:00:00.000Z</published>
-    <updated>2019-04-06T13:57:51.265Z</updated>
-    
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="语言要点复习"><a href="#语言要点复习" class="headerlink" title="语言要点复习"></a>语言要点复习</h1><h3 id="内存区域"><a href="#内存区域" class="headerlink" title="内存区域"></a>内存区域</h3><h4 id="bss段"><a href="#bss段" class="headerlink" title=".bss段"></a>.bss段</h4><p> (block started by symbol segmengt) 符号段块的起始位置</p><p>只存在于运行在内存中的可执行文件中.保存程序的起始地址和结束地址.不存在于硬盘的二进制文件中</p><p>因为一般用来存放未初始化的全局变量和静态变量,在程序之行开始时,这段区域的未初始化的都会被初始化为0,</p><p>以便内存区能在运行时分配并被有效地清零.不同架构可能有不同的方法.</p><p>.bss段从可执行文件中得到,链接器得到这个段大小的内存块,紧跟在数据段之后.</p><h4 id="data-段"><a href="#data-段" class="headerlink" title=".data 段"></a>.data 段</h4><p>data segment数据段,存放初始化好的全局变量,静态变量.</p><p>这个位置通常属于只读的.静态常量区.</p><p><code>char *a = &quot;Windows&quot;</code>,这个Windows字符串属于.data段,只读属性.如果运行<code>*a = &#39;a&#39;</code>会造成访问冲突.</p><p>大小在编译链接时自动分配.和全局变量,静态变量,常量有关</p><p>.bss+.data=静态存储区.存放静态变量 全局变量 常量(常变量,字符串常量)已经初始化,不可被修改</p><p>局部变量通过指针,引用访问和修改.</p><p>全局变量在静态存储区不可以被间接修改.</p><h4 id="text-段"><a href="#text-段" class="headerlink" title=".text 段"></a>.text 段</h4><p>程序代码段, 存放二进制代码,编译后是静态不可变的.</p><p>为什么要设置这个段呢.程序语言文本是只读的,数据不是.每次加载代码,会固定加载到内存中.减少内存的使用,增加的内存的复用.</p><h4 id="stack-栈"><a href="#stack-栈" class="headerlink" title="stack 栈"></a>stack 栈</h4><p>堆栈,存放局部变量的区域,使用<code>push</code>指令压栈.调用函数执行<code>call</code>前,参数压栈,函数返回结果也会压栈放回.</p><p>VS默认栈为1M,64bits的linux栈默认10mb.</p><h4 id="heap-堆"><a href="#heap-堆" class="headerlink" title="heap 堆"></a>heap 堆</h4><p>FIFO的数据结构.用来保障函数内存分布.</p><p>malloc new 申请</p><p>free delete 删除对重指定信息</p><p>malloc 放回void* ,new返回类型指针,并执行构造函数</p><h3 id="静态变量"><a href="#静态变量" class="headerlink" title="静态变量"></a>静态变量</h3><p>存储在静态存储区,在整个程序运行期间一直占据这些空间. 内存地址是不变的.不过不能在作用域外使用.</p><p>所有全局变量都是静态变量,而局部变量只有定义时加上static修饰符,才能成为局部静态变量.</p><p>不会随着函数的启动和结束而消失.</p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">char</span> *<span class="title">strA</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">char</span> str[] = <span class="string">"hello"</span>;</span><br><span class="line">    <span class="keyword">return</span> str;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">char</span> *<span class="title">strA</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">char</span> str* = <span class="string">"hello"</span>;<span class="comment">//字符串位于常量区,处于静态存储区.生命周期内恒定不变的.无法被改变</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> str;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h4 id="指针"><a href="#指针" class="headerlink" title="指针"></a>指针</h4><p><code>int c[2][3]</code> 表示数组c有两组3个数字的数组.</p><p><code>c</code>表示数组首地址 表示的是二维数组行指针</p><p><code>*c</code>第一行元素的首地址,是一维指针,是二维数组的列指针.</p><p><code>**c</code>取第一个元素的值.</p><p><code>char (*str)[20]</code>数组指针.执行数组元素的指针</p><p><code>char *str[20]</code>指针数组,数组成员为<code>char *</code>指针</p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span>  <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> arr[] = &#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span>&#125;;</span><br><span class="line">    <span class="keyword">int</span> *p=arr;<span class="comment">//首个元素的首地址</span></span><br><span class="line">    </span><br><span class="line">    *(p++)+=<span class="number">123</span>;<span class="comment">//计算完成后 指向第二个元素</span></span><br><span class="line">    </span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d,%d\n"</span>, *p,*(++p)); <span class="comment">//参数从左往右看,此时p指向第三个元素</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>这是没有返回值,没有参数的函数</p><p><code>void f(void)</code></p><p>这是一个指向函数的指针,该函数没有返回值和参数</p><p><code>void(*p)(void)</code></p><p>上述指针的类型</p><p><code>void (*)(void)</code></p><p>对该类型的强制转换</p><p><code>(void (*)(void))</code></p><p>对该类型的强制转换</p><p><code>(void (*)(void))0</code></p><h4 id="让程序跳转到绝对地址是0x100000去执行"><a href="#让程序跳转到绝对地址是0x100000去执行" class="headerlink" title="让程序跳转到绝对地址是0x100000去执行"></a>让程序跳转到绝对地址是0x100000去执行</h4><p><code>((void (*)())0x100000)()</code></p><h3 id="const-static"><a href="#const-static" class="headerlink" title="const static"></a>const static</h3><h4 id="先说const"><a href="#先说const" class="headerlink" title="先说const"></a>先说const</h4><p>const 是表示常量的标识符.</p><p>const char * A  A指针指向的变量是不可变的</p><p>char const *A    和上述一样</p><p>char *const A    指针本身是不可变的,所以必须被初始化.而变量可以改变</p><h4 id="static-标识符"><a href="#static-标识符" class="headerlink" title="static 标识符"></a>static 标识符</h4><ul><li><p>如果在全局变量加上static,被限定了作用域,只能在该源文件中使用.从而保证了在其他源文件中不被使用.只被初始化一次.</p><p>改变了作用域和使用范围</p></li><li><p>给局部变量加上的static的话,在局部函数结束后不会消失,且是最新的状态.</p><p>只被初始化一次</p><p>(编译器在该目标编译单元内只有该函数的入口地址,没有函数名,其他编译单元不能通过函数名调用该函数,)</p><p>随着程序结束而消失</p></li><li><p>static函数在内存中只存在一份,普通函数存在复数拷贝</p></li><li><p>类的成员函数中加上,该类的对象同时共用这一个成员函数,成员变量也是.</p></li></ul><h3 id="面向对象"><a href="#面向对象" class="headerlink" title="面向对象"></a>面向对象</h3><p>多态:<a href="https://zh.wikipedia.org/wiki/%E5%A4%9A%E5%9E%8B_(%E7%89%A9%E4%BB%B6%E5%B0%8E%E5%90%91%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88" target="_blank" rel="noopener">多态</a>)（Polymorphism）是指由继承而产生的相关的不同的类，其对象对同一消息会做出不同的响应<a href="https://zh.wikipedia.org/wiki/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1#cite_note-8" target="_blank" rel="noopener">[8]</a></p><p><a href="https://zh.wikipedia.org/wiki/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1" target="_blank" rel="noopener">https://zh.wikipedia.org/wiki/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1</a></p><p>很有意思的讲解</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;\assets\css\APlayer.min.css&quot;&gt;&lt;script src=&quot;\assets\js\APlayer.min.js&quot; cla
-      
-    
-    </summary>
-    
-      <category term="操作系统" scheme="http://xwdidi.com/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
-    
-    
-      <category term="复习" scheme="http://xwdidi.com/tags/%E5%A4%8D%E4%B9%A0/"/>
-    
-      <category term="基础" scheme="http://xwdidi.com/tags/%E5%9F%BA%E7%A1%80/"/>
-    
-  </entry>
-  
-  <entry>
     <title>设备驱动与文件系统   L30 文件使用的磁盘的实现</title>
     <link href="http://xwdidi.com/2019/03/04/2019-03-04-L30-%E6%96%87%E4%BB%B6%E4%BD%BF%E7%94%A8%E7%A3%81%E7%9B%98%E7%9A%84%E5%AE%9E%E7%8E%B0/"/>
     <id>http://xwdidi.com/2019/03/04/2019-03-04-L30-文件使用磁盘的实现/</id>
@@ -577,6 +550,35 @@
       <category term="汇编" scheme="http://xwdidi.com/tags/%E6%B1%87%E7%BC%96/"/>
     
       <category term="内存" scheme="http://xwdidi.com/tags/%E5%86%85%E5%AD%98/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>进程运行轨迹的跟踪与统计</title>
+    <link href="http://xwdidi.com/2018/10/19/2018-10-19-%E5%AE%9E%E9%AA%8C-%E8%BF%9B%E7%A8%8B%E8%BF%90%E8%A1%8C%E8%BD%A8%E8%BF%B9%E7%9A%84%E8%B7%9F%E8%B8%AA%E4%B8%8E%E7%BB%9F%E8%AE%A1/"/>
+    <id>http://xwdidi.com/2018/10/19/2018-10-19-实验-进程运行轨迹的跟踪与统计/</id>
+    <published>2018-10-18T16:00:00.000Z</published>
+    <updated>2019-04-06T13:50:33.151Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p><a href="https://www.shiyanlou.com/courses/115/labs/570/document" target="_blank" rel="noopener">实验指导</a></p><p><a href="http://www.oldlinux.org/download/clk011c-3.0.pdf" target="_blank" rel="noopener">linux内核完全注释</a></p><p>今天简单跟着实验楼的操作系统原理与实践,第四个进程轨迹的跟踪.</p><p>实际上难点的在于是如何去判断切换点的位置所在,然后进行输出就行醒了,这对于源码的理解变得更加深层,当然这可以通过读书去了解 读&lt;&lt;linux内核完全注释&gt;&gt;,经过代码注释能很好理解相关内核函数的运行.</p><p>这个实验自己做的话,bochs系统没有启动成功虚拟机里,实验楼环境里也是,</p><p>最后做出来了,原因是函数中加载文件描述符的一行没有写进去,.,</p><p>通过修改main.c 启动进程,修改文件加载符的位置,和打开文件流,进行输入输出. 通过阅读代码获知进程改变时的位置在那进行添加记录代码,</p><p>试一次较为比较有深度的试验探索了</p><blockquote><p>总的来说，Linux 0.11支持四种进程状态的转移：就绪到运行、运行到就绪、运行到睡眠和睡眠到就绪，此外还有新建和退出两种情况。其中就绪与运行间的状态转移是通过schedule()（它亦是调度算法所在）完成的；运行到睡眠依靠的是sleep_on()和interruptible_sleep_on()，还有进程主动睡觉的系统调用sys_pause()和sys_waitpid()；睡眠到就绪的转移依靠的是wake_up()。所以只要在这些函数的适当位置插入适当的处理语句就能完成进程运行轨迹的全面跟踪了。</p></blockquote><p>睡眠其实就是堵塞状态.</p><p>希望这个实验我能去更加好的理解源码.</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;\assets\css\APlayer.min.css&quot;&gt;&lt;script src=&quot;\assets\js\APlayer.min.js&quot; cla
+      
+    
+    </summary>
+    
+      <category term="操作系统实验" scheme="http://xwdidi.com/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AE%9E%E9%AA%8C/"/>
+    
+    
+      <category term="操作系统" scheme="http://xwdidi.com/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
+    
+      <category term="内核修改" scheme="http://xwdidi.com/tags/%E5%86%85%E6%A0%B8%E4%BF%AE%E6%94%B9/"/>
+    
+      <category term="实验" scheme="http://xwdidi.com/tags/%E5%AE%9E%E9%AA%8C/"/>
     
   </entry>
   
