@@ -89,12 +89,12 @@
 <meta property="og:site_name" content="偽のブログ">
 <meta property="og:description" content="CC断点F2断点.\ 设置无数个. 将断下的指令地址处的第一个字节设置为0xCC 0xCC对应int3,专门用来调试的中断指令. 触发EXCEPTION_BREAKPOINT的异常,进行相应的处理 检测检测首地址是否为CCH 内存断点或者是PAGE_GUARD  A: 内存访问断点，OD将目标内存所在的页面（范围圆整为1000h的倍数）设置为PAGE_NOACCESS，当被调试程序对这个内存进行任">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://img-blog.csdn.net/20170701171801683?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvY2hlbjE1NDA1MjQwMTU=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
-<meta property="og:updated_time" content="2019-04-11T12:53:08.381Z">
+<meta property="og:image" content="https://i.loli.net/2019/04/11/5caf398fae53c.png">
+<meta property="og:updated_time" content="2019-04-11T12:58:24.898Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="2019-04-07-断点原理">
 <meta name="twitter:description" content="CC断点F2断点.\ 设置无数个. 将断下的指令地址处的第一个字节设置为0xCC 0xCC对应int3,专门用来调试的中断指令. 触发EXCEPTION_BREAKPOINT的异常,进行相应的处理 检测检测首地址是否为CCH 内存断点或者是PAGE_GUARD  A: 内存访问断点，OD将目标内存所在的页面（范围圆整为1000h的倍数）设置为PAGE_NOACCESS，当被调试程序对这个内存进行任">
-<meta name="twitter:image" content="https://img-blog.csdn.net/20170701171801683?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvY2hlbjE1NDA1MjQwMTU=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta name="twitter:image" content="https://i.loli.net/2019/04/11/5caf398fae53c.png">
 
 
 
@@ -448,7 +448,7 @@
 <li>当指定任务被调度执行到中断调试器时. IA32CPU切换到一个新的任务时,检查存在于GDT中的TSS描述符的T标志位,若为1,啧产生调试异常</li>
 </ul>
 <p>​    TSS任务状态段</p>
-<p><img src="https://img-blog.csdn.net/20170701171801683?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvY2hlbjE1NDA1MjQwMTU=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="TSS"></p>
+<p><img src="https://i.loli.net/2019/04/11/5caf398fae53c.png" alt="TSS"></p>
 <p>​    切换进程更新动态字段:</p>
 <ol>
 <li>通用寄存器字段—任务切换之前，EAX,ECX,EDX,EBX,ESP,EBP,ESI,EDI寄存器状态。 </li>
