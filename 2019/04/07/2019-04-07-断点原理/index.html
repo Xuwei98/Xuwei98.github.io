@@ -90,7 +90,7 @@
 <meta property="og:description" content="CC断点F2断点.\ 设置无数个. 将断下的指令地址处的第一个字节设置为0xCC 0xCC对应int3,专门用来调试的中断指令. 触发EXCEPTION_BREAKPOINT的异常,进行相应的处理 检测检测首地址是否为CCH 内存断点或者是PAGE_GUARD  A: 内存访问断点，OD将目标内存所在的页面（范围圆整为1000h的倍数）设置为PAGE_NOACCESS，当被调试程序对这个内存进行任">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://i.loli.net/2019/04/11/5caf398fae53c.png">
-<meta property="og:updated_time" content="2019-04-11T12:58:24.898Z">
+<meta property="og:updated_time" content="2019-04-11T13:01:09.786Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="2019-04-07-断点原理">
 <meta name="twitter:description" content="CC断点F2断点.\ 设置无数个. 将断下的指令地址处的第一个字节设置为0xCC 0xCC对应int3,专门用来调试的中断指令. 触发EXCEPTION_BREAKPOINT的异常,进行相应的处理 检测检测首地址是否为CCH 内存断点或者是PAGE_GUARD  A: 内存访问断点，OD将目标内存所在的页面（范围圆整为1000h的倍数）设置为PAGE_NOACCESS，当被调试程序对这个内存进行任">
@@ -445,11 +445,10 @@
 </li>
 </ul>
 <ul>
-<li>当指定任务被调度执行到中断调试器时. IA32CPU切换到一个新的任务时,检查存在于GDT中的TSS描述符的T标志位,若为1,啧产生调试异常</li>
-</ul>
-<p>​    TSS任务状态段</p>
-<p><img src="https://i.loli.net/2019/04/11/5caf398fae53c.png" alt="TSS"></p>
-<p>​    切换进程更新动态字段:</p>
+<li><p>当指定任务被调度执行到中断调试器时. IA32CPU切换到一个新的任务时,检查存在于GDT中的TSS描述符的T标志位,若为1,啧产生调试异常</p>
+<p>  TSS任务状态段</p>
+<p>  <img src="https://i.loli.net/2019/04/11/5caf398fae53c.png" alt="TSS"></p>
+<p>  切换进程更新动态字段:</p>
 <ol>
 <li>通用寄存器字段—任务切换之前，EAX,ECX,EDX,EBX,ESP,EBP,ESI,EDI寄存器状态。 </li>
 <li>段选择符字段—任务切换之前，ES,CS,SS,DS,FS,GS寄存器保存的段选择符。 </li>
@@ -457,6 +456,8 @@
 <li>EIP字段—任务切换之前，EIP寄存器的状态。</li>
 <li>先前任务链接字段—包含先前任务的TSS的段选择符。该字段禁止任务通过使用IRET指令返回先前的任务。 </li>
 </ol>
+</li>
+</ul>
 <p>​     </p>
 <p>​     </p>
 <pre><code>等读完张银奎老师的软件调试再来做细致修改和改正    
