@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://xwdidi.com/"/>
-  <updated>2019-04-11T13:01:09.786Z</updated>
+  <updated>2019-05-24T15:08:01.071Z</updated>
   <id>http://xwdidi.com/</id>
   
   <author>
@@ -17,11 +17,11 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>2019-04-07-断点原理</title>
+    <title>断点原理</title>
     <link href="http://xwdidi.com/2019/04/07/2019-04-07-%E6%96%AD%E7%82%B9%E5%8E%9F%E7%90%86/"/>
     <id>http://xwdidi.com/2019/04/07/2019-04-07-断点原理/</id>
     <published>2019-04-07T05:33:23.000Z</published>
-    <updated>2019-04-11T13:01:09.786Z</updated>
+    <updated>2019-05-24T15:08:01.071Z</updated>
     
     <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h3 id="CC断点"><a href="#CC断点" class="headerlink" title="CC断点"></a>CC断点</h3><p>F2断点.\</p><p>设置无数个.</p><p>将断下的指令地址处的第一个字节设置为0xCC</p><p>0xCC对应<code>int3</code>,专门用来调试的中断指令.</p><p>触发EXCEPTION_BREAKPOINT的异常,进行相应的处理</p><h4 id="检测"><a href="#检测" class="headerlink" title="检测"></a>检测</h4><p>检测首地址是否为CCH</p><h3 id="内存断点"><a href="#内存断点" class="headerlink" title="内存断点"></a>内存断点</h3><p>或者是<code>PAGE_GUARD</code></p><blockquote><p>A: 内存访问断点，OD将目标内存所在的页面（范围圆整为1000h的倍数）设置为PAGE_NOACCESS，当被调试程序对这个内存进行任何“读、写或运行”操作时，都会触发异常。</p><p>B: 内存写入断点，OD将目标内存所在的页面（范围圆整为1000h的倍数）设置为PAGE_EXECUTE_READ，当被调试程序对这个内存进行“写”操作时触发异常。</p></blockquote><h4 id="检测-1"><a href="#检测-1" class="headerlink" title="检测"></a>检测</h4><p>我们使用VirtualProtectEx进行内存页修改,通过GetLastError获取到的值进行判断,进行相关处理</p><h4 id="反反内存断点"><a href="#反反内存断点" class="headerlink" title="反反内存断点"></a>反反内存断点</h4><p>VirtualQuery，VirtualQueryEx，VirtualProtect，VirtualProtectEx</p><h3 id="硬件断点"><a href="#硬件断点" class="headerlink" title="硬件断点"></a>硬件断点</h3><p>利用CPU自带的调试寄存器DR0-DR3设置硬件断点,产生SINGLE_STEP异常.</p><p>四个寄存器 最多四个断点.</p><p>DR7是控制位,控制断点方式.DR6显示断点原因</p><p><strong><a href="https://www.pediy.com/kssd/pediy06/pediy6751.htm" target="_blank" rel="noopener">学习大佬的文章</a></strong></p><h3 id="单步执行"><a href="#单步执行" class="headerlink" title="单步执行"></a>单步执行</h3><ul><li><ol><li>通过调试符号获取当前对应的行信息, 并保存该信息.</li><li>设置TF位, 开始CPU的单步执行,产生调试异常(int 1),中断到调试器</li><li>处理单步执行异常程序,TF置为0 </li></ol></li><li><p>执行源码调试,通过多次汇编一级的单步执行实现</p><p>通过符号文件判断是否为当行源码,若是的话,立即设置单步执行标志位继续执行,.直到ip不为当行源码.</p></li></ul><ul><li><p>程序分支</p><p>DbgCtl MSR寄存器的BTF标志,再设置TF.则可以执行到下一个分支指令触发调试异常</p></li></ul><ul><li><p>当指定任务被调度执行到中断调试器时. IA32CPU切换到一个新的任务时,检查存在于GDT中的TSS描述符的T标志位,若为1,啧产生调试异常</p><p>  TSS任务状态段</p><p>  <img src="https://i.loli.net/2019/04/11/5caf398fae53c.png" alt="TSS"></p><p>  切换进程更新动态字段:</p><ol><li>通用寄存器字段—任务切换之前，EAX,ECX,EDX,EBX,ESP,EBP,ESI,EDI寄存器状态。 </li><li>段选择符字段—任务切换之前，ES,CS,SS,DS,FS,GS寄存器保存的段选择符。 </li><li>EFLAGS寄存器字段—任务切换之前，EFAGS寄存器的状态。</li><li>EIP字段—任务切换之前，EIP寄存器的状态。</li><li>先前任务链接字段—包含先前任务的TSS的段选择符。该字段禁止任务通过使用IRET指令返回先前的任务。 </li></ol></li></ul><p>​     </p><p>​     </p><pre><code>等读完张银奎老师的软件调试再来做细致修改和改正    </code></pre>]]></content>
     
@@ -272,7 +272,7 @@
     <link href="http://xwdidi.com/2018/12/04/2018-12-04-L25%E5%86%85%E5%AD%98%E6%8D%A2%E5%87%BA/"/>
     <id>http://xwdidi.com/2018/12/04/2018-12-04-L25内存换出/</id>
     <published>2018-12-03T16:00:00.000Z</published>
-    <updated>2019-04-06T13:54:36.261Z</updated>
+    <updated>2019-05-24T15:02:02.673Z</updated>
     
     <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>换入换出是合在一起进行的.</p><p>换入的目的,实现虚拟内存. 有换入就必须有换出,只有换出空出的新的空闲区域,才能放入新的数据.</p><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>主要讲算法.</p><blockquote><p>有换入就应该有换出</p></blockquote><p><code>page = get_free_page();</code></p><p><code>bread_page(page,current-&gt;excutable-&gt;i_dev,nr)</code></p><p>并不能粽是获得新的页,内存也是有限的</p><ul><li><h3 id="需要选择一页淘汰-换出到磁盘-选择哪一页-尝试"><a href="#需要选择一页淘汰-换出到磁盘-选择哪一页-尝试" class="headerlink" title="需要选择一页淘汰,换出到磁盘,选择哪一页?尝试"></a>需要选择一页淘汰,换出到磁盘,选择哪一页?尝试</h3></li></ul><h3 id="尝试"><a href="#尝试" class="headerlink" title="尝试"></a>尝试</h3><h4 id="1-FIFO"><a href="#1-FIFO" class="headerlink" title="1. FIFO"></a>1. FIFO</h4><p>FIFO(先入先出)页面置换.</p><p>实例介绍:分配了3个页框</p><p>每个页换入换出都不合时宜,太过于机械,大多数时间都浪费在I/O中.</p><p>缺页次数应该少.判断使用次数,最少的换出去.</p><p><img src="https://i.loli.net/2018/12/04/5c0688cbad61e.jpg" alt></p><p>产生七次缺页</p><h4 id="2-MIN算法："><a href="#2-MIN算法：" class="headerlink" title="2. MIN算法："></a>2. MIN算法：</h4><p>选最远将使用的页淘汰，是最优方案</p><p><img src="https://i.loli.net/2018/12/04/5c06867d65d76.jpg" alt></p><p>五次换页,</p><p>MIN需要知道将来发生的事…怎么办.</p><h3 id="3-LRU"><a href="#3-LRU" class="headerlink" title="3. LRU"></a>3. LRU</h3><p>least recent use 最近最少使用</p><p>用过去的历史预测将来/</p><p>选取最近最长一段时间没有使用的页淘汰(最近最少使用的页)</p><p>程序具有局部性的特点,这样算法会有较大的适应性</p><p> <img src="https://i.loli.net/2018/12/05/5c0795020db27.png" alt="1544000727828"></p><p>### </p><h3 id="1-LRU的准确实现-使用时间戳"><a href="#1-LRU的准确实现-使用时间戳" class="headerlink" title="1. LRU的准确实现,使用时间戳"></a>1. LRU的准确实现,使用时间戳</h3><p>通过对使用的页,每次使用时,增加时间戳.时间戳上显示使用该页的最后时间 .</p><p>若要进行换页选择时间戳最小的页换出.</p><p>根据查出来的逻辑页,需要去维护时间戳.每执行一条指令(取址执行),修改每个页的时间戳.同时要处理.时间戳存在溢出的危险,</p><p><img src="https://i.loli.net/2018/12/05/5c079b48f15a3.jpg" alt></p><blockquote><p>每次地址访问都需要修改时间戳，需维护一个全局时钟，需找到最小值..实现代价较大</p></blockquote><h3 id="2-若采用页码查找"><a href="#2-若采用页码查找" class="headerlink" title="2. 若采用页码查找"></a>2. 若采用页码查找</h3><p>在栈的顶部总是保留最近使用的页.</p><p>换页时,选择栈底页淘汰. </p><p><img src="https://i.loli.net/2018/12/05/5c079d2a0d887.jpg" alt></p><h3 id="3-LRU近似实现-将时间计数变为是和否"><a href="#3-LRU近似实现-将时间计数变为是和否" class="headerlink" title="3. LRU近似实现-将时间计数变为是和否"></a>3. LRU近似实现-将时间计数变为是和否</h3><p>不做时间戳,进计数,</p><ul><li><p>在每个页加一个引用位,访问过这一页这个数置为1</p></li><li><p>二次机会算法.Clock Algorithm</p><p><img src="https://i.loli.net/2018/12/05/5c07a570759d5.jpg" alt></p><p>进行扫描,访问过的位的数若为1,则置为0,不淘汰.</p><p>如果遇到0时,则被淘汰.  </p><p>1代表最近访问过, 而如果之前再次扫描到被置为0的那个页,则代表了在扫描的时间内没有被访问,则被替换出去.</p><p>为什么说是近似实现呢,最近没有使用是最近最少使用的近似.</p><p>只需要修改一个数,能减少操作数.因为要查页表,MMU直接自动的把R置成1，R可以直接放到页表项中，MMU自动做，不用去维护复杂的数据结构。</p></li></ul><h4 id="Clock算法的分析与改造"><a href="#Clock算法的分析与改造" class="headerlink" title="Clock算法的分析与改造"></a>Clock算法的分析与改造</h4><p>效率高，代价小。</p><p>然而: 如果缺页很少，会</p><p>导致很少从1置为0,会被一直访问,R全为1.如果全为1,扫描后全变为0,一圈后则会将初始的那页换出去,指针指向下一个.下一个与前面的过程相同,然后被换出.算法就变为了按顺序换出,不就是FIFO吗?</p><p>R记录了太长的历史信息,退化为FIFO.所以我们定时清除R位.再来个扫描指针</p><p><img src="https://i.loli.net/2018/12/05/5c07ac294d762.jpg" alt></p><p>缺页导致指针转的太慢,用扫描指针清零.被清零后又没被使用,仍然为0,则他会被调出.</p><h4 id="那么该给进程分配多少页框呢-物理内存"><a href="#那么该给进程分配多少页框呢-物理内存" class="headerlink" title="那么该给进程分配多少页框呢(物理内存)"></a>那么该给进程分配多少页框呢(物理内存)</h4><ul><li><p>分配过多,请求调页导致的内存高效就没了.</p></li><li><p>分配太少呢?<img src="https://i.loli.net/2018/12/05/5c07ad64b5d0f.jpg" alt></p><p>这一现象被称为颠簸.</p><p>原因解释：</p><p><strong>系统内进程增多&gt;每个进程的缺页率增大&gt;缺页率增大到一定程度，进程总等待调页完成&gt;</strong><br><strong>CPU利用率降低&gt;进程进一步增多，缺页率更大…</strong></p></li></ul><p>所以分配的局部,需要覆盖一个局部(通过某种算法求得的”工作集”),也可以通过动态调整页框数量,减少颠簸.</p><p>如果进程太多,无法囊括全部.需要限制进程数量,涉及CPU管理,进程管理.</p><p>clock环形数组+clock算法.</p><h3 id="总结-1"><a href="#总结-1" class="headerlink" title="总结"></a>总结</h3><p>换入缺页,从磁盘读入一个页,可能没有足够的页大小,则使用clock算法换出一个页,再将页换入.这就是swap分区管理.</p><p>内存,时钟中断,磁盘管理,磁盘驱动.实现了换入换出的模型.又是为了实现虚拟内存,又是为了实现段页管理,又实现操作系统内存管理,又是为了实现程序的正常加载,又实现了进程.</p><p>形成了以进程带动的多进程推进,内存有效管理的图.初始化,系统接口,设备驱动,文件系统实现了基本简单完整的操作系统.</p>]]></content>
     
@@ -290,7 +290,7 @@
     
       <category term="操作系统" scheme="http://xwdidi.com/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
     
-      <category term="汇编语言" scheme="http://xwdidi.com/tags/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/"/>
+      <category term="汇编" scheme="http://xwdidi.com/tags/%E6%B1%87%E7%BC%96/"/>
     
       <category term="内存" scheme="http://xwdidi.com/tags/%E5%86%85%E5%AD%98/"/>
     

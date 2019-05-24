@@ -84,15 +84,15 @@
 <meta name="description" content="CC断点F2断点.\ 设置无数个. 将断下的指令地址处的第一个字节设置为0xCC 0xCC对应int3,专门用来调试的中断指令. 触发EXCEPTION_BREAKPOINT的异常,进行相应的处理 检测检测首地址是否为CCH 内存断点或者是PAGE_GUARD  A: 内存访问断点，OD将目标内存所在的页面（范围圆整为1000h的倍数）设置为PAGE_NOACCESS，当被调试程序对这个内存进行任">
 <meta name="keywords" content="断点,调试">
 <meta property="og:type" content="article">
-<meta property="og:title" content="2019-04-07-断点原理">
+<meta property="og:title" content="断点原理">
 <meta property="og:url" content="http://xwdidi.com/2019/04/07/2019-04-07-断点原理/index.html">
 <meta property="og:site_name" content="偽のブログ">
 <meta property="og:description" content="CC断点F2断点.\ 设置无数个. 将断下的指令地址处的第一个字节设置为0xCC 0xCC对应int3,专门用来调试的中断指令. 触发EXCEPTION_BREAKPOINT的异常,进行相应的处理 检测检测首地址是否为CCH 内存断点或者是PAGE_GUARD  A: 内存访问断点，OD将目标内存所在的页面（范围圆整为1000h的倍数）设置为PAGE_NOACCESS，当被调试程序对这个内存进行任">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://i.loli.net/2019/04/11/5caf398fae53c.png">
-<meta property="og:updated_time" content="2019-04-11T13:01:09.786Z">
+<meta property="og:updated_time" content="2019-05-24T15:08:01.071Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="2019-04-07-断点原理">
+<meta name="twitter:title" content="断点原理">
 <meta name="twitter:description" content="CC断点F2断点.\ 设置无数个. 将断下的指令地址处的第一个字节设置为0xCC 0xCC对应int3,专门用来调试的中断指令. 触发EXCEPTION_BREAKPOINT的异常,进行相应的处理 检测检测首地址是否为CCH 内存断点或者是PAGE_GUARD  A: 内存访问断点，OD将目标内存所在的页面（范围圆整为1000h的倍数）设置为PAGE_NOACCESS，当被调试程序对这个内存进行任">
 <meta name="twitter:image" content="https://i.loli.net/2019/04/11/5caf398fae53c.png">
 
@@ -130,7 +130,7 @@
 
 
 
-  <title>2019-04-07-断点原理 | 偽のブログ</title>
+  <title>断点原理 | 偽のブログ</title>
   
 
 
@@ -293,7 +293,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">2019-04-07-断点原理</h1>
+          <h1 class="post-title" itemprop="name headline">断点原理</h1>
         
 
         <div class="post-meta">
@@ -874,7 +874,7 @@
         var disqus_config = function () {
           this.page.url = 'http://xwdidi.com/2019/04/07/2019-04-07-断点原理/';
           this.page.identifier = '2019/04/07/2019-04-07-断点原理/';
-          this.page.title = '2019-04-07-断点原理';
+          this.page.title = '断点原理';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://xuwei98.disqus.com/embed.js';
