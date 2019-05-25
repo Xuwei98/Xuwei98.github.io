@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://xwdidi.com/"/>
-  <updated>2019-05-24T15:08:01.071Z</updated>
+  <updated>2019-05-25T09:47:39.901Z</updated>
   <id>http://xwdidi.com/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>arm环境搭建-gdb调试</title>
+    <link href="http://xwdidi.com/2019/05/24/2019-05-24-arm%E7%8E%AF%E5%A2%83gdb%E8%B0%83%E8%AF%95/"/>
+    <id>http://xwdidi.com/2019/05/24/2019-05-24-arm环境gdb调试/</id>
+    <published>2019-05-24T05:33:23.000Z</published>
+    <updated>2019-05-25T09:47:39.901Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p> 最近想学习一下arm指令集,恰好手边有一台多余的二手机.从MIUI刷成原生安卓终于能正常<code>adb push</code>了.</p><p>大多数的环境配置与调试是根据这篇文章<a href="http://www.tasfa.cn/index.php/2016/06/01/android-re-gdb/" target="_blank" rel="noopener">Android逆向系列之动态调试(五)–gdb调试</a>进行学习的.</p><h4 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h4><p>在这里我做一点补充和效率的提高.</p><ol><li><p>ndk的压缩包从这里<a href="https://developer.android.com/ndk/downloads?hl=zh-CN" target="_blank" rel="noopener">下载</a>.</p></li><li><p>我的压缩包解压后的文件名为<code>android-ndk-r19c</code></p><p>我是小米4的手机.</p></li><li><p>所以使用的gdbserver在<code>\android-ndk-r19c\prebuilt\android-arm\gdbserver</code></p><p>使用的调试编译的可执行文件如as.exe和ld.exe在<code>\android-ndk-r19c\toolchains\arm-linux-androideabi-4.9\prebuilt\windows-x86_64\arm-linux-androideabi\bin</code></p><p>gdb.exe在<code>F:\android_ndk\android-ndk-r19c\prebuilt\windows-x86_64\bin</code></p></li><li><p>已经把gdb.exe添加进环境变量中.</p><p>注意和gdb.exe同一个文件夹的python.exe,需要改名.不然会和自己的原来的python产生冲突.()</p></li><li><p>批处理</p></li></ol><p>​    我把调试的文件一律放在了/data/local/tmp/arm_p/中</p><p>​    然后这是自认为提高效率的东西.</p><p>这是文件树</p><p>​    <img src="https://i.loli.net/2019/05/24/5ce80487b3f5f27607.png" alt></p><p>以下是代码.</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">:: gdbserver.bat</span><br><span class="line"></span><br><span class="line">adb push pra/%1 /data/<span class="built_in">local</span>/tmp/arm_p</span><br><span class="line">adb shell chmod 777 /data/<span class="built_in">local</span>/tmp/arm_p/%1</span><br><span class="line">adb shell gdbserver :23946 /data/<span class="built_in">local</span>/tmp/arm_p/%1</span><br></pre></td></tr></table></figure><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">:: start_gdb.bat</span><br><span class="line"></span><br><span class="line">adb forward tcp:23946 tcp:23946</span><br><span class="line">gdb -x gdb_script</span><br></pre></td></tr></table></figure><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">:: gdb_script</span><br><span class="line"></span><br><span class="line"><span class="built_in">set</span> disassemble-next on</span><br><span class="line"><span class="built_in">set</span> step-mode on</span><br><span class="line">target remote 127.0.0.1:23946</span><br></pre></td></tr></table></figure><p>gdbserver.bat  上传文件,启动服务监听</p><p>start_gdb.bat  反汇编,单步调试</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;\assets\css\APlayer.min.css&quot;&gt;&lt;script src=&quot;\assets\js\APlayer.min.js&quot; cla
+      
+    
+    </summary>
+    
+      <category term="搭建" scheme="http://xwdidi.com/categories/%E6%90%AD%E5%BB%BA/"/>
+    
+    
+      <category term="arm" scheme="http://xwdidi.com/tags/arm/"/>
+    
+      <category term="环境搭建" scheme="http://xwdidi.com/tags/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/"/>
+    
+  </entry>
   
   <entry>
     <title>断点原理</title>
@@ -70,8 +97,8 @@
   
   <entry>
     <title>语言复习       查漏补缺 不定时更新</title>
-    <link href="http://xwdidi.com/2019/03/15/2019-3-13-%E8%AF%AD%E8%A8%80%E8%A6%81%E7%82%B9%E5%A4%8D%E4%B9%A0/"/>
-    <id>http://xwdidi.com/2019/03/15/2019-3-13-语言要点复习/</id>
+    <link href="http://xwdidi.com/2019/03/15/2019-03-13-%E8%AF%AD%E8%A8%80%E8%A6%81%E7%82%B9%E5%A4%8D%E4%B9%A0/"/>
+    <id>http://xwdidi.com/2019/03/15/2019-03-13-语言要点复习/</id>
     <published>2019-03-14T16:00:00.000Z</published>
     <updated>2019-04-07T16:00:00.000Z</updated>
     
@@ -530,35 +557,6 @@
     <updated>2019-04-06T13:51:03.764Z</updated>
     
     <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id><a href="#" class="headerlink" title="#"></a>#</h1><p>操作系统管理CPU,内存,管理磁盘(设备驱动,文件系统),差不多是比较完整的操作系统</p><p>分段和分页是真正形成了操作系统内存管理</p><ol><li>引出内存分区</li><li>讲解内存分区,引出分页</li><li><p>讲解分页</p><p>CPU的取指执行,就是使用的内存的过程,也就是程序跑起来的过程.</p></li></ol><p>程序是分段处理的,不同的段有不同的作用与特点,执行不同的功能.</p><p>如何使用内存呢,<br>​    将程序放入内存空闲处,若存在指令<code>jmp 40</code>,放入到内存3000处,就是内存被占用. 再将数据段的信息放入到内存中.通过取值执行,执行到<code>jmp 40</code>时,根据LDT表中记录的首地址进行地址翻译,(运行时的重定位);通过LDTR寄存器指向LDT表的起始地址,然后根据<code>jmp 40</code>中的段地址寄存器寻找到对应的LDT表,然后得到了物理地址.这已经开始执行程序了.</p><p>那么其他进程怎么执行,那就创建第二个进程相关的LDT表,LDT表示放到了进程的PCB中.根据LDT进行执行时的重定位.进行合适的跳转.切换PCB后,LDT也当然会切换.LDTR也会修改,指向另一个新表.<code>switch_to()</code>执行后的<code>jmp 40</code>也会发生改变.进程的切换,LDT也会切换,在很早之前所说的映射表其实就是LDT.</p><ol><li><p>程序分段(编译阶段)</p></li><li><p>内存中寻找空间分区</p><p> 几个算法+数据结构</p></li><li><p>读入程序(文件系统,磁盘管理)</p><p>设备驱动</p></li><li><p>初始化LDT表和PCB.</p><p>建立映射表,与PCB关联</p></li></ol><h2 id="课程总结"><a href="#课程总结" class="headerlink" title="课程总结"></a>课程总结</h2><ol><li>如何去寻找空闲的内存区域.</li></ol><p>​    这样就可以将程序的各个段载入到相应的内存分区中了.</p><ol start="2"><li><p>如何分割内存呢</p><ul><li><p>固定分区</p><p>等分，操作系统初始化时将内存等分成k个分区</p><p>但孩子有大有小，段也有大有小，需求不一定</p></li><li><p>可变分区的管理.</p><p>需要多少,在空闲区域分配多少</p><p><img src="https://i.loli.net/2018/10/25/5bd1d40d4c3b7.jpg" alt></p><ol><li>空闲区域为250k-500k,有个请求为<code>reqSize = 100K</code>,通过数据结构记录内存区域划分, 空闲分区表起始地址改变为350k,长度为150k,已分配分区表增加一行相应的信息就可以了.但不一定只是使用,也会有释放.如段2不再需要,释放内存.在空闲分区表添加相应一行就行了.已分配分区表删除seg2.</li></ol><p><img src="https://i.loli.net/2018/10/25/5bd1d6f3dc272.jpg" alt></p><p>​    </p><ol start="2"><li><p>再次申请</p><p>又一个段提出内存请求:<code>reqSize = 40k</code>这时候两个空闲区段,如何判断选哪一个更合适呢. </p></li></ol><p>操作系统一般会选择折中的算法,</p><p>首先适配:(350,150),查询速度快,在第一位,O(1)算法</p><p>最佳适配:(200,50),空闲区域越来越小,容易碎片化</p><p>最差适配:(350,150),可以得到比较均匀的内存分配区域,无法得到过大的内存区域,O(n)算法</p><h4 id="总结"><a href="#总结" class="headerlink" title="总结,"></a>总结,</h4><p>操作系统为了将内存使用起来,将会分成多个段.程序放入到空闲区域.</p><ol><li>维护数据结构</li><li>选择合适的算法,加上合适的数据结构,段的结构,在PCB初始化代码添加,就能管理起内存,最小的操作系统就能建立起来.</li></ol></li></ul></li><li><p>现代操作系统也支持分页,为什么,如何去支持分页.</p><p>其实并不使用内存分区,为了让段放到内存中(段会采用虚拟内存进行率先处理),段物理内存实际采用了内存分页进行割断,</p><p>虚拟内存采用最佳适配分区分割,而物理内存采用分页分段的方法.</p></li></ol><h3 id="引入分页：解决内存分区导致的内存效率问题"><a href="#引入分页：解决内存分区导致的内存效率问题" class="headerlink" title="引入分页：解决内存分区导致的内存效率问题"></a>引入分页：解决内存分区导致的内存效率问题</h3><p>内存分区效率不高:分区完,无论使用任何方法总会产生内存碎片,然而采用分页就不会出现.(为什么呢)</p><p>例如:</p><p><code>reqSize = 160k</code>任何一个区域都放不进去,即使是有内存,也放不进去.</p><p><img src="https://i.loli.net/2018/10/27/5bd4314c1c07b.jpg" alt></p><p>如何不浪费这些内存呢.</p><ol><li><p>将空闲分区合并,需要移动1个段,<strong>内存紧缩</strong>:需要花大量时间,而且时间过长容易被识别为死机状态.</p></li><li><p>将请求打散,160k分为两个小段.</p><p>针对每个段内存请求，系统一页一页的分配给给这个段.(向上取整).好处在于对于使用不完的页,减少内存的浪费.最多浪费1页,并且不用内存紧缩.之前在<code>mem_init()</code>中,以每页4kb大小进行初始化.</p><p>用户希望分段,程序由段组成,物理内存分页,段页合在一起.建立基本的操作系统.</p><p>连续-&gt;离散.</p><p><code>jmp 40</code>如何跳转到相应的页数上,1页长度为100,40是第0页,所以会跳转到第五个页框<code>540</code>.</p><p><img src="https://i.loli.net/2018/10/27/5bd44527717fb.jpg" alt></p><p>页0放在页框5中，页0中的地址就需要重定位</p><p>那么如何计算,根据之前段的计算,我们将采用页表.</p><p><img src="https://i.loli.net/2018/10/27/5bd449feada4b.jpg" alt></p><p>段表的寄存器为LDTR,页表的寄存器为CR3.进程切换时,cr3也会跟着切换.</p><p>40/100余40,那么就是页0,便宜40.</p><p>4k = 2^12. 2240/4k.右移12位,右移3个数.只剩下2,所以得到<code>0x02|0x240</code>,(由内存管理单元MMU计算得到).</p><p>MMU如何运行的了,读取到指令后,将地址右移12位,根据页表指针(PCB中)在表中寻找.页号为2,页框好为3,然后的到物理地址0x3240.</p><p>内存的段是很多页组成的,页表指针也和PCB关联,执行这条指令需要去查询页表,进行重定位.</p><blockquote><p>在基本的分页概念中，我们把程序分成<strong>等长</strong>的小块。这些小块叫做“<strong>页（Page）</strong>”，同样内存也被我们分成了和页面同样大小的”<strong>页框（Frame）“，</strong>一个页可以装到一个页框里。在执行程序的时候我们根据一个页表去查找某个页面在内存的某个页框中，由此完成了逻辑到物理的映射。</p><p><a href="https://www.zhihu.com/question/50796850" target="_blank" rel="noopener">https://www.zhihu.com/question/50796850</a></p></blockquote></li></ol><h3 id="总结-1"><a href="#总结-1" class="headerlink" title="总结"></a>总结</h3><p>   一个程序是由多个段组成,每一个段不是直接放在内存中,直接放到内存中的话容易引起内存的浪费,造成大量碎片.将段打散成多个页,每个段要放在页中.为了将来实现重定位,找到程序执行的地址,就要建立页表.</p><p>开启分页前,内核所有地址都变成了虚拟地址,所有的地址都要通过 MMU 映射到物理地址再访问内存</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;\assets\css\APlayer.min.css&quot;&gt;&lt;script src=&quot;\assets\js\APlayer.min.js&quot; cla
-      
-    
-    </summary>
-    
-      <category term="操作系统" scheme="http://xwdidi.com/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
-    
-    
-      <category term="操作系统" scheme="http://xwdidi.com/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
-    
-      <category term="汇编" scheme="http://xwdidi.com/tags/%E6%B1%87%E7%BC%96/"/>
-    
-      <category term="内存" scheme="http://xwdidi.com/tags/%E5%86%85%E5%AD%98/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>内存管理     L20 内存使用与分段</title>
-    <link href="http://xwdidi.com/2018/10/23/2018-10-23-L20%E5%86%85%E5%AD%98%E4%BD%BF%E7%94%A8%E4%B8%8E%E5%88%86%E6%AE%B5/"/>
-    <id>http://xwdidi.com/2018/10/23/2018-10-23-L20内存使用与分段/</id>
-    <published>2018-10-22T16:00:00.000Z</published>
-    <updated>2019-04-06T13:50:40.930Z</updated>
-    
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="课程总结"><a href="#课程总结" class="headerlink" title="课程总结"></a>课程总结</h2><p>​    如何管理CPU,多进程图像切换or同步等,</p><p>操作系统如何管理内存?</p><h3 id="内存如何使用"><a href="#内存如何使用" class="headerlink" title="内存如何使用"></a>内存如何使用</h3><ol><li><p>计算机如何工作</p><p>取指-执行-取指-执行-…….</p><p>是从内存中取出,</p><p>因为使用了内存,才能取出.</p><p><strong>内存使用</strong>:将程序放到内存中,PC指向开始地址</p></li></ol><ol start="2"><li><p>如何让程序加载到程序中</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">.text</span><br><span class="line">_entry://入口地址</span><br><span class="line"></span><br><span class="line">call _main</span><br><span class="line">call _exit</span><br><span class="line">_main:</span><br><span class="line">...</span><br><span class="line">ret</span><br></pre></td></tr></table></figure><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">_entry://入口地址</span><br><span class="line"></span><br><span class="line">call 40</span><br><span class="line">call xx</span><br><span class="line">main://偏移是40</span><br></pre></td></tr></table></figure><p>通过entry跳回到从开头偏移40的main函数,</p><hr><p>编译完放到磁盘中,通过读入磁盘放进内存中.</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">内存地址物理内存</span><br><span class="line">   ...</span><br><span class="line">40 _main:mov [300],0</span><br><span class="line">...</span><br><span class="line">   call xx</span><br><span class="line"> 0 call 40</span><br></pre></td></tr></table></figure><p>call 40,跳回到40执行通过地址总线发送40,物理地址40的位置就是main函数的第一条命令(也就是入口地址).</p><p>IP = 0,<code>call 40</code>就跳入到了main函数,</p><p>缺点在于,程序起始位置必须放到固定物理内存0地址处.PC指针等于0,才能正确执行.0地址处不一定存在空闲,而且这样的话也容易与新程序冲突.而且0地址开始处放入的是操作系统程序.</p><p><strong>所以</strong>应该把程序放到空闲内存处,如果程序其实地址为1000,那么<code>call 40</code>不应该跳入到40地址处.应该跳入到1040地址处.</p><p>这时候应该<strong>重定位</strong>(PE文件相关知识):修改程序中的地址(是相对地址)(逻辑地址).在程序放入到内存中,将40修改成1040.<code>300</code>必成1300.</p><ul><li><p>什么时候完成重定位?</p><p><u>编译时</u>,不现实,在PC中,需要知道执行时的内存空闲位置几乎不可能知道.然而在一些卫星,嵌入式中(静态系统中),可以实现.不够灵活.编译时重定位的程序只能放在内存固定位置,效率高.</p><p><u>载入时</u>,更容易实现,更灵活,只需要将所有地址都加上基地址的值就可以了.更加灵活.载入时重定位的程序一旦载入内存就不能动了,速度较慢.</p><ul><li><p>程序载入后还需要移动</p><p>交换(swap):内存资源紧张,磁盘较大,磁盘中的虚拟内存和内存进行数据交换</p><p><img src="https://i.loli.net/2018/10/23/5bcf2b03ee289.jpg" alt></p></li></ul><p>所以是<strong>执行每条指令时</strong>进行<strong>重定位</strong>,每执行一条指令都要地址翻译.基地址+偏移地址= 物理地址.(地址翻译)</p><ul><li><p>如何去存放基地址呢? 如何去更换基地址?</p><p>进程中发生的这些变化的依据<u>基地址</u>都放在进程的PCB中,基地址会随着加载内存地址的改变而改变.</p><p>执行指令时第一步先从PCB中取出这个基地址.</p></li></ul></li></ul></li></ol><h4 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h4><p>   编译好程序 </p><p>   在内存中寻找空闲内存,创建进程,PCB</p><p>   将空闲地址放入到PCB中,</p><p>   基地址放在基地址寄存器中.switch_to()时,也切换PCB.</p><pre><code>可执行程序找到空闲内存,拿出基地址放入PCB中,然后放入到这段空闲内存中,上下文切换时,PCB的基地址等于基地址寄存器的值,每次地址执行时,都要进行地址翻译,寻找到物理地址,执行.</code></pre><ol><li>假设执行<code>mov ax,[100]</code></li></ol><ul><li>PCB中基地址赋值给寄存器,从寄存器取出地址后,要访问100这个地址,通过地址翻译(基地址+100),找到实际的地址.得到该处数据.</li></ul><ol start="2"><li>执行switch</li></ol><ul><li><p>然后将进程2的PCB中的基地址写入到基地址寄存器中.2000变为1000.再执行<code>mov ax,[100]</code>,就去访问了1100.</p><p><img src="https://i.loli.net/2018/10/23/5bcf335525a5c.jpg" alt></p></li></ul><h3 id="引入分段"><a href="#引入分段" class="headerlink" title="引入分段"></a>引入分段</h3><p>是将整个程序载入到内存中吗?</p><p>程序是由若干段组成的,堆(.heap),栈(.heap),代码区,初始化数据段,未初始化数据段.</p><p>符合用户观点,独立考虑每个段的特点,用途(分治)可以通过&lt;段号.段内偏移&gt;访问.例如<code>mov [es:bx],ax</code>. 如果所有程序全放在一起,是无法分小段载入.</p><h4 id="不是将整个程序，是将各段分别放入内存"><a href="#不是将整个程序，是将各段分别放入内存" class="headerlink" title="不是将整个程序，是将各段分别放入内存"></a>不是将整个程序，是将各段分别放入内存</h4><p>​    如果不是分段存储,而是整段放入的话.栈是会持续增长的,如果存储空间不够,需要申请新的较大内存空间,然后再将原数据拷贝到那,此时会造成二者空间皆不可用造成内存的浪费.</p><p>​    如果分段放入,只需要移动单一的栈存储空间,提高了内存的使用率,也符合了人们的使用习惯</p><p>指令: <code>&lt;段号.段内偏移&gt;</code></p><p>当然这也会造成各段基地址不一样, 所以需要通过查询<strong>段表</strong>来记录每个段相应的基地 址. </p><p>比如之前<code>jmp 0, 8</code>通过0去查询gdt表获得基地址CS&lt;&lt;4+ip 采用保护模式寻址，cs=8用来查GDT表，表内偏移为0;然而GDT的表是处理操作系统的.每个进程有自己的段表<strong>LDT</strong>.</p><p>所以最后采用GDT+LDT的寻址方式,获得自己的基地址处.每次进行地址翻译时,根据LDT表中的段地址进行查询.</p><p><img src="https://i.loli.net/2018/10/24/5bd06a892dcdb.jpg" alt></p><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>一个程序多个段,然后每个段在内存中找到内存空闲处,将基地址放入到LDT表中,LDT查询表是由多个LDT表线性组成,</p><p>初始化LDT表后,</p><p>赋值给PCB,</p><p>设好初始地址,</p><p>PC指针取值执行,每次执行时,进行查表查找基地址,然后找到物理地址.</p><p>就能进行相关操作了.</p>]]></content>
     
     <summary type="html">
     
