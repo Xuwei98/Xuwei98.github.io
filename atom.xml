@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://xwdidi.com/"/>
-  <updated>2019-05-25T09:47:39.901Z</updated>
+  <updated>2019-06-18T14:58:52.245Z</updated>
   <id>http://xwdidi.com/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>iptables简单小结</title>
+    <link href="http://xwdidi.com/2019/06/18/2019-06-18-iptables%E7%AE%80%E5%8D%95%E5%B0%8F%E7%BB%93/"/>
+    <id>http://xwdidi.com/2019/06/18/2019-06-18-iptables简单小结/</id>
+    <published>2019-06-18T06:19:36.000Z</published>
+    <updated>2019-06-18T14:58:52.245Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>###缘由</p><p>最近这段时间学校要让我们做一些小实验.</p><p>一个实验就是配置iptables: 1.完全屏蔽外网 2.内网只能向外访问http&amp;https&amp;ftp服务.</p><p>然后我将这个总结于对端口进行数据包过滤就好了,不知道这样对不对希望可以指出我的错误.(图解http没怎么看过..</p><p>这样就简单了,上网学习iptables相关命令编写就完事了,不过相关底层原理感觉蛮有意思的,看的<a href="https://blog.csdn.net/qq_38892883/article/details/79709023" target="_blank" rel="noopener">这篇文章</a></p><p>学习的..</p><p>这是简单的shell脚本,运行就行了.本机环境是<code>ubuntu16.04</code>.采用<code>nc</code>和<code>telnet</code>相互验证端口畅通性.</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span>iptables.sh</span><br><span class="line"></span><br><span class="line">set -v</span><br><span class="line">clear</span><br><span class="line">iptables -F</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span>ssh</span><br><span class="line">iptables -A INPUT  -p tcp --dport 22 -j ACCEPT</span><br><span class="line">iptables -A OUTPUT -p tcp --sport 22 -j ACCEPT</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span>http</span><br><span class="line"><span class="meta">#</span>https</span><br><span class="line">iptables -A OUTPUT -o eth0 -p tcp --dport 443 -j ACCEPT</span><br><span class="line">iptables -A INPUT -i eth0 -p tcp --sport 443 -j ACCEPT</span><br><span class="line"></span><br><span class="line">iptables -A OUTPUT -p tcp --dport 80 -j ACCEPT</span><br><span class="line">iptables -A INPUT -p tcp --sport 80 -j ACCEPT</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span>ftp</span><br><span class="line">iptables -A OUTPUT -p tcp --dport 20 -j ACCEPT</span><br><span class="line">iptables -A INPUT -p tcp --sport 20 -j ACCEPT</span><br><span class="line"></span><br><span class="line">iptables -A OUTPUT -p tcp --dport 21 -j ACCEPT</span><br><span class="line">iptables -A INPUT -p tcp --sport 21 -j ACCEPT</span><br><span class="line"></span><br><span class="line">iptables -P INPUT DROP  </span><br><span class="line">iptables -P FORWARD DROP  </span><br><span class="line">iptables -P OUTPUT DROP </span><br><span class="line"></span><br><span class="line">iptables -L -n --line-number</span><br></pre></td></tr></table></figure><h3 id="读后总结"><a href="#读后总结" class="headerlink" title="读后总结"></a>读后总结</h3><p>当然这些都是看上述文章一些浅显的,借鉴过来的知识.方便自己看hhh</p><h4 id="发展"><a href="#发展" class="headerlink" title="发展"></a>发展</h4><p>ipfirewall-&gt;ipchains-&gt;iptables</p><h4 id="工作机制"><a href="#工作机制" class="headerlink" title="工作机制"></a>工作机制</h4><p>通过配置iptables,让内核空间当中的netfilter(网络过滤器)读取配置,并实让现防火墙工作.</p><p>为了实现过滤,要放在内核特定的位置,tcp/ip的协议栈经过的地方(netfilter).</p><p>1.PREROUTING (数据包进入路由前)</p><p>2.INPUT (通过路由表后目的为本机)</p><p>3.FORWARD (通过路由表后,目的地不为本机)</p><p>4.OUTPUT(由本机产生,向外转发)</p><p>5.POSTROUTING（发送到网卡接口之前）</p><p><img src="https://s1.51cto.com/attachment/201304/203657722.png" alt></p><p>现在目前只考虑到filter链上,然后forawrd用作nat转发暂时没有用到,以后可能还会接触到.</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;\assets\css\APlayer.min.css&quot;&gt;&lt;script src=&quot;\assets\js\APlayer.min.js&quot; cla
+      
+    
+    </summary>
+    
+      <category term="Linux" scheme="http://xwdidi.com/categories/Linux/"/>
+    
+    
+      <category term="实验" scheme="http://xwdidi.com/tags/%E5%AE%9E%E9%AA%8C/"/>
+    
+  </entry>
   
   <entry>
     <title>arm环境搭建-gdb调试</title>
@@ -546,35 +571,6 @@
       <category term="MFC" scheme="http://xwdidi.com/tags/MFC/"/>
     
       <category term="Windows编程" scheme="http://xwdidi.com/tags/Windows%E7%BC%96%E7%A8%8B/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>内存管理   L21 内存分区与分页</title>
-    <link href="http://xwdidi.com/2018/10/25/2018-10-25-L21%E5%86%85%E5%AD%98%E5%88%86%E5%8C%BA%E4%B8%8E%E5%88%86%E9%A1%B5/"/>
-    <id>http://xwdidi.com/2018/10/25/2018-10-25-L21内存分区与分页/</id>
-    <published>2018-10-24T16:00:00.000Z</published>
-    <updated>2019-04-06T13:51:03.764Z</updated>
-    
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id><a href="#" class="headerlink" title="#"></a>#</h1><p>操作系统管理CPU,内存,管理磁盘(设备驱动,文件系统),差不多是比较完整的操作系统</p><p>分段和分页是真正形成了操作系统内存管理</p><ol><li>引出内存分区</li><li>讲解内存分区,引出分页</li><li><p>讲解分页</p><p>CPU的取指执行,就是使用的内存的过程,也就是程序跑起来的过程.</p></li></ol><p>程序是分段处理的,不同的段有不同的作用与特点,执行不同的功能.</p><p>如何使用内存呢,<br>​    将程序放入内存空闲处,若存在指令<code>jmp 40</code>,放入到内存3000处,就是内存被占用. 再将数据段的信息放入到内存中.通过取值执行,执行到<code>jmp 40</code>时,根据LDT表中记录的首地址进行地址翻译,(运行时的重定位);通过LDTR寄存器指向LDT表的起始地址,然后根据<code>jmp 40</code>中的段地址寄存器寻找到对应的LDT表,然后得到了物理地址.这已经开始执行程序了.</p><p>那么其他进程怎么执行,那就创建第二个进程相关的LDT表,LDT表示放到了进程的PCB中.根据LDT进行执行时的重定位.进行合适的跳转.切换PCB后,LDT也当然会切换.LDTR也会修改,指向另一个新表.<code>switch_to()</code>执行后的<code>jmp 40</code>也会发生改变.进程的切换,LDT也会切换,在很早之前所说的映射表其实就是LDT.</p><ol><li><p>程序分段(编译阶段)</p></li><li><p>内存中寻找空间分区</p><p> 几个算法+数据结构</p></li><li><p>读入程序(文件系统,磁盘管理)</p><p>设备驱动</p></li><li><p>初始化LDT表和PCB.</p><p>建立映射表,与PCB关联</p></li></ol><h2 id="课程总结"><a href="#课程总结" class="headerlink" title="课程总结"></a>课程总结</h2><ol><li>如何去寻找空闲的内存区域.</li></ol><p>​    这样就可以将程序的各个段载入到相应的内存分区中了.</p><ol start="2"><li><p>如何分割内存呢</p><ul><li><p>固定分区</p><p>等分，操作系统初始化时将内存等分成k个分区</p><p>但孩子有大有小，段也有大有小，需求不一定</p></li><li><p>可变分区的管理.</p><p>需要多少,在空闲区域分配多少</p><p><img src="https://i.loli.net/2018/10/25/5bd1d40d4c3b7.jpg" alt></p><ol><li>空闲区域为250k-500k,有个请求为<code>reqSize = 100K</code>,通过数据结构记录内存区域划分, 空闲分区表起始地址改变为350k,长度为150k,已分配分区表增加一行相应的信息就可以了.但不一定只是使用,也会有释放.如段2不再需要,释放内存.在空闲分区表添加相应一行就行了.已分配分区表删除seg2.</li></ol><p><img src="https://i.loli.net/2018/10/25/5bd1d6f3dc272.jpg" alt></p><p>​    </p><ol start="2"><li><p>再次申请</p><p>又一个段提出内存请求:<code>reqSize = 40k</code>这时候两个空闲区段,如何判断选哪一个更合适呢. </p></li></ol><p>操作系统一般会选择折中的算法,</p><p>首先适配:(350,150),查询速度快,在第一位,O(1)算法</p><p>最佳适配:(200,50),空闲区域越来越小,容易碎片化</p><p>最差适配:(350,150),可以得到比较均匀的内存分配区域,无法得到过大的内存区域,O(n)算法</p><h4 id="总结"><a href="#总结" class="headerlink" title="总结,"></a>总结,</h4><p>操作系统为了将内存使用起来,将会分成多个段.程序放入到空闲区域.</p><ol><li>维护数据结构</li><li>选择合适的算法,加上合适的数据结构,段的结构,在PCB初始化代码添加,就能管理起内存,最小的操作系统就能建立起来.</li></ol></li></ul></li><li><p>现代操作系统也支持分页,为什么,如何去支持分页.</p><p>其实并不使用内存分区,为了让段放到内存中(段会采用虚拟内存进行率先处理),段物理内存实际采用了内存分页进行割断,</p><p>虚拟内存采用最佳适配分区分割,而物理内存采用分页分段的方法.</p></li></ol><h3 id="引入分页：解决内存分区导致的内存效率问题"><a href="#引入分页：解决内存分区导致的内存效率问题" class="headerlink" title="引入分页：解决内存分区导致的内存效率问题"></a>引入分页：解决内存分区导致的内存效率问题</h3><p>内存分区效率不高:分区完,无论使用任何方法总会产生内存碎片,然而采用分页就不会出现.(为什么呢)</p><p>例如:</p><p><code>reqSize = 160k</code>任何一个区域都放不进去,即使是有内存,也放不进去.</p><p><img src="https://i.loli.net/2018/10/27/5bd4314c1c07b.jpg" alt></p><p>如何不浪费这些内存呢.</p><ol><li><p>将空闲分区合并,需要移动1个段,<strong>内存紧缩</strong>:需要花大量时间,而且时间过长容易被识别为死机状态.</p></li><li><p>将请求打散,160k分为两个小段.</p><p>针对每个段内存请求，系统一页一页的分配给给这个段.(向上取整).好处在于对于使用不完的页,减少内存的浪费.最多浪费1页,并且不用内存紧缩.之前在<code>mem_init()</code>中,以每页4kb大小进行初始化.</p><p>用户希望分段,程序由段组成,物理内存分页,段页合在一起.建立基本的操作系统.</p><p>连续-&gt;离散.</p><p><code>jmp 40</code>如何跳转到相应的页数上,1页长度为100,40是第0页,所以会跳转到第五个页框<code>540</code>.</p><p><img src="https://i.loli.net/2018/10/27/5bd44527717fb.jpg" alt></p><p>页0放在页框5中，页0中的地址就需要重定位</p><p>那么如何计算,根据之前段的计算,我们将采用页表.</p><p><img src="https://i.loli.net/2018/10/27/5bd449feada4b.jpg" alt></p><p>段表的寄存器为LDTR,页表的寄存器为CR3.进程切换时,cr3也会跟着切换.</p><p>40/100余40,那么就是页0,便宜40.</p><p>4k = 2^12. 2240/4k.右移12位,右移3个数.只剩下2,所以得到<code>0x02|0x240</code>,(由内存管理单元MMU计算得到).</p><p>MMU如何运行的了,读取到指令后,将地址右移12位,根据页表指针(PCB中)在表中寻找.页号为2,页框好为3,然后的到物理地址0x3240.</p><p>内存的段是很多页组成的,页表指针也和PCB关联,执行这条指令需要去查询页表,进行重定位.</p><blockquote><p>在基本的分页概念中，我们把程序分成<strong>等长</strong>的小块。这些小块叫做“<strong>页（Page）</strong>”，同样内存也被我们分成了和页面同样大小的”<strong>页框（Frame）“，</strong>一个页可以装到一个页框里。在执行程序的时候我们根据一个页表去查找某个页面在内存的某个页框中，由此完成了逻辑到物理的映射。</p><p><a href="https://www.zhihu.com/question/50796850" target="_blank" rel="noopener">https://www.zhihu.com/question/50796850</a></p></blockquote></li></ol><h3 id="总结-1"><a href="#总结-1" class="headerlink" title="总结"></a>总结</h3><p>   一个程序是由多个段组成,每一个段不是直接放在内存中,直接放到内存中的话容易引起内存的浪费,造成大量碎片.将段打散成多个页,每个段要放在页中.为了将来实现重定位,找到程序执行的地址,就要建立页表.</p><p>开启分页前,内核所有地址都变成了虚拟地址,所有的地址都要通过 MMU 映射到物理地址再访问内存</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;\assets\css\APlayer.min.css&quot;&gt;&lt;script src=&quot;\assets\js\APlayer.min.js&quot; cla
-      
-    
-    </summary>
-    
-      <category term="操作系统" scheme="http://xwdidi.com/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
-    
-    
-      <category term="操作系统" scheme="http://xwdidi.com/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
-    
-      <category term="汇编" scheme="http://xwdidi.com/tags/%E6%B1%87%E7%BC%96/"/>
-    
-      <category term="内存" scheme="http://xwdidi.com/tags/%E5%86%85%E5%AD%98/"/>
     
   </entry>
   
