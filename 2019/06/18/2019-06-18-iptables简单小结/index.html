@@ -81,19 +81,19 @@
 
 
 
-<meta name="description" content="###缘由 最近这段时间学校要让我们做一些小实验. 一个实验就是配置iptables: 1.完全屏蔽外网 2.内网只能向外访问http&amp;amp;https&amp;amp;ftp服务. 然后我将这个总结于对端口进行数据包过滤就好了,不知道这样对不对希望可以指出我的错误.(图解http没怎么看过.. 这样就简单了,上网学习iptables相关命令编写就完事了,不过相关底层原理感觉蛮有意思的,看的这篇文章 学">
+<meta name="description" content="缘由最近这段时间学校要让我们做一些小实验. 一个实验就是配置iptables: 1.完全屏蔽外网 2.内网只能向外访问http&amp;amp;https&amp;amp;ftp服务. 然后我将这个总结于对端口进行数据包过滤就好了,不知道这样对不对希望可以指出我的错误.(图解http没怎么看过.. 这样就简单了,上网学习iptables相关命令编写就完事了,不过相关底层原理感觉蛮有意思的,看的这篇文章 学习的..">
 <meta name="keywords" content="实验">
 <meta property="og:type" content="article">
 <meta property="og:title" content="iptables简单小结">
 <meta property="og:url" content="http://xwdidi.com/2019/06/18/2019-06-18-iptables简单小结/index.html">
 <meta property="og:site_name" content="偽のブログ">
-<meta property="og:description" content="###缘由 最近这段时间学校要让我们做一些小实验. 一个实验就是配置iptables: 1.完全屏蔽外网 2.内网只能向外访问http&amp;amp;https&amp;amp;ftp服务. 然后我将这个总结于对端口进行数据包过滤就好了,不知道这样对不对希望可以指出我的错误.(图解http没怎么看过.. 这样就简单了,上网学习iptables相关命令编写就完事了,不过相关底层原理感觉蛮有意思的,看的这篇文章 学">
+<meta property="og:description" content="缘由最近这段时间学校要让我们做一些小实验. 一个实验就是配置iptables: 1.完全屏蔽外网 2.内网只能向外访问http&amp;amp;https&amp;amp;ftp服务. 然后我将这个总结于对端口进行数据包过滤就好了,不知道这样对不对希望可以指出我的错误.(图解http没怎么看过.. 这样就简单了,上网学习iptables相关命令编写就完事了,不过相关底层原理感觉蛮有意思的,看的这篇文章 学习的..">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://s1.51cto.com/attachment/201304/203657722.png">
-<meta property="og:updated_time" content="2019-06-18T14:58:52.245Z">
+<meta property="og:updated_time" content="2019-06-18T15:06:33.244Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iptables简单小结">
-<meta name="twitter:description" content="###缘由 最近这段时间学校要让我们做一些小实验. 一个实验就是配置iptables: 1.完全屏蔽外网 2.内网只能向外访问http&amp;amp;https&amp;amp;ftp服务. 然后我将这个总结于对端口进行数据包过滤就好了,不知道这样对不对希望可以指出我的错误.(图解http没怎么看过.. 这样就简单了,上网学习iptables相关命令编写就完事了,不过相关底层原理感觉蛮有意思的,看的这篇文章 学">
+<meta name="twitter:description" content="缘由最近这段时间学校要让我们做一些小实验. 一个实验就是配置iptables: 1.完全屏蔽外网 2.内网只能向外访问http&amp;amp;https&amp;amp;ftp服务. 然后我将这个总结于对端口进行数据包过滤就好了,不知道这样对不对希望可以指出我的错误.(图解http没怎么看过.. 这样就简单了,上网学习iptables相关命令编写就完事了,不过相关底层原理感觉蛮有意思的,看的这篇文章 学习的..">
 <meta name="twitter:image" content="https://s1.51cto.com/attachment/201304/203657722.png">
 
 
@@ -411,8 +411,7 @@
       
 
       
-        <p>###缘由</p>
-<p>最近这段时间学校要让我们做一些小实验.</p>
+        <h3 id="缘由"><a href="#缘由" class="headerlink" title="缘由"></a>缘由</h3><p>最近这段时间学校要让我们做一些小实验.</p>
 <p>一个实验就是配置iptables: 1.完全屏蔽外网 2.内网只能向外访问http&amp;https&amp;ftp服务.</p>
 <p>然后我将这个总结于对端口进行数据包过滤就好了,不知道这样对不对希望可以指出我的错误.(图解http没怎么看过..</p>
 <p>这样就简单了,上网学习iptables相关命令编写就完事了,不过相关底层原理感觉蛮有意思的,看的<a href="https://blog.csdn.net/qq_38892883/article/details/79709023" target="_blank" rel="noopener">这篇文章</a></p>
@@ -640,7 +639,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#读后总结"><span class="nav-number">1.</span> <span class="nav-text">读后总结</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#发展"><span class="nav-number">1.1.</span> <span class="nav-text">发展</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#工作机制"><span class="nav-number">1.2.</span> <span class="nav-text">工作机制</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#缘由"><span class="nav-number">1.</span> <span class="nav-text">缘由</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#读后总结"><span class="nav-number">2.</span> <span class="nav-text">读后总结</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#发展"><span class="nav-number">2.1.</span> <span class="nav-text">发展</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#工作机制"><span class="nav-number">2.2.</span> <span class="nav-text">工作机制</span></a></li></ol></li></ol></div>
             
 
           </div>
