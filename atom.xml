@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://xwdidi.com/"/>
-  <updated>2019-06-18T15:06:33.244Z</updated>
+  <updated>2019-08-23T16:18:09.900Z</updated>
   <id>http://xwdidi.com/</id>
   
   <author>
@@ -15,6 +15,56 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>每日总结</title>
+    <link href="http://xwdidi.com/2019/08/24/2020-07-08-%E6%AF%8F%E6%97%A5%E6%80%BB%E7%BB%93/"/>
+    <id>http://xwdidi.com/2019/08/24/2020-07-08-每日总结/</id>
+    <published>2019-08-23T16:00:00.000Z</published>
+    <updated>2019-08-23T16:18:09.900Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h3 id="2019-08-24"><a href="#2019-08-24" class="headerlink" title="2019-08-24"></a>2019-08-24</h3><p>回校第二天,把分析工具整理了下,用批处理+cmder弄个简单的工具调用. 遇到点双机调试问题,解决掉了.</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;\assets\css\APlayer.min.css&quot;&gt;&lt;script src=&quot;\assets\js\APlayer.min.js&quot; cla
+      
+    
+    </summary>
+    
+      <category term="总结" scheme="http://xwdidi.com/categories/%E6%80%BB%E7%BB%93/"/>
+    
+    
+      <category term="总结" scheme="http://xwdidi.com/tags/%E6%80%BB%E7%BB%93/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>双机调试简单问题</title>
+    <link href="http://xwdidi.com/2019/08/24/2019-08-24-%20%E5%8F%8C%E5%87%BB%E8%B0%83%E8%AF%95%E7%AE%80%E5%8D%95%E9%97%AE%E9%A2%98%E6%80%BB%E7%BB%93/"/>
+    <id>http://xwdidi.com/2019/08/24/2019-08-24- 双击调试简单问题总结/</id>
+    <published>2019-08-23T16:00:00.000Z</published>
+    <updated>2019-08-23T16:06:46.961Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>在虚拟机正常安装 VirtualKD, 然后再执行下命令</p><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">`bcdedit ``/``dbgsettings SERIAL DEBUGPORT:``<span class="number">1</span>` `BAUDRATE:``<span class="number">115200</span>`</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;\assets\css\APlayer.min.css&quot;&gt;&lt;script src=&quot;\assets\js\APlayer.min.js&quot; cla
+      
+    
+    </summary>
+    
+      <category term="环境搭建" scheme="http://xwdidi.com/categories/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/"/>
+    
+    
+      <category term="调试" scheme="http://xwdidi.com/tags/%E8%B0%83%E8%AF%95/"/>
+    
+  </entry>
   
   <entry>
     <title>iptables简单小结</title>
@@ -515,62 +565,6 @@
       <category term="DuiLib" scheme="http://xwdidi.com/tags/DuiLib/"/>
     
       <category term="界面" scheme="http://xwdidi.com/tags/%E7%95%8C%E9%9D%A2/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>(转载)为何建议使用UTF-8</title>
-    <link href="http://xwdidi.com/2018/11/03/2018-11-03-(%E8%BD%AC%E8%BD%BD)UTF-8%E5%BF%83%E5%BE%97/"/>
-    <id>http://xwdidi.com/2018/11/03/2018-11-03-(转载)UTF-8心得/</id>
-    <published>2018-11-02T16:00:00.000Z</published>
-    <updated>2019-04-06T14:00:58.819Z</updated>
-    
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p><a href="http://utf8everywhere.org/zh-cn#myth.strlen.correctness" target="_blank" rel="noopener">http://utf8everywhere.org/zh-cn#myth.strlen.correctness</a></p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;\assets\css\APlayer.min.css&quot;&gt;&lt;script src=&quot;\assets\js\APlayer.min.js&quot; cla
-      
-    
-    </summary>
-    
-      <category term="转载" scheme="http://xwdidi.com/categories/%E8%BD%AC%E8%BD%BD/"/>
-    
-    
-      <category term="字符集" scheme="http://xwdidi.com/tags/%E5%AD%97%E7%AC%A6%E9%9B%86/"/>
-    
-      <category term="UTF-8" scheme="http://xwdidi.com/tags/UTF-8/"/>
-    
-      <category term="Unicode" scheme="http://xwdidi.com/tags/Unicode/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>孙鑫MFC第五节  文本编程</title>
-    <link href="http://xwdidi.com/2018/10/31/2018-10-31-%E5%AD%99%E9%91%ABMFC%E7%AC%AC%E4%BA%94%E8%8A%82/"/>
-    <id>http://xwdidi.com/2018/10/31/2018-10-31-孙鑫MFC第五节/</id>
-    <published>2018-10-30T16:00:00.000Z</published>
-    <updated>2019-04-06T13:51:21.151Z</updated>
-    
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="文本编程"><a href="#文本编程" class="headerlink" title="文本编程"></a>文本编程</h2><p>字处理程序,</p><p>记事本,notepad++ ,甚至是vc++都算是字处理程序.</p><p>都有光标,被叫做插入符.输入的文字信息,通过插入符添加.</p><h3 id="1-创建插入符"><a href="#1-创建插入符" class="headerlink" title="1. 创建插入符"></a>1. 创建插入符</h3><p>利用函数创建插入符,void CreateSolidCaret(int nWidth,int nHeight);插入符的宽度与高度.如果为0,被设置为系统定义的系统默认的窗口边界的宽度与高度.默认是隐藏的,需要调用<code>ShowCaret()</code>函数显示.</p><p>添加<code>WM_CREATE</code>消息处理,会自动增加OnCreate()函数(oncreate()不产生窗口，只是在窗口显示前设置窗口的属性如风格、位置等).而插入符大小应该根据字体改变.通过<code>GetTextMetrics()(HDC hdc,LPTEXTMETRIC,lptm);</code>获得字体信息, 将结构体的指针填入里面,获得信息.</p><h4 id="结构体解析"><a href="#结构体解析" class="headerlink" title="结构体解析"></a>结构体解析</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">tagTEXTMETRIC</span> &#123;</span></span><br><span class="line">  LONG tmHeight; <span class="comment">//高度,插入符与之相同</span></span><br><span class="line">    </span><br><span class="line">  LONG tmAscent; <span class="comment">//升序,图一</span></span><br><span class="line">    </span><br><span class="line">  LONG tmDescent; <span class="comment">//降序, </span></span><br><span class="line">    </span><br><span class="line">  LONG tmInternalLeading; </span><br><span class="line">  LONG tmExternalLeading; </span><br><span class="line">  LONG tmAveCharWidth; <span class="comment">//平均宽度值,</span></span><br><span class="line">    </span><br><span class="line">  LONG tmMaxCharWidth; <span class="comment">//最大字符宽度.</span></span><br><span class="line">    </span><br><span class="line">  LONG tmWeight;</span><br><span class="line">  LONG tmOverhang; </span><br><span class="line">  LONG tmDigitizedAspectX; </span><br><span class="line">  LONG tmDigitizedAspectY; </span><br><span class="line">  <span class="keyword">char</span> tmFirstChar; </span><br><span class="line">  <span class="keyword">char</span> tmLastChar; </span><br><span class="line">  <span class="keyword">char</span> tmDefaultChar; </span><br><span class="line">  <span class="keyword">char</span> tmBreakChar; </span><br><span class="line">  BYTE tmItalic; </span><br><span class="line">  BYTE tmUnderlined; </span><br><span class="line">  BYTE tmStruckOut; </span><br><span class="line">  BYTE tmPitchAndFamily; </span><br><span class="line">  BYTE tmCharSet; </span><br><span class="line">&#125; TEXTMETRIC;</span><br></pre></td></tr></table></figure><p>图一:<img src="https://i.loli.net/2018/11/03/5bddad46ec47a.jpg" alt></p><p> 获得信息,然后使用它,</p><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> CTextView::OnCreate(LPCREATESTRUCT lpCreateStruct)</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">if</span> (CView::OnCreate(lpCreateStruct) == <span class="number">-1</span>)</span><br><span class="line"><span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// <span class="doctag">TODO:</span>  在此添加您专用的创建代码</span></span><br><span class="line">    </span><br><span class="line"><span class="function">CClientDC <span class="title">dc</span><span class="params">(<span class="keyword">this</span>)</span></span>;<span class="comment">//父类存在GetDC()函数,使用this调用.</span></span><br><span class="line">    </span><br><span class="line">TEXTMETRIC tm;</span><br><span class="line">dc.GetTextMetrics(&amp;tm);  <span class="comment">//已经获得</span></span><br><span class="line"></span><br><span class="line">CreateSolidCaret(tm.tmAveCharWidth / <span class="number">8</span>, tm.tmHeight);<span class="comment">//除以8,宽度较为合适</span></span><br><span class="line">    </span><br><span class="line">ShowCaret();</span><br><span class="line"><span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h4 id="2-创建图形插入符"><a href="#2-创建图形插入符" class="headerlink" title="2. 创建图形插入符."></a>2. 创建图形插入符.</h4><p>创建前构造对象<code>CBitmap bitmap</code>,并使用<code>LoadBitmap</code>初始化,<code>CreateCaret(CBitmap * pBitmap)</code> 创建.不过bitma p应该为成员变量.</p><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CTextView</span> :</span> <span class="keyword">public</span> CView</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">CBitmap bitmap;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> CTextView::OnCreate(LPCREATESTRUCT lpCreateStruct)</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">if</span> (CView::OnCreate(lpCreateStruct) == <span class="number">-1</span>)</span><br><span class="line"><span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// <span class="doctag">TODO:</span>  在此添加您专用的创建代码</span></span><br><span class="line">    </span><br><span class="line"><span class="function">CClientDC <span class="title">dc</span><span class="params">(<span class="keyword">this</span>)</span></span>;<span class="comment">//父类存在GetDC()函数,使用this调用.</span></span><br><span class="line">    </span><br><span class="line">TEXTMETRIC tm;</span><br><span class="line">dc.GetTextMetrics(&amp;tm);  <span class="comment">//已经获得</span></span><br><span class="line">    </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//CreateSolidCaret(tm.tmAveCharWidth / 8, tm.tmHeight);//除以8,宽度较为合适</span></span><br><span class="line">    </span><br><span class="line"><span class="comment">//CBitmap bitmap;//局部对象,执行完OnCreate()会被析构.所以放到CTextView成员变量中.</span></span><br><span class="line">    </span><br><span class="line">bitmap.LoadBitmapW(IDB_BITMAP3);</span><br><span class="line">CreateCaret(&amp;bitmap);</span><br><span class="line">ShowCaret();</span><br><span class="line"><span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="3-窗口输出文字"><a href="#3-窗口输出文字" class="headerlink" title="3. 窗口输出文字"></a>3. 窗口输出文字</h3><p>可以使用<code>TextOut()</code>显示文字,但是进行重绘的时候会被擦除掉,我们要保留文字的话,在重绘的时候要重新输出文字.发生重绘的时候会调用函数<code>OnDraw()</code>,该函数会传入<code>CDC</code>指针(CDC已经封装好较多的函数),直接去使用CDC的函数.</p><h4 id="CString类"><a href="#CString类" class="headerlink" title="CString类"></a>CString类</h4><p>字符的大小匹配分配内存都有本身封装好的完成.使用CString对象,字符,字符指针等构造CString.</p><p><code>LoadString()</code>装载ID标识的资源到现存的CString中.先通过资源视图<code>String Table</code>里创建新的字符号,然后加载.</p><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> CTextView::OnDraw(CDC* pDC)<span class="comment">//发生重绘的时候会调用该函数</span></span><br><span class="line">    </span><br><span class="line">&#123;</span><br><span class="line">CTextDoc* pDoc = GetDocument();</span><br><span class="line">ASSERT_VALID(pDoc);</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (!pDoc)</span><br><span class="line"><span class="keyword">return</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// <span class="doctag">TODO:</span> 在此处为本机数据添加绘制代码</span></span><br><span class="line"><span class="comment">//CString str("see me");</span></span><br><span class="line">    </span><br><span class="line">CString str;</span><br><span class="line">str = <span class="string">L"see me"</span>;</span><br><span class="line">pDC-&gt;TextOutW(<span class="number">50</span>, <span class="number">50</span>, str);  </span><br><span class="line"></span><br><span class="line">str.LoadStringW(<span class="number">61446</span>);<span class="comment">//新建的ID号</span></span><br><span class="line">    </span><br><span class="line">pDC-&gt;TextOutW(<span class="number">0</span>, <span class="number">200</span>, str);</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="4-创建路进程"><a href="#4-创建路进程" class="headerlink" title="4. 创建路进程"></a>4. 创建路进程</h3><p><code>CDC::BeginPath()</code>在路径中打开以后，应用程序可以开始调用绘制功能的GDI定义该点集在路径。 应用程序可以通过调用 <code>EndPath</code>成员函数关闭一个打开的路径括号。 当应用程序调用 <code>BeginPath</code>时，将丢弃所有以前的路径。</p><p>文本显示宽度需要有各种条件得到,但可以通过<code>CDC::GetTextExtent</code>得到,返回<code>CSize</code>对象.CSize来自SIZE结构体.<code>Size</code>中有<code>cx  cy</code>表示高宽.也能通过字符串获取在屏幕中的高度与宽度.</p><p>当第21,23行被注释掉时,会出现默认填充的黑色矩形框.</p><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">void</span> CTextView::OnDraw(CDC* pDC)<span class="comment">//发生重绘的时候会调用该函数</span></span><br><span class="line">    </span><br><span class="line">&#123;</span><br><span class="line">CTextDoc* pDoc = GetDocument();</span><br><span class="line">ASSERT_VALID(pDoc);</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (!pDoc)</span><br><span class="line"><span class="keyword">return</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// <span class="doctag">TODO:</span> 在此处为本机数据添加绘制代码</span></span><br><span class="line"><span class="comment">//CString str("see me");</span></span><br><span class="line">    </span><br><span class="line">CString str;</span><br><span class="line">str = <span class="string">L"see me"</span>;</span><br><span class="line">pDC-&gt;TextOutW(<span class="number">50</span>, <span class="number">50</span>, str);</span><br><span class="line"></span><br><span class="line">CSize sz = pDC-&gt;GetTextExtent(str);<span class="comment">//获得高宽.</span></span><br><span class="line"></span><br><span class="line">str.LoadStringW(<span class="number">61446</span>);<span class="comment">//新建的ID号</span></span><br><span class="line">    </span><br><span class="line">pDC-&gt;TextOutW(<span class="number">0</span>, <span class="number">200</span>, str);</span><br><span class="line"></span><br><span class="line"><span class="comment">//pDC-&gt;BeginPath();//确定文本显示大小.</span></span><br><span class="line">    </span><br><span class="line">pDC-&gt;Rectangle(<span class="number">50</span>, <span class="number">50</span>, <span class="number">50</span> + sz.cx, <span class="number">50</span> + sz.cy);</span><br><span class="line"><span class="comment">//pDC-&gt;EndPath();</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h4 id="探究路进程的作用"><a href="#探究路进程的作用" class="headerlink" title="探究路进程的作用."></a>探究路进程的作用.</h4><p>画黑色线条,</p><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">300</span>; i += <span class="number">10</span>)</span><br><span class="line">&#123;</span><br><span class="line">pDC-&gt;MoveTo(<span class="number">0</span>, i);</span><br><span class="line">pDC-&gt;LineTo(<span class="number">300</span>, i);</span><br><span class="line">pDC-&gt;MoveTo(i, <span class="number">0</span>);</span><br><span class="line">pDC-&gt;LineTo(i, <span class="number">300</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p> <img src="https://i.loli.net/2018/11/04/5bdef90a07e16.jpg" alt></p><p>做互操作,使用<code>SelectClipPath</code>函数.选择当前路径作为一个剪辑区域(绘图区域)的设备上下文，了新的区域与任何现有的剪辑区域通过使用指定的模式。</p><p><img src="https://i.loli.net/2018/11/04/5bdefcaad44f9.jpg" alt>当前选择路径被排除(RGN_DIFF参数).而RGN_AND只在该区域有图.</p><p>不学了!!!垃圾MFC.</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;\assets\css\APlayer.min.css&quot;&gt;&lt;script src=&quot;\assets\js\APlayer.min.js&quot; cla
-      
-    
-    </summary>
-    
-      <category term="MFC" scheme="http://xwdidi.com/categories/MFC/"/>
-    
-    
-      <category term="MFC" scheme="http://xwdidi.com/tags/MFC/"/>
-    
-      <category term="Windows编程" scheme="http://xwdidi.com/tags/Windows%E7%BC%96%E7%A8%8B/"/>
     
   </entry>
   
