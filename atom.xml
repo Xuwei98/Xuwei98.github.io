@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://xwdidi.com/"/>
-  <updated>2019-08-23T16:18:09.900Z</updated>
+  <updated>2019-08-23T16:22:56.561Z</updated>
   <id>http://xwdidi.com/</id>
   
   <author>
@@ -18,10 +18,10 @@
   
   <entry>
     <title>每日总结</title>
-    <link href="http://xwdidi.com/2019/08/24/2020-07-08-%E6%AF%8F%E6%97%A5%E6%80%BB%E7%BB%93/"/>
-    <id>http://xwdidi.com/2019/08/24/2020-07-08-每日总结/</id>
-    <published>2019-08-23T16:00:00.000Z</published>
-    <updated>2019-08-23T16:18:09.900Z</updated>
+    <link href="http://xwdidi.com/2019/11/30/2020-07-08-%E6%AF%8F%E6%97%A5%E6%80%BB%E7%BB%93/"/>
+    <id>http://xwdidi.com/2019/11/30/2020-07-08-每日总结/</id>
+    <published>2019-11-29T16:00:00.000Z</published>
+    <updated>2019-08-23T16:22:56.561Z</updated>
     
     <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h3 id="2019-08-24"><a href="#2019-08-24" class="headerlink" title="2019-08-24"></a>2019-08-24</h3><p>回校第二天,把分析工具整理了下,用批处理+cmder弄个简单的工具调用. 遇到点双机调试问题,解决掉了.</p>]]></content>
     
