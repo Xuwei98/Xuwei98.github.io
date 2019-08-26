@@ -5,9 +5,9 @@
   
   <link href="/atom.xml" rel="self"/>
   
-  <link href="http://xwdidi.com/"/>
-  <updated>2019-08-25T18:58:41.453Z</updated>
-  <id>http://xwdidi.com/</id>
+  <link href="http://xwdidi.top/"/>
+  <updated>2019-08-26T16:59:36.481Z</updated>
+  <id>http://xwdidi.top/</id>
   
   <author>
     <name>Xuwei98</name>
@@ -18,12 +18,12 @@
   
   <entry>
     <title>每日总结</title>
-    <link href="http://xwdidi.com/2019/11/30/2020-07-08-%E6%AF%8F%E6%97%A5%E6%80%BB%E7%BB%93/"/>
-    <id>http://xwdidi.com/2019/11/30/2020-07-08-每日总结/</id>
+    <link href="http://xwdidi.top/2019/11/30/2020-07-08-%E6%AF%8F%E6%97%A5%E6%80%BB%E7%BB%93/"/>
+    <id>http://xwdidi.top/2019/11/30/2020-07-08-每日总结/</id>
     <published>2019-11-29T16:00:00.000Z</published>
-    <updated>2019-08-25T18:58:41.453Z</updated>
+    <updated>2019-08-26T16:59:36.481Z</updated>
     
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h3 id="2019-08-24"><a href="#2019-08-24" class="headerlink" title="2019-08-24"></a>2019-08-24</h3><p>回校第二天,把分析工具整理了下,用批处理+cmder弄个简单的工具调用. 遇到点双机调试问题,解决掉了.</p><h3 id="2019-08-25"><a href="#2019-08-25" class="headerlink" title="2019-08-25"></a>2019-08-25</h3><p>把恶意样本的书开始系统的看,看到第九章,明天做课后习题.知道很多不知道的功能,python调用immdbg很有意思.</p><h3 id="2019-08-26"><a href="#2019-08-26" class="headerlink" title="2019-08-26"></a>2019-08-26</h3><p>感觉自己是摸鱼小能手,今天就做了后面两个样本分析.第一个较为完整的功能木马,分析的思路还是没整理好,还是差一点.第二个还行.希望明天少看点动画片和剧,多多学习.</p>]]></content>
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h3 id="2019-08-24"><a href="#2019-08-24" class="headerlink" title="2019-08-24"></a>2019-08-24</h3><p>回校第二天,把分析工具整理了下,用批处理+cmder弄个简单的工具调用. 遇到点双机调试问题,解决掉了.</p><h3 id="2019-08-25"><a href="#2019-08-25" class="headerlink" title="2019-08-25"></a>2019-08-25</h3><p>把恶意样本的书开始系统的看,看到第九章,明天做课后习题.知道很多不知道的功能,python调用immdbg很有意思.</p><h3 id="2019-08-26"><a href="#2019-08-26" class="headerlink" title="2019-08-26"></a>2019-08-26</h3><p>感觉自己是摸鱼小能手,今天就做了后面两个样本分析.第一个较为完整的功能木马,分析的思路还是没整理好,还是差一点.第二个还行.希望明天少看点动画片和剧,多多学习.</p><h3 id="2019-08-27"><a href="#2019-08-27" class="headerlink" title="2019-08-27"></a>2019-08-27</h3><p>唉,今天啥都没干,我就是个dd.今天早睡早起.</p>]]></content>
     
     <summary type="html">
     
@@ -34,17 +34,17 @@
     
     </summary>
     
-      <category term="总结" scheme="http://xwdidi.com/categories/%E6%80%BB%E7%BB%93/"/>
+      <category term="总结" scheme="http://xwdidi.top/categories/%E6%80%BB%E7%BB%93/"/>
     
     
-      <category term="总结" scheme="http://xwdidi.com/tags/%E6%80%BB%E7%BB%93/"/>
+      <category term="总结" scheme="http://xwdidi.top/tags/%E6%80%BB%E7%BB%93/"/>
     
   </entry>
   
   <entry>
     <title>双机调试简单问题</title>
-    <link href="http://xwdidi.com/2019/08/24/2019-08-24-%20%E5%8F%8C%E5%87%BB%E8%B0%83%E8%AF%95%E7%AE%80%E5%8D%95%E9%97%AE%E9%A2%98%E6%80%BB%E7%BB%93/"/>
-    <id>http://xwdidi.com/2019/08/24/2019-08-24- 双击调试简单问题总结/</id>
+    <link href="http://xwdidi.top/2019/08/24/2019-08-24-%20%E5%8F%8C%E5%87%BB%E8%B0%83%E8%AF%95%E7%AE%80%E5%8D%95%E9%97%AE%E9%A2%98%E6%80%BB%E7%BB%93/"/>
+    <id>http://xwdidi.top/2019/08/24/2019-08-24- 双击调试简单问题总结/</id>
     <published>2019-08-23T16:00:00.000Z</published>
     <updated>2019-08-23T16:06:46.961Z</updated>
     
@@ -59,17 +59,17 @@
     
     </summary>
     
-      <category term="环境搭建" scheme="http://xwdidi.com/categories/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/"/>
+      <category term="环境搭建" scheme="http://xwdidi.top/categories/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/"/>
     
     
-      <category term="调试" scheme="http://xwdidi.com/tags/%E8%B0%83%E8%AF%95/"/>
+      <category term="调试" scheme="http://xwdidi.top/tags/%E8%B0%83%E8%AF%95/"/>
     
   </entry>
   
   <entry>
     <title>iptables简单小结</title>
-    <link href="http://xwdidi.com/2019/06/18/2019-06-18-iptables%E7%AE%80%E5%8D%95%E5%B0%8F%E7%BB%93/"/>
-    <id>http://xwdidi.com/2019/06/18/2019-06-18-iptables简单小结/</id>
+    <link href="http://xwdidi.top/2019/06/18/2019-06-18-iptables%E7%AE%80%E5%8D%95%E5%B0%8F%E7%BB%93/"/>
+    <id>http://xwdidi.top/2019/06/18/2019-06-18-iptables简单小结/</id>
     <published>2019-06-18T06:19:36.000Z</published>
     <updated>2019-06-18T15:06:33.244Z</updated>
     
@@ -84,17 +84,17 @@
     
     </summary>
     
-      <category term="Linux" scheme="http://xwdidi.com/categories/Linux/"/>
+      <category term="Linux" scheme="http://xwdidi.top/categories/Linux/"/>
     
     
-      <category term="实验" scheme="http://xwdidi.com/tags/%E5%AE%9E%E9%AA%8C/"/>
+      <category term="实验" scheme="http://xwdidi.top/tags/%E5%AE%9E%E9%AA%8C/"/>
     
   </entry>
   
   <entry>
     <title>arm环境搭建-gdb调试</title>
-    <link href="http://xwdidi.com/2019/05/24/2019-05-24-arm%E7%8E%AF%E5%A2%83gdb%E8%B0%83%E8%AF%95/"/>
-    <id>http://xwdidi.com/2019/05/24/2019-05-24-arm环境gdb调试/</id>
+    <link href="http://xwdidi.top/2019/05/24/2019-05-24-arm%E7%8E%AF%E5%A2%83gdb%E8%B0%83%E8%AF%95/"/>
+    <id>http://xwdidi.top/2019/05/24/2019-05-24-arm环境gdb调试/</id>
     <published>2019-05-24T05:33:23.000Z</published>
     <updated>2019-05-25T09:47:39.901Z</updated>
     
@@ -109,19 +109,19 @@
     
     </summary>
     
-      <category term="搭建" scheme="http://xwdidi.com/categories/%E6%90%AD%E5%BB%BA/"/>
+      <category term="搭建" scheme="http://xwdidi.top/categories/%E6%90%AD%E5%BB%BA/"/>
     
     
-      <category term="arm" scheme="http://xwdidi.com/tags/arm/"/>
+      <category term="arm" scheme="http://xwdidi.top/tags/arm/"/>
     
-      <category term="环境搭建" scheme="http://xwdidi.com/tags/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/"/>
+      <category term="环境搭建" scheme="http://xwdidi.top/tags/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/"/>
     
   </entry>
   
   <entry>
     <title>断点原理</title>
-    <link href="http://xwdidi.com/2019/04/07/2019-04-07-%E6%96%AD%E7%82%B9%E5%8E%9F%E7%90%86/"/>
-    <id>http://xwdidi.com/2019/04/07/2019-04-07-断点原理/</id>
+    <link href="http://xwdidi.top/2019/04/07/2019-04-07-%E6%96%AD%E7%82%B9%E5%8E%9F%E7%90%86/"/>
+    <id>http://xwdidi.top/2019/04/07/2019-04-07-断点原理/</id>
     <published>2019-04-07T05:33:23.000Z</published>
     <updated>2019-05-24T15:08:01.071Z</updated>
     
@@ -136,19 +136,19 @@
     
     </summary>
     
-      <category term="逆向分析" scheme="http://xwdidi.com/categories/%E9%80%86%E5%90%91%E5%88%86%E6%9E%90/"/>
+      <category term="逆向分析" scheme="http://xwdidi.top/categories/%E9%80%86%E5%90%91%E5%88%86%E6%9E%90/"/>
     
     
-      <category term="断点" scheme="http://xwdidi.com/tags/%E6%96%AD%E7%82%B9/"/>
+      <category term="调试" scheme="http://xwdidi.top/tags/%E8%B0%83%E8%AF%95/"/>
     
-      <category term="调试" scheme="http://xwdidi.com/tags/%E8%B0%83%E8%AF%95/"/>
+      <category term="断点" scheme="http://xwdidi.top/tags/%E6%96%AD%E7%82%B9/"/>
     
   </entry>
   
   <entry>
     <title>VC：执行远程线程注入的代码段导致目标进程崩溃</title>
-    <link href="http://xwdidi.com/2019/04/01/2019-04-01-VC%E7%BA%BF%E7%A8%8B%E6%B3%A8%E5%85%A5%E5%A4%B1%E8%B4%A5/"/>
-    <id>http://xwdidi.com/2019/04/01/2019-04-01-VC线程注入失败/</id>
+    <link href="http://xwdidi.top/2019/04/01/2019-04-01-VC%E7%BA%BF%E7%A8%8B%E6%B3%A8%E5%85%A5%E5%A4%B1%E8%B4%A5/"/>
+    <id>http://xwdidi.top/2019/04/01/2019-04-01-VC线程注入失败/</id>
     <published>2019-03-31T16:00:00.000Z</published>
     <updated>2019-04-07T04:36:27.147Z</updated>
     
@@ -163,17 +163,17 @@
     
     </summary>
     
-      <category term="windows编程" scheme="http://xwdidi.com/categories/windows%E7%BC%96%E7%A8%8B/"/>
+      <category term="windows编程" scheme="http://xwdidi.top/categories/windows%E7%BC%96%E7%A8%8B/"/>
     
     
-      <category term="错误整理" scheme="http://xwdidi.com/tags/%E9%94%99%E8%AF%AF%E6%95%B4%E7%90%86/"/>
+      <category term="错误整理" scheme="http://xwdidi.top/tags/%E9%94%99%E8%AF%AF%E6%95%B4%E7%90%86/"/>
     
   </entry>
   
   <entry>
     <title>语言复习       查漏补缺 不定时更新</title>
-    <link href="http://xwdidi.com/2019/03/15/2019-03-13-%E8%AF%AD%E8%A8%80%E8%A6%81%E7%82%B9%E5%A4%8D%E4%B9%A0/"/>
-    <id>http://xwdidi.com/2019/03/15/2019-03-13-语言要点复习/</id>
+    <link href="http://xwdidi.top/2019/03/15/2019-03-13-%E8%AF%AD%E8%A8%80%E8%A6%81%E7%82%B9%E5%A4%8D%E4%B9%A0/"/>
+    <id>http://xwdidi.top/2019/03/15/2019-03-13-语言要点复习/</id>
     <published>2019-03-14T16:00:00.000Z</published>
     <updated>2019-04-07T16:00:00.000Z</updated>
     
@@ -188,19 +188,19 @@
     
     </summary>
     
-      <category term="操作系统" scheme="http://xwdidi.com/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
+      <category term="操作系统" scheme="http://xwdidi.top/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
     
     
-      <category term="复习" scheme="http://xwdidi.com/tags/%E5%A4%8D%E4%B9%A0/"/>
+      <category term="复习" scheme="http://xwdidi.top/tags/%E5%A4%8D%E4%B9%A0/"/>
     
-      <category term="基础" scheme="http://xwdidi.com/tags/%E5%9F%BA%E7%A1%80/"/>
+      <category term="基础" scheme="http://xwdidi.top/tags/%E5%9F%BA%E7%A1%80/"/>
     
   </entry>
   
   <entry>
     <title>设备驱动与文件系统   L30 文件使用的磁盘的实现</title>
-    <link href="http://xwdidi.com/2019/03/04/2019-03-04-L30-%E6%96%87%E4%BB%B6%E4%BD%BF%E7%94%A8%E7%A3%81%E7%9B%98%E7%9A%84%E5%AE%9E%E7%8E%B0/"/>
-    <id>http://xwdidi.com/2019/03/04/2019-03-04-L30-文件使用磁盘的实现/</id>
+    <link href="http://xwdidi.top/2019/03/04/2019-03-04-L30-%E6%96%87%E4%BB%B6%E4%BD%BF%E7%94%A8%E7%A3%81%E7%9B%98%E7%9A%84%E5%AE%9E%E7%8E%B0/"/>
+    <id>http://xwdidi.top/2019/03/04/2019-03-04-L30-文件使用磁盘的实现/</id>
     <published>2019-03-03T16:00:00.000Z</published>
     <updated>2019-04-06T13:57:07.175Z</updated>
     
@@ -215,21 +215,21 @@
     
     </summary>
     
-      <category term="操作系统" scheme="http://xwdidi.com/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
+      <category term="操作系统" scheme="http://xwdidi.top/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
     
     
-      <category term="操作系统" scheme="http://xwdidi.com/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
+      <category term="操作系统" scheme="http://xwdidi.top/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
     
-      <category term="驱动" scheme="http://xwdidi.com/tags/%E9%A9%B1%E5%8A%A8/"/>
+      <category term="驱动" scheme="http://xwdidi.top/tags/%E9%A9%B1%E5%8A%A8/"/>
     
-      <category term="I/O" scheme="http://xwdidi.com/tags/I-O/"/>
+      <category term="I/O" scheme="http://xwdidi.top/tags/I-O/"/>
     
   </entry>
   
   <entry>
     <title>设备驱动与文件系统    L29 从生磁盘到文件</title>
-    <link href="http://xwdidi.com/2019/02/19/2019-02-19-L29-%E4%BB%8E%E7%94%9F%E7%A3%81%E7%9B%98%E5%88%B0%E6%96%87%E4%BB%B6/"/>
-    <id>http://xwdidi.com/2019/02/19/2019-02-19-L29-从生磁盘到文件/</id>
+    <link href="http://xwdidi.top/2019/02/19/2019-02-19-L29-%E4%BB%8E%E7%94%9F%E7%A3%81%E7%9B%98%E5%88%B0%E6%96%87%E4%BB%B6/"/>
+    <id>http://xwdidi.top/2019/02/19/2019-02-19-L29-从生磁盘到文件/</id>
     <published>2019-02-18T16:00:00.000Z</published>
     <updated>2019-04-06T13:56:53.862Z</updated>
     
@@ -244,21 +244,21 @@
     
     </summary>
     
-      <category term="操作系统" scheme="http://xwdidi.com/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
+      <category term="操作系统" scheme="http://xwdidi.top/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
     
     
-      <category term="操作系统" scheme="http://xwdidi.com/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
+      <category term="操作系统" scheme="http://xwdidi.top/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
     
-      <category term="驱动" scheme="http://xwdidi.com/tags/%E9%A9%B1%E5%8A%A8/"/>
+      <category term="驱动" scheme="http://xwdidi.top/tags/%E9%A9%B1%E5%8A%A8/"/>
     
-      <category term="I/O" scheme="http://xwdidi.com/tags/I-O/"/>
+      <category term="I/O" scheme="http://xwdidi.top/tags/I-O/"/>
     
   </entry>
   
   <entry>
     <title>设备驱动与文件系统    L28 生磁盘的使用</title>
-    <link href="http://xwdidi.com/2019/02/16/2019-02-16-L28-%E7%94%9F%E7%A3%81%E7%9B%98%E7%9A%84%E4%BD%BF%E7%94%A8/"/>
-    <id>http://xwdidi.com/2019/02/16/2019-02-16-L28-生磁盘的使用/</id>
+    <link href="http://xwdidi.top/2019/02/16/2019-02-16-L28-%E7%94%9F%E7%A3%81%E7%9B%98%E7%9A%84%E4%BD%BF%E7%94%A8/"/>
+    <id>http://xwdidi.top/2019/02/16/2019-02-16-L28-生磁盘的使用/</id>
     <published>2019-02-15T16:00:00.000Z</published>
     <updated>2019-04-06T13:56:34.504Z</updated>
     
@@ -273,21 +273,21 @@
     
     </summary>
     
-      <category term="操作系统" scheme="http://xwdidi.com/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
+      <category term="操作系统" scheme="http://xwdidi.top/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
     
     
-      <category term="操作系统" scheme="http://xwdidi.com/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
+      <category term="操作系统" scheme="http://xwdidi.top/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
     
-      <category term="驱动" scheme="http://xwdidi.com/tags/%E9%A9%B1%E5%8A%A8/"/>
+      <category term="驱动" scheme="http://xwdidi.top/tags/%E9%A9%B1%E5%8A%A8/"/>
     
-      <category term="I/O" scheme="http://xwdidi.com/tags/I-O/"/>
+      <category term="I/O" scheme="http://xwdidi.top/tags/I-O/"/>
     
   </entry>
   
   <entry>
     <title>设备驱动与文件系统    L27 键盘</title>
-    <link href="http://xwdidi.com/2018/12/30/2018-12-30-L27-%E9%94%AE%E7%9B%98/"/>
-    <id>http://xwdidi.com/2018/12/30/2018-12-30-L27-键盘/</id>
+    <link href="http://xwdidi.top/2018/12/30/2018-12-30-L27-%E9%94%AE%E7%9B%98/"/>
+    <id>http://xwdidi.top/2018/12/30/2018-12-30-L27-键盘/</id>
     <published>2018-12-29T16:00:00.000Z</published>
     <updated>2019-04-06T13:55:18.446Z</updated>
     
@@ -302,21 +302,21 @@
     
     </summary>
     
-      <category term="操作系统" scheme="http://xwdidi.com/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
+      <category term="操作系统" scheme="http://xwdidi.top/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
     
     
-      <category term="操作系统" scheme="http://xwdidi.com/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
+      <category term="操作系统" scheme="http://xwdidi.top/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
     
-      <category term="驱动" scheme="http://xwdidi.com/tags/%E9%A9%B1%E5%8A%A8/"/>
+      <category term="驱动" scheme="http://xwdidi.top/tags/%E9%A9%B1%E5%8A%A8/"/>
     
-      <category term="I/O" scheme="http://xwdidi.com/tags/I-O/"/>
+      <category term="I/O" scheme="http://xwdidi.top/tags/I-O/"/>
     
   </entry>
   
   <entry>
     <title>设备驱动与文件系统  L26 I/O与显示器</title>
-    <link href="http://xwdidi.com/2018/12/29/2018-12-29-L26-IO%E4%B8%8E%E6%98%BE%E7%A4%BA%E5%99%A8/"/>
-    <id>http://xwdidi.com/2018/12/29/2018-12-29-L26-IO与显示器/</id>
+    <link href="http://xwdidi.top/2018/12/29/2018-12-29-L26-IO%E4%B8%8E%E6%98%BE%E7%A4%BA%E5%99%A8/"/>
+    <id>http://xwdidi.top/2018/12/29/2018-12-29-L26-IO与显示器/</id>
     <published>2018-12-28T16:00:00.000Z</published>
     <updated>2019-04-06T13:55:08.706Z</updated>
     
@@ -331,21 +331,21 @@
     
     </summary>
     
-      <category term="操作系统" scheme="http://xwdidi.com/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
+      <category term="操作系统" scheme="http://xwdidi.top/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
     
     
-      <category term="操作系统" scheme="http://xwdidi.com/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
+      <category term="操作系统" scheme="http://xwdidi.top/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
     
-      <category term="驱动" scheme="http://xwdidi.com/tags/%E9%A9%B1%E5%8A%A8/"/>
+      <category term="驱动" scheme="http://xwdidi.top/tags/%E9%A9%B1%E5%8A%A8/"/>
     
-      <category term="I/O" scheme="http://xwdidi.com/tags/I-O/"/>
+      <category term="I/O" scheme="http://xwdidi.top/tags/I-O/"/>
     
   </entry>
   
   <entry>
     <title>誘い   第十一课</title>
-    <link href="http://xwdidi.com/2018/12/18/2018-12-18-%E6%97%A5%E8%AF%AD%E5%8D%81%E4%B8%80%E8%AF%BE%E3%83%BC%E8%AA%98%E3%81%84/"/>
-    <id>http://xwdidi.com/2018/12/18/2018-12-18-日语十一课ー誘い/</id>
+    <link href="http://xwdidi.top/2018/12/18/2018-12-18-%E6%97%A5%E8%AF%AD%E5%8D%81%E4%B8%80%E8%AF%BE%E3%83%BC%E8%AA%98%E3%81%84/"/>
+    <id>http://xwdidi.top/2018/12/18/2018-12-18-日语十一课ー誘い/</id>
     <published>2018-12-17T16:00:00.000Z</published>
     <updated>2019-04-06T13:55:00.385Z</updated>
     
@@ -360,19 +360,19 @@
     
     </summary>
     
-      <category term="日语" scheme="http://xwdidi.com/categories/%E6%97%A5%E8%AF%AD/"/>
+      <category term="日语" scheme="http://xwdidi.top/categories/%E6%97%A5%E8%AF%AD/"/>
     
     
-      <category term="日语" scheme="http://xwdidi.com/tags/%E6%97%A5%E8%AF%AD/"/>
+      <category term="日语" scheme="http://xwdidi.top/tags/%E6%97%A5%E8%AF%AD/"/>
     
-      <category term="日本" scheme="http://xwdidi.com/tags/%E6%97%A5%E6%9C%AC/"/>
+      <category term="日本" scheme="http://xwdidi.top/tags/%E6%97%A5%E6%9C%AC/"/>
     
   </entry>
   
   <entry>
     <title>内存管理    L25 内存换出 Swapout</title>
-    <link href="http://xwdidi.com/2018/12/04/2018-12-04-L25%E5%86%85%E5%AD%98%E6%8D%A2%E5%87%BA/"/>
-    <id>http://xwdidi.com/2018/12/04/2018-12-04-L25内存换出/</id>
+    <link href="http://xwdidi.top/2018/12/04/2018-12-04-L25%E5%86%85%E5%AD%98%E6%8D%A2%E5%87%BA/"/>
+    <id>http://xwdidi.top/2018/12/04/2018-12-04-L25内存换出/</id>
     <published>2018-12-03T16:00:00.000Z</published>
     <updated>2019-05-24T15:02:02.673Z</updated>
     
@@ -387,21 +387,21 @@
     
     </summary>
     
-      <category term="操作系统" scheme="http://xwdidi.com/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
+      <category term="操作系统" scheme="http://xwdidi.top/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
     
     
-      <category term="操作系统" scheme="http://xwdidi.com/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
+      <category term="操作系统" scheme="http://xwdidi.top/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
     
-      <category term="汇编" scheme="http://xwdidi.com/tags/%E6%B1%87%E7%BC%96/"/>
+      <category term="汇编" scheme="http://xwdidi.top/tags/%E6%B1%87%E7%BC%96/"/>
     
-      <category term="内存" scheme="http://xwdidi.com/tags/%E5%86%85%E5%AD%98/"/>
+      <category term="内存" scheme="http://xwdidi.top/tags/%E5%86%85%E5%AD%98/"/>
     
   </entry>
   
   <entry>
     <title>季節と天気   第十课</title>
-    <link href="http://xwdidi.com/2018/12/03/2018-12-03-%E6%97%A5%E8%AF%AD%E7%AC%AC%E5%8D%81%E8%AF%BE/"/>
-    <id>http://xwdidi.com/2018/12/03/2018-12-03-日语第十课/</id>
+    <link href="http://xwdidi.top/2018/12/03/2018-12-03-%E6%97%A5%E8%AF%AD%E7%AC%AC%E5%8D%81%E8%AF%BE/"/>
+    <id>http://xwdidi.top/2018/12/03/2018-12-03-日语第十课/</id>
     <published>2018-12-02T16:00:00.000Z</published>
     <updated>2019-04-06T13:54:22.903Z</updated>
     
@@ -416,19 +416,19 @@
     
     </summary>
     
-      <category term="日语" scheme="http://xwdidi.com/categories/%E6%97%A5%E8%AF%AD/"/>
+      <category term="日语" scheme="http://xwdidi.top/categories/%E6%97%A5%E8%AF%AD/"/>
     
     
-      <category term="日语" scheme="http://xwdidi.com/tags/%E6%97%A5%E8%AF%AD/"/>
+      <category term="日语" scheme="http://xwdidi.top/tags/%E6%97%A5%E8%AF%AD/"/>
     
-      <category term="日本" scheme="http://xwdidi.com/tags/%E6%97%A5%E6%9C%AC/"/>
+      <category term="日本" scheme="http://xwdidi.top/tags/%E6%97%A5%E6%9C%AC/"/>
     
   </entry>
   
   <entry>
     <title>内存管理    L24 内存换入-请求调页</title>
-    <link href="http://xwdidi.com/2018/11/27/2018-11-27-L24%E5%86%85%E5%AD%98%E6%8D%A2%E5%85%A5-%E8%AF%B7%E6%B1%82%E8%B0%83%E9%A1%B5/"/>
-    <id>http://xwdidi.com/2018/11/27/2018-11-27-L24内存换入-请求调页/</id>
+    <link href="http://xwdidi.top/2018/11/27/2018-11-27-L24%E5%86%85%E5%AD%98%E6%8D%A2%E5%85%A5-%E8%AF%B7%E6%B1%82%E8%B0%83%E9%A1%B5/"/>
+    <id>http://xwdidi.top/2018/11/27/2018-11-27-L24内存换入-请求调页/</id>
     <published>2018-11-26T16:00:00.000Z</published>
     <updated>2019-04-06T13:54:13.166Z</updated>
     
@@ -443,21 +443,21 @@
     
     </summary>
     
-      <category term="操作系统" scheme="http://xwdidi.com/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
+      <category term="操作系统" scheme="http://xwdidi.top/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
     
     
-      <category term="操作系统" scheme="http://xwdidi.com/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
+      <category term="操作系统" scheme="http://xwdidi.top/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
     
-      <category term="汇编语言" scheme="http://xwdidi.com/tags/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/"/>
+      <category term="汇编语言" scheme="http://xwdidi.top/tags/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/"/>
     
-      <category term="内存" scheme="http://xwdidi.com/tags/%E5%86%85%E5%AD%98/"/>
+      <category term="内存" scheme="http://xwdidi.top/tags/%E5%86%85%E5%AD%98/"/>
     
   </entry>
   
   <entry>
     <title>アパート    第九课</title>
-    <link href="http://xwdidi.com/2018/11/25/2018-11-25-%E6%97%A5%E8%AF%AD%E7%AC%AC%E4%B9%9D%E8%AF%BE/"/>
-    <id>http://xwdidi.com/2018/11/25/2018-11-25-日语第九课/</id>
+    <link href="http://xwdidi.top/2018/11/25/2018-11-25-%E6%97%A5%E8%AF%AD%E7%AC%AC%E4%B9%9D%E8%AF%BE/"/>
+    <id>http://xwdidi.top/2018/11/25/2018-11-25-日语第九课/</id>
     <published>2018-11-24T16:00:00.000Z</published>
     <updated>2019-04-06T13:54:02.907Z</updated>
     
@@ -472,19 +472,19 @@
     
     </summary>
     
-      <category term="日语" scheme="http://xwdidi.com/categories/%E6%97%A5%E8%AF%AD/"/>
+      <category term="日语" scheme="http://xwdidi.top/categories/%E6%97%A5%E8%AF%AD/"/>
     
     
-      <category term="日语" scheme="http://xwdidi.com/tags/%E6%97%A5%E8%AF%AD/"/>
+      <category term="日语" scheme="http://xwdidi.top/tags/%E6%97%A5%E8%AF%AD/"/>
     
-      <category term="日本" scheme="http://xwdidi.com/tags/%E6%97%A5%E6%9C%AC/"/>
+      <category term="日本" scheme="http://xwdidi.top/tags/%E6%97%A5%E6%9C%AC/"/>
     
   </entry>
   
   <entry>
     <title>内存管理      L23   段页结合的实际内存管理</title>
-    <link href="http://xwdidi.com/2018/11/24/2018-11-24-L23%E6%AE%B5%E9%A1%B5%E7%BB%93%E5%90%88%E7%9A%84%E5%AE%9E%E9%99%85%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/"/>
-    <id>http://xwdidi.com/2018/11/24/2018-11-24-L23段页结合的实际内存管理/</id>
+    <link href="http://xwdidi.top/2018/11/24/2018-11-24-L23%E6%AE%B5%E9%A1%B5%E7%BB%93%E5%90%88%E7%9A%84%E5%AE%9E%E9%99%85%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/"/>
+    <id>http://xwdidi.top/2018/11/24/2018-11-24-L23段页结合的实际内存管理/</id>
     <published>2018-11-23T16:00:00.000Z</published>
     <updated>2019-04-06T13:53:47.804Z</updated>
     
@@ -499,21 +499,21 @@
     
     </summary>
     
-      <category term="操作系统" scheme="http://xwdidi.com/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
+      <category term="操作系统" scheme="http://xwdidi.top/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
     
     
-      <category term="操作系统" scheme="http://xwdidi.com/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
+      <category term="操作系统" scheme="http://xwdidi.top/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
     
-      <category term="汇编" scheme="http://xwdidi.com/tags/%E6%B1%87%E7%BC%96/"/>
+      <category term="汇编" scheme="http://xwdidi.top/tags/%E6%B1%87%E7%BC%96/"/>
     
-      <category term="内存" scheme="http://xwdidi.com/tags/%E5%86%85%E5%AD%98/"/>
+      <category term="内存" scheme="http://xwdidi.top/tags/%E5%86%85%E5%AD%98/"/>
     
   </entry>
   
   <entry>
     <title>内存管理   L22 多级页表与快表</title>
-    <link href="http://xwdidi.com/2018/11/19/2018-11-19-L22%E5%A4%9A%E7%BA%A7%E9%A1%B5%E8%A1%A8%E4%B8%8E%E5%BF%AB%E8%A1%A8/"/>
-    <id>http://xwdidi.com/2018/11/19/2018-11-19-L22多级页表与快表/</id>
+    <link href="http://xwdidi.top/2018/11/19/2018-11-19-L22%E5%A4%9A%E7%BA%A7%E9%A1%B5%E8%A1%A8%E4%B8%8E%E5%BF%AB%E8%A1%A8/"/>
+    <id>http://xwdidi.top/2018/11/19/2018-11-19-L22多级页表与快表/</id>
     <published>2018-11-18T16:00:00.000Z</published>
     <updated>2019-04-06T13:53:37.588Z</updated>
     
@@ -528,21 +528,21 @@
     
     </summary>
     
-      <category term="操作系统" scheme="http://xwdidi.com/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
+      <category term="操作系统" scheme="http://xwdidi.top/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
     
     
-      <category term="操作系统" scheme="http://xwdidi.com/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
+      <category term="操作系统" scheme="http://xwdidi.top/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
     
-      <category term="汇编" scheme="http://xwdidi.com/tags/%E6%B1%87%E7%BC%96/"/>
+      <category term="汇编" scheme="http://xwdidi.top/tags/%E6%B1%87%E7%BC%96/"/>
     
-      <category term="内存" scheme="http://xwdidi.com/tags/%E5%86%85%E5%AD%98/"/>
+      <category term="内存" scheme="http://xwdidi.top/tags/%E5%86%85%E5%AD%98/"/>
     
   </entry>
   
   <entry>
     <title>DuiLib环境搭建</title>
-    <link href="http://xwdidi.com/2018/11/05/2018-11-05-DuiLib%E6%90%AD%E5%BB%BA/"/>
-    <id>http://xwdidi.com/2018/11/05/2018-11-05-DuiLib搭建/</id>
+    <link href="http://xwdidi.top/2018/11/05/2018-11-05-DuiLib%E6%90%AD%E5%BB%BA/"/>
+    <id>http://xwdidi.top/2018/11/05/2018-11-05-DuiLib搭建/</id>
     <published>2018-11-04T16:00:00.000Z</published>
     <updated>2019-04-06T13:59:35.340Z</updated>
     
@@ -557,14 +557,14 @@
     
     </summary>
     
-      <category term="Duilib" scheme="http://xwdidi.com/categories/Duilib/"/>
+      <category term="Duilib" scheme="http://xwdidi.top/categories/Duilib/"/>
     
     
-      <category term="Windows编程" scheme="http://xwdidi.com/tags/Windows%E7%BC%96%E7%A8%8B/"/>
+      <category term="Windows编程" scheme="http://xwdidi.top/tags/Windows%E7%BC%96%E7%A8%8B/"/>
     
-      <category term="DuiLib" scheme="http://xwdidi.com/tags/DuiLib/"/>
+      <category term="DuiLib" scheme="http://xwdidi.top/tags/DuiLib/"/>
     
-      <category term="界面" scheme="http://xwdidi.com/tags/%E7%95%8C%E9%9D%A2/"/>
+      <category term="界面" scheme="http://xwdidi.top/tags/%E7%95%8C%E9%9D%A2/"/>
     
   </entry>
   
