@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://xwdidi.top/"/>
-  <updated>2019-08-29T19:59:21.640Z</updated>
+  <updated>2019-08-23T16:06:46.961Z</updated>
   <id>http://xwdidi.top/</id>
   
   <author>
@@ -15,31 +15,6 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
-  
-  <entry>
-    <title>每日总结</title>
-    <link href="http://xwdidi.top/2019/11/30/2020-07-08-%E6%AF%8F%E6%97%A5%E6%80%BB%E7%BB%93/"/>
-    <id>http://xwdidi.top/2019/11/30/2020-07-08-每日总结/</id>
-    <published>2019-11-29T16:00:00.000Z</published>
-    <updated>2019-08-29T19:59:21.640Z</updated>
-    
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h3 id="2019-08-24"><a href="#2019-08-24" class="headerlink" title="2019-08-24"></a>2019-08-24</h3><p>回校第二天,把分析工具整理了下,用批处理+cmder弄个简单的工具调用. 遇到点双机调试问题,解决掉了.</p><h3 id="2019-08-25"><a href="#2019-08-25" class="headerlink" title="2019-08-25"></a>2019-08-25</h3><p>把恶意样本的书开始系统的看,看到第九章,明天做课后习题.知道很多不知道的功能,python调用immdbg很有意思.</p><h3 id="2019-08-26"><a href="#2019-08-26" class="headerlink" title="2019-08-26"></a>2019-08-26</h3><p>感觉自己是摸鱼小能手,今天就做了后面两个样本分析.第一个较为完整的功能木马,分析的思路还是没整理好,还是差一点.第二个还行.希望明天少看点动画片和剧,多多学习.</p><h3 id="2019-08-27"><a href="#2019-08-27" class="headerlink" title="2019-08-27"></a>2019-08-27</h3><p>唉,今天啥都没干,我就是个dd.今天早睡早起.</p><h3 id="2019-08-28"><a href="#2019-08-28" class="headerlink" title="2019-08-28"></a>2019-08-28</h3><p>第十章内核调试,调一调简单的驱动.</p><h3 id="2019-08-28-1"><a href="#2019-08-28-1" class="headerlink" title="2019-08-28"></a>2019-08-28</h3><p>老样子,摸摸鱼看看书.</p><h3 id="2019-08-29"><a href="#2019-08-29" class="headerlink" title="2019-08-29"></a>2019-08-29</h3><p>调试rootkit,第十一章开头</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;\assets\css\APlayer.min.css&quot;&gt;&lt;script src=&quot;\assets\js\APlayer.min.js&quot; cla
-      
-    
-    </summary>
-    
-      <category term="总结" scheme="http://xwdidi.top/categories/%E6%80%BB%E7%BB%93/"/>
-    
-    
-      <category term="总结" scheme="http://xwdidi.top/tags/%E6%80%BB%E7%BB%93/"/>
-    
-  </entry>
   
   <entry>
     <title>双机调试简单问题</title>
@@ -565,6 +540,35 @@
       <category term="DuiLib" scheme="http://xwdidi.top/tags/DuiLib/"/>
     
       <category term="界面" scheme="http://xwdidi.top/tags/%E7%95%8C%E9%9D%A2/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>(转载)为何建议使用UTF-8</title>
+    <link href="http://xwdidi.top/2018/11/03/2018-11-03-(%E8%BD%AC%E8%BD%BD)UTF-8%E5%BF%83%E5%BE%97/"/>
+    <id>http://xwdidi.top/2018/11/03/2018-11-03-(转载)UTF-8心得/</id>
+    <published>2018-11-02T16:00:00.000Z</published>
+    <updated>2019-04-06T14:00:58.819Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p><a href="http://utf8everywhere.org/zh-cn#myth.strlen.correctness" target="_blank" rel="noopener">http://utf8everywhere.org/zh-cn#myth.strlen.correctness</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;\assets\css\APlayer.min.css&quot;&gt;&lt;script src=&quot;\assets\js\APlayer.min.js&quot; cla
+      
+    
+    </summary>
+    
+      <category term="转载" scheme="http://xwdidi.top/categories/%E8%BD%AC%E8%BD%BD/"/>
+    
+    
+      <category term="字符集" scheme="http://xwdidi.top/tags/%E5%AD%97%E7%AC%A6%E9%9B%86/"/>
+    
+      <category term="UTF-8" scheme="http://xwdidi.top/tags/UTF-8/"/>
+    
+      <category term="Unicode" scheme="http://xwdidi.top/tags/Unicode/"/>
     
   </entry>
   
