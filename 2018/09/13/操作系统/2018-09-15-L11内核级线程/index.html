@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="操作系统,汇编,进程,线程,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="偽のブログ" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="课程回顾用户级线程，一个栈变为两个栈，先切换PCB，再切换栈，再从栈中弹出地址(ret),再去执行 课程重点总结切换进程是切换内核级线程，切换用户级线程是内核级线程的一部分。 进程只能存在内核中，要分配资源，访问文件，都是有系统控制分配的。所以没有用户级进程 核心级线程多处理器与多核的区别MMU：内存管理单元 Memory Management Unit，  管理虚拟存储器、物理存储器的控制线路，">
+<meta name="keywords" content="操作系统,汇编,进程,线程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="进程与线程     L11 内核级线程">
+<meta property="og:url" content="http://xwdidi.top/2018/09/13/操作系统/2018-09-15-L11内核级线程/index.html">
+<meta property="og:site_name" content="偽のブログ">
+<meta property="og:description" content="课程回顾用户级线程，一个栈变为两个栈，先切换PCB，再切换栈，再从栈中弹出地址(ret),再去执行 课程重点总结切换进程是切换内核级线程，切换用户级线程是内核级线程的一部分。 进程只能存在内核中，要分配资源，访问文件，都是有系统控制分配的。所以没有用户级进程 核心级线程多处理器与多核的区别MMU：内存管理单元 Memory Management Unit，  管理虚拟存储器、物理存储器的控制线路，">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://i.loli.net/2018/09/15/5b9cd714361a9.jpg">
+<meta property="og:image" content="https://i.loli.net/2018/09/15/5b9cdfdfb934c.jpg">
+<meta property="og:image" content="https://i.loli.net/2018/09/15/5b9ce3798bad1.jpg">
+<meta property="og:image" content="https://i.loli.net/2018/09/15/5b9ce661dc2e7.jpg">
+<meta property="og:image" content="https://i.loli.net/2018/09/15/5b9cf0f302dc4.jpg">
+<meta property="og:updated_time" content="2019-04-06T13:13:49.188Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="进程与线程     L11 内核级线程">
+<meta name="twitter:description" content="课程回顾用户级线程，一个栈变为两个栈，先切换PCB，再切换栈，再从栈中弹出地址(ret),再去执行 课程重点总结切换进程是切换内核级线程，切换用户级线程是内核级线程的一部分。 进程只能存在内核中，要分配资源，访问文件，都是有系统控制分配的。所以没有用户级进程 核心级线程多处理器与多核的区别MMU：内存管理单元 Memory Management Unit，  管理虚拟存储器、物理存储器的控制线路，">
+<meta name="twitter:image" content="https://i.loli.net/2018/09/15/5b9cd714361a9.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Xuwei98'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://xwdidi.top/2018/09/13/操作系统/2018-09-15-L11内核级线程/">
+
+
+
+
+
+  <title>进程与线程     L11 内核级线程 | 偽のブログ</title>
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-124001254-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">偽のブログ</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://xwdidi.top/2018/09/13/操作系统/2018-09-15-L11内核级线程/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Xuwei98">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="偽のブログ">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">进程与线程     L11 内核级线程</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-13T01:00:00+09:00">
+                2018-09-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/操作系统/" itemprop="url" rel="index">
+                    <span itemprop="name">操作系统</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/09/13/操作系统/2018-09-15-L11内核级线程/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/09/13/操作系统/2018-09-15-L11内核级线程/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.3k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  4
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="课程回顾"><a href="#课程回顾" class="headerlink" title="课程回顾"></a>课程回顾</h3><p>用户级线程，一个栈变为两个栈，先切换PCB，再切换栈，再从栈中弹出地址(ret),再去执行</p>
+<h1 id="课程重点总结"><a href="#课程重点总结" class="headerlink" title="课程重点总结"></a>课程重点总结</h1><p>切换进程是切换内核级线程，切换用户级线程是内核级线程的一部分。</p>
+<p>进程只能存在内核中，要分配资源，访问文件，都是有系统控制分配的。所以没有用户级进程</p>
+<h2 id="核心级线程"><a href="#核心级线程" class="headerlink" title="核心级线程"></a>核心级线程</h2><h3 id="多处理器与多核的区别"><a href="#多处理器与多核的区别" class="headerlink" title="多处理器与多核的区别"></a>多处理器与多核的区别</h3><p>MMU：内存管理单元 Memory Management Unit，</p>
+<ul>
+<li>管理虚拟存储器、物理存储器的控制线路，</li>
+<li>同时也负责虚拟地址映射为物理地址，</li>
+<li>以及提供硬件机制的内存访问授权，多用户多进程操作系统。</li>
+</ul>
+<p>多处理器：CPU有自己的MMU，</p>
+<p>多核：多个CPU共用一个MMU，这不就是线程吗，多核并行。</p>
+<p>多个线程执行在多个核上，共用MMU，这不就是典型的多线程吗，多核发挥的效果就是并行，与并发进行区别。而用户级线程无法调动硬件，实现不了多核利用。</p>
+<h3 id="用户级线程与和核心级线程的区别"><a href="#用户级线程与和核心级线程的区别" class="headerlink" title="用户级线程与和核心级线程的区别"></a>用户级线程与和核心级线程的区别</h3><p><img src="https://i.loli.net/2018/09/15/5b9cd714361a9.jpg" alt></p>
+<ul>
+<li><p>每个程序都有自己的栈，一个或者两个，然而在核心级线程中从一个栈到一套栈；两个栈到两套栈。</p>
+</li>
+<li><p>内核态中线程需要执行函数调用，需要拥有自己的内核栈，实现用户级线程的核心是一个栈变成两个栈，实现内核级线程的核心是一套站变成两套栈。</p>
+</li>
+<li><p>用户栈根据TCB，切换一个栈。而内核栈中，根据TCB切换一套栈，用户栈和内核栈。</p>
+</li>
+</ul>
+<h4 id="用户栈与内核栈之间的关联"><a href="#用户栈与内核栈之间的关联" class="headerlink" title="用户栈与内核栈之间的关联"></a>用户栈与内核栈之间的关联</h4><p>一旦启动中断(时钟、外设、int指令），就会调用内核栈，记录用户态执行的地方（压栈SS，SP，PC，CS），内核栈通过指针和用户栈相连。</p>
+<p>IRET，返回，将五个寄存器弹回，切回到用户态执行的地方。<img src="https://i.loli.net/2018/09/15/5b9cdfdfb934c.jpg" alt></p>
+<h4 id="程序实例"><a href="#程序实例" class="headerlink" title="程序实例"></a>程序实例</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">100:A()&#123;</span><br><span class="line">	B();</span><br><span class="line">104:&#125;</span><br><span class="line">200:B()&#123;</span><br><span class="line">	read();</span><br><span class="line">204:&#125;</span><br><span class="line">300:read()&#123;</span><br><span class="line">	int 0x80;</span><br><span class="line">304:&#125;</span><br><span class="line">// 用户程序</span><br><span class="line"></span><br><span class="line">/////////////////</span><br><span class="line"></span><br><span class="line">//内核程序</span><br><span class="line"></span><br><span class="line">system_call: </span><br><span class="line">	call sys_read;</span><br><span class="line">1000:</span><br><span class="line">2000:sys_read()&#123;&#125;</span><br></pre></td></tr></table></figure>
+<p>用户栈中执行函数调用，将104，204压入栈中，然后执行read（），是函数库中函数，接着调用int 0x80,通过中断进入操作系统内核，此时将各种寄存器参数压入参数中，304为中断后需要执行的地址。CS指向用户态的首地址，1000为系统调用后需要执行的地址。</p>
+<p><img src="https://i.loli.net/2018/09/15/5b9ce3798bad1.jpg" alt></p>
+<h4 id="内核中的切换：switch-to"><a href="#内核中的切换：switch-to" class="headerlink" title="内核中的切换：switch_to"></a>内核中的切换：switch_to</h4><p><code>sys_read(){启动磁盘读；将自己变成阻塞；找到next；switch_to(cur，next)；}</code>,cur和next都是TCB，TCB中存放着内核栈指针，根据TCB中的地址将esp切到了另一个内核栈的esp地址，然后通过ret弹出切到某个内核程序，最后再通过CS:PC切到用户程序。</p>
+<p>用户级线程进入到内核，切换内核级线程，再返回去继续执行在用户态执行。</p>
+<p>下面是切换后的内核栈,需要通过第五个格子切换到用户态，所以根据之前的学习，应该是包括IRET（中断返回）的代码，将用户栈和CS:IP指向的用户态代码返回正确。  一段能完成第二级返回的代码，一段包含IRET的代码。</p>
+<p><img src="https://i.loli.net/2018/09/15/5b9ce661dc2e7.jpg" alt></p>
+<h4 id="内核态切换的简单总结"><a href="#内核态切换的简单总结" class="headerlink" title="内核态切换的简单总结"></a>内核态切换的简单总结</h4><p>用户态通过中断切换到内核，如果被阻塞，需要切换到另一个内核级线程时，通过PCB中的信息，切换内核栈，再通过IRET指令切换到另一个用户栈。</p>
+<h3 id="内核级线程switch-to的五段论"><a href="#内核级线程switch-to的五段论" class="headerlink" title="内核级线程switch_to的五段论"></a>内核级线程switch_to的五段论</h3><ol>
+<li><p>中断入口：（进入切换）<br>push ds；…pusha；<br>mov ds，内核段号；..<br>cal1中断处理<br>？？：<br><strong>找到TCB</strong></p>
+</li>
+<li><p>中断处理：（引发切换）<br>启动磁盘读或时钟中断；<br>schedule（）；<br>}//ret<br><strong>阻塞</strong></p>
+</li>
+<li><p>schedule:next=..;<br> call switch to;<br>  }//ret<br> <strong>完成内核栈的切换</strong></p>
+</li>
+<li>switch_to:（内核栈切换）<br>TCB[cur].esp=%esp;<br>%esp=TCB[next].esp;<br>ret<br><strong>esp指针指向IRET代码段</strong></li>
+<li>中断出口：（第二级切换）<br>popa；..…；pop ds;<br>iret<br><strong>完成用户栈的切换，和代码段的地址切换</strong></li>
+<li>S、T非问一进程：（地址切换）要首先切换地址映射表；<br>TCB[cur].1dtr=%ldtr<br>%1dtr=TCB[next].ldtr<br>//内存管理<br><strong>切换映射表</strong></li>
+</ol>
+<h4 id="实现ThreadCreate"><a href="#实现ThreadCreate" class="headerlink" title="实现ThreadCreate"></a>实现ThreadCreate</h4><p>用户栈 + 内核栈 + TCB</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">ThreadCreate</span><span class="params">(...)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    TCB tcb = get_free_page();	<span class="comment">//申请一片内存用作TCB，并进行初始化</span></span><br><span class="line">    </span><br><span class="line">    *krlstack=...;		<span class="comment">//申请一片内存作为内核栈，</span></span><br><span class="line">   </span><br><span class="line">    *userstack传入;</span><br><span class="line">     <span class="comment">//填写两个stack；</span></span><br><span class="line">    <span class="comment">//修改CS为0f，（后面会提到）</span></span><br><span class="line">    </span><br><span class="line">    tcb.esp=krlstack; <span class="comment">//TCP状态指向中断出口</span></span><br><span class="line">    </span><br><span class="line">    tcb.状态=就绪;</span><br><span class="line">    tcb入队;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.loli.net/2018/09/15/5b9cf0f302dc4.jpg" alt></p>
+<h3 id="用户级线程、核心级线程的对比"><a href="#用户级线程、核心级线程的对比" class="headerlink" title="用户级线程、核心级线程的对比"></a>用户级线程、核心级线程的对比</h3><table>
+<thead>
+<tr>
+<th></th>
+<th>用户级线程(业务代码)</th>
+<th>核心级线程</th>
+<th>用户+核心级</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>实现模型</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>利用多核</td>
+<td>差</td>
+<td>好</td>
+<td>好</td>
+</tr>
+<tr>
+<td>并发度</td>
+<td>低</td>
+<td>高</td>
+<td>高</td>
+</tr>
+<tr>
+<td>代价</td>
+<td>小</td>
+<td>大</td>
+<td>中</td>
+</tr>
+<tr>
+<td>内核改动</td>
+<td>无</td>
+<td>大</td>
+<td>大</td>
+</tr>
+<tr>
+<td>用户灵活性</td>
+<td>大</td>
+<td>小</td>
+<td>大</td>
+</tr>
+</tbody>
+</table>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>明白了进程中执行代码怎么切换的，用线程的观点讲解进程，</p>
+<p><strong>最后要通过进行<a href="https://www.shiyanlou.com/courses/115" target="_blank" rel="noopener">第四次实验</a>进行巩固学习。</strong></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/操作系统/" rel="tag"># 操作系统</a>
+          
+            <a href="/tags/汇编/" rel="tag"># 汇编</a>
+          
+            <a href="/tags/进程/" rel="tag"># 进程</a>
+          
+            <a href="/tags/线程/" rel="tag"># 线程</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/09/12/操作系统/2018-09-12-L9多进程图像/" rel="next" title="进程与线程   L9 多进程图像">
+                <i class="fa fa-chevron-left"></i> 进程与线程   L9 多进程图像
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/09/13/操作系统/2018-09-13-L10用户级线程/" rel="prev" title="进程与线程   L10 用户级线程">
+                进程与线程   L10 用户级线程 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="Xuwei98">
+            
+              <p class="site-author-name" itemprop="name">Xuwei98</p>
+              <p class="site-description motion-element" itemprop="description">在校摸鱼达人</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">57</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">37</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/Xuwei98" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:z1002280879@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+<br>
+<link rel="stylesheet" href="/dist/APlayer.min.css">
+<div id="aplayer"></div>
+<script type="text/javascript" src="/dist/APlayer.min.js"></script>
+<script type="text/javascript" src="/dist/music.js"></script>
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#课程回顾"><span class="nav-number">1.</span> <span class="nav-text">课程回顾</span></a></li></ol><li class="nav-item nav-level-1"><a class="nav-link" href="#课程重点总结"><span class="nav-number"></span> <span class="nav-text">课程重点总结</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#核心级线程"><span class="nav-number"></span> <span class="nav-text">核心级线程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#多处理器与多核的区别"><span class="nav-number">1.</span> <span class="nav-text">多处理器与多核的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#用户级线程与和核心级线程的区别"><span class="nav-number">2.</span> <span class="nav-text">用户级线程与和核心级线程的区别</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#用户栈与内核栈之间的关联"><span class="nav-number">2.1.</span> <span class="nav-text">用户栈与内核栈之间的关联</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#程序实例"><span class="nav-number">2.2.</span> <span class="nav-text">程序实例</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#内核中的切换：switch-to"><span class="nav-number">2.3.</span> <span class="nav-text">内核中的切换：switch_to</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#内核态切换的简单总结"><span class="nav-number">2.4.</span> <span class="nav-text">内核态切换的简单总结</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#内核级线程switch-to的五段论"><span class="nav-number">3.</span> <span class="nav-text">内核级线程switch_to的五段论</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#实现ThreadCreate"><span class="nav-number">3.1.</span> <span class="nav-text">实现ThreadCreate</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#用户级线程、核心级线程的对比"><span class="nav-number">4.</span> <span class="nav-text">用户级线程、核心级线程的对比</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number"></span> <span class="nav-text">总结</span></a></li></ol></li></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Xuwei98</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">52.9k</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://xuwei98.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://xwdidi.top/2018/09/13/操作系统/2018-09-15-L11内核级线程/';
+          this.page.identifier = '2018/09/13/操作系统/2018-09-15-L11内核级线程/';
+          this.page.title = '进程与线程     L11 内核级线程';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://xuwei98.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

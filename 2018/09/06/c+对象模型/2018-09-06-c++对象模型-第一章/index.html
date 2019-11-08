@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Inside the C++ Object Model,c++,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="偽のブログ" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="c语言本身没有支持“数据和函数”之间的关联性，也就是程序性的(procedural) 。   c++的额外成本c++与c不仅在程序风格上有着不同，连程序的思考也有着明显的差异。面向过程(Procedure Oriented)与面向对象(Object Oriented)是二者最大的差异。c++的类比较与c的结构体来说，不仅仅包含了数据，还包含了对数据的操作。封装，继承，类，多态使得c++更加强大。再">
+<meta name="keywords" content="Inside the C++ Object Model,c++">
+<meta property="og:type" content="article">
+<meta property="og:title" content="深度探索c++对象模型  第一章 关于对象">
+<meta property="og:url" content="http://xwdidi.top/2018/09/06/c+对象模型/2018-09-06-c++对象模型-第一章/index.html">
+<meta property="og:site_name" content="偽のブログ">
+<meta property="og:description" content="c语言本身没有支持“数据和函数”之间的关联性，也就是程序性的(procedural) 。   c++的额外成本c++与c不仅在程序风格上有着不同，连程序的思考也有着明显的差异。面向过程(Procedure Oriented)与面向对象(Object Oriented)是二者最大的差异。c++的类比较与c的结构体来说，不仅仅包含了数据，还包含了对数据的操作。封装，继承，类，多态使得c++更加强大。再">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://www.roading.org/images/2011-11/image_thumb10.png">
+<meta property="og:image" content="http://www.roading.org/images/2011-11/image11_thumb1.png">
+<meta property="og:image" content="http://www.roading.org/images/2011-11/image17_thumb1.png">
+<meta property="og:image" content="http://www.roading.org/images/2011-12/image21_thumb.png">
+<meta property="og:updated_time" content="2019-04-06T13:08:04.916Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="深度探索c++对象模型  第一章 关于对象">
+<meta name="twitter:description" content="c语言本身没有支持“数据和函数”之间的关联性，也就是程序性的(procedural) 。   c++的额外成本c++与c不仅在程序风格上有着不同，连程序的思考也有着明显的差异。面向过程(Procedure Oriented)与面向对象(Object Oriented)是二者最大的差异。c++的类比较与c的结构体来说，不仅仅包含了数据，还包含了对数据的操作。封装，继承，类，多态使得c++更加强大。再">
+<meta name="twitter:image" content="http://www.roading.org/images/2011-11/image_thumb10.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Xuwei98'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://xwdidi.top/2018/09/06/c+对象模型/2018-09-06-c++对象模型-第一章/">
+
+
+
+
+
+  <title>深度探索c++对象模型  第一章 关于对象 | 偽のブログ</title>
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-124001254-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">偽のブログ</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://xwdidi.top/2018/09/06/c+对象模型/2018-09-06-c++对象模型-第一章/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Xuwei98">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="偽のブログ">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">深度探索c++对象模型  第一章 关于对象</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-06T01:00:00+09:00">
+                2018-09-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/深度探索c-对象模型/" itemprop="url" rel="index">
+                    <span itemprop="name">深度探索c++对象模型</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/09/06/c+对象模型/2018-09-06-c++对象模型-第一章/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/09/06/c+对象模型/2018-09-06-c++对象模型-第一章/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.5k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  5
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>c语言本身没有支持“数据和函数”之间的关联性，也就是<em>程序性的<br>(procedural)</em> 。  </p>
+<h2 id="c-的额外成本"><a href="#c-的额外成本" class="headerlink" title="c++的额外成本"></a>c++的额外成本</h2><p>c++与c不仅在程序风格上有着不同，连程序的思考也有着明显的差异。<br>面向过程(Procedure Oriented)与面向对象(Object Oriented)是二者最大的差异。c++的类比较与c的结构体来说，不仅仅包含了数据，还包含了对数据的操作。<br>封装，继承，类，多态使得c++更加强大。<br>再不聚以及存取实践中上主要的额外负担是有virtual引起的。、</p>
+<ul>
+<li>virtual function机制：用来支持一个有效率的“执行期绑定”。</li>
+<li>virtual base class ：虚基类机制，用来实现共享虚基类的subobject。  </li>
+</ul>
+<p>一般而言，没有什么天生的理由说C++一定比c程序迟缓。</p>
+<h2 id="C-对象模式"><a href="#C-对象模式" class="headerlink" title="C++对象模式"></a>C++对象模式</h2><p>在C++中，有两种类数据成员：静态和非静态，以及三种成员函数：成员函数，非静态函数，虚函数。有三种对象模型，简单对象模型，表格驱动对象模型，c++对象模型。前两者的部分优点或者局部在部分机制中使用到。<br>假设有一个Point类，以下为代码，看看在各种模型的中实现。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Point</span>&#123;</span></span><br><span class="line">	<span class="keyword">public</span>:  </span><br><span class="line">    Point( <span class="keyword">float</span> xval ); </span><br><span class="line">    <span class="keyword">virtual</span> ~Point();      </span><br><span class="line">    <span class="function"><span class="keyword">float</span> <span class="title">x</span><span class="params">()</span> <span class="keyword">const</span></span>;  </span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">int</span> <span class="title">PointCount</span><span class="params">()</span></span>;  </span><br><span class="line"></span><br><span class="line"><span class="keyword">protected</span>:  </span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> ostream&amp;  <span class="title">print</span><span class="params">( ostream &amp;os )</span> <span class="keyword">const</span></span>;</span><br><span class="line">    <span class="keyword">float</span> _x;  </span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">int</span> _point_count;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="简单对象模型"><a href="#简单对象模型" class="headerlink" title="简单对象模型"></a>简单对象模型</h3><p>一个c++对象中存储着所有成员的指针。存储指针的顺序是按照其声明顺序的。所有member本身并没有放在object中。<br><img src="http://www.roading.org/images/2011-11/image_thumb10.png" alt><br>对象大小= 指针大小乘成员个数。<br>简单对象模型对于编译器来说虽然极尽简单,但同时付出的代价是空间和执行期的效率。<br>降低了c++编译器的设计复杂度，但牺牲了空间和执行期的效率。 </p>
+<h3 id="表格驱动对象模型"><a href="#表格驱动对象模型" class="headerlink" title="表格驱动对象模型"></a>表格驱动对象模型</h3><p>表格驱动对象将所有members相关的信息抽出来，对象里只存储指向数据成员表和函数表的两个指针。将所有数据成员抽出来建立数据表。将所有函数抽取出来，建立一个成员函数表。<br><img src="http://www.roading.org/images/2011-11/image11_thumb1.png" alt><br>这是原书截图。在翻译本中，对象和函数表之间应该增加一个虚箭头，并且保存一个指向函数表的指针。<br>当然也没有采用这个模型，却以此模型应用于虚函数的方案。</p>
+<h3 id="C-对象模型"><a href="#C-对象模型" class="headerlink" title="C++对象模型"></a>C++对象模型</h3><p>该模型由简单对象模型派生而来，对内存空间和存取时间做了优化。<br>非静态数据成员存在于每一个对象本身，而静态数据成员和成员函数都在对象之外。<br>在每一个class的表头都会附加上type_info对象。<br>此外，用一个指针(vtpl)指向相关的vtbl(virtual table)。</p>
+<p><img src="http://www.roading.org/images/2011-11/image17_thumb1.png" alt>  </p>
+<p>这种表格模型用过间接调用有较大的弹性，不过也付出了空间和执行效率两方面的代价。</p>
+<h3 id="关于继承"><a href="#关于继承" class="headerlink" title="关于继承"></a>关于继承</h3><ol>
+<li>第一种内存模型：每一个父类等在子类的一个slot指出，内含父类对象的地址。子类对象不会因为父类对象改变。</li>
+<li>第二种内存模型：类似于虚表，每一个对象有一个父表指针bptr,<br>能被初始化指向父类表。无须改变对象本身，就能更改base class table。</li>
+</ol>
+<ul>
+<li>最开始采用的继承模型并不运用任何间接性，直接将父类成员放到子类对象中。后再采用了virtual base clss。将在3.4详细讨论。</li>
+</ul>
+<h2 id="关键词带来的差异"><a href="#关键词带来的差异" class="headerlink" title="关键词带来的差异"></a>关键词带来的差异</h2><h3 id="class与struct"><a href="#class与struct" class="headerlink" title="class与struct"></a>class与struct</h3><p>struct与class在c++中都能够构造、析构、继承。strcut默认的权限是public，class默认权限为private。其实本质上区别并不大，非常的相似。不过我觉得strcut应该遵循c的愿意，以免混淆。</p>
+<h2 id="对象的差异"><a href="#对象的差异" class="headerlink" title="对象的差异"></a>对象的差异</h2><h3 id="c-程序设计模型"><a href="#c-程序设计模型" class="headerlink" title="c++程序设计模型"></a>c++程序设计模型</h3><ol>
+<li>程序模型：c语言的面向过程模型。</li>
+<li>抽象数据类型模型（ADT）：通过类封装基础数据类型。</li>
+<li>面向对象模型：利用封装、继承、多态特性。<ul>
+<li>纯粹使用一种范式写程序，有助于整体的稳固，混合多重后，可能会带来意想不到的后果。例如将子类对象直接赋值给父类对象，不会发生多态，而是子类对象被切割，原属于父类对象的部分赋值给父类。  </li>
+</ul>
+</li>
+<li>c++通过下列方法支持多态<ul>
+<li>通过隐式转换，子类对象指针转化为父类对象指针。’shape *ps = new circle();’</li>
+<li>经由virtual function机制；</li>
+<li>经由dynamic_casthe和type_id运算符，转化成父类指针。’if (circle <em>pc = dynamic_cast&lt;circle</em>&gt;(ps))’</li>
+</ul>
+</li>
+</ol>
+<h3 id="指针的类型"><a href="#指针的类型" class="headerlink" title="指针的类型"></a>指针的类型</h3><ul>
+<li>“指针类型”决定了编译器如何解释某个特定的地址中的内存内容及其大小。</li>
+</ul>
+<h3 id="一个类的对象的内存大小包括："><a href="#一个类的对象的内存大小包括：" class="headerlink" title="一个类的对象的内存大小包括："></a>一个类的对象的内存大小包括：</h3><ul>
+<li>所有非静态数据成员的大小。</li>
+<li>由内存对齐而填补的内存大小。</li>
+<li>为了支持virtual有内部产生的额外负担。<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ZooAnimal</span>&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	ZooAnimal();</span><br><span class="line">	<span class="keyword">virtual</span> ~ZooAnimal();</span><br><span class="line">	<span class="comment">//...</span></span><br><span class="line">	<span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">rotate</span><span class="params">()</span></span>;</span><br><span class="line"><span class="keyword">protected</span>:</span><br><span class="line">	<span class="keyword">int</span> loc;</span><br><span class="line">	String name;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><img src="http://www.roading.org/images/2011-12/image21_thumb.png" alt>  </p>
+<p>32位计算机中占据16字节的内存，int四字节，String是传统的8字节（一个4字节的字符指针和一个用来表示字符串长度的整数），一个vptr指针四字节。子类大小为基类的内存大小加上本身数据的大小。</p>
+<h3 id="多态"><a href="#多态" class="headerlink" title="多态"></a>多态</h3><p>一个指针或者引用之所以支持多态，是他们并不引发任何“与类型有关的内存委托操作”，受到改变的是，只有他们所指向的内存的“大小和内容解释方式”而已。</p>
+<h3 id="面向对象"><a href="#面向对象" class="headerlink" title="面向对象"></a>面向对象</h3><p>通过抽象public的接口之后，封装相关的类型，通过额外的间接性（pointer和reference）来支持多态，这就是OO。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Inside-the-C-Object-Model/" rel="tag"># Inside the C++ Object Model</a>
+          
+            <a href="/tags/c/" rel="tag"># c++</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/09/06/c+对象模型/2018-09-06-c++对象模型-前言/" rel="next" title="深度探索c++对象模型 前言">
+                <i class="fa fa-chevron-left"></i> 深度探索c++对象模型 前言
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/09/08/c+对象模型/2018-09-08-c++对象模型-第二章/" rel="prev" title="深度探索c++对象模型   第二章 构造函数语意学">
+                深度探索c++对象模型   第二章 构造函数语意学 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="Xuwei98">
+            
+              <p class="site-author-name" itemprop="name">Xuwei98</p>
+              <p class="site-description motion-element" itemprop="description">在校摸鱼达人</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">57</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">37</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/Xuwei98" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:z1002280879@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+<br>
+<link rel="stylesheet" href="/dist/APlayer.min.css">
+<div id="aplayer"></div>
+<script type="text/javascript" src="/dist/APlayer.min.js"></script>
+<script type="text/javascript" src="/dist/music.js"></script>
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#c-的额外成本"><span class="nav-number">1.</span> <span class="nav-text">c++的额外成本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#C-对象模式"><span class="nav-number">2.</span> <span class="nav-text">C++对象模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#简单对象模型"><span class="nav-number">2.1.</span> <span class="nav-text">简单对象模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#表格驱动对象模型"><span class="nav-number">2.2.</span> <span class="nav-text">表格驱动对象模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#C-对象模型"><span class="nav-number">2.3.</span> <span class="nav-text">C++对象模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关于继承"><span class="nav-number">2.4.</span> <span class="nav-text">关于继承</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关键词带来的差异"><span class="nav-number">3.</span> <span class="nav-text">关键词带来的差异</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#class与struct"><span class="nav-number">3.1.</span> <span class="nav-text">class与struct</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对象的差异"><span class="nav-number">4.</span> <span class="nav-text">对象的差异</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#c-程序设计模型"><span class="nav-number">4.1.</span> <span class="nav-text">c++程序设计模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#指针的类型"><span class="nav-number">4.2.</span> <span class="nav-text">指针的类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#一个类的对象的内存大小包括："><span class="nav-number">4.3.</span> <span class="nav-text">一个类的对象的内存大小包括：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多态"><span class="nav-number">4.4.</span> <span class="nav-text">多态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#面向对象"><span class="nav-number">4.5.</span> <span class="nav-text">面向对象</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Xuwei98</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">52.9k</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://xuwei98.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://xwdidi.top/2018/09/06/c+对象模型/2018-09-06-c++对象模型-第一章/';
+          this.page.identifier = '2018/09/06/c+对象模型/2018-09-06-c++对象模型-第一章/';
+          this.page.title = '深度探索c++对象模型  第一章 关于对象';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://xuwei98.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

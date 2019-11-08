@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="操作系统,汇编,内存,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="偽のブログ" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="前言换入换出是合在一起进行的. 换入的目的,实现虚拟内存. 有换入就必须有换出,只有换出空出的新的空闲区域,才能放入新的数据. 总结主要讲算法.  有换入就应该有换出  page = get_free_page(); bread_page(page,current-&amp;gt;excutable-&amp;gt;i_dev,nr) 并不能粽是获得新的页,内存也是有限的  需要选择一页淘汰,换出到磁盘,选择哪一">
+<meta name="keywords" content="操作系统,汇编,内存">
+<meta property="og:type" content="article">
+<meta property="og:title" content="内存管理    L25 内存换出 Swapout">
+<meta property="og:url" content="http://xwdidi.top/2018/12/04/操作系统/2018-12-04-L25内存换出/index.html">
+<meta property="og:site_name" content="偽のブログ">
+<meta property="og:description" content="前言换入换出是合在一起进行的. 换入的目的,实现虚拟内存. 有换入就必须有换出,只有换出空出的新的空闲区域,才能放入新的数据. 总结主要讲算法.  有换入就应该有换出  page = get_free_page(); bread_page(page,current-&amp;gt;excutable-&amp;gt;i_dev,nr) 并不能粽是获得新的页,内存也是有限的  需要选择一页淘汰,换出到磁盘,选择哪一">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://i.loli.net/2018/12/04/5c0688cbad61e.jpg">
+<meta property="og:image" content="https://i.loli.net/2018/12/04/5c06867d65d76.jpg">
+<meta property="og:image" content="https://i.loli.net/2018/12/05/5c0795020db27.png">
+<meta property="og:image" content="https://i.loli.net/2018/12/05/5c079b48f15a3.jpg">
+<meta property="og:image" content="https://i.loli.net/2018/12/05/5c079d2a0d887.jpg">
+<meta property="og:image" content="https://i.loli.net/2018/12/05/5c07a570759d5.jpg">
+<meta property="og:image" content="https://i.loli.net/2018/12/05/5c07ac294d762.jpg">
+<meta property="og:image" content="https://i.loli.net/2018/12/05/5c07ad64b5d0f.jpg">
+<meta property="og:updated_time" content="2019-05-24T15:02:02.673Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="内存管理    L25 内存换出 Swapout">
+<meta name="twitter:description" content="前言换入换出是合在一起进行的. 换入的目的,实现虚拟内存. 有换入就必须有换出,只有换出空出的新的空闲区域,才能放入新的数据. 总结主要讲算法.  有换入就应该有换出  page = get_free_page(); bread_page(page,current-&amp;gt;excutable-&amp;gt;i_dev,nr) 并不能粽是获得新的页,内存也是有限的  需要选择一页淘汰,换出到磁盘,选择哪一">
+<meta name="twitter:image" content="https://i.loli.net/2018/12/04/5c0688cbad61e.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Xuwei98'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://xwdidi.top/2018/12/04/操作系统/2018-12-04-L25内存换出/">
+
+
+
+
+
+  <title>内存管理    L25 内存换出 Swapout | 偽のブログ</title>
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-124001254-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">偽のブログ</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://xwdidi.top/2018/12/04/操作系统/2018-12-04-L25内存换出/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Xuwei98">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="偽のブログ">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">内存管理    L25 内存换出 Swapout</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-04T01:00:00+09:00">
+                2018-12-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/操作系统/" itemprop="url" rel="index">
+                    <span itemprop="name">操作系统</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/12/04/操作系统/2018-12-04-L25内存换出/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/12/04/操作系统/2018-12-04-L25内存换出/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.2k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  4
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>换入换出是合在一起进行的.</p>
+<p>换入的目的,实现虚拟内存. 有换入就必须有换出,只有换出空出的新的空闲区域,才能放入新的数据.</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>主要讲算法.</p>
+<blockquote>
+<p>有换入就应该有换出</p>
+</blockquote>
+<p><code>page = get_free_page();</code></p>
+<p><code>bread_page(page,current-&gt;excutable-&gt;i_dev,nr)</code></p>
+<p>并不能粽是获得新的页,内存也是有限的</p>
+<ul>
+<li><h3 id="需要选择一页淘汰-换出到磁盘-选择哪一页-尝试"><a href="#需要选择一页淘汰-换出到磁盘-选择哪一页-尝试" class="headerlink" title="需要选择一页淘汰,换出到磁盘,选择哪一页?尝试"></a>需要选择一页淘汰,换出到磁盘,选择哪一页?尝试</h3></li>
+</ul>
+<h3 id="尝试"><a href="#尝试" class="headerlink" title="尝试"></a>尝试</h3><h4 id="1-FIFO"><a href="#1-FIFO" class="headerlink" title="1. FIFO"></a>1. FIFO</h4><p>FIFO(先入先出)页面置换.</p>
+<p>实例介绍:分配了3个页框</p>
+<p>每个页换入换出都不合时宜,太过于机械,大多数时间都浪费在I/O中.</p>
+<p>缺页次数应该少.判断使用次数,最少的换出去.</p>
+<p><img src="https://i.loli.net/2018/12/04/5c0688cbad61e.jpg" alt></p>
+<p>产生七次缺页</p>
+<h4 id="2-MIN算法："><a href="#2-MIN算法：" class="headerlink" title="2. MIN算法："></a>2. MIN算法：</h4><p>选最远将使用的页淘汰，是最优方案</p>
+<p><img src="https://i.loli.net/2018/12/04/5c06867d65d76.jpg" alt></p>
+<p>五次换页,</p>
+<p>MIN需要知道将来发生的事…怎么办.</p>
+<h3 id="3-LRU"><a href="#3-LRU" class="headerlink" title="3. LRU"></a>3. LRU</h3><p>least recent use 最近最少使用</p>
+<p>用过去的历史预测将来/</p>
+<p>选取最近最长一段时间没有使用的页淘汰(最近最少使用的页)</p>
+<p>程序具有局部性的特点,这样算法会有较大的适应性</p>
+<p> <img src="https://i.loli.net/2018/12/05/5c0795020db27.png" alt="1544000727828"></p>
+<p>### </p>
+<h3 id="1-LRU的准确实现-使用时间戳"><a href="#1-LRU的准确实现-使用时间戳" class="headerlink" title="1. LRU的准确实现,使用时间戳"></a>1. LRU的准确实现,使用时间戳</h3><p>通过对使用的页,每次使用时,增加时间戳.时间戳上显示使用该页的最后时间 .</p>
+<p>若要进行换页选择时间戳最小的页换出.</p>
+<p>根据查出来的逻辑页,需要去维护时间戳.每执行一条指令(取址执行),修改每个页的时间戳.同时要处理.时间戳存在溢出的危险,</p>
+<p><img src="https://i.loli.net/2018/12/05/5c079b48f15a3.jpg" alt></p>
+<blockquote>
+<p>每次地址访问都需要修改时间戳，需维护一个全局时钟，需找到最小值..实现代价较大</p>
+</blockquote>
+<h3 id="2-若采用页码查找"><a href="#2-若采用页码查找" class="headerlink" title="2. 若采用页码查找"></a>2. 若采用页码查找</h3><p>在栈的顶部总是保留最近使用的页.</p>
+<p>换页时,选择栈底页淘汰. </p>
+<p><img src="https://i.loli.net/2018/12/05/5c079d2a0d887.jpg" alt></p>
+<h3 id="3-LRU近似实现-将时间计数变为是和否"><a href="#3-LRU近似实现-将时间计数变为是和否" class="headerlink" title="3. LRU近似实现-将时间计数变为是和否"></a>3. LRU近似实现-将时间计数变为是和否</h3><p>不做时间戳,进计数,</p>
+<ul>
+<li><p>在每个页加一个引用位,访问过这一页这个数置为1</p>
+</li>
+<li><p>二次机会算法.Clock Algorithm</p>
+<p><img src="https://i.loli.net/2018/12/05/5c07a570759d5.jpg" alt></p>
+<p>进行扫描,访问过的位的数若为1,则置为0,不淘汰.</p>
+<p>如果遇到0时,则被淘汰.  </p>
+<p>1代表最近访问过, 而如果之前再次扫描到被置为0的那个页,则代表了在扫描的时间内没有被访问,则被替换出去.</p>
+<p>为什么说是近似实现呢,最近没有使用是最近最少使用的近似.</p>
+<p>只需要修改一个数,能减少操作数.因为要查页表,MMU直接自动的把R置成1，R可以直接放到页表项中，MMU自动做，不用去维护复杂的数据结构。</p>
+</li>
+</ul>
+<h4 id="Clock算法的分析与改造"><a href="#Clock算法的分析与改造" class="headerlink" title="Clock算法的分析与改造"></a>Clock算法的分析与改造</h4><p>效率高，代价小。</p>
+<p>然而: 如果缺页很少，会</p>
+<p>导致很少从1置为0,会被一直访问,R全为1.如果全为1,扫描后全变为0,一圈后则会将初始的那页换出去,指针指向下一个.下一个与前面的过程相同,然后被换出.算法就变为了按顺序换出,不就是FIFO吗?</p>
+<p>R记录了太长的历史信息,退化为FIFO.所以我们定时清除R位.再来个扫描指针</p>
+<p><img src="https://i.loli.net/2018/12/05/5c07ac294d762.jpg" alt></p>
+<p>缺页导致指针转的太慢,用扫描指针清零.被清零后又没被使用,仍然为0,则他会被调出.</p>
+<h4 id="那么该给进程分配多少页框呢-物理内存"><a href="#那么该给进程分配多少页框呢-物理内存" class="headerlink" title="那么该给进程分配多少页框呢(物理内存)"></a>那么该给进程分配多少页框呢(物理内存)</h4><ul>
+<li><p>分配过多,请求调页导致的内存高效就没了.</p>
+</li>
+<li><p>分配太少呢?<img src="https://i.loli.net/2018/12/05/5c07ad64b5d0f.jpg" alt></p>
+<p>这一现象被称为颠簸.</p>
+<p>原因解释：</p>
+<p><strong>系统内进程增多&gt;每个进程的缺页率增大&gt;缺页率增大到一定程度，进程总等待调页完成&gt;</strong><br><strong>CPU利用率降低&gt;进程进一步增多，缺页率更大…</strong></p>
+</li>
+</ul>
+<p>所以分配的局部,需要覆盖一个局部(通过某种算法求得的”工作集”),也可以通过动态调整页框数量,减少颠簸.</p>
+<p>如果进程太多,无法囊括全部.需要限制进程数量,涉及CPU管理,进程管理.</p>
+<p>clock环形数组+clock算法.</p>
+<h3 id="总结-1"><a href="#总结-1" class="headerlink" title="总结"></a>总结</h3><p>换入缺页,从磁盘读入一个页,可能没有足够的页大小,则使用clock算法换出一个页,再将页换入.这就是swap分区管理.</p>
+<p>内存,时钟中断,磁盘管理,磁盘驱动.实现了换入换出的模型.又是为了实现虚拟内存,又是为了实现段页管理,又实现操作系统内存管理,又是为了实现程序的正常加载,又实现了进程.</p>
+<p>形成了以进程带动的多进程推进,内存有效管理的图.初始化,系统接口,设备驱动,文件系统实现了基本简单完整的操作系统.</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/操作系统/" rel="tag"># 操作系统</a>
+          
+            <a href="/tags/汇编/" rel="tag"># 汇编</a>
+          
+            <a href="/tags/内存/" rel="tag"># 内存</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/03/日语/2018-12-03-日语第十课/" rel="next" title="季節と天気   第十课">
+                <i class="fa fa-chevron-left"></i> 季節と天気   第十课
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/12/18/日语/2018-12-18-日语十一课ー誘い/" rel="prev" title="誘い   第十一课">
+                誘い   第十一课 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="Xuwei98">
+            
+              <p class="site-author-name" itemprop="name">Xuwei98</p>
+              <p class="site-description motion-element" itemprop="description">在校摸鱼达人</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">57</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">37</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/Xuwei98" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:z1002280879@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+<br>
+<link rel="stylesheet" href="/dist/APlayer.min.css">
+<div id="aplayer"></div>
+<script type="text/javascript" src="/dist/APlayer.min.js"></script>
+<script type="text/javascript" src="/dist/music.js"></script>
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">2.</span> <span class="nav-text">总结</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#需要选择一页淘汰-换出到磁盘-选择哪一页-尝试"><span class="nav-number">2.1.</span> <span class="nav-text">需要选择一页淘汰,换出到磁盘,选择哪一页?尝试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#尝试"><span class="nav-number">2.2.</span> <span class="nav-text">尝试</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-FIFO"><span class="nav-number">2.2.1.</span> <span class="nav-text">1. FIFO</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-MIN算法："><span class="nav-number">2.2.2.</span> <span class="nav-text">2. MIN算法：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-LRU"><span class="nav-number">2.3.</span> <span class="nav-text">3. LRU</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-LRU的准确实现-使用时间戳"><span class="nav-number">2.4.</span> <span class="nav-text">1. LRU的准确实现,使用时间戳</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-若采用页码查找"><span class="nav-number">2.5.</span> <span class="nav-text">2. 若采用页码查找</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-LRU近似实现-将时间计数变为是和否"><span class="nav-number">2.6.</span> <span class="nav-text">3. LRU近似实现-将时间计数变为是和否</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Clock算法的分析与改造"><span class="nav-number">2.6.1.</span> <span class="nav-text">Clock算法的分析与改造</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#那么该给进程分配多少页框呢-物理内存"><span class="nav-number">2.6.2.</span> <span class="nav-text">那么该给进程分配多少页框呢(物理内存)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结-1"><span class="nav-number">2.7.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Xuwei98</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">52.9k</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://xuwei98.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://xwdidi.top/2018/12/04/操作系统/2018-12-04-L25内存换出/';
+          this.page.identifier = '2018/12/04/操作系统/2018-12-04-L25内存换出/';
+          this.page.title = '内存管理    L25 内存换出 Swapout';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://xuwei98.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

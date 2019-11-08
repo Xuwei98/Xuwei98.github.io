@@ -249,8 +249,8 @@
   
   <entry>
     <title>设备驱动与文件系统   L30 文件使用的磁盘的实现</title>
-    <link href="http://xwdidi.top/2019/03/04/2019-03-04-L30-%E6%96%87%E4%BB%B6%E4%BD%BF%E7%94%A8%E7%A3%81%E7%9B%98%E7%9A%84%E5%AE%9E%E7%8E%B0/"/>
-    <id>http://xwdidi.top/2019/03/04/2019-03-04-L30-文件使用磁盘的实现/</id>
+    <link href="http://xwdidi.top/2019/03/04/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/2019-03-04-L30-%E6%96%87%E4%BB%B6%E4%BD%BF%E7%94%A8%E7%A3%81%E7%9B%98%E7%9A%84%E5%AE%9E%E7%8E%B0/"/>
+    <id>http://xwdidi.top/2019/03/04/操作系统/2019-03-04-L30-文件使用磁盘的实现/</id>
     <published>2019-03-03T16:00:00.000Z</published>
     <updated>2019-04-06T13:57:07.175Z</updated>
     
@@ -278,8 +278,8 @@
   
   <entry>
     <title>设备驱动与文件系统    L29 从生磁盘到文件</title>
-    <link href="http://xwdidi.top/2019/02/19/2019-02-19-L29-%E4%BB%8E%E7%94%9F%E7%A3%81%E7%9B%98%E5%88%B0%E6%96%87%E4%BB%B6/"/>
-    <id>http://xwdidi.top/2019/02/19/2019-02-19-L29-从生磁盘到文件/</id>
+    <link href="http://xwdidi.top/2019/02/19/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/2019-02-19-L29-%E4%BB%8E%E7%94%9F%E7%A3%81%E7%9B%98%E5%88%B0%E6%96%87%E4%BB%B6/"/>
+    <id>http://xwdidi.top/2019/02/19/操作系统/2019-02-19-L29-从生磁盘到文件/</id>
     <published>2019-02-18T16:00:00.000Z</published>
     <updated>2019-04-06T13:56:53.862Z</updated>
     
@@ -307,8 +307,8 @@
   
   <entry>
     <title>设备驱动与文件系统    L28 生磁盘的使用</title>
-    <link href="http://xwdidi.top/2019/02/16/2019-02-16-L28-%E7%94%9F%E7%A3%81%E7%9B%98%E7%9A%84%E4%BD%BF%E7%94%A8/"/>
-    <id>http://xwdidi.top/2019/02/16/2019-02-16-L28-生磁盘的使用/</id>
+    <link href="http://xwdidi.top/2019/02/16/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/2019-02-16-L28-%E7%94%9F%E7%A3%81%E7%9B%98%E7%9A%84%E4%BD%BF%E7%94%A8/"/>
+    <id>http://xwdidi.top/2019/02/16/操作系统/2019-02-16-L28-生磁盘的使用/</id>
     <published>2019-02-15T16:00:00.000Z</published>
     <updated>2019-04-06T13:56:34.504Z</updated>
     
@@ -336,8 +336,8 @@
   
   <entry>
     <title>设备驱动与文件系统    L27 键盘</title>
-    <link href="http://xwdidi.top/2018/12/30/2018-12-30-L27-%E9%94%AE%E7%9B%98/"/>
-    <id>http://xwdidi.top/2018/12/30/2018-12-30-L27-键盘/</id>
+    <link href="http://xwdidi.top/2018/12/30/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/2018-12-30-L27-%E9%94%AE%E7%9B%98/"/>
+    <id>http://xwdidi.top/2018/12/30/操作系统/2018-12-30-L27-键盘/</id>
     <published>2018-12-29T16:00:00.000Z</published>
     <updated>2019-04-06T13:55:18.446Z</updated>
     
@@ -365,8 +365,8 @@
   
   <entry>
     <title>设备驱动与文件系统  L26 I/O与显示器</title>
-    <link href="http://xwdidi.top/2018/12/29/2018-12-29-L26-IO%E4%B8%8E%E6%98%BE%E7%A4%BA%E5%99%A8/"/>
-    <id>http://xwdidi.top/2018/12/29/2018-12-29-L26-IO与显示器/</id>
+    <link href="http://xwdidi.top/2018/12/29/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/2018-12-29-L26-IO%E4%B8%8E%E6%98%BE%E7%A4%BA%E5%99%A8/"/>
+    <id>http://xwdidi.top/2018/12/29/操作系统/2018-12-29-L26-IO与显示器/</id>
     <published>2018-12-28T16:00:00.000Z</published>
     <updated>2019-04-06T13:55:08.706Z</updated>
     
@@ -394,8 +394,8 @@
   
   <entry>
     <title>誘い   第十一课</title>
-    <link href="http://xwdidi.top/2018/12/18/2018-12-18-%E6%97%A5%E8%AF%AD%E5%8D%81%E4%B8%80%E8%AF%BE%E3%83%BC%E8%AA%98%E3%81%84/"/>
-    <id>http://xwdidi.top/2018/12/18/2018-12-18-日语十一课ー誘い/</id>
+    <link href="http://xwdidi.top/2018/12/18/%E6%97%A5%E8%AF%AD/2018-12-18-%E6%97%A5%E8%AF%AD%E5%8D%81%E4%B8%80%E8%AF%BE%E3%83%BC%E8%AA%98%E3%81%84/"/>
+    <id>http://xwdidi.top/2018/12/18/日语/2018-12-18-日语十一课ー誘い/</id>
     <published>2018-12-17T16:00:00.000Z</published>
     <updated>2019-04-06T13:55:00.385Z</updated>
     
@@ -421,8 +421,8 @@
   
   <entry>
     <title>内存管理    L25 内存换出 Swapout</title>
-    <link href="http://xwdidi.top/2018/12/04/2018-12-04-L25%E5%86%85%E5%AD%98%E6%8D%A2%E5%87%BA/"/>
-    <id>http://xwdidi.top/2018/12/04/2018-12-04-L25内存换出/</id>
+    <link href="http://xwdidi.top/2018/12/04/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/2018-12-04-L25%E5%86%85%E5%AD%98%E6%8D%A2%E5%87%BA/"/>
+    <id>http://xwdidi.top/2018/12/04/操作系统/2018-12-04-L25内存换出/</id>
     <published>2018-12-03T16:00:00.000Z</published>
     <updated>2019-05-24T15:02:02.673Z</updated>
     
@@ -450,8 +450,8 @@
   
   <entry>
     <title>季節と天気   第十课</title>
-    <link href="http://xwdidi.top/2018/12/03/2018-12-03-%E6%97%A5%E8%AF%AD%E7%AC%AC%E5%8D%81%E8%AF%BE/"/>
-    <id>http://xwdidi.top/2018/12/03/2018-12-03-日语第十课/</id>
+    <link href="http://xwdidi.top/2018/12/03/%E6%97%A5%E8%AF%AD/2018-12-03-%E6%97%A5%E8%AF%AD%E7%AC%AC%E5%8D%81%E8%AF%BE/"/>
+    <id>http://xwdidi.top/2018/12/03/日语/2018-12-03-日语第十课/</id>
     <published>2018-12-02T16:00:00.000Z</published>
     <updated>2019-04-06T13:54:22.903Z</updated>
     
@@ -477,8 +477,8 @@
   
   <entry>
     <title>内存管理    L24 内存换入-请求调页</title>
-    <link href="http://xwdidi.top/2018/11/27/2018-11-27-L24%E5%86%85%E5%AD%98%E6%8D%A2%E5%85%A5-%E8%AF%B7%E6%B1%82%E8%B0%83%E9%A1%B5/"/>
-    <id>http://xwdidi.top/2018/11/27/2018-11-27-L24内存换入-请求调页/</id>
+    <link href="http://xwdidi.top/2018/11/27/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/2018-11-27-L24%E5%86%85%E5%AD%98%E6%8D%A2%E5%85%A5-%E8%AF%B7%E6%B1%82%E8%B0%83%E9%A1%B5/"/>
+    <id>http://xwdidi.top/2018/11/27/操作系统/2018-11-27-L24内存换入-请求调页/</id>
     <published>2018-11-26T16:00:00.000Z</published>
     <updated>2019-04-06T13:54:13.166Z</updated>
     
@@ -506,8 +506,8 @@
   
   <entry>
     <title>アパート    第九课</title>
-    <link href="http://xwdidi.top/2018/11/25/2018-11-25-%E6%97%A5%E8%AF%AD%E7%AC%AC%E4%B9%9D%E8%AF%BE/"/>
-    <id>http://xwdidi.top/2018/11/25/2018-11-25-日语第九课/</id>
+    <link href="http://xwdidi.top/2018/11/25/%E6%97%A5%E8%AF%AD/2018-11-25-%E6%97%A5%E8%AF%AD%E7%AC%AC%E4%B9%9D%E8%AF%BE/"/>
+    <id>http://xwdidi.top/2018/11/25/日语/2018-11-25-日语第九课/</id>
     <published>2018-11-24T16:00:00.000Z</published>
     <updated>2019-04-06T13:54:02.907Z</updated>
     
@@ -533,8 +533,8 @@
   
   <entry>
     <title>内存管理      L23   段页结合的实际内存管理</title>
-    <link href="http://xwdidi.top/2018/11/24/2018-11-24-L23%E6%AE%B5%E9%A1%B5%E7%BB%93%E5%90%88%E7%9A%84%E5%AE%9E%E9%99%85%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/"/>
-    <id>http://xwdidi.top/2018/11/24/2018-11-24-L23段页结合的实际内存管理/</id>
+    <link href="http://xwdidi.top/2018/11/24/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/2018-11-24-L23%E6%AE%B5%E9%A1%B5%E7%BB%93%E5%90%88%E7%9A%84%E5%AE%9E%E9%99%85%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/"/>
+    <id>http://xwdidi.top/2018/11/24/操作系统/2018-11-24-L23段页结合的实际内存管理/</id>
     <published>2018-11-23T16:00:00.000Z</published>
     <updated>2019-04-06T13:53:47.804Z</updated>
     
