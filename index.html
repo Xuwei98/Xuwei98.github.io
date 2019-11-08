@@ -2007,7 +2007,7 @@ A: 内存访问断点，OD将目标内存所
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://xwdidi.top/2019/03/04/操作系统/2019-03-04-L30-文件使用磁盘的实现/">
+    <link itemprop="mainEntityOfPage" href="http://xwdidi.top/2018/11/05/2018-11-05-DuiLib搭建/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Xuwei98">
@@ -2026,7 +2026,7 @@ A: 内存访问断点，OD将目标内存所
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/03/04/操作系统/2019-03-04-L30-文件使用磁盘的实现/" itemprop="url">设备驱动与文件系统   L30 文件使用的磁盘的实现</a></h1>
+                <a class="post-title-link" href="/2018/11/05/2018-11-05-DuiLib搭建/" itemprop="url">DuiLib环境搭建</a></h1>
         
 
         <div class="post-meta">
@@ -2038,8 +2038,8 @@ A: 内存访问断点，OD将目标内存所
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-04T00:00:00+08:00">
-                2019-03-04
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-05T00:00:00+08:00">
+                2018-11-05
               </time>
             
 
@@ -2061,8 +2061,8 @@ A: 内存访问断点，OD将目标内存所
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/操作系统/" itemprop="url" rel="index">
-                    <span itemprop="name">操作系统</span>
+                  <a href="/categories/Duilib/" itemprop="url" rel="index">
+                    <span itemprop="name">Duilib</span>
                   </a>
                 </span>
 
@@ -2079,8 +2079,8 @@ A: 内存访问断点，OD将目标内存所
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2019/03/04/操作系统/2019-03-04-L30-文件使用磁盘的实现/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/03/04/操作系统/2019-03-04-L30-文件使用磁盘的实现/" itemprop="commentCount"></span>
+                <a href="/2018/11/05/2018-11-05-DuiLib搭建/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/11/05/2018-11-05-DuiLib搭建/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -2102,7 +2102,7 @@ A: 内存访问断点，OD将目标内存所
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  502
+                  163
                 </span>
               
 
@@ -2141,17 +2141,14 @@ A: 内存访问断点，OD将目标内存所
       
         
           
-          上文总结从字符流算出盘块号
-使用映射表算出.
-重点总结fs/read_write.c
+          今天弄了一天环境,终于编译成功了.如果这篇文章有幸被看到,希望能帮助你少走弯路.
 
-参数分别是文件描述符,缓冲区,读写字符的个数.处理字符流的一段
-获得inode(FCB),根据字符流的位置算出盘块号,读就完事了.
-给出inode,file,缓冲区,长度, 运行file_write,取出对应盘块
+克隆DuiLib库git clone https://github.com/duilib/duilib.git,duilib中有个大写的DuiLib文件夹,这是我们需要编译的库.
+在VS2015中,创建示例程序是从w
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/03/04/操作系统/2019-03-04-L30-文件使用磁盘的实现/#more" rel="contents">
+            <a class="btn" href="/2018/11/05/2018-11-05-DuiLib搭建/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -2193,7 +2190,7 @@ A: 内存访问断点，OD将目标内存所
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -2241,7 +2238,7 @@ A: 内存访问断点，OD将目标内存所
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">57</span>
+                  <span class="site-state-item-count">13</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2252,7 +2249,7 @@ A: 内存访问断点，OD将目标内存所
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -2263,7 +2260,7 @@ A: 内存访问断点，OD将目标内存所
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">37</span>
+                  <span class="site-state-item-count">20</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -2342,7 +2339,7 @@ A: 内存访问断点，OD将目标内存所
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">52.9k</span>
+    <span title="Site words total count">9.7k</span>
   
 </div>
 
