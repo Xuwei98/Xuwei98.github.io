@@ -81,13 +81,13 @@
 
 
 
-<meta name="description" content="前言记录一下最近分析的一个样本,自己依然是个菜鸡,有很多不足,希望各位师傅提出错误我努力学习.我头发都没了.此木马发送用户信息加密,能进行远程后门访问等功能,导入函数和导出函数只有一个,大量的动态加载api.  idb和样本都放下面学习链接那了. 0x01 样本信息 样本名称: f7df4126d9ae958be542583f0da746c4097bcc33b743a7af3896a3292de5">
+<meta name="description" content="2019-11-07 ioc规则提交给微步时,顺便把恶意ip搜索了一下,发现Emotet银行木马家族. 前言记录一下最近分析的一个样本,自己依然是个菜鸡,有很多不足,希望各位师傅提出错误我努力学习.我头发都没了.此木马发送用户信息加密,能进行远程后门访问等功能,导入函数和导出函数只有一个,大量的动态加载api.  idb和样本都放下面学习链接那了. 0x01 样本信息 样本名称: f7df4126">
 <meta name="keywords" content="病毒与木马,PE,宏代码,PowerShell">
 <meta property="og:type" content="article">
-<meta property="og:title" content="某个后台pe木马较不完整分析">
+<meta property="og:title" content="Emotet后台pe木马较不完整分析">
 <meta property="og:url" content="http://xwdidi.top/2019/10/24/2019-10-24-pe木马分析/index.html">
 <meta property="og:site_name" content="偽のブログ">
-<meta property="og:description" content="前言记录一下最近分析的一个样本,自己依然是个菜鸡,有很多不足,希望各位师傅提出错误我努力学习.我头发都没了.此木马发送用户信息加密,能进行远程后门访问等功能,导入函数和导出函数只有一个,大量的动态加载api.  idb和样本都放下面学习链接那了. 0x01 样本信息 样本名称: f7df4126d9ae958be542583f0da746c4097bcc33b743a7af3896a3292de5">
+<meta property="og:description" content="2019-11-07 ioc规则提交给微步时,顺便把恶意ip搜索了一下,发现Emotet银行木马家族. 前言记录一下最近分析的一个样本,自己依然是个菜鸡,有很多不足,希望各位师傅提出错误我努力学习.我头发都没了.此木马发送用户信息加密,能进行远程后门访问等功能,导入函数和导出函数只有一个,大量的动态加载api.  idb和样本都放下面学习链接那了. 0x01 样本信息 样本名称: f7df4126">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://i.loli.net/2019/10/21/Njwsd3ZYCkHugeq.png">
 <meta property="og:image" content="https://i.loli.net/2019/10/18/pR8JMlgx3KU1Ci9.png">
@@ -130,10 +130,10 @@
 <meta property="og:image" content="https://i.loli.net/2019/10/24/p9lZFEDwT8HWtq2.png">
 <meta property="og:image" content="https://i.loli.net/2019/10/24/cFmnrQpLTHCx4IU.png">
 <meta property="og:image" content="https://i.loli.net/2019/10/21/VB3IYgWGQEMzi6y.png">
-<meta property="og:updated_time" content="2019-11-08T15:47:41.381Z">
+<meta property="og:updated_time" content="2019-11-21T16:49:18.130Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="某个后台pe木马较不完整分析">
-<meta name="twitter:description" content="前言记录一下最近分析的一个样本,自己依然是个菜鸡,有很多不足,希望各位师傅提出错误我努力学习.我头发都没了.此木马发送用户信息加密,能进行远程后门访问等功能,导入函数和导出函数只有一个,大量的动态加载api.  idb和样本都放下面学习链接那了. 0x01 样本信息 样本名称: f7df4126d9ae958be542583f0da746c4097bcc33b743a7af3896a3292de5">
+<meta name="twitter:title" content="Emotet后台pe木马较不完整分析">
+<meta name="twitter:description" content="2019-11-07 ioc规则提交给微步时,顺便把恶意ip搜索了一下,发现Emotet银行木马家族. 前言记录一下最近分析的一个样本,自己依然是个菜鸡,有很多不足,希望各位师傅提出错误我努力学习.我头发都没了.此木马发送用户信息加密,能进行远程后门访问等功能,导入函数和导出函数只有一个,大量的动态加载api.  idb和样本都放下面学习链接那了. 0x01 样本信息 样本名称: f7df4126">
 <meta name="twitter:image" content="https://i.loli.net/2019/10/21/Njwsd3ZYCkHugeq.png">
 
 
@@ -170,7 +170,7 @@
 
 
 
-  <title>某个后台pe木马较不完整分析 | 偽のブログ</title>
+  <title>Emotet后台pe木马较不完整分析 | 偽のブログ</title>
   
 
 
@@ -333,7 +333,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">某个后台pe木马较不完整分析</h1>
+          <h1 class="post-title" itemprop="name headline">Emotet后台pe木马较不完整分析</h1>
         
 
         <div class="post-meta">
@@ -414,7 +414,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1.6k
+                  1.7k
                 </span>
               
 
@@ -451,7 +451,9 @@
       
 
       
-        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>记录一下最近分析的一个样本,自己依然是个菜鸡,有很多不足,希望各位师傅提出错误我努力学习.我头发都没了.此木马发送用户信息加密,能进行远程后门访问等功能,导入函数和导出函数只有一个,大量的动态加载api. </p>
+        <p>2019-11-07</p>
+<p><code>ioc</code>规则提交给微步时,顺便把恶意<code>ip</code>搜索了一下,发现<code>Emotet</code>银行木马家族.</p>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>记录一下最近分析的一个样本,自己依然是个菜鸡,有很多不足,希望各位师傅提出错误我努力学习.我头发都没了.此木马发送用户信息加密,能进行远程后门访问等功能,导入函数和导出函数只有一个,大量的动态加载api. </p>
 <p>idb和样本都放下面学习链接那了.</p>
 <h2 id="0x01-样本信息"><a href="#0x01-样本信息" class="headerlink" title="0x01 样本信息"></a>0x01 样本信息</h2><ul>
 <li>样本名称: f7df4126d9ae958be542583f0da746c4097bcc33b743a7af3896a3292de52282-1571228285.doc</li>
@@ -764,6 +766,10 @@
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2019/11/22/2019-11-22-密码学逆向分析/" rel="prev" title="常用密码学不全概括总览">
+                常用密码学不全概括总览 <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -851,7 +857,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-count">14</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -873,7 +879,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-count">21</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -968,7 +974,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">9.7k</span>
+    <span title="Site words total count">14k</span>
   
 </div>
 
@@ -1135,7 +1141,7 @@
         var disqus_config = function () {
           this.page.url = 'http://xwdidi.top/2019/10/24/2019-10-24-pe木马分析/';
           this.page.identifier = '2019/10/24/2019-10-24-pe木马分析/';
-          this.page.title = '某个后台pe木马较不完整分析';
+          this.page.title = 'Emotet后台pe木马较不完整分析';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://xuwei98.disqus.com/embed.js';
