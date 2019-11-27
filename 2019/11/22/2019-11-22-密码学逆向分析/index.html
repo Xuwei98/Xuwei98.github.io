@@ -128,7 +128,7 @@
 <meta property="og:image" content="https://i.loli.net/2019/11/17/dHEM5beyFUzDIZv.png">
 <meta property="og:image" content="https://i.loli.net/2019/11/17/8tm1rRfjHlNGXbE.png">
 <meta property="og:image" content="https://i.loli.net/2019/11/17/zS7xgf5evAr4dRG.png">
-<meta property="og:updated_time" content="2019-11-22T02:25:51.241Z">
+<meta property="og:updated_time" content="2019-11-27T12:20:13.687Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="常用密码学不全概括总览">
 <meta name="twitter:description" content="前言想作为分析勒索病毒前的密码学接触. 常用加解密算法的逆向分析中的识别,不做过多算法原理上的叙述,别人讲的好多了.站在巨人的肩膀上. 这篇文章只作为特征查找用来辅助平时分析用. 两种工具ida插件FindCrypt2和peid的KANA进行算法识别是很好用的. Base64历史发展base64最早就是用来邮件传输协议中的，原因是邮件传输协议只支持 ascii 字符传递，因此如果要传输二进制文件，">
@@ -460,6 +460,7 @@
 <p><code>Base24</code>:<code>&quot;BCDFGHJKMPQmogRTVWXY2346789&quot;</code></p>
 <p><code>Base32</code>:<code>&quot;ABCDEFGHJKLMNOPQRSTUVWXYZ234567&quot;</code></p>
 <p><code>Base60</code>:<code>&quot;0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwx&quot;</code></p>
+<p><code>Base85</code>:<code>0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ.-:+=^!/*?&amp;&lt;&gt;()[]{}@%$#</code></p>
 <h4 id="逆向初探"><a href="#逆向初探" class="headerlink" title="逆向初探"></a>逆向初探</h4><p><code>Findcrypt2</code>和<code>KANAL</code>都能是识别出置换表. </p>
 <p>所以先关注置换表,然后关注下相关的位运算操作,可能就是<code>base</code>相关算法.</p>
 <p>编码伪代码部分:<img src="https://i.loli.net/2019/11/08/CaoShdfTcil1xLW.png" alt="image.png"></p>
