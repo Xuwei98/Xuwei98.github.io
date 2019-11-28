@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="DuiLib,">
+  <meta name="keywords" content="恶意软件,">
 
 
 
@@ -81,18 +81,24 @@
 
 
 
-<meta name="description" content="今天弄了一天环境,终于编译成功了.如果这篇文章有幸被看到,希望能帮助你少走弯路.  克隆DuiLib库git clone https://github.com/duilib/duilib.git,duilib中有个大写的DuiLib文件夹,这是我们需要编译的库. 在VS2015中,创建示例程序是从win32-&amp;gt;win32项目创建的. 参考DuiLib的wiki,比较重要的是lib的引用:附加">
-<meta name="keywords" content="DuiLib">
+<meta name="description" content="新勒索软件DeathRansom开始成名 新的勒索软件DeathRansom伴随着坎坷的开始,但是现在已经解决了问题,并且开始感染受害者和加密他们的数据. 当DeathRansom第一次开始散播的时候,它假装的去加密文件,但是研究者和使用者发现他们可以删除后缀位.wctc的扩展,文件将能再次使用. 在9月20号左右开始发生,不过,有些事情改变了. 不仅受害者的文件被加密了,而且在ID Ransom">
+<meta name="keywords" content="恶意软件">
 <meta property="og:type" content="article">
-<meta property="og:title" content="DuiLib环境搭建">
-<meta property="og:url" content="http://xwdidi.top/2018/11/05/2018-11-05-DuiLib搭建/index.html">
+<meta property="og:title" content="DeathRansom勒索病毒预警">
+<meta property="og:url" content="http://xwdidi.top/2019/11/28/2019-11-28-DeathRansom勒索病毒预警/index.html">
 <meta property="og:site_name" content="偽のブログ">
-<meta property="og:description" content="今天弄了一天环境,终于编译成功了.如果这篇文章有幸被看到,希望能帮助你少走弯路.  克隆DuiLib库git clone https://github.com/duilib/duilib.git,duilib中有个大写的DuiLib文件夹,这是我们需要编译的库. 在VS2015中,创建示例程序是从win32-&amp;gt;win32项目创建的. 参考DuiLib的wiki,比较重要的是lib的引用:附加">
+<meta property="og:description" content="新勒索软件DeathRansom开始成名 新的勒索软件DeathRansom伴随着坎坷的开始,但是现在已经解决了问题,并且开始感染受害者和加密他们的数据. 当DeathRansom第一次开始散播的时候,它假装的去加密文件,但是研究者和使用者发现他们可以删除后缀位.wctc的扩展,文件将能再次使用. 在9月20号左右开始发生,不过,有些事情改变了. 不仅受害者的文件被加密了,而且在ID Ransom">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-11-08T15:49:32.522Z">
+<meta property="og:image" content="https://www.bleepstatic.com/content/hl-images/2019/11/25/skull-ransom-encrypt.jpg">
+<meta property="og:image" content="https://www.bleepstatic.com/images/news/ransomware/d/deathransom/chart.jpg">
+<meta property="og:image" content="https://www.bleepstatic.com/images/news/ransomware/d/deathransom/hex-edit.jpg">
+<meta property="og:image" content="https://www.bleepstatic.com/images/news/ransomware/d/deathransom/file-marker.jpg">
+<meta property="og:image" content="https://www.bleepstatic.com/images/news/ransomware/d/deathransom/ransom-note.jpg">
+<meta property="og:updated_time" content="2019-11-28T14:45:35.703Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="DuiLib环境搭建">
-<meta name="twitter:description" content="今天弄了一天环境,终于编译成功了.如果这篇文章有幸被看到,希望能帮助你少走弯路.  克隆DuiLib库git clone https://github.com/duilib/duilib.git,duilib中有个大写的DuiLib文件夹,这是我们需要编译的库. 在VS2015中,创建示例程序是从win32-&amp;gt;win32项目创建的. 参考DuiLib的wiki,比较重要的是lib的引用:附加">
+<meta name="twitter:title" content="DeathRansom勒索病毒预警">
+<meta name="twitter:description" content="新勒索软件DeathRansom开始成名 新的勒索软件DeathRansom伴随着坎坷的开始,但是现在已经解决了问题,并且开始感染受害者和加密他们的数据. 当DeathRansom第一次开始散播的时候,它假装的去加密文件,但是研究者和使用者发现他们可以删除后缀位.wctc的扩展,文件将能再次使用. 在9月20号左右开始发生,不过,有些事情改变了. 不仅受害者的文件被加密了,而且在ID Ransom">
+<meta name="twitter:image" content="https://www.bleepstatic.com/content/hl-images/2019/11/25/skull-ransom-encrypt.jpg">
 
 
 
@@ -122,13 +128,13 @@
 
 
 
-  <link rel="canonical" href="http://xwdidi.top/2018/11/05/2018-11-05-DuiLib搭建/">
+  <link rel="canonical" href="http://xwdidi.top/2019/11/28/2019-11-28-DeathRansom勒索病毒预警/">
 
 
 
 
 
-  <title>DuiLib环境搭建 | 偽のブログ</title>
+  <title>DeathRansom勒索病毒预警 | 偽のブログ</title>
   
 
 
@@ -274,7 +280,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://xwdidi.top/2018/11/05/2018-11-05-DuiLib搭建/">
+    <link itemprop="mainEntityOfPage" href="http://xwdidi.top/2019/11/28/2019-11-28-DeathRansom勒索病毒预警/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Xuwei98">
@@ -291,7 +297,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">DuiLib环境搭建</h1>
+          <h1 class="post-title" itemprop="name headline">DeathRansom勒索病毒预警</h1>
         
 
         <div class="post-meta">
@@ -303,8 +309,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-05T01:00:00+09:00">
-                2018-11-05
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-28T01:00:00+09:00">
+                2019-11-28
               </time>
             
 
@@ -326,8 +332,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/工具/" itemprop="url" rel="index">
-                    <span itemprop="name">工具</span>
+                  <a href="/categories/翻译/" itemprop="url" rel="index">
+                    <span itemprop="name">翻译</span>
                   </a>
                 </span>
 
@@ -344,8 +350,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/11/05/2018-11-05-DuiLib搭建/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/11/05/2018-11-05-DuiLib搭建/" itemprop="commentCount"></span>
+                <a href="/2019/11/28/2019-11-28-DeathRansom勒索病毒预警/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/11/28/2019-11-28-DeathRansom勒索病毒预警/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -372,7 +378,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  163
+                  680
                 </span>
               
 
@@ -388,7 +394,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  1
+                  2
                 </span>
               
             </div>
@@ -409,13 +415,32 @@
       
 
       
-        <p>今天弄了一天环境,终于编译成功了.如果这篇文章有幸被看到,希望能帮助你少走弯路.</p>
-<ol>
-<li>克隆DuiLib库<code>git clone https://github.com/duilib/duilib.git</code>,duilib中有个大写的DuiLib文件夹,这是我们需要编译的库.</li>
-<li>在VS2015中,创建示例程序是从win32-&gt;win32项目创建的.</li>
-<li>参考DuiLib的<a href="https://github.com/duilib/duilib/wiki/%E6%AD%A3%E7%A1%AE%E7%BC%96%E8%AF%91-Duilib-%E9%9D%99%E6%80%81%E5%BA%93%E7%9A%84%E6%96%B9%E6%B3%95" target="_blank" rel="noopener">wiki</a>,比较重要的是lib的引用:附加依赖项,附加包含目录,附加库目录.</li>
-<li>如果采用的是文件的xml格式的话,一定要将xml与exe同一父目录下,不然会出现编译成功,却DuiLib加载资源失败的提示哦.</li>
-</ol>
+        <h1 id="新勒索软件DeathRansom开始成名"><a href="#新勒索软件DeathRansom开始成名" class="headerlink" title="新勒索软件DeathRansom开始成名"></a>新勒索软件DeathRansom开始成名</h1><p><img src="https://www.bleepstatic.com/content/hl-images/2019/11/25/skull-ransom-encrypt.jpg" alt></p>
+<p>新的勒索软件<code>DeathRansom</code>伴随着坎坷的开始,但是现在已经解决了问题,并且开始感染受害者和加密他们的数据.</p>
+<p>当<code>DeathRansom</code>第一次开始散播的时候,它假装的去加密文件,但是研究者和使用者发现他们可以删除后缀位<code>.wctc</code>的扩展,文件将能再次使用.</p>
+<p>在9月20号左右开始发生,不过,有些事情改变了.</p>
+<p>不仅受害者的文件被加密了,而且在<a href="https://id-ransomware.malwarehunterteam.com/" target="_blank" rel="noopener">ID Ransomware</a>勒索软件ID提交网站上关于<code>DeathRansom</code>的提交大量出现</p>
+<p><img src="https://www.bleepstatic.com/images/news/ransomware/d/deathransom/chart.jpg" alt></p>
+<p>​                                                                        <strong>DeathRansom Submissions</strong></p>
+<p>从初始的激增来看人数有所减少,我们仍然看见源源不断的受害者出现,这意味着仍然有可能传播活动仍在进行中.</p>
+<p>不幸运的是,我们仍然没有发现这些勒索软件是如何传播的.</p>
+<p>我们仍然知道的是像其他勒索软件一样,当<code>DeathRansom</code>启动时将会试图清除卷影副本.</p>
+<p>它将会加密所有受害者计算机上的所有文件除了全路径上包括下面的字符的文件:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">programdata</span><br><span class="line">$recycle.bin</span><br><span class="line">program files</span><br><span class="line">windows</span><br><span class="line">all users</span><br><span class="line">appdata</span><br><span class="line">read_me.txt</span><br><span class="line">autoexec.bat</span><br><span class="line">desktop.ini</span><br><span class="line">autorun.inf</span><br><span class="line">ntuser.dat</span><br><span class="line">iconcache.db</span><br><span class="line">bootsect.bak</span><br><span class="line">boot.ini</span><br><span class="line">ntuser.dat.log</span><br><span class="line">thumbs.db</span><br></pre></td></tr></table></figure>
+<p>与之前的非加密版本不同,正在使用的<code>DeathRansom</code>变体不会附加扩展去加密文件并且它会保持文件名.其中的数据在文件中是被加密的.</p>
+<p><img src="https://www.bleepstatic.com/images/news/ransomware/d/deathransom/hex-edit.jpg" alt="Encrypted File"></p>
+<p>只有一个方式去识别被<code>DeathRansom</code>加密后的文件,通过文件标记查看被加密文件末尾的<code>ABEFCDAB</code> </p>
+<p><img src="https://www.bleepstatic.com/images/news/ransomware/d/deathransom/file-marker.jpg" alt></p>
+<p>​                                                                                    <strong>File marker</strong></p>
+<p>在每个被加密的文件的文件夹中,勒索病毒将会创建一个叫做<code>read_me.txt</code>的勒索文本,里面包含着受害者的<code>LOCK-ID</code>和联系勒索病毒开发者的邮件地址.</p>
+<p><img src="https://www.bleepstatic.com/images/news/ransomware/d/deathransom/ransom-note.jpg" alt></p>
+<p>勒索病毒目前还在分析中并且不知道是否可以解密.</p>
+<h2 id="IOCS"><a href="#IOCS" class="headerlink" title="IOCS"></a>IOCS</h2><h3 id="Hash"><a href="#Hash" class="headerlink" title="Hash:"></a>Hash:</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ab828f0e0555f88e3005387cb523f221a1933bbd7db4f05902a1e5cc289e7ba4</span><br></pre></td></tr></table></figure>
+<h3 id="Ransom-note-text"><a href="#Ransom-note-text" class="headerlink" title="Ransom note text:"></a>Ransom note text:</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">  ?????????????????????????</span><br><span class="line">??????DEATHRansom ???????</span><br><span class="line">?????????????????????????</span><br><span class="line">Hello dear friend,</span><br><span class="line">Your files were encrypted!</span><br><span class="line">You have only 12 hours to decrypt it</span><br><span class="line">In case of no answer our team will delete your decryption password</span><br><span class="line">Write back to our e-mail: deathransom@airmail.cc</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">In your message you have to write:</span><br><span class="line">1. YOU LOCK-ID: XXX</span><br><span class="line">2. Time when you have paid 0.1 btc to this bitcoin wallet:</span><br><span class="line">xxx</span><br><span class="line"> </span><br><span class="line">After payment our team will decrypt your files immediatly</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">Free decryption as guarantee:</span><br><span class="line">1. File must be less than 1MB</span><br><span class="line">2. Only .txt or .lnk files, no databases</span><br><span class="line">3. Only 1 files</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">How to obtain bitcoin:</span><br><span class="line">The easiest way to buy bitcoins is LocalBitcoins site. You have to register, click &apos;Buy bitcoins&apos;, and select the seller by payment method and price.</span><br><span class="line">https://localbitcoins.com/buy_bitcoins</span><br><span class="line">Also you can find other places to buy Bitcoins and beginners guide here:</span><br><span class="line">http://www.coindesk.com/information/how-can-i-buy-bitcoins/</span><br></pre></td></tr></table></figure>
+<h3 id="Associated-emails"><a href="#Associated-emails" class="headerlink" title="Associated emails:"></a>Associated emails:</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">deathransom@airmail.cc</span><br></pre></td></tr></table></figure>
+<h3 id="Network-connections"><a href="#Network-connections" class="headerlink" title="Network connections:"></a>Network connections:</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://iplogger.org/1Zqq77</span><br></pre></td></tr></table></figure>
+<h3 id="Registry-keys"><a href="#Registry-keys" class="headerlink" title="Registry keys:"></a>Registry keys:</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">HKEY_CURRENT_USER\Software\Wacatac</span><br></pre></td></tr></table></figure>
+<h4 id="来源"><a href="#来源" class="headerlink" title="来源"></a>来源</h4><p>翻译自<a href="https://www.bleepingcomputer.com/news/security/new-deathransom-ransomware-begins-to-make-a-name-for-itself/" target="_blank" rel="noopener">https://www.bleepingcomputer.com/news/security/new-deathransom-ransomware-begins-to-make-a-name-for-itself/</a>文章.     </p>
 
       
     </div>
@@ -433,7 +458,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/DuiLib/" rel="tag"># DuiLib</a>
+            <a href="/tags/恶意软件/" rel="tag"># 恶意软件</a>
           
         </div>
       
@@ -446,8 +471,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/11/03/2018-11-03-(转载)UTF-8心得/" rel="next" title="(转载)为何建议使用UTF-8">
-                <i class="fa fa-chevron-left"></i> (转载)为何建议使用UTF-8
+              <a href="/2019/11/22/2019-11-22-密码学逆向分析/" rel="next" title="常用密码学不全概括总览">
+                <i class="fa fa-chevron-left"></i> 常用密码学不全概括总览
               </a>
             
           </div>
@@ -455,10 +480,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/03/15/2019-03-13-语言要点复习/" rel="prev" title="语言复习       查漏补缺 不定时更新">
-                语言复习       查漏补缺 不定时更新 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -520,8 +541,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -611,6 +641,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#新勒索软件DeathRansom开始成名"><span class="nav-number">1.</span> <span class="nav-text">新勒索软件DeathRansom开始成名</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#IOCS"><span class="nav-number">1.1.</span> <span class="nav-text">IOCS</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Hash"><span class="nav-number">1.1.1.</span> <span class="nav-text">Hash:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Ransom-note-text"><span class="nav-number">1.1.2.</span> <span class="nav-text">Ransom note text:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Associated-emails"><span class="nav-number">1.1.3.</span> <span class="nav-text">Associated emails:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Network-connections"><span class="nav-number">1.1.4.</span> <span class="nav-text">Network connections:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Registry-keys"><span class="nav-number">1.1.5.</span> <span class="nav-text">Registry keys:</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#来源"><span class="nav-number">1.1.5.1.</span> <span class="nav-text">来源</span></a></li></ol></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -804,9 +850,9 @@
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'http://xwdidi.top/2018/11/05/2018-11-05-DuiLib搭建/';
-          this.page.identifier = '2018/11/05/2018-11-05-DuiLib搭建/';
-          this.page.title = 'DuiLib环境搭建';
+          this.page.url = 'http://xwdidi.top/2019/11/28/2019-11-28-DeathRansom勒索病毒预警/';
+          this.page.identifier = '2019/11/28/2019-11-28-DeathRansom勒索病毒预警/';
+          this.page.title = 'DeathRansom勒索病毒预警';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://xuwei98.disqus.com/embed.js';
