@@ -5,9 +5,9 @@
   
   <link href="/atom.xml" rel="self"/>
   
-  <link href="http://xwdidi.top/"/>
+  <link href="http://blog.xwdidi.top/"/>
   <updated>2020-01-19T06:54:32.720Z</updated>
-  <id>http://xwdidi.top/</id>
+  <id>http://blog.xwdidi.top/</id>
   
   <author>
     <name>aWei</name>
@@ -18,8 +18,8 @@
   
   <entry>
     <title>Quasar 木马分析报告</title>
-    <link href="http://xwdidi.top/2020/01/19/2020-01-19-Quasar-%E6%9C%A8%E9%A9%AC%E5%88%86%E6%9E%90%E6%8A%A5%E5%91%8A/"/>
-    <id>http://xwdidi.top/2020/01/19/2020-01-19-Quasar-木马分析报告/</id>
+    <link href="http://blog.xwdidi.top/2020/01/19/2020-01-19-Quasar-%E6%9C%A8%E9%A9%AC%E5%88%86%E6%9E%90%E6%8A%A5%E5%91%8A/"/>
+    <id>http://blog.xwdidi.top/2020/01/19/2020-01-19-Quasar-木马分析报告/</id>
     <published>2020-01-19T07:53:55.000Z</published>
     <updated>2020-01-19T06:54:32.720Z</updated>
     
@@ -39,8 +39,8 @@
   
   <entry>
     <title>DeathRansom勒索病毒预警</title>
-    <link href="http://xwdidi.top/2019/11/28/2019-11-28-DeathRansom%E5%8B%92%E7%B4%A2%E7%97%85%E6%AF%92%E9%A2%84%E8%AD%A6/"/>
-    <id>http://xwdidi.top/2019/11/28/2019-11-28-DeathRansom勒索病毒预警/</id>
+    <link href="http://blog.xwdidi.top/2019/11/28/2019-11-28-DeathRansom%E5%8B%92%E7%B4%A2%E7%97%85%E6%AF%92%E9%A2%84%E8%AD%A6/"/>
+    <id>http://blog.xwdidi.top/2019/11/28/2019-11-28-DeathRansom勒索病毒预警/</id>
     <published>2019-11-27T16:00:00.000Z</published>
     <updated>2019-11-28T14:45:35.703Z</updated>
     
@@ -55,17 +55,17 @@
     
     </summary>
     
-      <category term="翻译" scheme="http://xwdidi.top/categories/%E7%BF%BB%E8%AF%91/"/>
+      <category term="翻译" scheme="http://blog.xwdidi.top/categories/%E7%BF%BB%E8%AF%91/"/>
     
     
-      <category term="恶意软件" scheme="http://xwdidi.top/tags/%E6%81%B6%E6%84%8F%E8%BD%AF%E4%BB%B6/"/>
+      <category term="恶意软件" scheme="http://blog.xwdidi.top/tags/%E6%81%B6%E6%84%8F%E8%BD%AF%E4%BB%B6/"/>
     
   </entry>
   
   <entry>
     <title>常用密码学不全概括总览</title>
-    <link href="http://xwdidi.top/2019/11/22/2019-11-22-%E5%AF%86%E7%A0%81%E5%AD%A6%E9%80%86%E5%90%91%E5%88%86%E6%9E%90/"/>
-    <id>http://xwdidi.top/2019/11/22/2019-11-22-密码学逆向分析/</id>
+    <link href="http://blog.xwdidi.top/2019/11/22/2019-11-22-%E5%AF%86%E7%A0%81%E5%AD%A6%E9%80%86%E5%90%91%E5%88%86%E6%9E%90/"/>
+    <id>http://blog.xwdidi.top/2019/11/22/2019-11-22-密码学逆向分析/</id>
     <published>2019-11-21T16:00:00.000Z</published>
     <updated>2019-12-29T07:54:44.662Z</updated>
     
@@ -80,17 +80,17 @@
     
     </summary>
     
-      <category term="逆向基础" scheme="http://xwdidi.top/categories/%E9%80%86%E5%90%91%E5%9F%BA%E7%A1%80/"/>
+      <category term="逆向基础" scheme="http://blog.xwdidi.top/categories/%E9%80%86%E5%90%91%E5%9F%BA%E7%A1%80/"/>
     
     
-      <category term="密码学" scheme="http://xwdidi.top/tags/%E5%AF%86%E7%A0%81%E5%AD%A6/"/>
+      <category term="密码学" scheme="http://blog.xwdidi.top/tags/%E5%AF%86%E7%A0%81%E5%AD%A6/"/>
     
   </entry>
   
   <entry>
     <title>Emotet后台pe木马较不完整分析</title>
-    <link href="http://xwdidi.top/2019/10/24/2019-10-24-pe%E6%9C%A8%E9%A9%AC%E5%88%86%E6%9E%90/"/>
-    <id>http://xwdidi.top/2019/10/24/2019-10-24-pe木马分析/</id>
+    <link href="http://blog.xwdidi.top/2019/10/24/2019-10-24-pe%E6%9C%A8%E9%A9%AC%E5%88%86%E6%9E%90/"/>
+    <id>http://blog.xwdidi.top/2019/10/24/2019-10-24-pe木马分析/</id>
     <published>2019-10-23T16:00:00.000Z</published>
     <updated>2019-11-28T14:44:43.535Z</updated>
     
@@ -105,23 +105,23 @@
     
     </summary>
     
-      <category term="样本分析" scheme="http://xwdidi.top/categories/%E6%A0%B7%E6%9C%AC%E5%88%86%E6%9E%90/"/>
+      <category term="样本分析" scheme="http://blog.xwdidi.top/categories/%E6%A0%B7%E6%9C%AC%E5%88%86%E6%9E%90/"/>
     
     
-      <category term="恶意软件" scheme="http://xwdidi.top/tags/%E6%81%B6%E6%84%8F%E8%BD%AF%E4%BB%B6/"/>
+      <category term="恶意软件" scheme="http://blog.xwdidi.top/tags/%E6%81%B6%E6%84%8F%E8%BD%AF%E4%BB%B6/"/>
     
-      <category term="PE" scheme="http://xwdidi.top/tags/PE/"/>
+      <category term="PE" scheme="http://blog.xwdidi.top/tags/PE/"/>
     
-      <category term="宏代码" scheme="http://xwdidi.top/tags/%E5%AE%8F%E4%BB%A3%E7%A0%81/"/>
+      <category term="宏代码" scheme="http://blog.xwdidi.top/tags/%E5%AE%8F%E4%BB%A3%E7%A0%81/"/>
     
-      <category term="PowerShell" scheme="http://xwdidi.top/tags/PowerShell/"/>
+      <category term="PowerShell" scheme="http://blog.xwdidi.top/tags/PowerShell/"/>
     
   </entry>
   
   <entry>
     <title>Autohotkey脚本,自用</title>
-    <link href="http://xwdidi.top/2019/10/17/2019-10-17-autohotkey/"/>
-    <id>http://xwdidi.top/2019/10/17/2019-10-17-autohotkey/</id>
+    <link href="http://blog.xwdidi.top/2019/10/17/2019-10-17-autohotkey/"/>
+    <id>http://blog.xwdidi.top/2019/10/17/2019-10-17-autohotkey/</id>
     <published>2019-10-16T16:00:00.000Z</published>
     <updated>2020-01-15T04:21:14.240Z</updated>
     
@@ -136,17 +136,17 @@
     
     </summary>
     
-      <category term="工具" scheme="http://xwdidi.top/categories/%E5%B7%A5%E5%85%B7/"/>
+      <category term="工具" scheme="http://blog.xwdidi.top/categories/%E5%B7%A5%E5%85%B7/"/>
     
     
-      <category term="Autohotkey" scheme="http://xwdidi.top/tags/Autohotkey/"/>
+      <category term="Autohotkey" scheme="http://blog.xwdidi.top/tags/Autohotkey/"/>
     
   </entry>
   
   <entry>
     <title>MuddyWater(污水) APT样本分析</title>
-    <link href="http://xwdidi.top/2019/10/06/2019-10-06-MuddyWater(%E6%B1%A1%E6%B0%B4)%20APT%E5%88%86%E6%9E%90/"/>
-    <id>http://xwdidi.top/2019/10/06/2019-10-06-MuddyWater(污水) APT分析/</id>
+    <link href="http://blog.xwdidi.top/2019/10/06/2019-10-06-MuddyWater(%E6%B1%A1%E6%B0%B4)%20APT%E5%88%86%E6%9E%90/"/>
+    <id>http://blog.xwdidi.top/2019/10/06/2019-10-06-MuddyWater(污水) APT分析/</id>
     <published>2019-10-05T16:00:00.000Z</published>
     <updated>2019-11-28T14:44:49.947Z</updated>
     
@@ -161,21 +161,21 @@
     
     </summary>
     
-      <category term="样本分析" scheme="http://xwdidi.top/categories/%E6%A0%B7%E6%9C%AC%E5%88%86%E6%9E%90/"/>
+      <category term="样本分析" scheme="http://blog.xwdidi.top/categories/%E6%A0%B7%E6%9C%AC%E5%88%86%E6%9E%90/"/>
     
     
-      <category term="恶意软件" scheme="http://xwdidi.top/tags/%E6%81%B6%E6%84%8F%E8%BD%AF%E4%BB%B6/"/>
+      <category term="恶意软件" scheme="http://blog.xwdidi.top/tags/%E6%81%B6%E6%84%8F%E8%BD%AF%E4%BB%B6/"/>
     
-      <category term="宏代码" scheme="http://xwdidi.top/tags/%E5%AE%8F%E4%BB%A3%E7%A0%81/"/>
+      <category term="宏代码" scheme="http://blog.xwdidi.top/tags/%E5%AE%8F%E4%BB%A3%E7%A0%81/"/>
     
-      <category term="PowerShell" scheme="http://xwdidi.top/tags/PowerShell/"/>
+      <category term="PowerShell" scheme="http://blog.xwdidi.top/tags/PowerShell/"/>
     
   </entry>
   
   <entry>
     <title>双机调试简单问题</title>
-    <link href="http://xwdidi.top/2019/08/24/2019-08-24-%20%E5%8F%8C%E5%87%BB%E8%B0%83%E8%AF%95%E7%AE%80%E5%8D%95%E9%97%AE%E9%A2%98%E6%80%BB%E7%BB%93/"/>
-    <id>http://xwdidi.top/2019/08/24/2019-08-24- 双击调试简单问题总结/</id>
+    <link href="http://blog.xwdidi.top/2019/08/24/2019-08-24-%20%E5%8F%8C%E5%87%BB%E8%B0%83%E8%AF%95%E7%AE%80%E5%8D%95%E9%97%AE%E9%A2%98%E6%80%BB%E7%BB%93/"/>
+    <id>http://blog.xwdidi.top/2019/08/24/2019-08-24- 双击调试简单问题总结/</id>
     <published>2019-08-23T16:00:00.000Z</published>
     <updated>2019-11-08T15:50:11.993Z</updated>
     
@@ -190,17 +190,17 @@
     
     </summary>
     
-      <category term="工具" scheme="http://xwdidi.top/categories/%E5%B7%A5%E5%85%B7/"/>
+      <category term="工具" scheme="http://blog.xwdidi.top/categories/%E5%B7%A5%E5%85%B7/"/>
     
     
-      <category term="VirtualKD" scheme="http://xwdidi.top/tags/VirtualKD/"/>
+      <category term="VirtualKD" scheme="http://blog.xwdidi.top/tags/VirtualKD/"/>
     
   </entry>
   
   <entry>
     <title>iptables简单小结</title>
-    <link href="http://xwdidi.top/2019/06/18/2019-06-18-iptables%E7%AE%80%E5%8D%95%E5%B0%8F%E7%BB%93/"/>
-    <id>http://xwdidi.top/2019/06/18/2019-06-18-iptables简单小结/</id>
+    <link href="http://blog.xwdidi.top/2019/06/18/2019-06-18-iptables%E7%AE%80%E5%8D%95%E5%B0%8F%E7%BB%93/"/>
+    <id>http://blog.xwdidi.top/2019/06/18/2019-06-18-iptables简单小结/</id>
     <published>2019-06-18T06:19:36.000Z</published>
     <updated>2019-06-18T15:06:33.244Z</updated>
     
@@ -215,17 +215,17 @@
     
     </summary>
     
-      <category term="Linux" scheme="http://xwdidi.top/categories/Linux/"/>
+      <category term="Linux" scheme="http://blog.xwdidi.top/categories/Linux/"/>
     
     
-      <category term="实验" scheme="http://xwdidi.top/tags/%E5%AE%9E%E9%AA%8C/"/>
+      <category term="实验" scheme="http://blog.xwdidi.top/tags/%E5%AE%9E%E9%AA%8C/"/>
     
   </entry>
   
   <entry>
     <title>arm环境搭建-gdb调试</title>
-    <link href="http://xwdidi.top/2019/05/24/2019-05-24-arm%E7%8E%AF%E5%A2%83gdb%E8%B0%83%E8%AF%95/"/>
-    <id>http://xwdidi.top/2019/05/24/2019-05-24-arm环境gdb调试/</id>
+    <link href="http://blog.xwdidi.top/2019/05/24/2019-05-24-arm%E7%8E%AF%E5%A2%83gdb%E8%B0%83%E8%AF%95/"/>
+    <id>http://blog.xwdidi.top/2019/05/24/2019-05-24-arm环境gdb调试/</id>
     <published>2019-05-24T05:33:23.000Z</published>
     <updated>2019-11-08T15:49:52.988Z</updated>
     
@@ -240,19 +240,19 @@
     
     </summary>
     
-      <category term="工具" scheme="http://xwdidi.top/categories/%E5%B7%A5%E5%85%B7/"/>
+      <category term="工具" scheme="http://blog.xwdidi.top/categories/%E5%B7%A5%E5%85%B7/"/>
     
     
-      <category term="arm" scheme="http://xwdidi.top/tags/arm/"/>
+      <category term="arm" scheme="http://blog.xwdidi.top/tags/arm/"/>
     
-      <category term="gdb" scheme="http://xwdidi.top/tags/gdb/"/>
+      <category term="gdb" scheme="http://blog.xwdidi.top/tags/gdb/"/>
     
   </entry>
   
   <entry>
     <title>断点原理</title>
-    <link href="http://xwdidi.top/2019/04/07/2019-04-07-%E6%96%AD%E7%82%B9%E5%8E%9F%E7%90%86/"/>
-    <id>http://xwdidi.top/2019/04/07/2019-04-07-断点原理/</id>
+    <link href="http://blog.xwdidi.top/2019/04/07/2019-04-07-%E6%96%AD%E7%82%B9%E5%8E%9F%E7%90%86/"/>
+    <id>http://blog.xwdidi.top/2019/04/07/2019-04-07-断点原理/</id>
     <published>2019-04-07T05:33:23.000Z</published>
     <updated>2019-11-08T15:48:47.980Z</updated>
     
@@ -267,19 +267,19 @@
     
     </summary>
     
-      <category term="逆向基础" scheme="http://xwdidi.top/categories/%E9%80%86%E5%90%91%E5%9F%BA%E7%A1%80/"/>
+      <category term="逆向基础" scheme="http://blog.xwdidi.top/categories/%E9%80%86%E5%90%91%E5%9F%BA%E7%A1%80/"/>
     
     
-      <category term="断点" scheme="http://xwdidi.top/tags/%E6%96%AD%E7%82%B9/"/>
+      <category term="断点" scheme="http://blog.xwdidi.top/tags/%E6%96%AD%E7%82%B9/"/>
     
-      <category term="调试" scheme="http://xwdidi.top/tags/%E8%B0%83%E8%AF%95/"/>
+      <category term="调试" scheme="http://blog.xwdidi.top/tags/%E8%B0%83%E8%AF%95/"/>
     
   </entry>
   
   <entry>
     <title>VC：执行远程线程注入的代码段导致目标进程崩溃</title>
-    <link href="http://xwdidi.top/2019/04/01/2019-04-01-VC%E7%BA%BF%E7%A8%8B%E6%B3%A8%E5%85%A5%E5%A4%B1%E8%B4%A5/"/>
-    <id>http://xwdidi.top/2019/04/01/2019-04-01-VC线程注入失败/</id>
+    <link href="http://blog.xwdidi.top/2019/04/01/2019-04-01-VC%E7%BA%BF%E7%A8%8B%E6%B3%A8%E5%85%A5%E5%A4%B1%E8%B4%A5/"/>
+    <id>http://blog.xwdidi.top/2019/04/01/2019-04-01-VC线程注入失败/</id>
     <published>2019-03-31T16:00:00.000Z</published>
     <updated>2019-11-08T15:50:43.123Z</updated>
     
@@ -294,17 +294,17 @@
     
     </summary>
     
-      <category term="错误整理" scheme="http://xwdidi.top/categories/%E9%94%99%E8%AF%AF%E6%95%B4%E7%90%86/"/>
+      <category term="错误整理" scheme="http://blog.xwdidi.top/categories/%E9%94%99%E8%AF%AF%E6%95%B4%E7%90%86/"/>
     
     
-      <category term="植物大战僵尸" scheme="http://xwdidi.top/tags/%E6%A4%8D%E7%89%A9%E5%A4%A7%E6%88%98%E5%83%B5%E5%B0%B8/"/>
+      <category term="植物大战僵尸" scheme="http://blog.xwdidi.top/tags/%E6%A4%8D%E7%89%A9%E5%A4%A7%E6%88%98%E5%83%B5%E5%B0%B8/"/>
     
   </entry>
   
   <entry>
     <title>语言复习       查漏补缺 不定时更新</title>
-    <link href="http://xwdidi.top/2019/03/15/2019-03-13-%E8%AF%AD%E8%A8%80%E8%A6%81%E7%82%B9%E5%A4%8D%E4%B9%A0/"/>
-    <id>http://xwdidi.top/2019/03/15/2019-03-13-语言要点复习/</id>
+    <link href="http://blog.xwdidi.top/2019/03/15/2019-03-13-%E8%AF%AD%E8%A8%80%E8%A6%81%E7%82%B9%E5%A4%8D%E4%B9%A0/"/>
+    <id>http://blog.xwdidi.top/2019/03/15/2019-03-13-语言要点复习/</id>
     <published>2019-03-14T16:00:00.000Z</published>
     <updated>2019-04-07T16:00:00.000Z</updated>
     
@@ -319,19 +319,19 @@
     
     </summary>
     
-      <category term="逆向基础" scheme="http://xwdidi.top/categories/%E9%80%86%E5%90%91%E5%9F%BA%E7%A1%80/"/>
+      <category term="逆向基础" scheme="http://blog.xwdidi.top/categories/%E9%80%86%E5%90%91%E5%9F%BA%E7%A1%80/"/>
     
     
-      <category term="复习" scheme="http://xwdidi.top/tags/%E5%A4%8D%E4%B9%A0/"/>
+      <category term="复习" scheme="http://blog.xwdidi.top/tags/%E5%A4%8D%E4%B9%A0/"/>
     
-      <category term="基础" scheme="http://xwdidi.top/tags/%E5%9F%BA%E7%A1%80/"/>
+      <category term="基础" scheme="http://blog.xwdidi.top/tags/%E5%9F%BA%E7%A1%80/"/>
     
   </entry>
   
   <entry>
     <title>DuiLib环境搭建</title>
-    <link href="http://xwdidi.top/2018/11/05/2018-11-05-DuiLib%E6%90%AD%E5%BB%BA/"/>
-    <id>http://xwdidi.top/2018/11/05/2018-11-05-DuiLib搭建/</id>
+    <link href="http://blog.xwdidi.top/2018/11/05/2018-11-05-DuiLib%E6%90%AD%E5%BB%BA/"/>
+    <id>http://blog.xwdidi.top/2018/11/05/2018-11-05-DuiLib搭建/</id>
     <published>2018-11-04T16:00:00.000Z</published>
     <updated>2019-11-08T15:49:32.522Z</updated>
     
@@ -346,17 +346,17 @@
     
     </summary>
     
-      <category term="工具" scheme="http://xwdidi.top/categories/%E5%B7%A5%E5%85%B7/"/>
+      <category term="工具" scheme="http://blog.xwdidi.top/categories/%E5%B7%A5%E5%85%B7/"/>
     
     
-      <category term="DuiLib" scheme="http://xwdidi.top/tags/DuiLib/"/>
+      <category term="DuiLib" scheme="http://blog.xwdidi.top/tags/DuiLib/"/>
     
   </entry>
   
   <entry>
     <title>(转载)为何建议使用UTF-8</title>
-    <link href="http://xwdidi.top/2018/11/03/2018-11-03-(%E8%BD%AC%E8%BD%BD)UTF-8%E5%BF%83%E5%BE%97/"/>
-    <id>http://xwdidi.top/2018/11/03/2018-11-03-(转载)UTF-8心得/</id>
+    <link href="http://blog.xwdidi.top/2018/11/03/2018-11-03-(%E8%BD%AC%E8%BD%BD)UTF-8%E5%BF%83%E5%BE%97/"/>
+    <id>http://blog.xwdidi.top/2018/11/03/2018-11-03-(转载)UTF-8心得/</id>
     <published>2018-11-02T16:00:00.000Z</published>
     <updated>2019-04-06T14:00:58.819Z</updated>
     
@@ -371,21 +371,21 @@
     
     </summary>
     
-      <category term="转载" scheme="http://xwdidi.top/categories/%E8%BD%AC%E8%BD%BD/"/>
+      <category term="转载" scheme="http://blog.xwdidi.top/categories/%E8%BD%AC%E8%BD%BD/"/>
     
     
-      <category term="字符集" scheme="http://xwdidi.top/tags/%E5%AD%97%E7%AC%A6%E9%9B%86/"/>
+      <category term="字符集" scheme="http://blog.xwdidi.top/tags/%E5%AD%97%E7%AC%A6%E9%9B%86/"/>
     
-      <category term="UTF-8" scheme="http://xwdidi.top/tags/UTF-8/"/>
+      <category term="UTF-8" scheme="http://blog.xwdidi.top/tags/UTF-8/"/>
     
-      <category term="Unicode" scheme="http://xwdidi.top/tags/Unicode/"/>
+      <category term="Unicode" scheme="http://blog.xwdidi.top/tags/Unicode/"/>
     
   </entry>
   
   <entry>
     <title>熟悉IDA,以及手工制作sig文件.</title>
-    <link href="http://xwdidi.top/2018/10/03/2018-10-03-%E7%86%9F%E6%82%89IDA,%E4%BB%A5%E5%8F%8A%E6%89%8B%E5%B7%A5%E5%88%B6%E4%BD%9Csig%E6%96%87%E4%BB%B6/"/>
-    <id>http://xwdidi.top/2018/10/03/2018-10-03-熟悉IDA,以及手工制作sig文件/</id>
+    <link href="http://blog.xwdidi.top/2018/10/03/2018-10-03-%E7%86%9F%E6%82%89IDA,%E4%BB%A5%E5%8F%8A%E6%89%8B%E5%B7%A5%E5%88%B6%E4%BD%9Csig%E6%96%87%E4%BB%B6/"/>
+    <id>http://blog.xwdidi.top/2018/10/03/2018-10-03-熟悉IDA,以及手工制作sig文件/</id>
     <published>2018-10-02T16:00:00.000Z</published>
     <updated>2019-11-08T15:49:46.797Z</updated>
     
@@ -400,17 +400,17 @@
     
     </summary>
     
-      <category term="工具" scheme="http://xwdidi.top/categories/%E5%B7%A5%E5%85%B7/"/>
+      <category term="工具" scheme="http://blog.xwdidi.top/categories/%E5%B7%A5%E5%85%B7/"/>
     
     
-      <category term="IDA" scheme="http://xwdidi.top/tags/IDA/"/>
+      <category term="IDA" scheme="http://blog.xwdidi.top/tags/IDA/"/>
     
   </entry>
   
   <entry>
     <title>域名解析问题     阿里云</title>
-    <link href="http://xwdidi.top/2018/09/11/2018-09-11-%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/"/>
-    <id>http://xwdidi.top/2018/09/11/2018-09-11-博客搭建/</id>
+    <link href="http://blog.xwdidi.top/2018/09/11/2018-09-11-%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/"/>
+    <id>http://blog.xwdidi.top/2018/09/11/2018-09-11-博客搭建/</id>
     <published>2018-09-10T16:00:00.000Z</published>
     <updated>2019-11-08T15:50:52.027Z</updated>
     
@@ -425,10 +425,10 @@
     
     </summary>
     
-      <category term="工具" scheme="http://xwdidi.top/categories/%E5%B7%A5%E5%85%B7/"/>
+      <category term="工具" scheme="http://blog.xwdidi.top/categories/%E5%B7%A5%E5%85%B7/"/>
     
     
-      <category term="Blog" scheme="http://xwdidi.top/tags/Blog/"/>
+      <category term="Blog" scheme="http://blog.xwdidi.top/tags/Blog/"/>
     
   </entry>
   
