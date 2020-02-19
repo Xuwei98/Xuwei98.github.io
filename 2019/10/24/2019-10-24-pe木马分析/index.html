@@ -8,13 +8,13 @@
   <link rel="dns-prefetch" href="http://blog.xwdidi.top">
   <title>Emotet后台pe木马较不完整分析 | 偽のブログ</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="2019-11-07 ioc规则提交给微步时,顺便把恶意ip搜索了一下,发现Emotet银行木马家族. 前言记录一下最近分析的一个样本,自己依然是个菜鸡,有很多不足,希望各位师傅提出错误我努力学习.我头发都没了.此木马发送用户信息加密,能进行远程后门访问等功能,导入函数和导出函数只有一个,大量的动态加载api.  idb和样本都放下面学习链接那了. 0x01 样本信息 样本名称: f7df4126">
+  <meta name="description" content="2019-11-07 ioc规则提交给微步时,顺便把恶意ip搜索了一下,发现Emotet银行木马家族. 前言记录一下最近分析的一个样本,自己依然是个菜鸡,有很多不足,希望各位师傅提出错误我努力学习.我头发都没了.此木马发送用户信息加密,能进行远程后门访问等功能,导入函数和导出函数只有一个,大量的动态加载api.  idb和样本都放下面学习链接那了.">
 <meta name="keywords" content="恶意软件,PE,宏代码,PowerShell">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Emotet后台pe木马较不完整分析">
 <meta property="og:url" content="http://blog.xwdidi.top/2019/10/24/2019-10-24-pe木马分析/index.html">
 <meta property="og:site_name" content="偽のブログ">
-<meta property="og:description" content="2019-11-07 ioc规则提交给微步时,顺便把恶意ip搜索了一下,发现Emotet银行木马家族. 前言记录一下最近分析的一个样本,自己依然是个菜鸡,有很多不足,希望各位师傅提出错误我努力学习.我头发都没了.此木马发送用户信息加密,能进行远程后门访问等功能,导入函数和导出函数只有一个,大量的动态加载api.  idb和样本都放下面学习链接那了. 0x01 样本信息 样本名称: f7df4126">
+<meta property="og:description" content="2019-11-07 ioc规则提交给微步时,顺便把恶意ip搜索了一下,发现Emotet银行木马家族. 前言记录一下最近分析的一个样本,自己依然是个菜鸡,有很多不足,希望各位师傅提出错误我努力学习.我头发都没了.此木马发送用户信息加密,能进行远程后门访问等功能,导入函数和导出函数只有一个,大量的动态加载api.  idb和样本都放下面学习链接那了.">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://i.loli.net/2019/10/21/Njwsd3ZYCkHugeq.png">
 <meta property="og:image" content="https://i.loli.net/2019/10/18/pR8JMlgx3KU1Ci9.png">
@@ -57,10 +57,10 @@
 <meta property="og:image" content="https://i.loli.net/2019/10/24/p9lZFEDwT8HWtq2.png">
 <meta property="og:image" content="https://i.loli.net/2019/10/24/cFmnrQpLTHCx4IU.png">
 <meta property="og:image" content="https://i.loli.net/2019/10/21/VB3IYgWGQEMzi6y.png">
-<meta property="og:updated_time" content="2019-11-28T14:44:43.535Z">
+<meta property="og:updated_time" content="2020-02-19T10:37:49.766Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Emotet后台pe木马较不完整分析">
-<meta name="twitter:description" content="2019-11-07 ioc规则提交给微步时,顺便把恶意ip搜索了一下,发现Emotet银行木马家族. 前言记录一下最近分析的一个样本,自己依然是个菜鸡,有很多不足,希望各位师傅提出错误我努力学习.我头发都没了.此木马发送用户信息加密,能进行远程后门访问等功能,导入函数和导出函数只有一个,大量的动态加载api.  idb和样本都放下面学习链接那了. 0x01 样本信息 样本名称: f7df4126">
+<meta name="twitter:description" content="2019-11-07 ioc规则提交给微步时,顺便把恶意ip搜索了一下,发现Emotet银行木马家族. 前言记录一下最近分析的一个样本,自己依然是个菜鸡,有很多不足,希望各位师傅提出错误我努力学习.我头发都没了.此木马发送用户信息加密,能进行远程后门访问等功能,导入函数和导出函数只有一个,大量的动态加载api.  idb和样本都放下面学习链接那了.">
 <meta name="twitter:image" content="https://i.loli.net/2019/10/21/Njwsd3ZYCkHugeq.png">
   
     <link rel="alternative" href="/atom.xml" title="偽のブログ" type="application/atom+xml">
@@ -211,6 +211,7 @@
 <p><code>ioc</code>规则提交给微步时,顺便把恶意<code>ip</code>搜索了一下,发现<code>Emotet</code>银行木马家族.</p>
 <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>记录一下最近分析的一个样本,自己依然是个菜鸡,有很多不足,希望各位师傅提出错误我努力学习.我头发都没了.此木马发送用户信息加密,能进行远程后门访问等功能,导入函数和导出函数只有一个,大量的动态加载api. </p>
 <p>idb和样本都放下面学习链接那了.</p>
+<a id="more"></a>
 <h2 id="0x01-样本信息"><a href="#0x01-样本信息" class="headerlink" title="0x01 样本信息"></a>0x01 样本信息</h2><ul>
 <li>样本名称: f7df4126d9ae958be542583f0da746c4097bcc33b743a7af3896a3292de52282-1571228285.doc</li>
 <li>样本大小:  182,784</li>
@@ -785,19 +786,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">DuiLib</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">复习</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">基础</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">断点</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">调试</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -817,7 +814,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">DuiLib</a>
+                <a href="javascript:void(0)" class="js-tag color3">断点</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">调试</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -830,6 +831,10 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">恶意软件</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">yara</a>
               </li>
              
               <li class="article-tag-list-item">

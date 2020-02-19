@@ -6,18 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://blog.xwdidi.top">
-  <title>Archives: 2020/1 | 偽のブログ</title>
+  <title>YARA入门 | 偽のブログ</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="在校摸鱼达人">
-<meta property="og:type" content="website">
-<meta property="og:title" content="偽のブログ">
-<meta property="og:url" content="http://blog.xwdidi.top/archives/2020/01/index.html">
+  <meta name="description" content="如何命中恶意软件 Hash 特定字符串,识别特定软件或者是整个恶意软件家族 病毒或者木马的典型字节序列  YARA通过创建寻找一定特征的描述识别恶意软件的工具. 每个描述可以是文本或二进制模式。这些描述被称为“规则 YARA通过正则模型识别恶意软件.">
+<meta name="keywords" content="yara">
+<meta property="og:type" content="article">
+<meta property="og:title" content="YARA入门">
+<meta property="og:url" content="http://blog.xwdidi.top/2020/02/18/2020-02-18-yara入门与实践/index.html">
 <meta property="og:site_name" content="偽のブログ">
-<meta property="og:description" content="在校摸鱼达人">
+<meta property="og:description" content="如何命中恶意软件 Hash 特定字符串,识别特定软件或者是整个恶意软件家族 病毒或者木马的典型字节序列  YARA通过创建寻找一定特征的描述识别恶意软件的工具. 每个描述可以是文本或二进制模式。这些描述被称为“规则 YARA通过正则模型识别恶意软件.">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2020-02-19T10:37:21.300Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="偽のブログ">
-<meta name="twitter:description" content="在校摸鱼达人">
+<meta name="twitter:title" content="YARA入门">
+<meta name="twitter:description" content="如何命中恶意软件 Hash 特定字符串,识别特定软件或者是整个恶意软件家族 病毒或者木马的典型字节序列  YARA通过创建寻找一定特征的描述识别恶意软件的工具. 每个描述可以是文本或二进制模式。这些描述被称为“规则 YARA通过正则模型识别恶意软件.">
   
     <link rel="alternative" href="/atom.xml" title="偽のブログ" type="application/atom+xml">
   
@@ -143,49 +145,218 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-2020-02-18-yara入门与实践" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/01/19/2020-01-19-Quasar-木马分析报告/" class="archive-article-date">
-  	<time datetime="2020-01-19T07:53:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-19</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/01/19/2020-01-19-Quasar-木马分析报告/">Quasar 木马分析报告</a>
+    <h1 class="article-title" itemprop="name">
+      YARA入门
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
+        
+        <a href="/2020/02/18/2020-02-18-yara入门与实践/" class="archive-article-date">
+  	<time datetime="2020-02-18T10:49:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-02-18</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="如何命中恶意软件"><a href="#如何命中恶意软件" class="headerlink" title="如何命中恶意软件"></a>如何命中恶意软件</h2><ul>
+<li>Hash</li>
+<li>特定字符串,识别特定软件或者是整个恶意软件家族</li>
+<li>病毒或者木马的典型字节序列</li>
+</ul>
+<h2 id="YARA"><a href="#YARA" class="headerlink" title="YARA"></a>YARA</h2><p>通过创建寻找一定特征的描述识别恶意软件的工具.</p>
+<p>每个描述可以是文本或二进制模式。这些描述被称为“规则</p>
+<p>YARA通过正则模型识别恶意软件.</p>
+<a id="more"></a>
+<p>使用 16进制,纯文本,通配符,不区分大小写的字符串和特定运算符.</p>
+<h3 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h3><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">rule</span> <span class="string">silent_banker</span> <span class="string">:</span> <span class="string">banker</span></span><br><span class="line"><span class="string">&#123;</span></span><br><span class="line"><span class="attr">    meta:</span></span><br><span class="line">        <span class="string">description</span> <span class="string">=</span> <span class="string">"This is just an example"</span></span><br><span class="line">        <span class="string">threat_level</span> <span class="string">=</span> <span class="number">3</span></span><br><span class="line">        <span class="string">in_the_wild</span> <span class="string">=</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">    strings:</span></span><br><span class="line">        <span class="string">$a</span> <span class="string">=</span> <span class="string">&#123;6A</span> <span class="number">40</span> <span class="number">68</span> <span class="number">00</span> <span class="number">30</span> <span class="number">00</span> <span class="number">00</span> <span class="number">6</span><span class="string">A</span> <span class="number">14</span> <span class="number">8</span><span class="string">D</span> <span class="number">91</span><span class="string">&#125;</span></span><br><span class="line">        <span class="string">$b</span> <span class="string">=</span> <span class="string">&#123;8D</span> <span class="number">4</span><span class="string">D</span> <span class="string">B0</span> <span class="number">2</span><span class="string">B</span> <span class="string">C1</span> <span class="number">83</span> <span class="string">C0</span> <span class="number">27</span> <span class="number">99</span> <span class="number">6</span><span class="string">A</span> <span class="number">4</span><span class="string">E</span> <span class="number">59</span> <span class="string">F7</span> <span class="string">F9&#125;</span></span><br><span class="line">        <span class="string">$c</span> <span class="string">=</span> <span class="string">"UVODFRYSIHLNWPEJXQZAKCBGMT"</span></span><br><span class="line"><span class="attr">    condition:</span></span><br><span class="line">        <span class="string">$a</span> <span class="string">or</span> <span class="string">$b</span> <span class="string">or</span> <span class="string">$c</span></span><br><span class="line"><span class="string">&#125;</span></span><br></pre></td></tr></table></figure>
+<p>这个例子表明YARA将识别包含这些字符串的:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">6A 40 68 00 30 00 00 6A 14 8D 91</span><br><span class="line">8D 4D B0 2B C1 83 C0 27 99 6A 4E 59 F7 F9</span><br><span class="line">&quot;UVODFRYSIHLNWPEJXQZAKCBGMT&quot;</span><br></pre></td></tr></table></figure>
+<p>被标记为<code>Silent Banker Trojan</code>.前两个是16进制字符串,最后是文本字符串.</p>
+<h2 id="安装YARA"><a href="#安装YARA" class="headerlink" title="安装YARA"></a>安装YARA</h2><p><code>YARA</code>是同时支持Windows和基于Unix的系统.</p>
+<p>命令行形式or<code>Python</code>脚本.</p>
+<p><a href="https://yara.readthedocs.io/en/latest/gettingstarted.html#compiling-and-installing-yara" target="_blank" rel="noopener">安装文档</a></p>
+<h2 id="使用网上现有的规则"><a href="#使用网上现有的规则" class="headerlink" title="使用网上现有的规则"></a>使用网上现有的规则</h2><p>精选的YARA规则:<a href="https://github.com/InQuest/awesome-yara" target="_blank" rel="noopener">awesome-yara</a></p>
+<p>通过<code>Magic bytes</code>识别文件格式,分类文件内容: <a href="https://github.com/Xumeiquer/yara-forensics" target="_blank" rel="noopener"><strong>yara-forensics</strong></a></p>
+<h2 id="下载需要的特定规则文件"><a href="#下载需要的特定规则文件" class="headerlink" title="下载需要的特定规则文件"></a>下载需要的特定规则文件</h2><p>使用<code>curl</code>指令</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -o FILE_NAME LINK_TO_FILE</span><br></pre></td></tr></table></figure>
+<p><a href="https://github.com/VirusTotal/yara/blob/master/sample.rules" target="_blank" rel="noopener">sample.rules</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -o sample.yara https://raw.githubusercontent.com/VirusTotal/yara/master/sample.rules</span><br></pre></td></tr></table></figure>
+<h2 id="启动YARA"><a href="#启动YARA" class="headerlink" title="启动YARA"></a>启动YARA</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yara [OPTIONS] RULES_FILE TARGET</span><br></pre></td></tr></table></figure>
+<p>RULES_FILE是规则文件,TARGET指向目标文件</p>
+<p>例子: 通过分析是否是PDF文件来使用YARA</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -o pdf.yara https://raw.githubusercontent.com/Xumeiquer/yara-forensics/master/file/pdf.yar</span><br></pre></td></tr></table></figure>
+<p>然后，我们可以对要分析的文件运行YARA规则</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yara pdf.yara TARGET_FILE_TO_ANALYZE</span><br></pre></td></tr></table></figure>
+<h2 id="如何写自己的yara规则"><a href="#如何写自己的yara规则" class="headerlink" title="如何写自己的yara规则"></a>如何写自己的yara规则</h2><p>网上没有现成的,你就只能自己写规则.</p>
+<p><code>YarGen</code>是生成YARA规则的工具.能成给定的恶意软件的YARA规则.</p>
+<p>通过字符串识别恶意软件,并删除已知的非恶意文件字符串.</p>
+<p>YarGen包含字符串与字节码的巨大数据库,这些字符串和字节码也包含在非恶意文件中.</p>
+<h2 id="安装YarGen"><a href="#安装YarGen" class="headerlink" title="安装YarGen"></a>安装YarGen</h2><p>python2支持.</p>
+<p>下载最新版本<a href="https://github.com/Neo23x0/yarGen/releases" target="_blank" rel="noopener">release</a>,并且解压缩.</p>
+<p>管理员权限下安装所有依赖项.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">py -2 -m pip install pefile cd</span><br><span class="line">py -2 -m pip install scandir lxml naiveBayesClassifier</span><br></pre></td></tr></table></figure>
+<p>进入yarGen所在的文件夹.运行下述命令,下载内置数据库.保存到./dbs子目录中</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">py -2 yarGen.py —-update</span><br></pre></td></tr></table></figure>
+<h2 id="运行YarGen"><a href="#运行YarGen" class="headerlink" title="运行YarGen"></a>运行YarGen</h2><p>查看命令行参数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">py -2 yarGen.py --help</span><br></pre></td></tr></table></figure>
+<p>使用包含的数据库进行规则生成，运行命令:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">py -2 yarGen.py -m PATH_TO_MALWARE_DIRECTORY</span><br></pre></td></tr></table></figure>
+<p>该命令将扫描PATH_TO_MALWARE_DIRECTORY目录下的恶意软件文件创建规则。在当前目录中创建名为<code>yargen_rules.yar</code>的文件将，其中包含生成的规则。</p>
+<h2 id="学习YARA编写规则"><a href="#学习YARA编写规则" class="headerlink" title="学习YARA编写规则"></a>学习YARA编写规则</h2><h3 id="学习语法"><a href="#学习语法" class="headerlink" title="学习语法:"></a>学习语法:</h3><ul>
+<li><p><a href="https://wiki.xwdidi.top/computer/security/RE/malware/YARA/creating_yara/" target="_blank" rel="noopener">编写Yara规则检测恶意软件</a></p>
+</li>
+<li><p><a href="https://yara.readthedocs.io/en/latest/" target="_blank" rel="noopener">官方文档</a></p>
+</li>
+</ul>
+<h3 id="学习思路"><a href="#学习思路" class="headerlink" title="学习思路:"></a>学习思路:</h3><p>推荐一个YARA规则学习<a href="https://github.com/Neo23x0/signature-base" target="_blank" rel="noopener">仓库</a>,采用YARA的开源扫描器,有大量优质的YARA规则可以学习.</p>
+<ol>
+<li>分析该规则所对应的Rat家族或者virus等等,尽量分析透彻.</li>
+<li>在分析透彻的前提下,阅读该规则.</li>
+<li>对每处特征码进行思考,为什么会使用该特征码.学习思路.</li>
+</ol>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p>参考自:<a href="https://medium.com/bugbountywriteup/intro-to-malware-detection-using-yara-eacab8373cf4" target="_blank" rel="noopener">https://medium.com/bugbountywriteup/intro-to-malware-detection-using-yara-eacab8373cf4</a></p>
 
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">yara</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://blog.xwdidi.top/2020/02/18/2020-02-18-yara入门与实践/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
   
   
-    </div></section>
+    <a href="/2019/11/28/2019-11-28-DeathRansom勒索病毒预警/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">DeathRansom勒索病毒预警</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+  
+  
   
 
-    
+  
+
+  
+    <section id="comments">
+      <div id="disqus_thread"></div>
+        <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'true'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+          var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+          dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+          (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+      </script>
+      <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </section>
+  
+
+  
 
 
           </div>
@@ -208,8 +379,8 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
@@ -315,19 +486,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">DuiLib</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">复习</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">基础</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">断点</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">调试</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -347,7 +514,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">DuiLib</a>
+                <a href="javascript:void(0)" class="js-tag color3">断点</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">调试</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -360,6 +531,10 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">恶意软件</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">yara</a>
               </li>
              
               <li class="article-tag-list-item">
