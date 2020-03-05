@@ -6,18 +6,71 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://blog.xwdidi.top">
-  <title>Archives | 偽のブログ</title>
+  <title>Sodinokibi勒索病毒分析 | 偽のブログ</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="在校摸鱼达人">
-<meta property="og:type" content="website">
-<meta property="og:title" content="偽のブログ">
-<meta property="og:url" content="http://blog.xwdidi.top/archives/index.html">
+  <meta name="description" content="0x01 样本信息 样本名称: 2  样本大小:  280,579 字节  MD5:  7d88dfcfe457bdc715371dbeaa4a5ef7  SHA-1: f2f36ef9976259a55123250ecc78fda3487f8848  SHA-256:  8bf7a344480c29b572fcead838c863093a5c88ba21d51085b6fc6ec3d8e8fba">
+<meta name="keywords" content="恶意软件,PE">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Sodinokibi勒索病毒分析">
+<meta property="og:url" content="http://blog.xwdidi.top/2020/03/05/2020-03-05-Sodinokibi勒索病毒分析/index.html">
 <meta property="og:site_name" content="偽のブログ">
-<meta property="og:description" content="在校摸鱼达人">
+<meta property="og:description" content="0x01 样本信息 样本名称: 2  样本大小:  280,579 字节  MD5:  7d88dfcfe457bdc715371dbeaa4a5ef7  SHA-1: f2f36ef9976259a55123250ecc78fda3487f8848  SHA-256:  8bf7a344480c29b572fcead838c863093a5c88ba21d51085b6fc6ec3d8e8fba">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://i.loli.net/2020/03/05/PZtpMNK9LVFXQer.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/02/4VwKz6eRGqxtEYi.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/02/bYXG5qVEhtUHw64.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/02/eYGa9NSU5BQPcwK.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/02/glFNaeArWM47opJ.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/02/AwbJ8cgPxm4tTrC.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/02/rkLwYUCeAGtzRxg.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/02/SxdbOasgrC5LIN6.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/02/wAUdXlue1WZbrJH.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/02/nOS2Uq3rlcXRLjA.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/02/SLp6EfZmX8chCBz.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/02/fTBUQ4bzxKVj1XR.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/02/lhNAnBWwPvo9rsy.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/02/TlxSsK57UnAd8M3.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/02/XBahcJtGqE4yrgK.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/05/CV65pFQWNoLbDuf.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/03/jYwd1eLmcUJ65xS.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/03/vPqCip8M3BHNnes.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/03/Cc2elLiR1HDJst6.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/03/lte2VqnNIaEwxdZ.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/03/YrXl7MWxveaBApb.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/03/fN4SkYWuezKFD6c.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/03/IgBGjZiMnk3pCH9.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/03/vN8w1uWASxE9HC4.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/04/nHx6NBmUYd1CTIP.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/04/HND1whOcCMunjLg.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/04/CvR8hd3LaBUAon1.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/04/jnCufmkNpAwhIGT.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/04/XHM4mdzQNwBgbOU.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/04/mWfANnrV3iGgPS8.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/04/cbJ835ulgVNy29F.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/04/W6x1URQyV7aqBmo.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/04/IsJUdDuKNa7VST3.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/04/9ezgZrQ6qKIRC4Y.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/04/rV2gQHd89nAMxTN.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/04/paDC18x9F7htOjZ.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/04/KJlIR4NwOTjDioy.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/04/QH5BMXTghws89AD.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/04/RxSq5nGP3b4LNev.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/04/cpJdDaqSAbywokG.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/04/KBZqJFrbzksnuiC.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/04/FQdRxWzfbXte3Y9.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/04/CEgJ16Lu7V5epBs.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/04/yM6S95vKTg4XHbz.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/05/rmwA91yWl8dxeRE.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/05/dQiGSXIsWHJfuaA.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/05/ewmLiO6UxbqZ7fg.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/05/hdwkaDo3JSW91Ps.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/05/xoftPKm5WBiJAdF.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/05/KbqBX3lAMaWThe2.png">
+<meta property="og:updated_time" content="2020-03-05T18:18:44.654Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="偽のブログ">
-<meta name="twitter:description" content="在校摸鱼达人">
+<meta name="twitter:title" content="Sodinokibi勒索病毒分析">
+<meta name="twitter:description" content="0x01 样本信息 样本名称: 2  样本大小:  280,579 字节  MD5:  7d88dfcfe457bdc715371dbeaa4a5ef7  SHA-1: f2f36ef9976259a55123250ecc78fda3487f8848  SHA-256:  8bf7a344480c29b572fcead838c863093a5c88ba21d51085b6fc6ec3d8e8fba">
+<meta name="twitter:image" content="https://i.loli.net/2020/03/05/PZtpMNK9LVFXQer.png">
   
     <link rel="alternative" href="/atom.xml" title="偽のブログ" type="application/atom+xml">
   
@@ -143,36 +196,310 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-2020-03-05-Sodinokibi勒索病毒分析" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
+    <h1 class="article-title" itemprop="name">
+      Sodinokibi勒索病毒分析
+    </h1>
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/03/05/2020-03-05-Sodinokibi勒索病毒分析/" class="archive-article-date">
+
+        
+        <a href="/2020/03/05/2020-03-05-Sodinokibi勒索病毒分析/" class="archive-article-date">
   	<time datetime="2020-03-04T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-05</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/03/05/2020-03-05-Sodinokibi勒索病毒分析/">Sodinokibi勒索病毒分析</a>
-    </h1>
-  
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="0x01-样本信息"><a href="#0x01-样本信息" class="headerlink" title="0x01 样本信息"></a>0x01 样本信息</h1><ul>
+<li><p>样本名称: 2</p>
+</li>
+<li><p>样本大小:  280,579 字节</p>
+</li>
+<li><p>MD5:  7d88dfcfe457bdc715371dbeaa4a5ef7</p>
+</li>
+<li><p>SHA-1: f2f36ef9976259a55123250ecc78fda3487f8848</p>
+</li>
+<li><p>SHA-256:  8bf7a344480c29b572fcead838c863093a5c88ba21d51085b6fc6ec3d8e8fbac</p>
+</li>
+<li><p>家族: Sodinokibi</p>
+</li>
+<li><p>idb与样本地址:  <a href="https://github.com/Xuwei98/malware-analysis/tree/master/Ransomware/2020-03-05-pe-Sodinokibi勒索病毒" target="_blank" rel="noopener">github</a></p>
+<a id="more"></a>
+</li>
+</ul>
+<h1 id="0x02-分析环境"><a href="#0x02-分析环境" class="headerlink" title="0x02 分析环境"></a>0x02 分析环境</h1><ul>
+<li>win10 x64 pro</li>
+<li>VMware Workstaion 15</li>
+</ul>
+<h1 id="0x03-行为分析"><a href="#0x03-行为分析" class="headerlink" title="0x03 行为分析"></a>0x03 行为分析</h1><h2 id="行为一览"><a href="#行为一览" class="headerlink" title="行为一览:"></a>行为一览:</h2><p><img src="https://i.loli.net/2020/03/05/PZtpMNK9LVFXQer.png" alt="image.png"></p>
+<h2 id="进程树"><a href="#进程树" class="headerlink" title="进程树"></a>进程树</h2><p>从中可以看到启动<code>vssadmin.exe</code>删除卷影备份,<code>bcedit.exe</code>自动回复和开机启动禁用<code>Windows</code>开机启动错误恢复模式.</p>
+<p><img src="https://i.loli.net/2020/03/02/4VwKz6eRGqxtEYi.png" alt="image.png"></p>
+<p><code>&quot;C:\Windows\System32\cmd.exe&quot; /c vssadmin.exe Delete Shadows /All /Quiet &amp; bcdedit /set {default} recoveryenabled No &amp; bcdedit /set {default} bootstatuspolicy ignoreallfailures</code></p>
+<h2 id="勒索信"><a href="#勒索信" class="headerlink" title="勒索信"></a>勒索信</h2><p>通过上传勒索信到<a href="https://id-ransomware.malwarehunterteam.com/" target="_blank" rel="noopener">ID Randomware</a>,识别出<code>Sodinokibi</code>勒索病毒.</p>
+<p><img src="https://i.loli.net/2020/03/02/bYXG5qVEhtUHw64.png" alt="image.png"></p>
+<p><img src="https://i.loli.net/2020/03/02/eYGa9NSU5BQPcwK.png" alt="image.png"></p>
+<p>每个文件夹下面都会释放一个<code>readme</code>文件.</p>
+<p><img src="https://i.loli.net/2020/03/02/glFNaeArWM47opJ.png" alt="image.png"></p>
+<h2 id="注册表操作"><a href="#注册表操作" class="headerlink" title="注册表操作"></a>注册表操作</h2><p>在注册表键<code>HKLM\\SOFTWARE\\WOWO6432Node\\recfg</code>注册键值.<code>0_key</code>,<code>pk_key</code>,<code>rnd_ext</code>,<code>sk_key</code>,<code>stat</code>.</p>
+<p><img src="https://i.loli.net/2020/03/02/AwbJ8cgPxm4tTrC.png" alt="image.png"></p>
+<p><code>rnd_ext</code>为加密文件后缀.</p>
+<p><img src="https://i.loli.net/2020/03/02/rkLwYUCeAGtzRxg.png" alt="image.png"></p>
+<h1 id="0x04-分析"><a href="#0x04-分析" class="headerlink" title="0x04 分析"></a>0x04 分析</h1><p>使用<code>word</code>图标进行迷惑受害者.诱导执行.<code>win10与win7</code>启动时需要过UAC认证,算是一定程度上的阻止执行,但会无限弹窗UAC认证.</p>
+<p><img src="https://i.loli.net/2020/03/02/SxdbOasgrC5LIN6.png" alt="image.png"></p>
+<p>无壳,VC程序.</p>
+<p>时间戳为<code>星期三, 24.10.2018 10:14:32 UTC</code></p>
+<h2 id="调试分析"><a href="#调试分析" class="headerlink" title="调试分析"></a>调试分析</h2><h3 id="壳"><a href="#壳" class="headerlink" title="壳"></a>壳</h3><p>释放加密数据到堆上</p>
+<p><img src="https://i.loli.net/2020/03/02/wAUdXlue1WZbrJH.png" alt="image.png"></p>
+<p>XXTEA解密数据.</p>
+<p><img src="https://i.loli.net/2020/03/02/nOS2Uq3rlcXRLjA.png" alt="image.png"></p>
+<p>更改权限,跳转到新程序处.</p>
+<p><img src="https://i.loli.net/2020/03/02/SLp6EfZmX8chCBz.png" alt="image.png"></p>
+<p><img src="https://i.loli.net/2020/03/02/fTBUQ4bzxKVj1XR.png" alt="image.png"></p>
+<h3 id="二次外壳"><a href="#二次外壳" class="headerlink" title="二次外壳"></a>二次外壳</h3><p>通过动态加载获得<code>VirtualAlloc</code>函数地址,并在<code>0x5430000</code>处申请空间.</p>
+<p><img src="https://i.loli.net/2020/03/02/lhNAnBWwPvo9rsy.png" alt="image.png"></p>
+<p>经过拷贝到目标地址后,dump下来单独分析.</p>
+<p><img src="https://i.loli.net/2020/03/02/TlxSsK57UnAd8M3.png" alt="image.png"></p>
+<p>后续执行情况为将此处程序拷贝修复后到<code>0x40000</code>,跳转执行.</p>
+<p><img src="https://i.loli.net/2020/03/02/XBahcJtGqE4yrgK.png" alt="image.png"></p>
+<h3 id="本体加密程序"><a href="#本体加密程序" class="headerlink" title="本体加密程序"></a>本体加密程序</h3><h3 id="pe特征"><a href="#pe特征" class="headerlink" title="pe特征"></a>pe特征</h3><table>
+<thead>
+<tr>
+<th>时间戳</th>
+<th>星期日, 19.05.2019 18:08:46 UTC</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MD5</td>
+<td>0c2f9a02415c38d1cb1d5c558af971b8</td>
+</tr>
+<tr>
+<td>SHA-1</td>
+<td>6b53b24a4dd24db73e6ccf46e58f6d61a482047a</td>
+</tr>
+<tr>
+<td>SHA-256</td>
+<td>103e3743db5511f5f4aef4aaf02cdaf732531c9e8b894caa97de348e852bfa14</td>
+</tr>
+</tbody>
+</table>
+<p>存在资源表</p>
+<p>据相关资料得知红框为密钥.</p>
+<p><img src="https://i.loli.net/2020/03/05/CV65pFQWNoLbDuf.png" alt></p>
+<h3 id="调试分析-1"><a href="#调试分析-1" class="headerlink" title="调试分析"></a>调试分析</h3><h4 id="加载函数"><a href="#加载函数" class="headerlink" title="加载函数"></a>加载函数</h4><p>动态解密字符串,从<code>dll</code>输出表寻找对应函数,获取函数地址.</p>
+<p>并获取CreateStreamOnHGlobal地址.</p>
+<p><img src="https://i.loli.net/2020/03/03/jYwd1eLmcUJ65xS.png" alt="image.png"></p>
+<h4 id="创建互斥量"><a href="#创建互斥量" class="headerlink" title="创建互斥量"></a>创建互斥量</h4><p>通过字符串计算函数,得到互斥量名字,创建互斥量</p>
+<p><img src="https://i.loli.net/2020/03/03/vPqCip8M3BHNnes.png" alt="image.png"></p>
+<h4 id="释放资源表"><a href="#释放资源表" class="headerlink" title="释放资源表"></a>释放资源表</h4><p>对资源表进行<code>CRC32</code>资源表循环校验,后进行解密释放资源表到堆中</p>
+<p><img src="https://i.loli.net/2020/03/03/Cc2elLiR1HDJst6.png" alt="image.png"></p>
+<p><img src="https://i.loli.net/2020/03/03/lte2VqnNIaEwxdZ.png" alt="image.png"></p>
+<p>解密数据一览json格式,<code>0x66cb</code>大小.全部字符串放在<code>资源表解密.txt</code>中了.从中看出公钥,被加密和被排除文件,背景图片,readme文件等信息.</p>
+<p><img src="https://i.loli.net/2020/03/03/YrXl7MWxveaBApb.png" alt="image.png"></p>
+<p>格式化后的样子:</p>
+<p><img src="https://i.loli.net/2020/03/03/fN4SkYWuezKFD6c.png" alt="image.png"></p>
+<ul>
+<li><p>公钥:”pk”: “pzprC6xbhNFhM/+qJI6gCrd2pnCgyRdai+B89OUhWAw=”</p>
+</li>
+<li><p>白名单过滤,目录,文件,后缀:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">	&quot;fld&quot;: [&quot;tor browser&quot;, &quot;msocache&quot;, &quot;$windows.~ws&quot;, &quot;application data&quot;, &quot;windows&quot;, &quot;mozilla&quot;, &quot;program files&quot;, &quot;windows.old&quot;, &quot;$windows.~bt&quot;, &quot;perflogs&quot;, &quot;program files (x86)&quot;, &quot;programdata&quot;, &quot;system volume information&quot;, &quot;google&quot;, &quot;$recycle.bin&quot;, &quot;intel&quot;, &quot;boot&quot;, &quot;appdata&quot;],</span><br><span class="line">	&quot;fls&quot;: [&quot;ntuser.dat.log&quot;, &quot;boot.ini&quot;, &quot;thumbs.db&quot;, &quot;autorun.inf&quot;, &quot;bootsect.bak&quot;, &quot;bootfont.bin&quot;, &quot;desktop.ini&quot;, &quot;iconcache.db&quot;, &quot;ntldr&quot;, &quot;ntuser.ini&quot;, &quot;ntuser.dat&quot;],</span><br><span class="line">	&quot;ext&quot;: [&quot;cmd&quot;, &quot;hta&quot;, &quot;sys&quot;, &quot;cab&quot;, &quot;exe&quot;, &quot;diagcfg&quot;, &quot;shs&quot;, &quot;diagcab&quot;, &quot;scr&quot;, &quot;themepack&quot;, &quot;ps1&quot;, &quot;prf&quot;, &quot;nomedia&quot;, &quot;mpa&quot;, &quot;ldf&quot;, &quot;drv&quot;, &quot;msc&quot;, &quot;dll&quot;, &quot;msi&quot;, &quot;cur&quot;, &quot;icns&quot;, &quot;diagpkg&quot;, &quot;nls&quot;, &quot;theme&quot;, &quot;msstyles&quot;, &quot;lnk&quot;, &quot;386&quot;, &quot;deskthemepack&quot;, &quot;ico&quot;, &quot;cpl&quot;, &quot;idx&quot;, &quot;bat&quot;, &quot;mod&quot;, &quot;lock&quot;, &quot;msp&quot;, &quot;spl&quot;, &quot;com&quot;, &quot;rom&quot;, &quot;msu&quot;, &quot;bin&quot;, &quot;key&quot;, &quot;hlp&quot;, &quot;icl&quot;, &quot;rtp&quot;, &quot;ocx&quot;, &quot;wpx&quot;, &quot;ani&quot;, &quot;adv&quot;, &quot;ics&quot;]</span><br><span class="line">&quot;wfld&quot;: [&quot;backup&quot;],</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>结束进程: </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;prc&quot;: [&quot;xfssvccon.exe&quot;, &quot;msaccess.exe&quot;, &quot;dbsnmp.exe&quot;, &quot;sqbcoreservice.exe&quot;, &quot;synctime.exe&quot;, &quot;onenote.exe&quot;, &quot;dbeng50.exe&quot;, &quot;outlook.exe&quot;, &quot;msftesql.exe&quot;, &quot;excel.exe&quot;, &quot;agntsvc.exe&quot;, &quot;mysqld_opt.exe&quot;, &quot;ocautoupds.exe&quot;, &quot;thebat.exe&quot;, &quot;sqlbrowser.exe&quot;, &quot;wordpad.exe&quot;, &quot;powerpnt.exe&quot;, &quot;ocssd.exe&quot;, &quot;sqlservr.exe&quot;, &quot;winword.exe&quot;, &quot;mysqld.exe&quot;, &quot;thebat64.exe&quot;, &quot;encsvc.exe&quot;, &quot;steam.exe&quot;, &quot;firefoxconfig.exe&quot;, &quot;mydesktopqos.exe&quot;, &quot;mspub.exe&quot;, &quot;thunderbird.exe&quot;, &quot;visio.exe&quot;, &quot;oracle.exe&quot;, &quot;mydesktopservice.exe&quot;, &quot;mysqld_nt.exe&quot;, &quot;infopath.exe&quot;, &quot;isqlplussvc.exe&quot;, &quot;sqlagent.exe&quot;, &quot;ocomm.exe&quot;, &quot;sqlwriter.exe&quot;, &quot;tbirdconfig.exe&quot;]</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>大量域名</p>
+</li>
+<li><p>网络状态</p>
+</li>
+<li><p>read-me文件内容编码</p>
+</li>
+<li><p>readme文件名”{EXT}-readme.txt”</p>
+</li>
+<li><p>图片编码:QQBsAGwAIABvAGYAIAB5AG8AdQByACAAZgBpAGwAZQBzACAAYQByAGUAIABlAG4AYwByAHkAcAB0AGUAZAAhAA0ACgANAAoARgBpAG4AZAAgAHsARQBYAFQAfQAtAHIAZQBhAGQAbQBlAC4AdAB4AHQAIABhAG4AZAAgAGYAbwBsAGwAbwB3ACAAaQBuAHMAdAB1AGMAdABpAG8AbgBzAAAA”</p>
+</li>
+</ul>
+<h4 id="提升权限"><a href="#提升权限" class="headerlink" title="提升权限"></a>提升权限</h4><p>通过PEB获取版本号,判断操作系统是否为Vista系统及以上.判断权限.</p>
+<p>判断令牌类型,若不为管理员权限,则释放互斥体,使用<code>ShellExcuteEx</code>使用<code>runas</code>执行自身程序提升权限.因为是无限循环,所以导致拒绝后会一直弹窗申请权限.</p>
+<p><img src="https://i.loli.net/2020/03/03/IgBGjZiMnk3pCH9.png" alt="image.png"></p>
+<h4 id="高权限模拟登录"><a href="#高权限模拟登录" class="headerlink" title="高权限模拟登录"></a>高权限模拟登录</h4><p>判断是否为最高权限,使用 <code>ImpersonateLoggedOnUser()</code>函数模拟当前登录用户。<img src="https://i.loli.net/2020/03/03/vN8w1uWASxE9HC4.png" alt="image.png"></p>
+<h4 id="获得所需信息"><a href="#获得所需信息" class="headerlink" title="获得所需信息"></a>获得所需信息</h4><p>格式化字符串如勒索告知等</p>
+<p><img src="https://i.loli.net/2020/03/04/nHx6NBmUYd1CTIP.png" alt="image.png"></p>
+<h5 id="注册表密钥"><a href="#注册表密钥" class="headerlink" title="注册表密钥"></a>注册表密钥</h5><p>注册表密钥放图注册表中<img src="https://i.loli.net/2020/03/04/HND1whOcCMunjLg.png" alt="image.png"></p>
+<p>因为是32位程序,系统为64位,所以在<code>HKLC\\SOFTWARE\\WOW6432Node\\refg</code>中<img src="https://i.loli.net/2020/03/04/CvR8hd3LaBUAon1.png" alt="image.png"></p>
+<p><img src="https://i.loli.net/2020/03/04/jnCufmkNpAwhIGT.png" alt="image.png"></p>
+<p><code>rnd_ext</code>和<code>stat</code>添加进注册表中<img src="https://i.loli.net/2020/03/04/XHM4mdzQNwBgbOU.png" alt="image.png"></p>
+<p><img src="https://i.loli.net/2020/03/04/mWfANnrV3iGgPS8.png" alt="image.png"></p>
+<p><img src="https://i.loli.net/2020/03/04/cbJ835ulgVNy29F.png" alt="image.png"></p>
+<h5 id="获得键盘布局-判断国家"><a href="#获得键盘布局-判断国家" class="headerlink" title="获得键盘布局,判断国家"></a>获得键盘布局,判断国家</h5><p><img src="https://i.loli.net/2020/03/04/W6x1URQyV7aqBmo.png" alt="image.png"></p>
+<p><code>add eax, 0FFFFFFE8h</code>后,看是否包含下列国家<img src="https://i.loli.net/2020/03/04/IsJUdDuKNa7VST3.png" alt="image.png"></p>
+<h5 id="解密勒索信和背景文字"><a href="#解密勒索信和背景文字" class="headerlink" title="解密勒索信和背景文字"></a>解密勒索信和背景文字</h5><p>将与需要的信息格式化进解密后的勒索信.<img src="https://i.loli.net/2020/03/04/9ezgZrQ6qKIRC4Y.png" alt="image.png"></p>
+<p>勒索背景文字.<img src="https://i.loli.net/2020/03/04/rV2gQHd89nAMxTN.png" alt="image.png"></p>
+<h4 id="结束进程"><a href="#结束进程" class="headerlink" title="结束进程"></a>结束进程</h4><p><img src="https://i.loli.net/2020/03/04/paDC18x9F7htOjZ.png" alt="image.png"><img src="https://i.loli.net/2020/03/04/KJlIR4NwOTjDioy.png" alt="image.png"></p>
+<h4 id="删除卷影备份等"><a href="#删除卷影备份等" class="headerlink" title="删除卷影备份等"></a>删除卷影备份等</h4><p><img src="https://i.loli.net/2020/03/04/QH5BMXTghws89AD.png" alt="image.png"></p>
+<h4 id="IOCP多线程函数执行"><a href="#IOCP多线程函数执行" class="headerlink" title="IOCP多线程函数执行"></a>IOCP多线程函数执行</h4><p>使用IOCP相关函数加速加密执行</p>
+<p><img src="https://i.loli.net/2020/03/04/RxSq5nGP3b4LNev.png" alt="image.png"></p>
+<h5 id="磁盘遍历"><a href="#磁盘遍历" class="headerlink" title="磁盘遍历"></a>磁盘遍历</h5><p><img src="https://i.loli.net/2020/03/04/cpJdDaqSAbywokG.png" alt="image.png"></p>
+<h5 id="文件创建函数"><a href="#文件创建函数" class="headerlink" title="文件创建函数"></a>文件创建函数</h5><p>在文件夹下创建lock文件和勒索信文件<img src="https://i.loli.net/2020/03/04/KBZqJFrbzksnuiC.png" alt="image.png"><img src="https://i.loli.net/2020/03/04/FQdRxWzfbXte3Y9.png" alt="image.png"></p>
+<h5 id="加密函数"><a href="#加密函数" class="headerlink" title="加密函数"></a>加密函数</h5><p><img src="https://i.loli.net/2020/03/04/CEgJ16Lu7V5epBs.png" alt="image.png"></p>
+<h4 id="网络共享资源加密"><a href="#网络共享资源加密" class="headerlink" title="网络共享资源加密"></a>网络共享资源加密</h4><p>用了模块“MPR.DLL”的典型 API 函数,枚举网络共享并调用加密函数.</p>
+<p><img src="https://i.loli.net/2020/03/04/yM6S95vKTg4XHbz.png" alt="image.png"></p>
+<h4 id="背景设置"><a href="#背景设置" class="headerlink" title="背景设置"></a>背景设置</h4><p>流程</p>
+<p><img src="https://i.loli.net/2020/03/05/rmwA91yWl8dxeRE.png" alt="image.png"></p>
+<p>文字参数</p>
+<p><img src="https://i.loli.net/2020/03/05/dQiGSXIsWHJfuaA.png" alt="image.png"></p>
+<p>壁纸参数</p>
+<p><img src="https://i.loli.net/2020/03/05/ewmLiO6UxbqZ7fg.png" alt="image.png"></p>
+<p>壁纸文件</p>
+<p><img src="https://i.loli.net/2020/03/05/hdwkaDo3JSW91Ps.png" alt="image.png"></p>
+<h4 id="网络连接"><a href="#网络连接" class="headerlink" title="网络连接"></a>网络连接</h4><p>使用For循环遍历<code>json</code>中<code>dmn</code>的值,</p>
+<p><img src="https://i.loli.net/2020/03/05/xoftPKm5WBiJAdF.png" alt="image.png"></p>
+<p>通过伪随机字符进行域名后缀和文件名的设定,包括以下字符</p>
+<p>完整表示为<a href="https://broccolisoep.nl" target="_blank" rel="noopener">https://broccolisoep.nl</a> /static/image/jare.jpg</p>
+<table>
+<thead>
+<tr>
+<th>https://</th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>broccolisoep.nl</td>
+<td>/</td>
+<td>wp-content</td>
+<td>/</td>
+<td>images</td>
+<td>/</td>
+<td></td>
+<td>.</td>
+<td>jpg</td>
+</tr>
+<tr>
+<td>boloria.de</td>
+<td></td>
+<td>static</td>
+<td></td>
+<td>pictures</td>
+<td></td>
+<td></td>
+<td></td>
+<td>png</td>
+</tr>
+<tr>
+<td>bajova.sk</td>
+<td></td>
+<td>content</td>
+<td></td>
+<td>image</td>
+<td></td>
+<td></td>
+<td></td>
+<td>gif</td>
+</tr>
+<tr>
+<td>……</td>
+<td></td>
+<td>include</td>
+<td></td>
+<td>temp</td>
+<td></td>
+<td>(a-z + a-z)</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>uploads</td>
+<td></td>
+<td>tmp</td>
+<td></td>
+<td>随机字符最多8组</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>news</td>
+<td></td>
+<td>graphic</td>
+<td></td>
+<td></td>
+<td></td>
+<td>16字节</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>data</td>
+<td></td>
+<td>assets</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>admin</td>
+<td></td>
+<td>pics</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>game</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>会先判断是否能打开网址,再通过<code>WinHttpSendRequest</code>发送数据.</p>
+<p><img src="https://i.loli.net/2020/03/05/KbqBX3lAMaWThe2.png" alt="image.png"></p>
+<h1 id="0x05-IOC"><a href="#0x05-IOC" class="headerlink" title="0x05 IOC"></a>0x05 IOC</h1><p>hash:</p>
+<p>7d88dfcfe457bdc715371dbeaa4a5ef7</p>
+<p>0c2f9a02415c38d1cb1d5c558af971b8</p>
+<h1 id="0x06总结"><a href="#0x06总结" class="headerlink" title="0x06总结"></a>0x06总结</h1><p>勒索病毒集成了勒索与xbxiuzji自己对算法相关识别还是不够敏感.无法看出salsa20的加密算法还需要多下功夫.</p>
+<h1 id="0x07-reference"><a href="#0x07-reference" class="headerlink" title="0x07 reference"></a>0x07 reference</h1><p>XXTEA: <a href="https://www.shangmayuan.com/a/4c68db7440754c2c990d597d.html" target="_blank" rel="noopener">https://www.shangmayuan.com/a/4c68db7440754c2c990d597d.html</a></p>
+<p>CRC32: <a href="https://www.klavor.com/dev/20190618-552.html" target="_blank" rel="noopener">https://www.klavor.com/dev/20190618-552.html</a></p>
+<p>CPUID: <a href="https://blog.cubieserver.de/2018/query-cpuid-with-inline-assembly/" target="_blank" rel="noopener">https://blog.cubieserver.de/2018/query-cpuid-with-inline-assembly/</a></p>
+<p>网络注册表: <a href="https://www.guidetotcpip.com/wp-content/uploads/files/Appendices/tcpip5e_WindowsRegistrySettings.pdf" target="_blank" rel="noopener">https://www.guidetotcpip.com/wp-content/uploads/files/Appendices/tcpip5e_WindowsRegistrySettings.pdf</a></p>
+<p>Keyboard identifiers: <a href="https://docs.microsoft.com/en-us/windows-hardware/manufacture/desktop/windows-language-pack-default-values" target="_blank" rel="noopener">https://docs.microsoft.com/en-us/windows-hardware/manufacture/desktop/windows-language-pack-default-values</a></p>
+<p>IOCP: <a href="https://www.jianshu.com/p/838fbf0ce761" target="_blank" rel="noopener">https://www.jianshu.com/p/838fbf0ce761</a></p>
+<p>WNetOpenEnumW: <a href="https://www.chainnews.com/zh-hant/articles/127835063940.htm" target="_blank" rel="noopener">https://www.chainnews.com/zh-hant/articles/127835063940.htm</a></p>
+<p>analysis: <a href="https://www.secureworks.com/research/revil-sodinokibi-ransomware" target="_blank" rel="noopener">https://www.secureworks.com/research/revil-sodinokibi-ransomware</a></p>
+<p><a href="https://www.antiy.com/response/20190628.html" target="_blank" rel="noopener">https://www.antiy.com/response/20190628.html</a></p>
+<p><a href="http://www.jiangmin.com/download/Sodinokibi.pdf" target="_blank" rel="noopener">http://www.jiangmin.com/download/Sodinokibi.pdf</a></p>
 
-        <div class="article-info info-on-right">
-          
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -188,486 +515,134 @@
 		</ul>
 	</div>
 
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/02/18/2020-02-18-yara入门与实践/" class="archive-article-date">
-  	<time datetime="2020-02-18T10:49:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-02-18</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/02/18/2020-02-18-yara入门与实践/">YARA入门</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">yara</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
       
-        </div></section>
+
       
+
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/11/28/2019-11-28-DeathRansom勒索病毒预警/" class="archive-article-date">
-  	<time datetime="2019-11-27T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-28</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/11/28/2019-11-28-DeathRansom勒索病毒预警/">DeathRansom勒索病毒预警</a>
-    </h1>
-  
+      </div>
+    </span>
+  </div>
+</div>
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">恶意软件</a>
-        		</li>
-      		
-		</ul>
-	</div>
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://blog.xwdidi.top/2020/03/05/2020-03-05-Sodinokibi勒索病毒分析/" alt="微信分享二维码">
+    </div>
+</div>
 
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/翻译//" class="article-tag-list-link color3">翻译</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/11/22/2019-11-22-密码学逆向分析/" class="archive-article-date">
-  	<time datetime="2019-11-21T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-22</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2020/02/18/2020-02-18-yara入门与实践/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">YARA入门</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/11/22/2019-11-22-密码学逆向分析/">常用密码学不全概括总览</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">密码学</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/逆向基础//" class="article-tag-list-link color5">逆向基础</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#0x01-样本信息"><span class="toc-number">1.</span> <span class="toc-text">0x01 样本信息</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#0x02-分析环境"><span class="toc-number">2.</span> <span class="toc-text">0x02 分析环境</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#0x03-行为分析"><span class="toc-number">3.</span> <span class="toc-text">0x03 行为分析</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#行为一览"><span class="toc-number">3.1.</span> <span class="toc-text">行为一览:</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#进程树"><span class="toc-number">3.2.</span> <span class="toc-text">进程树</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#勒索信"><span class="toc-number">3.3.</span> <span class="toc-text">勒索信</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#注册表操作"><span class="toc-number">3.4.</span> <span class="toc-text">注册表操作</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#0x04-分析"><span class="toc-number">4.</span> <span class="toc-text">0x04 分析</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#调试分析"><span class="toc-number">4.1.</span> <span class="toc-text">调试分析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#壳"><span class="toc-number">4.1.1.</span> <span class="toc-text">壳</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二次外壳"><span class="toc-number">4.1.2.</span> <span class="toc-text">二次外壳</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#本体加密程序"><span class="toc-number">4.1.3.</span> <span class="toc-text">本体加密程序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#pe特征"><span class="toc-number">4.1.4.</span> <span class="toc-text">pe特征</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#调试分析-1"><span class="toc-number">4.1.5.</span> <span class="toc-text">调试分析</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#加载函数"><span class="toc-number">4.1.5.1.</span> <span class="toc-text">加载函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#创建互斥量"><span class="toc-number">4.1.5.2.</span> <span class="toc-text">创建互斥量</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#释放资源表"><span class="toc-number">4.1.5.3.</span> <span class="toc-text">释放资源表</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#提升权限"><span class="toc-number">4.1.5.4.</span> <span class="toc-text">提升权限</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#高权限模拟登录"><span class="toc-number">4.1.5.5.</span> <span class="toc-text">高权限模拟登录</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#获得所需信息"><span class="toc-number">4.1.5.6.</span> <span class="toc-text">获得所需信息</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#注册表密钥"><span class="toc-number">4.1.5.6.1.</span> <span class="toc-text">注册表密钥</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#获得键盘布局-判断国家"><span class="toc-number">4.1.5.6.2.</span> <span class="toc-text">获得键盘布局,判断国家</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#解密勒索信和背景文字"><span class="toc-number">4.1.5.6.3.</span> <span class="toc-text">解密勒索信和背景文字</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#结束进程"><span class="toc-number">4.1.5.7.</span> <span class="toc-text">结束进程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#删除卷影备份等"><span class="toc-number">4.1.5.8.</span> <span class="toc-text">删除卷影备份等</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#IOCP多线程函数执行"><span class="toc-number">4.1.5.9.</span> <span class="toc-text">IOCP多线程函数执行</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#磁盘遍历"><span class="toc-number">4.1.5.9.1.</span> <span class="toc-text">磁盘遍历</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#文件创建函数"><span class="toc-number">4.1.5.9.2.</span> <span class="toc-text">文件创建函数</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#加密函数"><span class="toc-number">4.1.5.9.3.</span> <span class="toc-text">加密函数</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#网络共享资源加密"><span class="toc-number">4.1.5.10.</span> <span class="toc-text">网络共享资源加密</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#背景设置"><span class="toc-number">4.1.5.11.</span> <span class="toc-text">背景设置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#网络连接"><span class="toc-number">4.1.5.12.</span> <span class="toc-text">网络连接</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#0x05-IOC"><span class="toc-number">5.</span> <span class="toc-text">0x05 IOC</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#0x06总结"><span class="toc-number">6.</span> <span class="toc-text">0x06总结</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#0x07-reference"><span class="toc-number">7.</span> <span class="toc-text">0x07 reference</span></a></li></ol>
+                    </div>
+                </span>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/10/24/2019-10-24-pe木马分析/" class="archive-article-date">
-  	<time datetime="2019-10-23T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-24</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/10/24/2019-10-24-pe木马分析/">Emotet后台pe木马较不完整分析</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">恶意软件</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">PE</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">宏代码</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">PowerShell</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/样本分析//" class="article-tag-list-link color5">样本分析</a>
-        		</li>
-      		
-		</ul>
-	</div>
+        
+    </div>
+</aside>
 
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/10/17/2019-10-17-autohotkey/" class="archive-article-date">
-  	<time datetime="2019-10-16T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-17</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/10/17/2019-10-17-autohotkey/">Autohotkey脚本,自用</a>
-    </h1>
-  
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Autohotkey</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/工具//" class="article-tag-list-link color3">工具</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/10/06/2019-10-06-MuddyWater(污水) APT分析/" class="archive-article-date">
-  	<time datetime="2019-10-05T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-06</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/10/06/2019-10-06-MuddyWater(污水) APT分析/">MuddyWater(污水) APT样本分析</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">恶意软件</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">宏代码</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">PowerShell</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/样本分析//" class="article-tag-list-link color5">样本分析</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/24/2019-08-24- 双击调试简单问题总结/" class="archive-article-date">
-  	<time datetime="2019-08-23T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-24</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/24/2019-08-24- 双击调试简单问题总结/">双机调试简单问题</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">VirtualKD</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/工具//" class="article-tag-list-link color3">工具</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/06/18/2019-06-18-iptables简单小结/" class="archive-article-date">
-  	<time datetime="2019-06-18T06:19:36.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-06-18</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/06/18/2019-06-18-iptables简单小结/">iptables简单小结</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">实验</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Linux//" class="article-tag-list-link color1">Linux</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/05/24/2019-05-24-arm环境gdb调试/" class="archive-article-date">
-  	<time datetime="2019-05-24T05:33:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-05-24</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/05/24/2019-05-24-arm环境gdb调试/">arm环境搭建-gdb调试</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">arm</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">gdb</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/工具//" class="article-tag-list-link color3">工具</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
   
-    </div></section>
   
 
-    
-    <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/archives/page/2/">2</a><a class="extend next" rel="next" href="/archives/page/2/">Next &raquo;</a>
-    </nav>
+  
+
+  
+    <section id="comments">
+      <div id="disqus_thread"></div>
+        <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'true'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+          var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+          dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+          (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+      </script>
+      <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </section>
+  
+
   
 
 
@@ -691,8 +666,8 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,

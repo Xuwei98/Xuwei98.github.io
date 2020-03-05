@@ -145,6 +145,140 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-2019-04-07-断点原理" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/04/07/2019-04-07-断点原理/">断点原理</a>
+    </h1>
+  
+
+        
+        <a href="/2019/04/07/2019-04-07-断点原理/" class="archive-article-date">
+  	<time datetime="2019-04-07T05:33:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-07</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="CC断点"><a href="#CC断点" class="headerlink" title="CC断点"></a>CC断点</h3><p>F2断点.\</p>
+<p>设置无数个.</p>
+<p>将断下的指令地址处的第一个字节设置为0xCC</p>
+<p>0xCC对应<code>int3</code>,专门用来调试的中断指令.</p>
+<p>触发EXCEPTION_BREAKPOINT的异常,进行相应的处理</p>
+<h4 id="检测"><a href="#检测" class="headerlink" title="检测"></a>检测</h4><p>检测首地址是否为CCH</p>
+<h3 id="内存断点"><a href="#内存断点" class="headerlink" title="内存断点"></a>内存断点</h3><p>或者是<code>PAGE_GUARD</code></p>
+<blockquote>
+<p>A: 内存访问断点，OD将目标内存所在的页面（范围圆整为1000h的倍数）设置为PAGE_NOACCESS，当被调试程序对这个内存进行任何“读、写或运行”操作时，都会触发异常。</p>
+<p>B: 内存写入断点，OD将目标内存所在的页面（范围圆整为1000h的倍数）设置为PAGE_EXECUTE_READ，当被调试程序对这个内存进行“写”操作时触发异常。</p>
+</blockquote>
+<h4 id="检测-1"><a href="#检测-1" class="headerlink" title="检测"></a>检测</h4><p>我们使用VirtualProtectEx进行内存页修改,通过GetLastError获取到的值进行判断,进行相关处理</p>
+<h4 id="反反内存断点"><a href="#反反内存断点" class="headerlink" title="反反内存断点"></a>反反内存断点</h4><p>VirtualQuery，VirtualQueryEx，VirtualProtect，VirtualProtectEx</p>
+<h3 id="硬件断点"><a href="#硬件断点" class="headerlink" title="硬件断点"></a>硬件断点</h3><p>利用CPU自带的调试寄存器DR0-DR3设置硬件断点,产生SINGLE_STEP异常.</p>
+<p>四个寄存器 最多四个断点.</p>
+<p>DR7是控制位,控制断点方式.DR6显示断点原因</p>
+<p><strong><a href="https://www.pediy.com/kssd/pediy06/pediy6751.htm" target="_blank" rel="noopener">学习大佬的文章</a></strong></p>
+<h3 id="单步执行"><a href="#单步执行" class="headerlink" title="单步执行"></a>单步执行</h3><ul>
+<li><ol>
+<li>通过调试符号获取当前对应的行信息, 并保存该信息.</li>
+<li>设置TF位, 开始CPU的单步执行,产生调试异常(int 1),中断到调试器</li>
+<li>处理单步执行异常程序,TF置为0 </li>
+</ol>
+</li>
+<li><p>执行源码调试,通过多次汇编一级的单步执行实现</p>
+<p>通过符号文件判断是否为当行源码,若是的话,立即设置单步执行标志位继续执行,.直到ip不为当行源码.</p>
+</li>
+</ul>
+<ul>
+<li><p>程序分支</p>
+<p>DbgCtl MSR寄存器的BTF标志,再设置TF.则可以执行到下一个分支指令触发调试异常</p>
+</li>
+</ul>
+<ul>
+<li><p>当指定任务被调度执行到中断调试器时. IA32CPU切换到一个新的任务时,检查存在于GDT中的TSS描述符的T标志位,若为1,啧产生调试异常</p>
+<p>  TSS任务状态段</p>
+<p>  <img src="https://i.loli.net/2019/04/11/5caf398fae53c.png" alt="TSS"></p>
+<p>  切换进程更新动态字段:</p>
+<ol>
+<li>通用寄存器字段—任务切换之前，EAX,ECX,EDX,EBX,ESP,EBP,ESI,EDI寄存器状态。 </li>
+<li>段选择符字段—任务切换之前，ES,CS,SS,DS,FS,GS寄存器保存的段选择符。 </li>
+<li>EFLAGS寄存器字段—任务切换之前，EFAGS寄存器的状态。</li>
+<li>EIP字段—任务切换之前，EIP寄存器的状态。</li>
+<li>先前任务链接字段—包含先前任务的TSS的段选择符。该字段禁止任务通过使用IRET指令返回先前的任务。 </li>
+</ol>
+</li>
+</ul>
+<p>​     </p>
+<p>​     </p>
+<pre><code>等读完张银奎老师的软件调试再来做细致修改和改正    
+</code></pre>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">断点</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">调试</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/逆向基础//" class="article-tag-list-link color5">逆向基础</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-2019-04-01-VC线程注入失败" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -897,6 +1031,14 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Blog</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">DuiLib</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">字符集</a>
               </li>
              
@@ -909,19 +1051,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Blog</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">DuiLib</a>
+                <a href="javascript:void(0)" class="js-tag color4">IDA</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">植物大战僵尸</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">IDA</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -933,18 +1067,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">arm</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">gdb</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">VirtualKD</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">断点</a>
               </li>
              
@@ -953,11 +1075,23 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Autohotkey</a>
+                <a href="javascript:void(0)" class="js-tag color4">arm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">gdb</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">实验</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">VirtualKD</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Autohotkey</a>
               </li>
              
               <li class="article-tag-list-item">
