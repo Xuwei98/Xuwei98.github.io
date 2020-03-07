@@ -145,6 +145,483 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-2019-10-17-autohotkey" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/10/17/2019-10-17-autohotkey/">Autohotkey脚本,自用</a>
+    </h1>
+  
+
+        
+        <a href="/2019/10/17/2019-10-17-autohotkey/" class="archive-article-date">
+  	<time datetime="2019-10-16T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-17</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="注册表切换键位"><a href="#注册表切换键位" class="headerlink" title="注册表切换键位"></a>注册表切换键位</h3><p><code>Esc</code>和<code>CapsLock</code>相互映射.在任何键盘都是可以使用的.毕竟注册表优先级更高.</p>
+<h4 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h4><p>本质来说是使用注册表中的扫描码映射<code>[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Keyboard Layout]</code></p>
+<p><code>Esc</code>和<code></code>CapsLock`相互映射,可以这样写:</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Keyboard Layout]</span><br><span class="line"> <span class="string">"Scancode Map"</span>=hex:<span class="number">00</span>,<span class="number">00</span>,<span class="number">00</span>,<span class="number">00</span>,<span class="number">00</span>,<span class="number">00</span>,<span class="number">00</span>,<span class="number">00</span>,<span class="number">03</span>,<span class="number">00</span>,<span class="number">00</span>,<span class="number">00</span>,<span class="number">3</span>a,<span class="number">00</span>,<span class="number">01</span>,<span class="number">00</span>,<span class="number">01</span>,<span class="number">00</span>,<span class="number">3</span>a,<span class="number">00</span>,<span class="number">00</span>,<span class="number">00</span>,<span class="number">00</span>,<span class="number">00</span></span><br></pre></td></tr></table></figure>
+<p>当然原理是这样的,我是用的是<code>SharpKeys</code>,开源链接在下方.</p>
+<h3 id="AutoHotKey"><a href="#AutoHotKey" class="headerlink" title="AutoHotKey"></a>AutoHotKey</h3><p>使用软件<code>AutoHotKey</code>进行热键设置,下面是我现在使用的脚本.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br></pre></td><td class="code"><pre><span class="line">; + shift</span><br><span class="line">; ! Alt</span><br><span class="line">; ^ crtl</span><br><span class="line">; # win</span><br><span class="line"></span><br><span class="line">^F10::</span><br><span class="line">Send &#123;Volume_Down&#125;</span><br><span class="line">return</span><br><span class="line">^F11::</span><br><span class="line">Send &#123;Volume_Up &#125;</span><br><span class="line">Return</span><br><span class="line">^F12::</span><br><span class="line">Send &#123;Volume_Mute&#125;</span><br><span class="line">Return</span><br><span class="line"></span><br><span class="line">Esc::Send, &#123;Esc&#125;</span><br><span class="line">;方向键映射</span><br><span class="line"></span><br><span class="line">Esc &amp; h::Send, &#123;Left&#125;</span><br><span class="line">Esc &amp; j::Send, &#123;Down&#125;</span><br><span class="line">Esc &amp; k::Send, &#123;Up&#125;</span><br><span class="line">Esc &amp; l::Send, &#123;Right&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">;单词移动</span><br><span class="line">Esc &amp; o::Send, ^&#123;left&#125;</span><br><span class="line">Esc &amp; p::Send, ^&#123;Right&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">;翻页</span><br><span class="line">Esc &amp; &apos;::Send, &#123;PgUp&#125;</span><br><span class="line">Esc &amp; /::Send, &#123;PgDn&#125;</span><br><span class="line"></span><br><span class="line">;选择一个单词</span><br><span class="line">Esc &amp; y::Send, +^&#123;Left&#125;</span><br><span class="line">Esc &amp; u::Send, +^&#123;Right&#125;</span><br><span class="line"></span><br><span class="line">;选择字符</span><br><span class="line">Esc &amp; n::Send, ^&#123;Left&#125;</span><br><span class="line">Esc &amp; m::Send, ^&#123;Right&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">;选择一行</span><br><span class="line">Esc &amp; [::Send, +&#123;home&#125;</span><br><span class="line">Esc &amp; ]::Send, +&#123;end&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">;home</span><br><span class="line">Esc &amp; ,::Send, &#123;home&#125;</span><br><span class="line">;End</span><br><span class="line">Esc &amp; .::Send, &#123;end&#125;</span><br><span class="line"></span><br><span class="line">;窗口移动</span><br><span class="line">Esc &amp; 7::Send, #&#123;Left&#125;</span><br><span class="line">Esc &amp; 0::Send, #&#123;Right&#125;</span><br><span class="line">Esc &amp; 8::Send, #&#123;Down&#125;</span><br><span class="line">Esc &amp; 9::Send, #&#123;Up&#125;</span><br><span class="line"></span><br><span class="line">;删除</span><br><span class="line">Esc &amp; i::Send, &#123;BackSpace&#125;</span><br><span class="line">;刷新</span><br><span class="line">Esc &amp; 5::Send, &#123;f5&#125;</span><br><span class="line"></span><br><span class="line">;任务视窗切换</span><br><span class="line">Esc &amp; g:: Send, ^!&#123;Tab&#125;	</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">;shift+esc</span><br><span class="line">+Esc::Send, +&#123;Esc&#125;</span><br><span class="line"></span><br><span class="line">;虚拟桌面</span><br><span class="line">Esc &amp; t:: Send, #&#123;Tab&#125;</span><br><span class="line">Esc &amp; d:: Send, #^d</span><br><span class="line">Esc &amp; f4:: Send, #^&#123;f4&#125;</span><br><span class="line">Esc &amp; v:: Send, #^&#123;left&#125;</span><br><span class="line">Esc &amp; b:: Send, #^&#123;right&#125;</span><br><span class="line"></span><br><span class="line">;置顶</span><br><span class="line">#t::</span><br><span class="line">WinSet AlwaysOnTop,On,A</span><br><span class="line">return</span><br><span class="line">#^t::</span><br><span class="line">WinSet AlwaysOnTop,Off,A</span><br><span class="line">return</span><br><span class="line"></span><br><span class="line">;关闭窗口</span><br><span class="line">Esc &amp; x:: Send, ^&#123;F4&#125;</span><br><span class="line">Esc &amp; 4:: Send, !&#123;f4&#125;</span><br><span class="line"></span><br><span class="line">;Enter</span><br><span class="line">Esc &amp; E:: Send, &#123;Enter&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h3><p><a href="https://yanzhantao.com/windows-scancode-map.html" target="_blank" rel="noopener">https://yanzhantao.com/windows-scancode-map.html</a></p>
+<p><a href="https://github.com/randyrants/sharpkeys" target="_blank" rel="noopener">https://github.com/randyrants/sharpkeys</a></p>
+<p><a href="https://www.autohotkey.com/" target="_blank" rel="noopener">https://www.autohotkey.com/</a></p>
+<p><a href="https://wyagd001.github.io/zh-cn/docs/AutoHotkey.htm" target="_blank" rel="noopener">https://wyagd001.github.io/zh-cn/docs/AutoHotkey.htm</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Autohotkey</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/工具//" class="article-tag-list-link color3">工具</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-2019-10-06-MuddyWater(污水) APT分析" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/10/06/2019-10-06-MuddyWater(污水) APT分析/">MuddyWater(污水) APT样本分析</a>
+    </h1>
+  
+
+        
+        <a href="/2019/10/06/2019-10-06-MuddyWater(污水) APT分析/" class="archive-article-date">
+  	<time datetime="2019-10-05T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-06</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>本文分析作为学习参考的笔记记录.记录整体细节和不曾知道的地方.</p>
+<p>参考与学习的地址为:<a href="https://bbs.pediy.com/thread-252477.htm" target="_blank" rel="noopener">https://bbs.pediy.com/thread-252477.htm</a></p>
+<p>脚本类恶意程序分析技巧汇总:<a href="https://bbs.pediy.com/thread-251102.htm" target="_blank" rel="noopener">https://bbs.pediy.com/thread-251102.htm</a></p>
+<p><a href="https://www.cnblogs.com/ichunqiu/p/8659004.html" target="_blank" rel="noopener">https://www.cnblogs.com/ichunqiu/p/8659004.html</a></p>
+<p>谢谢师傅的分析文章.</p>
+<h3 id="样本分析"><a href="#样本分析" class="headerlink" title="样本分析"></a>样本分析</h3><p>微步在线搜寻md5=6cb076f1f42573c5c43083a89bcfe442,下载样本文件并且改名.虚拟机使用<code>Office Tool Plus</code>安装office.</p>
+<p>使用hashcalc:    </p>
+        
+          <a class="article-more-a" href="/2019/10/06/2019-10-06-MuddyWater(污水) APT分析/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">宏代码</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">PowerShell</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/样本分析//" class="article-tag-list-link color5">样本分析</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-2019-08-24- 双击调试简单问题总结" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/08/24/2019-08-24- 双击调试简单问题总结/">双机调试简单问题</a>
+    </h1>
+  
+
+        
+        <a href="/2019/08/24/2019-08-24- 双击调试简单问题总结/" class="archive-article-date">
+  	<time datetime="2019-08-23T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-24</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>在虚拟机正常安装 VirtualKD, 然后再执行下命令</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">`bcdedit ``/``dbgsettings SERIAL DEBUGPORT:``<span class="number">1</span>` `BAUDRATE:``<span class="number">115200</span>`</span><br></pre></td></tr></table></figure>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">VirtualKD</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/工具//" class="article-tag-list-link color3">工具</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-2019-06-18-iptables简单小结" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/06/18/2019-06-18-iptables简单小结/">iptables简单小结</a>
+    </h1>
+  
+
+        
+        <a href="/2019/06/18/2019-06-18-iptables简单小结/" class="archive-article-date">
+  	<time datetime="2019-06-18T06:19:36.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-06-18</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="缘由"><a href="#缘由" class="headerlink" title="缘由"></a>缘由</h3><p>最近这段时间学校要让我们做一些小实验.</p>
+<p>一个实验就是配置iptables: 1.完全屏蔽外网 2.内网只能向外访问http&amp;https&amp;ftp服务.</p>
+<p>然后我将这个总结于对端口进行数据包过滤就好了,不知道这样对不对希望可以指出我的错误.(图解http没怎么看过..</p>
+<p>这样就简单了,上网学习iptables相关命令编写就完事了,不过相关底层原理感觉蛮有意思的,看的<a href="https://blog.csdn.net/qq_38892883/article/details/79709023" target="_blank" rel="noopener">这篇文章</a></p>
+<p>学习的..</p>
+<p>这是简单的shell脚本,运行就行了.本机环境是<code>ubuntu16.04</code>.采用<code>nc</code>和<code>telnet</code>相互验证端口畅通性.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">iptables.sh</span></span><br><span class="line"></span><br><span class="line">set -v</span><br><span class="line">clear</span><br><span class="line">iptables -F</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">ssh</span></span><br><span class="line">iptables -A INPUT  -p tcp --dport 22 -j ACCEPT</span><br><span class="line">iptables -A OUTPUT -p tcp --sport 22 -j ACCEPT</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">http</span></span><br><span class="line"><span class="meta">#</span><span class="bash">https</span></span><br><span class="line">iptables -A OUTPUT -o eth0 -p tcp --dport 443 -j ACCEPT</span><br><span class="line">iptables -A INPUT -i eth0 -p tcp --sport 443 -j ACCEPT</span><br><span class="line"></span><br><span class="line">iptables -A OUTPUT -p tcp --dport 80 -j ACCEPT</span><br><span class="line">iptables -A INPUT -p tcp --sport 80 -j ACCEPT</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">ftp</span></span><br><span class="line">iptables -A OUTPUT -p tcp --dport 20 -j ACCEPT</span><br><span class="line">iptables -A INPUT -p tcp --sport 20 -j ACCEPT</span><br><span class="line"></span><br><span class="line">iptables -A OUTPUT -p tcp --dport 21 -j ACCEPT</span><br><span class="line">iptables -A INPUT -p tcp --sport 21 -j ACCEPT</span><br><span class="line"></span><br><span class="line">iptables -P INPUT DROP  </span><br><span class="line">iptables -P FORWARD DROP  </span><br><span class="line">iptables -P OUTPUT DROP </span><br><span class="line"></span><br><span class="line">iptables -L -n --line-number</span><br></pre></td></tr></table></figure>
+<h3 id="读后总结"><a href="#读后总结" class="headerlink" title="读后总结"></a>读后总结</h3><p>当然这些都是看上述文章一些浅显的,借鉴过来的知识.方便自己看hhh</p>
+<h4 id="发展"><a href="#发展" class="headerlink" title="发展"></a>发展</h4><p>ipfirewall-&gt;ipchains-&gt;iptables</p>
+<h4 id="工作机制"><a href="#工作机制" class="headerlink" title="工作机制"></a>工作机制</h4><p>通过配置iptables,让内核空间当中的netfilter(网络过滤器)读取配置,并实让现防火墙工作.</p>
+<p>为了实现过滤,要放在内核特定的位置,tcp/ip的协议栈经过的地方(netfilter).</p>
+<p>1.PREROUTING (数据包进入路由前)</p>
+<p>2.INPUT (通过路由表后目的为本机)</p>
+<p>3.FORWARD (通过路由表后,目的地不为本机)</p>
+<p>4.OUTPUT(由本机产生,向外转发)</p>
+<p>5.POSTROUTING（发送到网卡接口之前）</p>
+<p><img src="https://s1.51cto.com/attachment/201304/203657722.png" alt></p>
+<p>现在目前只考虑到filter链上,然后forawrd用作nat转发暂时没有用到,以后可能还会接触到.</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">实验</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Linux//" class="article-tag-list-link color1">Linux</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-2019-05-24-arm环境gdb调试" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/05/24/2019-05-24-arm环境gdb调试/">arm环境搭建-gdb调试</a>
+    </h1>
+  
+
+        
+        <a href="/2019/05/24/2019-05-24-arm环境gdb调试/" class="archive-article-date">
+  	<time datetime="2019-05-24T05:33:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-05-24</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p> 最近想学习一下arm指令集,恰好手边有一台多余的二手机.从MIUI刷成原生安卓终于能正常<code>adb push</code>了.</p>
+<p>大多数的环境配置与调试是根据这篇文章<a href="http://www.tasfa.cn/index.php/2016/06/01/android-re-gdb/" target="_blank" rel="noopener">Android逆向系列之动态调试(五)–gdb调试</a>进行学习的.</p>
+<h4 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h4><p>在这里我做一点补充和效率的提高.</p>
+<ol>
+<li><p>ndk的压缩包从这里<a href="https://developer.android.com/ndk/downloads?hl=zh-CN" target="_blank" rel="noopener">下载</a>.</p>
+</li>
+<li><p>我的压缩包解压后的文件名为<code>android-ndk-r19c</code></p>
+<p>我是小米4的手机.</p>
+</li>
+<li><p>所以使用的gdbserver在<code>\android-ndk-r19c\prebuilt\android-arm\gdbserver</code></p>
+<p>使用的调试编译的可执行文件如as.exe和ld.exe在<code>\android-ndk-r19c\toolchains\arm-linux-androideabi-4.9\prebuilt\windows-x86_64\arm-linux-androideabi\bin</code></p>
+<p>gdb.exe在<code>F:\android_ndk\android-ndk-r19c\prebuilt\windows-x86_64\bin</code></p>
+</li>
+<li><p>已经把gdb.exe添加进环境变量中.</p>
+<p>注意和gdb.exe同一个文件夹的python.exe,需要改名.不然会和自己的原来的python产生冲突.()</p>
+</li>
+<li><p>批处理</p>
+</li>
+</ol>
+<p>​    我把调试的文件一律放在了/data/local/tmp/arm_p/中</p>
+<p>​    然后这是自认为提高效率的东西.</p>
+<p>这是文件树</p>
+<p>​    <img src="https://i.loli.net/2019/05/24/5ce80487b3f5f27607.png" alt></p>
+<p>以下是代码.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">:: gdbserver.bat</span><br><span class="line"></span><br><span class="line">adb push pra/%1 /data/<span class="built_in">local</span>/tmp/arm_p</span><br><span class="line">adb shell chmod 777 /data/<span class="built_in">local</span>/tmp/arm_p/%1</span><br><span class="line">adb shell gdbserver :23946 /data/<span class="built_in">local</span>/tmp/arm_p/%1</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">:: start_gdb.bat</span><br><span class="line"></span><br><span class="line">adb forward tcp:23946 tcp:23946</span><br><span class="line">gdb -x gdb_script</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">:: gdb_script</span><br><span class="line"></span><br><span class="line"><span class="built_in">set</span> disassemble-next on</span><br><span class="line"><span class="built_in">set</span> step-mode on</span><br><span class="line">target remote 127.0.0.1:23946</span><br></pre></td></tr></table></figure>
+<p>gdbserver.bat  上传文件,启动服务监听</p>
+<p>start_gdb.bat  反汇编,单步调试</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">arm</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">gdb</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/工具//" class="article-tag-list-link color3">工具</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-2019-04-07-断点原理" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -709,217 +1186,9 @@
 
 
   
-    <article id="post-2018-10-03-熟悉IDA,以及手工制作sig文件" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/10/03/2018-10-03-熟悉IDA,以及手工制作sig文件/">熟悉IDA,以及手工制作sig文件.</a>
-    </h1>
-  
-
-        
-        <a href="/2018/10/03/2018-10-03-熟悉IDA,以及手工制作sig文件/" class="archive-article-date">
-  	<time datetime="2018-10-02T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-10-03</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="第一步-打包制作lib"><a href="#第一步-打包制作lib" class="headerlink" title="第一步 打包制作lib"></a>第一步 打包制作lib</h3><p>obj是.c文件编译后的格式</p>
-<p>因为vs下工具的不熟悉,网上查的指令无法实现</p>
-<p>暂时使用g++带的打包工具打包,若以后得知会进行补充</p>
-<p>命令为 ar cr libc.lib  main.o 生成了名为libc的库</p>
-<blockquote>
-<p>打包(archive)，于是就成为了传说中的库文件(library)。在Windows下这种包叫“库文件”（Library File)，也就是 .lib 文件，在UNIX下，是Archive File，也就是 .a 文件。</p>
-</blockquote>
-<p>放入ida中可看到</p>
-<p><img src="https://i.loli.net/2018/10/03/5bb4e03a8bc75.jpg" alt></p>
-<h3 id="使用pcf-exe-特征提取工具"><a href="#使用pcf-exe-特征提取工具" class="headerlink" title="使用pcf.exe(特征提取工具)"></a>使用pcf.exe(特征提取工具)</h3><p>在flair工具包里</p>
-<p>命令为 <code>pcf main.o</code></p>
-<p>得到main.pat</p>
-<p><img src="https://i.loli.net/2018/10/03/5bb4e1ef04f71.jpg" alt></p>
-<p>特征码内部结构.2E2E2E什么的应该做补充.感觉ascii也能感觉大概是什么</p>
-<h3 id="生成-sig文件"><a href="#生成-sig文件" class="headerlink" title="生成.sig文件"></a>生成.sig文件</h3><p>命令 <code>sigmake main.pat main.sig</code></p>
-<p>出现错误</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">;--------- (delete these lines to allow sigmake to read this file)</span><br><span class="line">; add &apos;+&apos; at the start of a line to select a module</span><br><span class="line">; add &apos;-&apos; if you are not sure about the selection</span><br><span class="line">; do nothing if you want to exclude all modules</span><br><span class="line"></span><br><span class="line">?y@Point@@UEBAMXZ                                 	00 0000 48894C24080F57C0C3..............................................</span><br><span class="line">?z@Point@@UEBAMXZ                                 	00 0000 48894C24080F57C0C3..............................................</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">1.删除上面4行以分号开头的注释 </span><br><span class="line">2.sigmake让你仅指定一个函数作为相关签名的匹配函数。任何时候，如果在数据库中发现一个对应的签名，并且你想应用一个函数的名称，那么，你可以在该函数名称前附加一个加号；如果你只想在数据库中添加某个函数的注释，则在该函数名称前附加一个减号；如果在数据库中发现对应的签名时，你不想应用任何名称，那么，你不需要添加任何符号。（+号只能有一个，-号和+号二者只能存一） </span><br><span class="line"></span><br><span class="line">（1）为最大限度地减少冲突，请删除排斥文件开头的4个注释行。 </span><br><span class="line">  （2）最多只能给冲突函数组中的一个函数附加+/-。 </span><br><span class="line">  （3）如果一个冲突函数组仅包含一个函数，不要在该函数前附加+/-，让它保持原状即可。 </span><br><span class="line">  （4）sigmake连续运行失败会将数据（包括注释行）附加到现有的任何.exc文件后。在再次运行sigmake之前，你必须删除这些额外的数据，并更正原始数据（如果这些数据是正确的，sigmake将不会再次运行失败）。</span><br><span class="line"></span><br><span class="line">---------------------</span><br><span class="line"></span><br><span class="line">本文来自 花熊 的CSDN 博客 ，全文地址请点击：https://blog.csdn.net/hgy413/article/details/50612296?utm_source=copy</span><br></pre></td></tr></table></figure>
-<p>然后再次执行相同命令 生成sig文件</p>
-<p>放入到ida的sig目录下 通过shift+f5导入sig文件就能实现对机器码的转换</p>
-<blockquote>
-<p><a href="https://blog.csdn.net/gyh198/article/details/7028530" target="_blank" rel="noopener">https://blog.csdn.net/gyh198/article/details/7028530</a> 工具说明</p>
-</blockquote>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">IDA</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/工具//" class="article-tag-list-link color3">工具</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-2018-09-11-博客搭建" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/09/11/2018-09-11-博客搭建/">域名解析问题     阿里云</a>
-    </h1>
-  
-
-        
-        <a href="/2018/09/11/2018-09-11-博客搭建/" class="archive-article-date">
-  	<time datetime="2018-09-10T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-09-11</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="域名解析"><a href="#域名解析" class="headerlink" title="域名解析"></a>域名解析</h2><p>新购买的域名成功使用了一周之后，无法被解析成功。 </p>
-<p>后通过实名认证，才能继续使用。</p>
-<p>域名可能存在着一周的试用期。一定要去实名认证啊！</p>
-<p>下面是配置表格</p>
-<table>
-<thead>
-<tr>
-<th>记录类型</th>
-<th>主机记录</th>
-<th>记录值</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>A</td>
-<td>@</td>
-<td>185.199.109.153</td>
-</tr>
-<tr>
-<td>CNAME</td>
-<td>www</td>
-<td>xuwei98.github.io</td>
-</tr>
-</tbody>
-</table>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Blog</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/工具//" class="article-tag-list-link color3">工具</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+      <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
     </nav>
   
 
@@ -1031,11 +1300,11 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Blog</a>
+                <a href="javascript:void(0)" class="js-tag color4">IDA</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">DuiLib</a>
+                <a href="javascript:void(0)" class="js-tag color5">Blog</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1051,7 +1320,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">IDA</a>
+                <a href="javascript:void(0)" class="js-tag color3">复习</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">基础</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">DuiLib</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1059,11 +1336,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">复习</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">基础</a>
+                <a href="javascript:void(0)" class="js-tag color3">实验</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1083,7 +1356,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">实验</a>
+                <a href="javascript:void(0)" class="js-tag color1">Autohotkey</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1091,7 +1364,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Autohotkey</a>
+                <a href="javascript:void(0)" class="js-tag color5">勒索病毒</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">木马</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">C#</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1099,11 +1380,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">恶意软件</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">PE</a>
+                <a href="javascript:void(0)" class="js-tag color3">VC</a>
               </li>
              
               <li class="article-tag-list-item">
