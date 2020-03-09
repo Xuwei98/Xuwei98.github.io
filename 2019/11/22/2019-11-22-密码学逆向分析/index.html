@@ -8,13 +8,13 @@
   <link rel="dns-prefetch" href="http://blog.xwdidi.top">
   <title>常用密码学不全概括总览 | 偽のブログ</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="前言想作为分析勒索病毒前的密码学接触. 常用加解密算法的逆向分析中的识别,不做过多算法原理上的叙述,别人讲的好多了.站在巨人的肩膀上. 这篇文章只作为特征查找用来辅助平时分析用. 两种工具ida插件FindCrypt2和peid的KANA进行算法识别是很好用的. Base64历史发展base64最早就是用来邮件传输协议中的，原因是邮件传输协议只支持 ascii 字符传递，因此如果要传输二进制文件，">
+  <meta name="description" content="前言想作为分析勒索病毒前的密码学接触. 常用加解密算法的逆向分析中的识别,不做过多算法原理上的叙述,别人讲的好多了.站在巨人的肩膀上. 这篇文章只作为特征查找用来辅助平时分析用. 两种工具ida插件FindCrypt2和peid的KANA进行算法识别是很好用的. updated:2020-03-10 Salsa20. Base64历史发展base64最早就是用来邮件传输协议中的，原因是邮件传输协议">
 <meta name="keywords" content="密码学">
 <meta property="og:type" content="article">
 <meta property="og:title" content="常用密码学不全概括总览">
 <meta property="og:url" content="http://blog.xwdidi.top/2019/11/22/2019-11-22-密码学逆向分析/index.html">
 <meta property="og:site_name" content="偽のブログ">
-<meta property="og:description" content="前言想作为分析勒索病毒前的密码学接触. 常用加解密算法的逆向分析中的识别,不做过多算法原理上的叙述,别人讲的好多了.站在巨人的肩膀上. 这篇文章只作为特征查找用来辅助平时分析用. 两种工具ida插件FindCrypt2和peid的KANA进行算法识别是很好用的. Base64历史发展base64最早就是用来邮件传输协议中的，原因是邮件传输协议只支持 ascii 字符传递，因此如果要传输二进制文件，">
+<meta property="og:description" content="前言想作为分析勒索病毒前的密码学接触. 常用加解密算法的逆向分析中的识别,不做过多算法原理上的叙述,别人讲的好多了.站在巨人的肩膀上. 这篇文章只作为特征查找用来辅助平时分析用. 两种工具ida插件FindCrypt2和peid的KANA进行算法识别是很好用的. updated:2020-03-10 Salsa20. Base64历史发展base64最早就是用来邮件传输协议中的，原因是邮件传输协议">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://i.loli.net/2019/11/08/CaoShdfTcil1xLW.png">
 <meta property="og:image" content="https://gss0.bdstatic.com/-4o3dSag_xI4khGkpoWK1HF6hhy/baike/c0%3Dbaike80%2C5%2C5%2C80%2C26/sign=5f537e77f636afc31a013737d27080a1/c75c10385343fbf2ee0d9594b17eca8065388f67.jpg">
@@ -31,6 +31,9 @@
 <meta property="og:image" content="https://i.loli.net/2019/11/11/PRt8sFC52yKd1Tc.png">
 <meta property="og:image" content="https://i.loli.net/2019/11/11/WfdHbolKMP5JyGO.png">
 <meta property="og:image" content="https://i.loli.net/2019/11/11/bwDx6eJOCWYrZSn.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/09/71c5JF9oKC4UV2O.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/09/bJzauyUC2MnrOgR.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/10/kXMU974CoeAEgTa.png">
 <meta property="og:image" content="https://i.loli.net/2019/11/08/uZfmi92SpsNJxzw.png">
 <meta property="og:image" content="https://i.loli.net/2019/11/08/DYdUStKxr1M3skF.png">
 <meta property="og:image" content="https://i.loli.net/2019/11/08/l7myjeTzdI4acxB.png">
@@ -55,10 +58,10 @@
 <meta property="og:image" content="https://i.loli.net/2019/11/17/dHEM5beyFUzDIZv.png">
 <meta property="og:image" content="https://i.loli.net/2019/11/17/8tm1rRfjHlNGXbE.png">
 <meta property="og:image" content="https://i.loli.net/2019/11/17/zS7xgf5evAr4dRG.png">
-<meta property="og:updated_time" content="2020-02-23T13:13:36.606Z">
+<meta property="og:updated_time" content="2020-03-09T17:21:29.909Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="常用密码学不全概括总览">
-<meta name="twitter:description" content="前言想作为分析勒索病毒前的密码学接触. 常用加解密算法的逆向分析中的识别,不做过多算法原理上的叙述,别人讲的好多了.站在巨人的肩膀上. 这篇文章只作为特征查找用来辅助平时分析用. 两种工具ida插件FindCrypt2和peid的KANA进行算法识别是很好用的. Base64历史发展base64最早就是用来邮件传输协议中的，原因是邮件传输协议只支持 ascii 字符传递，因此如果要传输二进制文件，">
+<meta name="twitter:description" content="前言想作为分析勒索病毒前的密码学接触. 常用加解密算法的逆向分析中的识别,不做过多算法原理上的叙述,别人讲的好多了.站在巨人的肩膀上. 这篇文章只作为特征查找用来辅助平时分析用. 两种工具ida插件FindCrypt2和peid的KANA进行算法识别是很好用的. updated:2020-03-10 Salsa20. Base64历史发展base64最早就是用来邮件传输协议中的，原因是邮件传输协议">
 <meta name="twitter:image" content="https://i.loli.net/2019/11/08/CaoShdfTcil1xLW.png">
   
     <link rel="alternative" href="/atom.xml" title="偽のブログ" type="application/atom+xml">
@@ -209,6 +212,7 @@
 <p>常用加解密算法的逆向分析中的识别,不做过多算法原理上的叙述,别人讲的好多了.站在巨人的肩膀上.</p>
 <p>这篇文章只作为特征查找用来辅助平时分析用.</p>
 <p>两种工具<code>ida</code>插件<code>FindCrypt2</code>和<code>peid</code>的<code>KANA</code>进行算法识别是很好用的.</p>
+<h3 id="updated"><a href="#updated" class="headerlink" title="updated:"></a>updated:</h3><p>2020-03-10 Salsa20.</p>
 <h3 id="Base64"><a href="#Base64" class="headerlink" title="Base64"></a>Base64</h3><h4 id="历史发展"><a href="#历史发展" class="headerlink" title="历史发展"></a>历史发展</h4><p><code>base64</code>最早就是用来邮件传输协议中的，原因是邮件传输协议只支持 <code>ascii</code> 字符传递，因此如果要传输二进制文件，如：图片、视频是无法实现的。因此 <code>base64</code>就可以用来将二进制文件内容编码为只包含 ascii 字符的内容，这样就可以传输了.</p>
 <p>简单来说为了兼容各种数据格式.</p>
 <a id="more"></a>
@@ -322,7 +326,22 @@
 </ol>
 <h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>要注意字节与位转换函数,不太熟悉容易迷惑</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (i=<span class="number">0</span>;i&lt;<span class="number">20</span>;i++)</span><br><span class="line">&#123; <span class="comment">/* convert to bytes */</span></span><br><span class="line">    hash[i]=((sh-&gt;h[i/<span class="number">4</span>]&gt;&gt;(<span class="number">8</span>*(<span class="number">3</span>-i%<span class="number">4</span>))) &amp; <span class="number">0xff</span>L);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="对称加密"><a href="#对称加密" class="headerlink" title="对称加密"></a>对称加密</h2><h3 id="RC4"><a href="#RC4" class="headerlink" title="RC4"></a>RC4</h3><p>RC4生成一种被称为<code>密钥流</code>的伪随机流.它与加密的数据长度相等.密钥流与数据同位异或进行加解密.密钥流生成分为两个部分KSA与PRGA.</p>
+<h2 id="对称加密"><a href="#对称加密" class="headerlink" title="对称加密"></a>对称加密</h2><h3 id="Salsa20"><a href="#Salsa20" class="headerlink" title="Salsa20"></a>Salsa20</h3><p>又称chacha20,在勒索病毒中为常见</p>
+<p><a href="https://cr.yp.to/salsa20.html" target="_blank" rel="noopener">salsa20</a></p>
+<p><a href="https://neoatlantis.org/电工电子及信息技术/2015/03/03/salsa20-description.html" target="_blank" rel="noopener">原理</a></p>
+<p>官方源码为:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> R(a,b) (((a) <span class="meta-string">&lt;&lt; (b)) | ((a) &gt;&gt; (32 - (b))))</span></span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">salsa20_word_specification</span><span class="params">(uint32 out[<span class="number">16</span>],uint32 in[<span class="number">16</span>])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i;</span><br><span class="line">    uint32 x[<span class="number">16</span>];</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>;i &lt; <span class="number">16</span>;++i) x[i] = in[i];</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">20</span>;i &gt; <span class="number">0</span>;i -= <span class="number">2</span>) &#123;     <span class="comment">// 迭代次数，注意每次 i -= 2 ！</span></span><br><span class="line">        x[ <span class="number">4</span>] ^= R(x[ <span class="number">0</span>]+x[<span class="number">12</span>], <span class="number">7</span>);  x[ <span class="number">8</span>] ^= R(x[ <span class="number">4</span>]+x[ <span class="number">0</span>], <span class="number">9</span>);</span><br><span class="line">        x[<span class="number">12</span>] ^= R(x[ <span class="number">8</span>]+x[ <span class="number">4</span>],<span class="number">13</span>);  x[ <span class="number">0</span>] ^= R(x[<span class="number">12</span>]+x[ <span class="number">8</span>],<span class="number">18</span>);</span><br><span class="line">        x[ <span class="number">9</span>] ^= R(x[ <span class="number">5</span>]+x[ <span class="number">1</span>], <span class="number">7</span>);  x[<span class="number">13</span>] ^= R(x[ <span class="number">9</span>]+x[ <span class="number">5</span>], <span class="number">9</span>);</span><br><span class="line">        x[ <span class="number">1</span>] ^= R(x[<span class="number">13</span>]+x[ <span class="number">9</span>],<span class="number">13</span>);  x[ <span class="number">5</span>] ^= R(x[ <span class="number">1</span>]+x[<span class="number">13</span>],<span class="number">18</span>);</span><br><span class="line">        x[<span class="number">14</span>] ^= R(x[<span class="number">10</span>]+x[ <span class="number">6</span>], <span class="number">7</span>);  x[ <span class="number">2</span>] ^= R(x[<span class="number">14</span>]+x[<span class="number">10</span>], <span class="number">9</span>);</span><br><span class="line">        x[ <span class="number">6</span>] ^= R(x[ <span class="number">2</span>]+x[<span class="number">14</span>],<span class="number">13</span>);  x[<span class="number">10</span>] ^= R(x[ <span class="number">6</span>]+x[ <span class="number">2</span>],<span class="number">18</span>);</span><br><span class="line">        x[ <span class="number">3</span>] ^= R(x[<span class="number">15</span>]+x[<span class="number">11</span>], <span class="number">7</span>);  x[ <span class="number">7</span>] ^= R(x[ <span class="number">3</span>]+x[<span class="number">15</span>], <span class="number">9</span>);</span><br><span class="line">        x[<span class="number">11</span>] ^= R(x[ <span class="number">7</span>]+x[ <span class="number">3</span>],<span class="number">13</span>);  x[<span class="number">15</span>] ^= R(x[<span class="number">11</span>]+x[ <span class="number">7</span>],<span class="number">18</span>);</span><br><span class="line">        x[ <span class="number">1</span>] ^= R(x[ <span class="number">0</span>]+x[ <span class="number">3</span>], <span class="number">7</span>);  x[ <span class="number">2</span>] ^= R(x[ <span class="number">1</span>]+x[ <span class="number">0</span>], <span class="number">9</span>);</span><br><span class="line">        x[ <span class="number">3</span>] ^= R(x[ <span class="number">2</span>]+x[ <span class="number">1</span>],<span class="number">13</span>);  x[ <span class="number">0</span>] ^= R(x[ <span class="number">3</span>]+x[ <span class="number">2</span>],<span class="number">18</span>);</span><br><span class="line">        x[ <span class="number">6</span>] ^= R(x[ <span class="number">5</span>]+x[ <span class="number">4</span>], <span class="number">7</span>);  x[ <span class="number">7</span>] ^= R(x[ <span class="number">6</span>]+x[ <span class="number">5</span>], <span class="number">9</span>);</span><br><span class="line">        x[ <span class="number">4</span>] ^= R(x[ <span class="number">7</span>]+x[ <span class="number">6</span>],<span class="number">13</span>);  x[ <span class="number">5</span>] ^= R(x[ <span class="number">4</span>]+x[ <span class="number">7</span>],<span class="number">18</span>);</span><br><span class="line">        x[<span class="number">11</span>] ^= R(x[<span class="number">10</span>]+x[ <span class="number">9</span>], <span class="number">7</span>);  x[ <span class="number">8</span>] ^= R(x[<span class="number">11</span>]+x[<span class="number">10</span>], <span class="number">9</span>);</span><br><span class="line">        x[ <span class="number">9</span>] ^= R(x[ <span class="number">8</span>]+x[<span class="number">11</span>],<span class="number">13</span>);  x[<span class="number">10</span>] ^= R(x[ <span class="number">9</span>]+x[ <span class="number">8</span>],<span class="number">18</span>);</span><br><span class="line">        x[<span class="number">12</span>] ^= R(x[<span class="number">15</span>]+x[<span class="number">14</span>], <span class="number">7</span>);  x[<span class="number">13</span>] ^= R(x[<span class="number">12</span>]+x[<span class="number">15</span>], <span class="number">9</span>);</span><br><span class="line">        x[<span class="number">14</span>] ^= R(x[<span class="number">13</span>]+x[<span class="number">12</span>],<span class="number">13</span>);  x[<span class="number">15</span>] ^= R(x[<span class="number">14</span>]+x[<span class="number">13</span>],<span class="number">18</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>;i &lt; <span class="number">16</span>;++i) out[i] = x[i] + in[i];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>Sodinobiki</code>勒索病毒中的<code>Salsa20</code>识别基本是同一样子.</p>
+<ol>
+<li><p>初始化和16次迭代<img src="https://i.loli.net/2020/03/09/71c5JF9oKC4UV2O.png" alt="image.png"></p>
+</li>
+<li><p>位移与10次双回合.</p>
+<p><img src="https://i.loli.net/2020/03/09/bJzauyUC2MnrOgR.png" alt="image.png"></p>
+</li>
+<li><p>16次迭代<img src="https://i.loli.net/2020/03/10/kXMU974CoeAEgTa.png" alt="image.png"></p>
+</li>
+</ol>
+<h3 id="RC4"><a href="#RC4" class="headerlink" title="RC4"></a>RC4</h3><p>RC4生成一种被称为<code>密钥流</code>的伪随机流.它与加密的数据长度相等.密钥流与数据同位异或进行加解密.密钥流生成分为两个部分KSA与PRGA.</p>
 <ol>
 <li><p>the key-scheduling Algorithm (KSA) 密钥调度算法</p>
 <p>按照升序<code>0,1,2,3,4.....,254,255</code>初始化一个256字节数组<code>S</code>.</p>
@@ -612,7 +631,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Base64"><span class="toc-number">2.</span> <span class="toc-text">Base64</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#历史发展"><span class="toc-number">2.1.</span> <span class="toc-text">历史发展</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#基本原理"><span class="toc-number">2.2.</span> <span class="toc-text">基本原理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#逆向初探"><span class="toc-number">2.3.</span> <span class="toc-text">逆向初探</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#魔改Base64"><span class="toc-number">2.4.</span> <span class="toc-text">魔改Base64</span></a></li></ol></li></ol><li class="toc-item toc-level-2"><a class="toc-link" href="#单向散列"><span class="toc-number"></span> <span class="toc-text">单向散列</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#MD5"><span class="toc-number">1.</span> <span class="toc-text">MD5</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#特征"><span class="toc-number">1.1.</span> <span class="toc-text">特征</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#逆向识别"><span class="toc-number">1.2.</span> <span class="toc-text">逆向识别</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#魔改"><span class="toc-number">1.3.</span> <span class="toc-text">魔改</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SHA算法"><span class="toc-number">2.</span> <span class="toc-text">SHA算法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#SHA-1"><span class="toc-number">2.1.</span> <span class="toc-text">SHA-1</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#特征-1"><span class="toc-number">2.2.</span> <span class="toc-text">特征</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#逆向初探SHA-1加密"><span class="toc-number">2.3.</span> <span class="toc-text">逆向初探SHA-1加密</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#总结"><span class="toc-number">2.4.</span> <span class="toc-text">总结</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#对称加密"><span class="toc-number"></span> <span class="toc-text">对称加密</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#RC4"><span class="toc-number">1.</span> <span class="toc-text">RC4</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#初探逆向识别RC4"><span class="toc-number">1.1.</span> <span class="toc-text">初探逆向识别RC4</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#主函数体伪代码"><span class="toc-number">1.1.1.</span> <span class="toc-text">主函数体伪代码</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#sub-401000"><span class="toc-number">1.1.2.</span> <span class="toc-text">sub_401000</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#sub-401070"><span class="toc-number">1.1.3.</span> <span class="toc-text">sub_401070</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#魔改RC4"><span class="toc-number">1.2.</span> <span class="toc-text">魔改RC4</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#总结-1"><span class="toc-number">1.3.</span> <span class="toc-text">总结</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#TEA"><span class="toc-number">2.</span> <span class="toc-text">TEA</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#AES"><span class="toc-number">3.</span> <span class="toc-text">AES</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#基本原理-1"><span class="toc-number">3.1.</span> <span class="toc-text">基本原理</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#空间换时间"><span class="toc-number">3.1.1.</span> <span class="toc-text">空间换时间</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#逆向初探识别RSA"><span class="toc-number">3.2.</span> <span class="toc-text">逆向初探识别RSA</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#加密模式与填充模式"><span class="toc-number">3.3.</span> <span class="toc-text">加密模式与填充模式</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#非对称加密"><span class="toc-number"></span> <span class="toc-text">非对称加密</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#RSA"><span class="toc-number">1.</span> <span class="toc-text">RSA</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#基本原理-2"><span class="toc-number">1.1.</span> <span class="toc-text">基本原理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#逆向初探RSA"><span class="toc-number">1.2.</span> <span class="toc-text">逆向初探RSA</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Mircal大数运算库"><span class="toc-number">2.</span> <span class="toc-text">Mircal大数运算库</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#反汇编识别"><span class="toc-number">2.1.</span> <span class="toc-text">反汇编识别</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#sub-401730"><span class="toc-number">2.1.1.</span> <span class="toc-text">sub_401730</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#sub-403BD0"><span class="toc-number">2.1.2.</span> <span class="toc-text">sub_403BD0</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reference"><span class="toc-number"></span> <span class="toc-text">Reference</span></a>
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#updated"><span class="toc-number">2.</span> <span class="toc-text">updated:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Base64"><span class="toc-number">3.</span> <span class="toc-text">Base64</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#历史发展"><span class="toc-number">3.1.</span> <span class="toc-text">历史发展</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#基本原理"><span class="toc-number">3.2.</span> <span class="toc-text">基本原理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#逆向初探"><span class="toc-number">3.3.</span> <span class="toc-text">逆向初探</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#魔改Base64"><span class="toc-number">3.4.</span> <span class="toc-text">魔改Base64</span></a></li></ol></li></ol><li class="toc-item toc-level-2"><a class="toc-link" href="#单向散列"><span class="toc-number"></span> <span class="toc-text">单向散列</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#MD5"><span class="toc-number">1.</span> <span class="toc-text">MD5</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#特征"><span class="toc-number">1.1.</span> <span class="toc-text">特征</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#逆向识别"><span class="toc-number">1.2.</span> <span class="toc-text">逆向识别</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#魔改"><span class="toc-number">1.3.</span> <span class="toc-text">魔改</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SHA算法"><span class="toc-number">2.</span> <span class="toc-text">SHA算法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#SHA-1"><span class="toc-number">2.1.</span> <span class="toc-text">SHA-1</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#特征-1"><span class="toc-number">2.2.</span> <span class="toc-text">特征</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#逆向初探SHA-1加密"><span class="toc-number">2.3.</span> <span class="toc-text">逆向初探SHA-1加密</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#总结"><span class="toc-number">2.4.</span> <span class="toc-text">总结</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#对称加密"><span class="toc-number"></span> <span class="toc-text">对称加密</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Salsa20"><span class="toc-number">1.</span> <span class="toc-text">Salsa20</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#RC4"><span class="toc-number">2.</span> <span class="toc-text">RC4</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#初探逆向识别RC4"><span class="toc-number">2.1.</span> <span class="toc-text">初探逆向识别RC4</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#主函数体伪代码"><span class="toc-number">2.1.1.</span> <span class="toc-text">主函数体伪代码</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#sub-401000"><span class="toc-number">2.1.2.</span> <span class="toc-text">sub_401000</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#sub-401070"><span class="toc-number">2.1.3.</span> <span class="toc-text">sub_401070</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#魔改RC4"><span class="toc-number">2.2.</span> <span class="toc-text">魔改RC4</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#总结-1"><span class="toc-number">2.3.</span> <span class="toc-text">总结</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#TEA"><span class="toc-number">3.</span> <span class="toc-text">TEA</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#AES"><span class="toc-number">4.</span> <span class="toc-text">AES</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#基本原理-1"><span class="toc-number">4.1.</span> <span class="toc-text">基本原理</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#空间换时间"><span class="toc-number">4.1.1.</span> <span class="toc-text">空间换时间</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#逆向初探识别RSA"><span class="toc-number">4.2.</span> <span class="toc-text">逆向初探识别RSA</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#加密模式与填充模式"><span class="toc-number">4.3.</span> <span class="toc-text">加密模式与填充模式</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#非对称加密"><span class="toc-number"></span> <span class="toc-text">非对称加密</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#RSA"><span class="toc-number">1.</span> <span class="toc-text">RSA</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#基本原理-2"><span class="toc-number">1.1.</span> <span class="toc-text">基本原理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#逆向初探RSA"><span class="toc-number">1.2.</span> <span class="toc-text">逆向初探RSA</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Mircal大数运算库"><span class="toc-number">2.</span> <span class="toc-text">Mircal大数运算库</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#反汇编识别"><span class="toc-number">2.1.</span> <span class="toc-text">反汇编识别</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#sub-401730"><span class="toc-number">2.1.1.</span> <span class="toc-text">sub_401730</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#sub-403BD0"><span class="toc-number">2.1.2.</span> <span class="toc-text">sub_403BD0</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reference"><span class="toc-number"></span> <span class="toc-text">Reference</span></a>
                     </li></div>
                 </span>
             </div>
@@ -757,14 +776,6 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">IDA</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Blog</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">字符集</a>
               </li>
              
@@ -777,6 +788,14 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">DuiLib</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Blog</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">复习</a>
               </li>
              
@@ -785,7 +804,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">DuiLib</a>
+                <a href="javascript:void(0)" class="js-tag color3">断点</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">调试</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">IDA</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -793,15 +820,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">VirtualKD</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">实验</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">断点</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">调试</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -814,10 +837,6 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Autohotkey</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">VirtualKD</a>
               </li>
              
               <li class="article-tag-list-item">

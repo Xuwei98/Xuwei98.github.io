@@ -36,8 +36,11 @@
 <meta property="og:image" content="https://i.loli.net/2020/03/03/vPqCip8M3BHNnes.png">
 <meta property="og:image" content="https://i.loli.net/2020/03/03/Cc2elLiR1HDJst6.png">
 <meta property="og:image" content="https://i.loli.net/2020/03/03/lte2VqnNIaEwxdZ.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/09/yzZt9TdXksriOIj.png">
 <meta property="og:image" content="https://i.loli.net/2020/03/03/YrXl7MWxveaBApb.png">
-<meta property="og:image" content="https://i.loli.net/2020/03/03/fN4SkYWuezKFD6c.png">
+<meta property="og:image" content="http://blog.xwdidi.top/2020/03/05/2020-03-05-Sodinokibi勒索病毒分析/![image.png](https://i.loli.net/2020/03/09/xYbTDKkXBI5rEZL.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/09/28n3N1TdkoAZJau.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/09/Zhz8kHM1GlCU4Sc.png">
 <meta property="og:image" content="https://i.loli.net/2020/03/03/IgBGjZiMnk3pCH9.png">
 <meta property="og:image" content="https://i.loli.net/2020/03/03/vN8w1uWASxE9HC4.png">
 <meta property="og:image" content="https://i.loli.net/2020/03/04/nHx6NBmUYd1CTIP.png">
@@ -58,7 +61,8 @@
 <meta property="og:image" content="https://i.loli.net/2020/03/04/cpJdDaqSAbywokG.png">
 <meta property="og:image" content="https://i.loli.net/2020/03/04/KBZqJFrbzksnuiC.png">
 <meta property="og:image" content="https://i.loli.net/2020/03/04/FQdRxWzfbXte3Y9.png">
-<meta property="og:image" content="https://i.loli.net/2020/03/04/CEgJ16Lu7V5epBs.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/10/2wkF18dIoJaPzBV.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/10/1nq8TCIyx3Wd4li.png">
 <meta property="og:image" content="https://i.loli.net/2020/03/04/yM6S95vKTg4XHbz.png">
 <meta property="og:image" content="https://i.loli.net/2020/03/05/rmwA91yWl8dxeRE.png">
 <meta property="og:image" content="https://i.loli.net/2020/03/05/dQiGSXIsWHJfuaA.png">
@@ -66,7 +70,7 @@
 <meta property="og:image" content="https://i.loli.net/2020/03/05/hdwkaDo3JSW91Ps.png">
 <meta property="og:image" content="https://i.loli.net/2020/03/05/xoftPKm5WBiJAdF.png">
 <meta property="og:image" content="https://i.loli.net/2020/03/05/KbqBX3lAMaWThe2.png">
-<meta property="og:updated_time" content="2020-03-07T13:13:56.748Z">
+<meta property="og:updated_time" content="2020-03-08T16:00:00.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Sodinokibi勒索病毒分析">
 <meta name="twitter:description" content="0x01 样本信息 样本名称: 2  样本大小:  280,579 字节  MD5:  7d88dfcfe457bdc715371dbeaa4a5ef7  SHA-1: f2f36ef9976259a55123250ecc78fda3487f8848  SHA-256:  8bf7a344480c29b572fcead838c863093a5c88ba21d51085b6fc6ec3d8e8fba">
@@ -250,7 +254,14 @@
 <p><img src="https://i.loli.net/2020/03/02/AwbJ8cgPxm4tTrC.png" alt="image.png"></p>
 <p><code>rnd_ext</code>为加密文件后缀.</p>
 <p><img src="https://i.loli.net/2020/03/02/rkLwYUCeAGtzRxg.png" alt="image.png"></p>
-<h1 id="0x04-分析"><a href="#0x04-分析" class="headerlink" title="0x04 分析"></a>0x04 分析</h1><p>使用<code>word</code>图标进行迷惑受害者.诱导执行.<code>win10与win7</code>启动时需要过UAC认证,算是一定程度上的阻止执行,但会无限弹窗UAC认证.</p>
+<h1 id="0x04-分析"><a href="#0x04-分析" class="headerlink" title="0x04 分析"></a>0x04 分析</h1><p>2020-03-09 后期补充:</p>
+<ul>
+<li><a href="#RC4解密">RC4解密</a></li>
+<li><a href="#漏洞利用">CVE-2018- 8453</a></li>
+<li><a href="#加密函数">加密函数</a></li>
+<li><a href="#密钥创建函数">密钥创建函数</a></li>
+</ul>
+<p>使用<code>word</code>图标进行迷惑受害者.诱导执行.<code>win10与win7</code>启动时需要过UAC认证,算是一定程度上的阻止执行,但会无限弹窗UAC认证.</p>
 <p><img src="https://i.loli.net/2020/03/02/SxdbOasgrC5LIN6.png" alt="image.png"></p>
 <p>无壳,VC程序.</p>
 <p>时间戳为<code>星期三, 24.10.2018 10:14:32 UTC</code></p>
@@ -300,12 +311,15 @@
 <h4 id="释放资源表"><a href="#释放资源表" class="headerlink" title="释放资源表"></a>释放资源表</h4><p>对资源表进行<code>CRC32</code>资源表循环校验,后进行解密释放资源表到堆中</p>
 <p><img src="https://i.loli.net/2020/03/03/Cc2elLiR1HDJst6.png" alt="image.png"></p>
 <p><img src="https://i.loli.net/2020/03/03/lte2VqnNIaEwxdZ.png" alt="image.png"></p>
+<h4 id="RC4解密"><a href="#RC4解密" class="headerlink" title="RC4解密"></a><a name="RC4解密">RC4解密</a></h4><p><img src="https://i.loli.net/2020/03/09/yzZt9TdXksriOIj.png" alt="image.png"></p>
 <p>解密数据一览json格式,<code>0x66cb</code>大小.全部字符串放在<code>资源表解密.txt</code>中了.从中看出公钥,被加密和被排除文件,背景图片,readme文件等信息.</p>
 <p><img src="https://i.loli.net/2020/03/03/YrXl7MWxveaBApb.png" alt="image.png"></p>
 <p>格式化后的样子:</p>
-<p><img src="https://i.loli.net/2020/03/03/fN4SkYWuezKFD6c.png" alt="image.png"></p>
+<p><img src="![image.png](https://i.loli.net/2020/03/09/xYbTDKkXBI5rEZL.png" alt="image.png"></p>
 <ul>
 <li><p>公钥:”pk”: “pzprC6xbhNFhM/+qJI6gCrd2pnCgyRdai+B89OUhWAw=”</p>
+</li>
+<li><p>dbg 模式</p>
 </li>
 <li><p>白名单过滤,目录,文件,后缀:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">	&quot;fld&quot;: [&quot;tor browser&quot;, &quot;msocache&quot;, &quot;$windows.~ws&quot;, &quot;application data&quot;, &quot;windows&quot;, &quot;mozilla&quot;, &quot;program files&quot;, &quot;windows.old&quot;, &quot;$windows.~bt&quot;, &quot;perflogs&quot;, &quot;program files (x86)&quot;, &quot;programdata&quot;, &quot;system volume information&quot;, &quot;google&quot;, &quot;$recycle.bin&quot;, &quot;intel&quot;, &quot;boot&quot;, &quot;appdata&quot;],</span><br><span class="line">	&quot;fls&quot;: [&quot;ntuser.dat.log&quot;, &quot;boot.ini&quot;, &quot;thumbs.db&quot;, &quot;autorun.inf&quot;, &quot;bootsect.bak&quot;, &quot;bootfont.bin&quot;, &quot;desktop.ini&quot;, &quot;iconcache.db&quot;, &quot;ntldr&quot;, &quot;ntuser.ini&quot;, &quot;ntuser.dat&quot;],</span><br><span class="line">	&quot;ext&quot;: [&quot;cmd&quot;, &quot;hta&quot;, &quot;sys&quot;, &quot;cab&quot;, &quot;exe&quot;, &quot;diagcfg&quot;, &quot;shs&quot;, &quot;diagcab&quot;, &quot;scr&quot;, &quot;themepack&quot;, &quot;ps1&quot;, &quot;prf&quot;, &quot;nomedia&quot;, &quot;mpa&quot;, &quot;ldf&quot;, &quot;drv&quot;, &quot;msc&quot;, &quot;dll&quot;, &quot;msi&quot;, &quot;cur&quot;, &quot;icns&quot;, &quot;diagpkg&quot;, &quot;nls&quot;, &quot;theme&quot;, &quot;msstyles&quot;, &quot;lnk&quot;, &quot;386&quot;, &quot;deskthemepack&quot;, &quot;ico&quot;, &quot;cpl&quot;, &quot;idx&quot;, &quot;bat&quot;, &quot;mod&quot;, &quot;lock&quot;, &quot;msp&quot;, &quot;spl&quot;, &quot;com&quot;, &quot;rom&quot;, &quot;msu&quot;, &quot;bin&quot;, &quot;key&quot;, &quot;hlp&quot;, &quot;icl&quot;, &quot;rtp&quot;, &quot;ocx&quot;, &quot;wpx&quot;, &quot;ani&quot;, &quot;adv&quot;, &quot;ics&quot;]</span><br><span class="line">&quot;wfld&quot;: [&quot;backup&quot;],</span><br></pre></td></tr></table></figure>
@@ -313,7 +327,7 @@
 <li><p>结束进程: </p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;prc&quot;: [&quot;xfssvccon.exe&quot;, &quot;msaccess.exe&quot;, &quot;dbsnmp.exe&quot;, &quot;sqbcoreservice.exe&quot;, &quot;synctime.exe&quot;, &quot;onenote.exe&quot;, &quot;dbeng50.exe&quot;, &quot;outlook.exe&quot;, &quot;msftesql.exe&quot;, &quot;excel.exe&quot;, &quot;agntsvc.exe&quot;, &quot;mysqld_opt.exe&quot;, &quot;ocautoupds.exe&quot;, &quot;thebat.exe&quot;, &quot;sqlbrowser.exe&quot;, &quot;wordpad.exe&quot;, &quot;powerpnt.exe&quot;, &quot;ocssd.exe&quot;, &quot;sqlservr.exe&quot;, &quot;winword.exe&quot;, &quot;mysqld.exe&quot;, &quot;thebat64.exe&quot;, &quot;encsvc.exe&quot;, &quot;steam.exe&quot;, &quot;firefoxconfig.exe&quot;, &quot;mydesktopqos.exe&quot;, &quot;mspub.exe&quot;, &quot;thunderbird.exe&quot;, &quot;visio.exe&quot;, &quot;oracle.exe&quot;, &quot;mydesktopservice.exe&quot;, &quot;mysqld_nt.exe&quot;, &quot;infopath.exe&quot;, &quot;isqlplussvc.exe&quot;, &quot;sqlagent.exe&quot;, &quot;ocomm.exe&quot;, &quot;sqlwriter.exe&quot;, &quot;tbirdconfig.exe&quot;]</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>大量域名</p>
+<li><p>域名</p>
 </li>
 <li><p>网络状态</p>
 </li>
@@ -321,9 +335,14 @@
 </li>
 <li><p>readme文件名”{EXT}-readme.txt”</p>
 </li>
+<li><p>exploit是否使用</p>
+</li>
 <li><p>图片编码:QQBsAGwAIABvAGYAIAB5AG8AdQByACAAZgBpAGwAZQBzACAAYQByAGUAIABlAG4AYwByAHkAcAB0AGUAZAAhAA0ACgANAAoARgBpAG4AZAAgAHsARQBYAFQAfQAtAHIAZQBhAGQAbQBlAC4AdAB4AHQAIABhAG4AZAAgAGYAbwBsAGwAbwB3ACAAaQBuAHMAdAB1AGMAdABpAG8AbgBzAAAA”</p>
 </li>
 </ul>
+<h4 id="漏洞利用"><a href="#漏洞利用" class="headerlink" title="漏洞利用"></a><a name="漏洞利用">漏洞利用</a></h4><p>如果exp为<code>True</code>,则执行<code>shellcode</code></p>
+<p><img src="https://i.loli.net/2020/03/09/28n3N1TdkoAZJau.png" alt="image.png"></p>
+<p><img src="https://i.loli.net/2020/03/09/Zhz8kHM1GlCU4Sc.png" alt="image.png"></p>
 <h4 id="提升权限"><a href="#提升权限" class="headerlink" title="提升权限"></a>提升权限</h4><p>通过PEB获取版本号,判断操作系统是否为Vista系统及以上.判断权限.</p>
 <p>判断令牌类型,若不为管理员权限,则释放互斥体,使用<code>ShellExcuteEx</code>使用<code>runas</code>执行自身程序提升权限.因为是无限循环,所以导致拒绝后会一直弹窗申请权限.</p>
 <p><img src="https://i.loli.net/2020/03/03/IgBGjZiMnk3pCH9.png" alt="image.png"></p>
@@ -345,8 +364,11 @@
 <h4 id="IOCP多线程函数执行"><a href="#IOCP多线程函数执行" class="headerlink" title="IOCP多线程函数执行"></a>IOCP多线程函数执行</h4><p>使用IOCP相关函数加速加密执行</p>
 <p><img src="https://i.loli.net/2020/03/04/RxSq5nGP3b4LNev.png" alt="image.png"></p>
 <h5 id="磁盘遍历"><a href="#磁盘遍历" class="headerlink" title="磁盘遍历"></a>磁盘遍历</h5><p><img src="https://i.loli.net/2020/03/04/cpJdDaqSAbywokG.png" alt="image.png"></p>
-<h5 id="文件创建函数"><a href="#文件创建函数" class="headerlink" title="文件创建函数"></a>文件创建函数</h5><p>在文件夹下创建lock文件和勒索信文件<img src="https://i.loli.net/2020/03/04/KBZqJFrbzksnuiC.png" alt="image.png"><img src="https://i.loli.net/2020/03/04/FQdRxWzfbXte3Y9.png" alt="image.png"></p>
-<h5 id="加密函数"><a href="#加密函数" class="headerlink" title="加密函数"></a>加密函数</h5><p><img src="https://i.loli.net/2020/03/04/CEgJ16Lu7V5epBs.png" alt="image.png"></p>
+<h5 id="文件创建函数"><a href="#文件创建函数" class="headerlink" title="文件创建函数"></a>文件创建函数</h5><p>在每个文件夹下创建lock文件和勒索信文件<img src="https://i.loli.net/2020/03/04/KBZqJFrbzksnuiC.png" alt="image.png"><img src="https://i.loli.net/2020/03/04/FQdRxWzfbXte3Y9.png" alt="image.png"></p>
+<h5 id="密钥创建函数"><a href="#密钥创建函数" class="headerlink" title="密钥创建函数"></a><a name="密钥创建函数">密钥创建函数</a></h5><p>具体流程还是得看别人的分析报告,自己有点没弄清.</p>
+<p><img src="https://i.loli.net/2020/03/10/2wkF18dIoJaPzBV.png" alt="image.png"></p>
+<h5 id="加密函数"><a href="#加密函数" class="headerlink" title="加密函数"></a><a name="加密函数">加密函数</a></h5><p>使用<code>GetQueueCompletionStatus</code>函数获取消息,进行文件操作如加密移动写入等.</p>
+<p><img src="https://i.loli.net/2020/03/10/1nq8TCIyx3Wd4li.png" alt="image.png"></p>
 <h4 id="网络共享资源加密"><a href="#网络共享资源加密" class="headerlink" title="网络共享资源加密"></a>网络共享资源加密</h4><p>用了模块“MPR.DLL”的典型 API 函数,枚举网络共享并调用加密函数.</p>
 <p><img src="https://i.loli.net/2020/03/04/yM6S95vKTg4XHbz.png" alt="image.png"></p>
 <h4 id="背景设置"><a href="#背景设置" class="headerlink" title="背景设置"></a>背景设置</h4><p>流程</p>
@@ -492,6 +514,7 @@
 <p>analysis: <a href="https://www.secureworks.com/research/revil-sodinokibi-ransomware" target="_blank" rel="noopener">https://www.secureworks.com/research/revil-sodinokibi-ransomware</a></p>
 <p><a href="https://www.antiy.com/response/20190628.html" target="_blank" rel="noopener">https://www.antiy.com/response/20190628.html</a></p>
 <p><a href="http://www.jiangmin.com/download/Sodinokibi.pdf" target="_blank" rel="noopener">http://www.jiangmin.com/download/Sodinokibi.pdf</a></p>
+<p><a href="https://www.tgsoft.it/immagini/news/20190705Sodinokibi/Sodinokibi_eng.pdf" target="_blank" rel="noopener">https://www.tgsoft.it/immagini/news/20190705Sodinokibi/Sodinokibi_eng.pdf</a></p>
 
       
 
@@ -619,7 +642,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#0x01-样本信息"><span class="toc-number">1.</span> <span class="toc-text">0x01 样本信息</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#0x02-分析环境"><span class="toc-number">2.</span> <span class="toc-text">0x02 分析环境</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#0x03-行为分析"><span class="toc-number">3.</span> <span class="toc-text">0x03 行为分析</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#行为一览"><span class="toc-number">3.1.</span> <span class="toc-text">行为一览:</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#进程树"><span class="toc-number">3.2.</span> <span class="toc-text">进程树</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#勒索信"><span class="toc-number">3.3.</span> <span class="toc-text">勒索信</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#注册表操作"><span class="toc-number">3.4.</span> <span class="toc-text">注册表操作</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#0x04-分析"><span class="toc-number">4.</span> <span class="toc-text">0x04 分析</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#调试分析"><span class="toc-number">4.1.</span> <span class="toc-text">调试分析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#壳"><span class="toc-number">4.1.1.</span> <span class="toc-text">壳</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二次外壳"><span class="toc-number">4.1.2.</span> <span class="toc-text">二次外壳</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#本体加密程序"><span class="toc-number">4.1.3.</span> <span class="toc-text">本体加密程序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#pe特征"><span class="toc-number">4.1.4.</span> <span class="toc-text">pe特征</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#调试分析-1"><span class="toc-number">4.1.5.</span> <span class="toc-text">调试分析</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#加载函数"><span class="toc-number">4.1.5.1.</span> <span class="toc-text">加载函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#创建互斥量"><span class="toc-number">4.1.5.2.</span> <span class="toc-text">创建互斥量</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#释放资源表"><span class="toc-number">4.1.5.3.</span> <span class="toc-text">释放资源表</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#提升权限"><span class="toc-number">4.1.5.4.</span> <span class="toc-text">提升权限</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#高权限模拟登录"><span class="toc-number">4.1.5.5.</span> <span class="toc-text">高权限模拟登录</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#获得所需信息"><span class="toc-number">4.1.5.6.</span> <span class="toc-text">获得所需信息</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#注册表密钥"><span class="toc-number">4.1.5.6.1.</span> <span class="toc-text">注册表密钥</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#获得键盘布局-判断国家"><span class="toc-number">4.1.5.6.2.</span> <span class="toc-text">获得键盘布局,判断国家</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#解密勒索信和背景文字"><span class="toc-number">4.1.5.6.3.</span> <span class="toc-text">解密勒索信和背景文字</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#结束进程"><span class="toc-number">4.1.5.7.</span> <span class="toc-text">结束进程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#删除卷影备份等"><span class="toc-number">4.1.5.8.</span> <span class="toc-text">删除卷影备份等</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#IOCP多线程函数执行"><span class="toc-number">4.1.5.9.</span> <span class="toc-text">IOCP多线程函数执行</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#磁盘遍历"><span class="toc-number">4.1.5.9.1.</span> <span class="toc-text">磁盘遍历</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#文件创建函数"><span class="toc-number">4.1.5.9.2.</span> <span class="toc-text">文件创建函数</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#加密函数"><span class="toc-number">4.1.5.9.3.</span> <span class="toc-text">加密函数</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#网络共享资源加密"><span class="toc-number">4.1.5.10.</span> <span class="toc-text">网络共享资源加密</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#背景设置"><span class="toc-number">4.1.5.11.</span> <span class="toc-text">背景设置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#网络连接"><span class="toc-number">4.1.5.12.</span> <span class="toc-text">网络连接</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#0x05-IOC"><span class="toc-number">5.</span> <span class="toc-text">0x05 IOC</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#0x06总结"><span class="toc-number">6.</span> <span class="toc-text">0x06总结</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#0x07-reference"><span class="toc-number">7.</span> <span class="toc-text">0x07 reference</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#0x01-样本信息"><span class="toc-number">1.</span> <span class="toc-text">0x01 样本信息</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#0x02-分析环境"><span class="toc-number">2.</span> <span class="toc-text">0x02 分析环境</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#0x03-行为分析"><span class="toc-number">3.</span> <span class="toc-text">0x03 行为分析</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#行为一览"><span class="toc-number">3.1.</span> <span class="toc-text">行为一览:</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#进程树"><span class="toc-number">3.2.</span> <span class="toc-text">进程树</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#勒索信"><span class="toc-number">3.3.</span> <span class="toc-text">勒索信</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#注册表操作"><span class="toc-number">3.4.</span> <span class="toc-text">注册表操作</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#0x04-分析"><span class="toc-number">4.</span> <span class="toc-text">0x04 分析</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#调试分析"><span class="toc-number">4.1.</span> <span class="toc-text">调试分析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#壳"><span class="toc-number">4.1.1.</span> <span class="toc-text">壳</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二次外壳"><span class="toc-number">4.1.2.</span> <span class="toc-text">二次外壳</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#本体加密程序"><span class="toc-number">4.1.3.</span> <span class="toc-text">本体加密程序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#pe特征"><span class="toc-number">4.1.4.</span> <span class="toc-text">pe特征</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#调试分析-1"><span class="toc-number">4.1.5.</span> <span class="toc-text">调试分析</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#加载函数"><span class="toc-number">4.1.5.1.</span> <span class="toc-text">加载函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#创建互斥量"><span class="toc-number">4.1.5.2.</span> <span class="toc-text">创建互斥量</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#释放资源表"><span class="toc-number">4.1.5.3.</span> <span class="toc-text">释放资源表</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#RC4解密"><span class="toc-number">4.1.5.4.</span> <span class="toc-text">RC4解密</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#漏洞利用"><span class="toc-number">4.1.5.5.</span> <span class="toc-text">漏洞利用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#提升权限"><span class="toc-number">4.1.5.6.</span> <span class="toc-text">提升权限</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#高权限模拟登录"><span class="toc-number">4.1.5.7.</span> <span class="toc-text">高权限模拟登录</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#获得所需信息"><span class="toc-number">4.1.5.8.</span> <span class="toc-text">获得所需信息</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#注册表密钥"><span class="toc-number">4.1.5.8.1.</span> <span class="toc-text">注册表密钥</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#获得键盘布局-判断国家"><span class="toc-number">4.1.5.8.2.</span> <span class="toc-text">获得键盘布局,判断国家</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#解密勒索信和背景文字"><span class="toc-number">4.1.5.8.3.</span> <span class="toc-text">解密勒索信和背景文字</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#结束进程"><span class="toc-number">4.1.5.9.</span> <span class="toc-text">结束进程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#删除卷影备份等"><span class="toc-number">4.1.5.10.</span> <span class="toc-text">删除卷影备份等</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#IOCP多线程函数执行"><span class="toc-number">4.1.5.11.</span> <span class="toc-text">IOCP多线程函数执行</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#磁盘遍历"><span class="toc-number">4.1.5.11.1.</span> <span class="toc-text">磁盘遍历</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#文件创建函数"><span class="toc-number">4.1.5.11.2.</span> <span class="toc-text">文件创建函数</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#密钥创建函数"><span class="toc-number">4.1.5.11.3.</span> <span class="toc-text">密钥创建函数</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#加密函数"><span class="toc-number">4.1.5.11.4.</span> <span class="toc-text">加密函数</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#网络共享资源加密"><span class="toc-number">4.1.5.12.</span> <span class="toc-text">网络共享资源加密</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#背景设置"><span class="toc-number">4.1.5.13.</span> <span class="toc-text">背景设置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#网络连接"><span class="toc-number">4.1.5.14.</span> <span class="toc-text">网络连接</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#0x05-IOC"><span class="toc-number">5.</span> <span class="toc-text">0x05 IOC</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#0x06总结"><span class="toc-number">6.</span> <span class="toc-text">0x06总结</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#0x07-reference"><span class="toc-number">7.</span> <span class="toc-text">0x07 reference</span></a></li></ol>
                     </div>
                 </span>
             </div>
@@ -764,14 +787,6 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">IDA</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Blog</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">字符集</a>
               </li>
              
@@ -784,6 +799,14 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">DuiLib</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Blog</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">复习</a>
               </li>
              
@@ -792,7 +815,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">DuiLib</a>
+                <a href="javascript:void(0)" class="js-tag color3">断点</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">调试</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">IDA</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -800,15 +831,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">VirtualKD</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">实验</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">断点</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">调试</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -821,10 +848,6 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Autohotkey</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">VirtualKD</a>
               </li>
              
               <li class="article-tag-list-item">
