@@ -5,14 +5,14 @@
   
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <link rel="dns-prefetch" href="http://blog.xwdidi.top">
+  <link rel="dns-prefetch" href="http://blog.dgmddw.xyz">
   <title>MuddyWater(污水) APT样本分析 | 偽のブログ</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="本文分析作为学习参考的笔记记录.记录整体细节和不曾知道的地方. 参考与学习的地址为:https://bbs.pediy.com/thread-252477.htm 脚本类恶意程序分析技巧汇总:https://bbs.pediy.com/thread-251102.htm https://www.cnblogs.com/ichunqiu/p/8659004.html 谢谢师傅的分析文章. 样本分析微">
 <meta name="keywords" content="宏代码,PowerShell">
 <meta property="og:type" content="article">
 <meta property="og:title" content="MuddyWater(污水) APT样本分析">
-<meta property="og:url" content="http://blog.xwdidi.top/2019/10/06/2019-10-06-MuddyWater(污水) APT分析/index.html">
+<meta property="og:url" content="http://blog.dgmddw.xyz/2019/10/06/2019-10-06-MuddyWater(污水) APT分析/index.html">
 <meta property="og:site_name" content="偽のブログ">
 <meta property="og:description" content="本文分析作为学习参考的笔记记录.记录整体细节和不曾知道的地方. 参考与学习的地址为:https://bbs.pediy.com/thread-252477.htm 脚本类恶意程序分析技巧汇总:https://bbs.pediy.com/thread-251102.htm https://www.cnblogs.com/ichunqiu/p/8659004.html 谢谢师傅的分析文章. 样本分析微">
 <meta property="og:locale" content="zh-Hans">
@@ -21,7 +21,7 @@
 <meta property="og:image" content="https://i.loli.net/2019/09/30/ovtTYUskGDfQr9j.png">
 <meta property="og:image" content="https://i.loli.net/2019/10/01/LsIdhwHNiKDA58J.png">
 <meta property="og:image" content="https://i.loli.net/2019/10/01/7xf1e3Gio4Kha5B.png">
-<meta property="og:image" content="http://blog.xwdidi.top/2019/10/06/2019-10-06-MuddyWater(污水)%20APT分析/![image.png](https://i.loli.net/2019/10/01/7xf1e3Gio4Kha5B.png">
+<meta property="og:image" content="http://blog.dgmddw.xyz/2019/10/06/2019-10-06-MuddyWater(污水)%20APT分析/![image.png](https://i.loli.net/2019/10/01/7xf1e3Gio4Kha5B.png">
 <meta property="og:image" content="https://i.loli.net/2019/10/01/YfGXswl4WAt3PJx.png">
 <meta property="og:image" content="https://i.loli.net/2019/10/01/lmN4Lg3Vtb67aj8.png">
 <meta property="og:image" content="https://i.loli.net/2019/10/01/fPIcY76Jm9MKVgB.png">
@@ -452,7 +452,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://blog.xwdidi.top/2019/10/06/2019-10-06-MuddyWater(污水) APT分析/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://blog.dgmddw.xyz/2019/10/06/2019-10-06-MuddyWater(污水) APT分析/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -653,26 +653,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">IDA</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">DuiLib</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">复习</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">基础</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">植物大战僵尸</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">字符集</a>
               </li>
              
@@ -685,19 +665,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">实验</a>
+                <a href="javascript:void(0)" class="js-tag color3">复习</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">VirtualKD</a>
+                <a href="javascript:void(0)" class="js-tag color3">基础</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">断点</a>
+                <a href="javascript:void(0)" class="js-tag color4">IDA</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">调试</a>
+                <a href="javascript:void(0)" class="js-tag color2">DuiLib</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -709,7 +689,43 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">断点</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">调试</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">植物大战僵尸</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">VirtualKD</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">实验</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">宏代码</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">PowerShell</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Autohotkey</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">密码学</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">VC</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -726,22 +742,6 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">yara</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">VC</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">宏代码</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">PowerShell</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">密码学</a>
               </li>
             
             <div class="clearfix"></div>

@@ -5,14 +5,14 @@
   
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <link rel="dns-prefetch" href="http://blog.xwdidi.top">
+  <link rel="dns-prefetch" href="http://blog.dgmddw.xyz">
   <title>VC：执行远程线程注入的代码段导致目标进程崩溃 | 偽のブログ</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="今天使用植物大战僵尸练习线程注入调用call的时候,一直处于崩溃状态,,后来查阅了教程博客,下面有人指出了问题所在 在此引用下老哥的博客文章. 原文地址  以前也曾多次提到远程线程注入导致进程崩溃的现象。 此次崩溃不同于前几次。 之前，采用的是dll注入的方式，注入后，由于同一个dll文件在不同的进程中映射的基地址不同，导致远程线程函数的入口地址不同，以至崩溃，这种情况，多数是本进程采用静态链接加">
 <meta name="keywords" content="植物大战僵尸">
 <meta property="og:type" content="article">
 <meta property="og:title" content="VC：执行远程线程注入的代码段导致目标进程崩溃">
-<meta property="og:url" content="http://blog.xwdidi.top/2019/04/01/2019-04-01-VC线程注入失败/index.html">
+<meta property="og:url" content="http://blog.dgmddw.xyz/2019/04/01/2019-04-01-VC线程注入失败/index.html">
 <meta property="og:site_name" content="偽のブログ">
 <meta property="og:description" content="今天使用植物大战僵尸练习线程注入调用call的时候,一直处于崩溃状态,,后来查阅了教程博客,下面有人指出了问题所在 在此引用下老哥的博客文章. 原文地址  以前也曾多次提到远程线程注入导致进程崩溃的现象。 此次崩溃不同于前几次。 之前，采用的是dll注入的方式，注入后，由于同一个dll文件在不同的进程中映射的基地址不同，导致远程线程函数的入口地址不同，以至崩溃，这种情况，多数是本进程采用静态链接加">
 <meta property="og:locale" content="zh-Hans">
@@ -263,7 +263,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://blog.xwdidi.top/2019/04/01/2019-04-01-VC线程注入失败/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://blog.dgmddw.xyz/2019/04/01/2019-04-01-VC线程注入失败/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -464,26 +464,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">IDA</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">DuiLib</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">复习</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">基础</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">植物大战僵尸</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">字符集</a>
               </li>
              
@@ -496,19 +476,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">实验</a>
+                <a href="javascript:void(0)" class="js-tag color3">复习</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">VirtualKD</a>
+                <a href="javascript:void(0)" class="js-tag color3">基础</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">断点</a>
+                <a href="javascript:void(0)" class="js-tag color4">IDA</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">调试</a>
+                <a href="javascript:void(0)" class="js-tag color2">DuiLib</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -520,7 +500,43 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">断点</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">调试</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">植物大战僵尸</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">VirtualKD</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">实验</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">宏代码</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">PowerShell</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Autohotkey</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">密码学</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">VC</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -537,22 +553,6 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">yara</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">VC</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">宏代码</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">PowerShell</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">密码学</a>
               </li>
             
             <div class="clearfix"></div>

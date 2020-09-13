@@ -5,9 +5,9 @@
   
   <link href="/atom.xml" rel="self"/>
   
-  <link href="http://blog.xwdidi.top/"/>
+  <link href="http://blog.dgmddw.xyz/"/>
   <updated>2020-03-22T16:00:00.000Z</updated>
-  <id>http://blog.xwdidi.top/</id>
+  <id>http://blog.dgmddw.xyz/</id>
   
   <author>
     <name>aWei</name>
@@ -18,8 +18,8 @@
   
   <entry>
     <title>某黑产攻击分析与简单关联</title>
-    <link href="http://blog.xwdidi.top/2020/03/23/2020-03-23%20-%20%E6%9F%90%E9%BB%91%E4%BA%A7%E6%94%BB%E5%87%BB%E5%88%86%E6%9E%90%E4%B8%8E%E7%AE%80%E5%8D%95%E5%85%B3%E8%81%94/"/>
-    <id>http://blog.xwdidi.top/2020/03/23/2020-03-23 - 某黑产攻击分析与简单关联/</id>
+    <link href="http://blog.dgmddw.xyz/2020/03/23/2020-03-23%20-%20%E6%9F%90%E9%BB%91%E4%BA%A7%E6%94%BB%E5%87%BB%E5%88%86%E6%9E%90%E4%B8%8E%E7%AE%80%E5%8D%95%E5%85%B3%E8%81%94/"/>
+    <id>http://blog.dgmddw.xyz/2020/03/23/2020-03-23 - 某黑产攻击分析与简单关联/</id>
     <published>2020-03-22T16:00:00.000Z</published>
     <updated>2020-03-22T16:00:00.000Z</updated>
     
@@ -61,19 +61,19 @@
     
     </summary>
     
-      <category term="样本分析" scheme="http://blog.xwdidi.top/categories/%E6%A0%B7%E6%9C%AC%E5%88%86%E6%9E%90/"/>
+      <category term="样本分析" scheme="http://blog.dgmddw.xyz/categories/%E6%A0%B7%E6%9C%AC%E5%88%86%E6%9E%90/"/>
     
     
-      <category term="木马" scheme="http://blog.xwdidi.top/tags/%E6%9C%A8%E9%A9%AC/"/>
+      <category term="VC" scheme="http://blog.dgmddw.xyz/tags/VC/"/>
     
-      <category term="VC" scheme="http://blog.xwdidi.top/tags/VC/"/>
+      <category term="木马" scheme="http://blog.dgmddw.xyz/tags/%E6%9C%A8%E9%A9%AC/"/>
     
   </entry>
   
   <entry>
     <title>Sodinokibi勒索病毒分析</title>
-    <link href="http://blog.xwdidi.top/2020/03/05/2020-03-05-Sodinokibi%E5%8B%92%E7%B4%A2%E7%97%85%E6%AF%92%E5%88%86%E6%9E%90/"/>
-    <id>http://blog.xwdidi.top/2020/03/05/2020-03-05-Sodinokibi勒索病毒分析/</id>
+    <link href="http://blog.dgmddw.xyz/2020/03/05/2020-03-05-Sodinokibi%E5%8B%92%E7%B4%A2%E7%97%85%E6%AF%92%E5%88%86%E6%9E%90/"/>
+    <id>http://blog.dgmddw.xyz/2020/03/05/2020-03-05-Sodinokibi勒索病毒分析/</id>
     <published>2020-03-04T16:00:00.000Z</published>
     <updated>2020-03-08T16:00:00.000Z</updated>
     
@@ -98,19 +98,19 @@
     
     </summary>
     
-      <category term="样本分析" scheme="http://blog.xwdidi.top/categories/%E6%A0%B7%E6%9C%AC%E5%88%86%E6%9E%90/"/>
+      <category term="样本分析" scheme="http://blog.dgmddw.xyz/categories/%E6%A0%B7%E6%9C%AC%E5%88%86%E6%9E%90/"/>
     
     
-      <category term="勒索病毒" scheme="http://blog.xwdidi.top/tags/%E5%8B%92%E7%B4%A2%E7%97%85%E6%AF%92/"/>
+      <category term="VC" scheme="http://blog.dgmddw.xyz/tags/VC/"/>
     
-      <category term="VC" scheme="http://blog.xwdidi.top/tags/VC/"/>
+      <category term="勒索病毒" scheme="http://blog.dgmddw.xyz/tags/%E5%8B%92%E7%B4%A2%E7%97%85%E6%AF%92/"/>
     
   </entry>
   
   <entry>
     <title>LokiBot盗窃木马分析</title>
-    <link href="http://blog.xwdidi.top/2020/02/25/2020-02-25-LokiBot%E7%9B%97%E7%AA%83%E6%9C%A8%E9%A9%AC%E5%88%86%E6%9E%90/"/>
-    <id>http://blog.xwdidi.top/2020/02/25/2020-02-25-LokiBot盗窃木马分析/</id>
+    <link href="http://blog.dgmddw.xyz/2020/02/25/2020-02-25-LokiBot%E7%9B%97%E7%AA%83%E6%9C%A8%E9%A9%AC%E5%88%86%E6%9E%90/"/>
+    <id>http://blog.dgmddw.xyz/2020/02/25/2020-02-25-LokiBot盗窃木马分析/</id>
     <published>2020-02-24T16:00:00.000Z</published>
     <updated>2020-03-24T08:07:13.112Z</updated>
     
@@ -137,19 +137,19 @@
     
     </summary>
     
-      <category term="样本分析" scheme="http://blog.xwdidi.top/categories/%E6%A0%B7%E6%9C%AC%E5%88%86%E6%9E%90/"/>
+      <category term="样本分析" scheme="http://blog.dgmddw.xyz/categories/%E6%A0%B7%E6%9C%AC%E5%88%86%E6%9E%90/"/>
     
     
-      <category term="木马" scheme="http://blog.xwdidi.top/tags/%E6%9C%A8%E9%A9%AC/"/>
+      <category term="VC" scheme="http://blog.dgmddw.xyz/tags/VC/"/>
     
-      <category term="VC" scheme="http://blog.xwdidi.top/tags/VC/"/>
+      <category term="木马" scheme="http://blog.dgmddw.xyz/tags/%E6%9C%A8%E9%A9%AC/"/>
     
   </entry>
   
   <entry>
     <title>YARA入门</title>
-    <link href="http://blog.xwdidi.top/2020/02/18/2020-02-18-yara%E5%85%A5%E9%97%A8%E4%B8%8E%E5%AE%9E%E8%B7%B5/"/>
-    <id>http://blog.xwdidi.top/2020/02/18/2020-02-18-yara入门与实践/</id>
+    <link href="http://blog.dgmddw.xyz/2020/02/18/2020-02-18-yara%E5%85%A5%E9%97%A8%E4%B8%8E%E5%AE%9E%E8%B7%B5/"/>
+    <id>http://blog.dgmddw.xyz/2020/02/18/2020-02-18-yara入门与实践/</id>
     <published>2020-02-18T10:49:00.000Z</published>
     <updated>2020-02-23T13:13:32.308Z</updated>
     
@@ -169,14 +169,14 @@
     </summary>
     
     
-      <category term="yara" scheme="http://blog.xwdidi.top/tags/yara/"/>
+      <category term="yara" scheme="http://blog.dgmddw.xyz/tags/yara/"/>
     
   </entry>
   
   <entry>
     <title>njRat远控木马分析</title>
-    <link href="http://blog.xwdidi.top/2020/02/17/2020-02-17-njRat%E8%BF%9C%E6%8E%A7%E6%9C%A8%E9%A9%AC%E5%88%86%E6%9E%90/"/>
-    <id>http://blog.xwdidi.top/2020/02/17/2020-02-17-njRat远控木马分析/</id>
+    <link href="http://blog.dgmddw.xyz/2020/02/17/2020-02-17-njRat%E8%BF%9C%E6%8E%A7%E6%9C%A8%E9%A9%AC%E5%88%86%E6%9E%90/"/>
+    <id>http://blog.dgmddw.xyz/2020/02/17/2020-02-17-njRat远控木马分析/</id>
     <published>2020-02-16T16:00:00.000Z</published>
     <updated>2020-03-07T13:13:38.164Z</updated>
     
@@ -203,19 +203,19 @@
     
     </summary>
     
-      <category term="样本分析" scheme="http://blog.xwdidi.top/categories/%E6%A0%B7%E6%9C%AC%E5%88%86%E6%9E%90/"/>
+      <category term="样本分析" scheme="http://blog.dgmddw.xyz/categories/%E6%A0%B7%E6%9C%AC%E5%88%86%E6%9E%90/"/>
     
     
-      <category term="木马" scheme="http://blog.xwdidi.top/tags/%E6%9C%A8%E9%A9%AC/"/>
+      <category term="木马" scheme="http://blog.dgmddw.xyz/tags/%E6%9C%A8%E9%A9%AC/"/>
     
-      <category term="C#" scheme="http://blog.xwdidi.top/tags/C/"/>
+      <category term="C#" scheme="http://blog.dgmddw.xyz/tags/C/"/>
     
   </entry>
   
   <entry>
     <title>nanocore木马分析</title>
-    <link href="http://blog.xwdidi.top/2020/02/11/2020-02-11-nanocore%E6%9C%A8%E9%A9%AC%E5%88%86%E6%9E%90/"/>
-    <id>http://blog.xwdidi.top/2020/02/11/2020-02-11-nanocore木马分析/</id>
+    <link href="http://blog.dgmddw.xyz/2020/02/11/2020-02-11-nanocore%E6%9C%A8%E9%A9%AC%E5%88%86%E6%9E%90/"/>
+    <id>http://blog.dgmddw.xyz/2020/02/11/2020-02-11-nanocore木马分析/</id>
     <published>2020-02-10T16:00:00.000Z</published>
     <updated>2020-03-07T13:11:28.400Z</updated>
     
@@ -244,19 +244,19 @@
     
     </summary>
     
-      <category term="样本分析" scheme="http://blog.xwdidi.top/categories/%E6%A0%B7%E6%9C%AC%E5%88%86%E6%9E%90/"/>
+      <category term="样本分析" scheme="http://blog.dgmddw.xyz/categories/%E6%A0%B7%E6%9C%AC%E5%88%86%E6%9E%90/"/>
     
     
-      <category term="木马" scheme="http://blog.xwdidi.top/tags/%E6%9C%A8%E9%A9%AC/"/>
+      <category term="木马" scheme="http://blog.dgmddw.xyz/tags/%E6%9C%A8%E9%A9%AC/"/>
     
-      <category term="C#" scheme="http://blog.xwdidi.top/tags/C/"/>
+      <category term="C#" scheme="http://blog.dgmddw.xyz/tags/C/"/>
     
   </entry>
   
   <entry>
     <title>remcos木马分析</title>
-    <link href="http://blog.xwdidi.top/2020/02/04/2020-02-04-remcos%E6%9C%A8%E9%A9%AC%E5%88%86%E6%9E%90/"/>
-    <id>http://blog.xwdidi.top/2020/02/04/2020-02-04-remcos木马分析/</id>
+    <link href="http://blog.dgmddw.xyz/2020/02/04/2020-02-04-remcos%E6%9C%A8%E9%A9%AC%E5%88%86%E6%9E%90/"/>
+    <id>http://blog.dgmddw.xyz/2020/02/04/2020-02-04-remcos木马分析/</id>
     <published>2020-02-03T16:00:00.000Z</published>
     <updated>2020-03-07T13:13:29.324Z</updated>
     
@@ -283,19 +283,19 @@
     
     </summary>
     
-      <category term="样本分析" scheme="http://blog.xwdidi.top/categories/%E6%A0%B7%E6%9C%AC%E5%88%86%E6%9E%90/"/>
+      <category term="样本分析" scheme="http://blog.dgmddw.xyz/categories/%E6%A0%B7%E6%9C%AC%E5%88%86%E6%9E%90/"/>
     
     
-      <category term="木马" scheme="http://blog.xwdidi.top/tags/%E6%9C%A8%E9%A9%AC/"/>
+      <category term="VC" scheme="http://blog.dgmddw.xyz/tags/VC/"/>
     
-      <category term="VC" scheme="http://blog.xwdidi.top/tags/VC/"/>
+      <category term="木马" scheme="http://blog.dgmddw.xyz/tags/%E6%9C%A8%E9%A9%AC/"/>
     
   </entry>
   
   <entry>
     <title>xRat远控木马分析</title>
-    <link href="http://blog.xwdidi.top/2020/01/15/2020-01-15-xRat%E6%9C%A8%E9%A9%AC%E5%88%86%E6%9E%90/"/>
-    <id>http://blog.xwdidi.top/2020/01/15/2020-01-15-xRat木马分析/</id>
+    <link href="http://blog.dgmddw.xyz/2020/01/15/2020-01-15-xRat%E6%9C%A8%E9%A9%AC%E5%88%86%E6%9E%90/"/>
+    <id>http://blog.dgmddw.xyz/2020/01/15/2020-01-15-xRat木马分析/</id>
     <published>2020-01-14T16:00:00.000Z</published>
     <updated>2020-03-07T13:12:16.768Z</updated>
     
@@ -320,19 +320,19 @@
     
     </summary>
     
-      <category term="样本分析" scheme="http://blog.xwdidi.top/categories/%E6%A0%B7%E6%9C%AC%E5%88%86%E6%9E%90/"/>
+      <category term="样本分析" scheme="http://blog.dgmddw.xyz/categories/%E6%A0%B7%E6%9C%AC%E5%88%86%E6%9E%90/"/>
     
     
-      <category term="木马" scheme="http://blog.xwdidi.top/tags/%E6%9C%A8%E9%A9%AC/"/>
+      <category term="木马" scheme="http://blog.dgmddw.xyz/tags/%E6%9C%A8%E9%A9%AC/"/>
     
-      <category term="C#" scheme="http://blog.xwdidi.top/tags/C/"/>
+      <category term="C#" scheme="http://blog.dgmddw.xyz/tags/C/"/>
     
   </entry>
   
   <entry>
     <title>DeathRansom勒索病毒预警</title>
-    <link href="http://blog.xwdidi.top/2019/11/28/2019-11-28-DeathRansom%E5%8B%92%E7%B4%A2%E7%97%85%E6%AF%92%E9%A2%84%E8%AD%A6/"/>
-    <id>http://blog.xwdidi.top/2019/11/28/2019-11-28-DeathRansom勒索病毒预警/</id>
+    <link href="http://blog.dgmddw.xyz/2019/11/28/2019-11-28-DeathRansom%E5%8B%92%E7%B4%A2%E7%97%85%E6%AF%92%E9%A2%84%E8%AD%A6/"/>
+    <id>http://blog.dgmddw.xyz/2019/11/28/2019-11-28-DeathRansom勒索病毒预警/</id>
     <published>2019-11-27T16:00:00.000Z</published>
     <updated>2020-03-07T13:18:03.749Z</updated>
     
@@ -347,17 +347,17 @@
     
     </summary>
     
-      <category term="翻译" scheme="http://blog.xwdidi.top/categories/%E7%BF%BB%E8%AF%91/"/>
+      <category term="翻译" scheme="http://blog.dgmddw.xyz/categories/%E7%BF%BB%E8%AF%91/"/>
     
     
-      <category term="勒索病毒" scheme="http://blog.xwdidi.top/tags/%E5%8B%92%E7%B4%A2%E7%97%85%E6%AF%92/"/>
+      <category term="勒索病毒" scheme="http://blog.dgmddw.xyz/tags/%E5%8B%92%E7%B4%A2%E7%97%85%E6%AF%92/"/>
     
   </entry>
   
   <entry>
     <title>常用密码学不全概括总览</title>
-    <link href="http://blog.xwdidi.top/2019/11/22/2019-11-22-%E5%AF%86%E7%A0%81%E5%AD%A6%E9%80%86%E5%90%91%E5%88%86%E6%9E%90/"/>
-    <id>http://blog.xwdidi.top/2019/11/22/2019-11-22-密码学逆向分析/</id>
+    <link href="http://blog.dgmddw.xyz/2019/11/22/2019-11-22-%E5%AF%86%E7%A0%81%E5%AD%A6%E9%80%86%E5%90%91%E5%88%86%E6%9E%90/"/>
+    <id>http://blog.dgmddw.xyz/2019/11/22/2019-11-22-密码学逆向分析/</id>
     <published>2019-11-21T16:00:00.000Z</published>
     <updated>2020-03-09T17:21:29.909Z</updated>
     
@@ -375,17 +375,17 @@
     
     </summary>
     
-      <category term="逆向基础" scheme="http://blog.xwdidi.top/categories/%E9%80%86%E5%90%91%E5%9F%BA%E7%A1%80/"/>
+      <category term="逆向基础" scheme="http://blog.dgmddw.xyz/categories/%E9%80%86%E5%90%91%E5%9F%BA%E7%A1%80/"/>
     
     
-      <category term="密码学" scheme="http://blog.xwdidi.top/tags/%E5%AF%86%E7%A0%81%E5%AD%A6/"/>
+      <category term="密码学" scheme="http://blog.dgmddw.xyz/tags/%E5%AF%86%E7%A0%81%E5%AD%A6/"/>
     
   </entry>
   
   <entry>
     <title>Emotet后台pe木马较不完整分析</title>
-    <link href="http://blog.xwdidi.top/2019/10/24/2019-10-24-Emotet%E6%9C%A8%E9%A9%AC%E5%88%86%E6%9E%90/"/>
-    <id>http://blog.xwdidi.top/2019/10/24/2019-10-24-Emotet木马分析/</id>
+    <link href="http://blog.dgmddw.xyz/2019/10/24/2019-10-24-Emotet%E6%9C%A8%E9%A9%AC%E5%88%86%E6%9E%90/"/>
+    <id>http://blog.dgmddw.xyz/2019/10/24/2019-10-24-Emotet木马分析/</id>
     <published>2019-10-23T16:00:00.000Z</published>
     <updated>2020-03-07T13:12:08.317Z</updated>
     
@@ -400,21 +400,21 @@
     
     </summary>
     
-      <category term="样本分析" scheme="http://blog.xwdidi.top/categories/%E6%A0%B7%E6%9C%AC%E5%88%86%E6%9E%90/"/>
+      <category term="样本分析" scheme="http://blog.dgmddw.xyz/categories/%E6%A0%B7%E6%9C%AC%E5%88%86%E6%9E%90/"/>
     
     
-      <category term="VC" scheme="http://blog.xwdidi.top/tags/VC/"/>
+      <category term="宏代码" scheme="http://blog.dgmddw.xyz/tags/%E5%AE%8F%E4%BB%A3%E7%A0%81/"/>
     
-      <category term="宏代码" scheme="http://blog.xwdidi.top/tags/%E5%AE%8F%E4%BB%A3%E7%A0%81/"/>
+      <category term="PowerShell" scheme="http://blog.dgmddw.xyz/tags/PowerShell/"/>
     
-      <category term="PowerShell" scheme="http://blog.xwdidi.top/tags/PowerShell/"/>
+      <category term="VC" scheme="http://blog.dgmddw.xyz/tags/VC/"/>
     
   </entry>
   
   <entry>
     <title>Autohotkey脚本,自用</title>
-    <link href="http://blog.xwdidi.top/2019/10/17/2019-10-17-autohotkey/"/>
-    <id>http://blog.xwdidi.top/2019/10/17/2019-10-17-autohotkey/</id>
+    <link href="http://blog.dgmddw.xyz/2019/10/17/2019-10-17-autohotkey/"/>
+    <id>http://blog.dgmddw.xyz/2019/10/17/2019-10-17-autohotkey/</id>
     <published>2019-10-16T16:00:00.000Z</published>
     <updated>2020-02-27T08:45:30.866Z</updated>
     
@@ -429,17 +429,17 @@
     
     </summary>
     
-      <category term="工具" scheme="http://blog.xwdidi.top/categories/%E5%B7%A5%E5%85%B7/"/>
+      <category term="工具" scheme="http://blog.dgmddw.xyz/categories/%E5%B7%A5%E5%85%B7/"/>
     
     
-      <category term="Autohotkey" scheme="http://blog.xwdidi.top/tags/Autohotkey/"/>
+      <category term="Autohotkey" scheme="http://blog.dgmddw.xyz/tags/Autohotkey/"/>
     
   </entry>
   
   <entry>
     <title>MuddyWater(污水) APT样本分析</title>
-    <link href="http://blog.xwdidi.top/2019/10/06/2019-10-06-MuddyWater(%E6%B1%A1%E6%B0%B4)%20APT%E5%88%86%E6%9E%90/"/>
-    <id>http://blog.xwdidi.top/2019/10/06/2019-10-06-MuddyWater(污水) APT分析/</id>
+    <link href="http://blog.dgmddw.xyz/2019/10/06/2019-10-06-MuddyWater(%E6%B1%A1%E6%B0%B4)%20APT%E5%88%86%E6%9E%90/"/>
+    <id>http://blog.dgmddw.xyz/2019/10/06/2019-10-06-MuddyWater(污水) APT分析/</id>
     <published>2019-10-05T16:00:00.000Z</published>
     <updated>2020-03-07T13:17:54.983Z</updated>
     
@@ -457,19 +457,19 @@
     
     </summary>
     
-      <category term="样本分析" scheme="http://blog.xwdidi.top/categories/%E6%A0%B7%E6%9C%AC%E5%88%86%E6%9E%90/"/>
+      <category term="样本分析" scheme="http://blog.dgmddw.xyz/categories/%E6%A0%B7%E6%9C%AC%E5%88%86%E6%9E%90/"/>
     
     
-      <category term="宏代码" scheme="http://blog.xwdidi.top/tags/%E5%AE%8F%E4%BB%A3%E7%A0%81/"/>
+      <category term="宏代码" scheme="http://blog.dgmddw.xyz/tags/%E5%AE%8F%E4%BB%A3%E7%A0%81/"/>
     
-      <category term="PowerShell" scheme="http://blog.xwdidi.top/tags/PowerShell/"/>
+      <category term="PowerShell" scheme="http://blog.dgmddw.xyz/tags/PowerShell/"/>
     
   </entry>
   
   <entry>
     <title>双机调试简单问题</title>
-    <link href="http://blog.xwdidi.top/2019/08/24/2019-08-24-%20%E5%8F%8C%E5%87%BB%E8%B0%83%E8%AF%95%E7%AE%80%E5%8D%95%E9%97%AE%E9%A2%98%E6%80%BB%E7%BB%93/"/>
-    <id>http://blog.xwdidi.top/2019/08/24/2019-08-24- 双击调试简单问题总结/</id>
+    <link href="http://blog.dgmddw.xyz/2019/08/24/2019-08-24-%20%E5%8F%8C%E5%87%BB%E8%B0%83%E8%AF%95%E7%AE%80%E5%8D%95%E9%97%AE%E9%A2%98%E6%80%BB%E7%BB%93/"/>
+    <id>http://blog.dgmddw.xyz/2019/08/24/2019-08-24- 双击调试简单问题总结/</id>
     <published>2019-08-23T16:00:00.000Z</published>
     <updated>2019-11-08T15:50:11.993Z</updated>
     
@@ -484,17 +484,17 @@
     
     </summary>
     
-      <category term="工具" scheme="http://blog.xwdidi.top/categories/%E5%B7%A5%E5%85%B7/"/>
+      <category term="工具" scheme="http://blog.dgmddw.xyz/categories/%E5%B7%A5%E5%85%B7/"/>
     
     
-      <category term="VirtualKD" scheme="http://blog.xwdidi.top/tags/VirtualKD/"/>
+      <category term="VirtualKD" scheme="http://blog.dgmddw.xyz/tags/VirtualKD/"/>
     
   </entry>
   
   <entry>
     <title>iptables简单小结</title>
-    <link href="http://blog.xwdidi.top/2019/06/18/2019-06-18-iptables%E7%AE%80%E5%8D%95%E5%B0%8F%E7%BB%93/"/>
-    <id>http://blog.xwdidi.top/2019/06/18/2019-06-18-iptables简单小结/</id>
+    <link href="http://blog.dgmddw.xyz/2019/06/18/2019-06-18-iptables%E7%AE%80%E5%8D%95%E5%B0%8F%E7%BB%93/"/>
+    <id>http://blog.dgmddw.xyz/2019/06/18/2019-06-18-iptables简单小结/</id>
     <published>2019-06-18T06:19:36.000Z</published>
     <updated>2019-06-18T15:06:33.244Z</updated>
     
@@ -509,17 +509,17 @@
     
     </summary>
     
-      <category term="Linux" scheme="http://blog.xwdidi.top/categories/Linux/"/>
+      <category term="Linux" scheme="http://blog.dgmddw.xyz/categories/Linux/"/>
     
     
-      <category term="实验" scheme="http://blog.xwdidi.top/tags/%E5%AE%9E%E9%AA%8C/"/>
+      <category term="实验" scheme="http://blog.dgmddw.xyz/tags/%E5%AE%9E%E9%AA%8C/"/>
     
   </entry>
   
   <entry>
     <title>arm环境搭建-gdb调试</title>
-    <link href="http://blog.xwdidi.top/2019/05/24/2019-05-24-arm%E7%8E%AF%E5%A2%83gdb%E8%B0%83%E8%AF%95/"/>
-    <id>http://blog.xwdidi.top/2019/05/24/2019-05-24-arm环境gdb调试/</id>
+    <link href="http://blog.dgmddw.xyz/2019/05/24/2019-05-24-arm%E7%8E%AF%E5%A2%83gdb%E8%B0%83%E8%AF%95/"/>
+    <id>http://blog.dgmddw.xyz/2019/05/24/2019-05-24-arm环境gdb调试/</id>
     <published>2019-05-24T05:33:23.000Z</published>
     <updated>2019-11-08T15:49:52.988Z</updated>
     
@@ -534,19 +534,19 @@
     
     </summary>
     
-      <category term="工具" scheme="http://blog.xwdidi.top/categories/%E5%B7%A5%E5%85%B7/"/>
+      <category term="工具" scheme="http://blog.dgmddw.xyz/categories/%E5%B7%A5%E5%85%B7/"/>
     
     
-      <category term="arm" scheme="http://blog.xwdidi.top/tags/arm/"/>
+      <category term="arm" scheme="http://blog.dgmddw.xyz/tags/arm/"/>
     
-      <category term="gdb" scheme="http://blog.xwdidi.top/tags/gdb/"/>
+      <category term="gdb" scheme="http://blog.dgmddw.xyz/tags/gdb/"/>
     
   </entry>
   
   <entry>
     <title>断点原理</title>
-    <link href="http://blog.xwdidi.top/2019/04/07/2019-04-07-%E6%96%AD%E7%82%B9%E5%8E%9F%E7%90%86/"/>
-    <id>http://blog.xwdidi.top/2019/04/07/2019-04-07-断点原理/</id>
+    <link href="http://blog.dgmddw.xyz/2019/04/07/2019-04-07-%E6%96%AD%E7%82%B9%E5%8E%9F%E7%90%86/"/>
+    <id>http://blog.dgmddw.xyz/2019/04/07/2019-04-07-断点原理/</id>
     <published>2019-04-07T05:33:23.000Z</published>
     <updated>2019-11-08T15:48:47.980Z</updated>
     
@@ -561,19 +561,19 @@
     
     </summary>
     
-      <category term="逆向基础" scheme="http://blog.xwdidi.top/categories/%E9%80%86%E5%90%91%E5%9F%BA%E7%A1%80/"/>
+      <category term="逆向基础" scheme="http://blog.dgmddw.xyz/categories/%E9%80%86%E5%90%91%E5%9F%BA%E7%A1%80/"/>
     
     
-      <category term="断点" scheme="http://blog.xwdidi.top/tags/%E6%96%AD%E7%82%B9/"/>
+      <category term="断点" scheme="http://blog.dgmddw.xyz/tags/%E6%96%AD%E7%82%B9/"/>
     
-      <category term="调试" scheme="http://blog.xwdidi.top/tags/%E8%B0%83%E8%AF%95/"/>
+      <category term="调试" scheme="http://blog.dgmddw.xyz/tags/%E8%B0%83%E8%AF%95/"/>
     
   </entry>
   
   <entry>
     <title>VC：执行远程线程注入的代码段导致目标进程崩溃</title>
-    <link href="http://blog.xwdidi.top/2019/04/01/2019-04-01-VC%E7%BA%BF%E7%A8%8B%E6%B3%A8%E5%85%A5%E5%A4%B1%E8%B4%A5/"/>
-    <id>http://blog.xwdidi.top/2019/04/01/2019-04-01-VC线程注入失败/</id>
+    <link href="http://blog.dgmddw.xyz/2019/04/01/2019-04-01-VC%E7%BA%BF%E7%A8%8B%E6%B3%A8%E5%85%A5%E5%A4%B1%E8%B4%A5/"/>
+    <id>http://blog.dgmddw.xyz/2019/04/01/2019-04-01-VC线程注入失败/</id>
     <published>2019-03-31T16:00:00.000Z</published>
     <updated>2019-11-08T15:50:43.123Z</updated>
     
@@ -588,17 +588,17 @@
     
     </summary>
     
-      <category term="错误整理" scheme="http://blog.xwdidi.top/categories/%E9%94%99%E8%AF%AF%E6%95%B4%E7%90%86/"/>
+      <category term="错误整理" scheme="http://blog.dgmddw.xyz/categories/%E9%94%99%E8%AF%AF%E6%95%B4%E7%90%86/"/>
     
     
-      <category term="植物大战僵尸" scheme="http://blog.xwdidi.top/tags/%E6%A4%8D%E7%89%A9%E5%A4%A7%E6%88%98%E5%83%B5%E5%B0%B8/"/>
+      <category term="植物大战僵尸" scheme="http://blog.dgmddw.xyz/tags/%E6%A4%8D%E7%89%A9%E5%A4%A7%E6%88%98%E5%83%B5%E5%B0%B8/"/>
     
   </entry>
   
   <entry>
     <title>语言复习       查漏补缺 不定时更新</title>
-    <link href="http://blog.xwdidi.top/2019/03/15/2019-03-13-%E8%AF%AD%E8%A8%80%E8%A6%81%E7%82%B9%E5%A4%8D%E4%B9%A0/"/>
-    <id>http://blog.xwdidi.top/2019/03/15/2019-03-13-语言要点复习/</id>
+    <link href="http://blog.dgmddw.xyz/2019/03/15/2019-03-13-%E8%AF%AD%E8%A8%80%E8%A6%81%E7%82%B9%E5%A4%8D%E4%B9%A0/"/>
+    <id>http://blog.dgmddw.xyz/2019/03/15/2019-03-13-语言要点复习/</id>
     <published>2019-03-14T16:00:00.000Z</published>
     <updated>2019-04-07T16:00:00.000Z</updated>
     
@@ -613,19 +613,19 @@
     
     </summary>
     
-      <category term="逆向基础" scheme="http://blog.xwdidi.top/categories/%E9%80%86%E5%90%91%E5%9F%BA%E7%A1%80/"/>
+      <category term="逆向基础" scheme="http://blog.dgmddw.xyz/categories/%E9%80%86%E5%90%91%E5%9F%BA%E7%A1%80/"/>
     
     
-      <category term="复习" scheme="http://blog.xwdidi.top/tags/%E5%A4%8D%E4%B9%A0/"/>
+      <category term="复习" scheme="http://blog.dgmddw.xyz/tags/%E5%A4%8D%E4%B9%A0/"/>
     
-      <category term="基础" scheme="http://blog.xwdidi.top/tags/%E5%9F%BA%E7%A1%80/"/>
+      <category term="基础" scheme="http://blog.dgmddw.xyz/tags/%E5%9F%BA%E7%A1%80/"/>
     
   </entry>
   
   <entry>
     <title>DuiLib环境搭建</title>
-    <link href="http://blog.xwdidi.top/2018/11/05/2018-11-05-DuiLib%E6%90%AD%E5%BB%BA/"/>
-    <id>http://blog.xwdidi.top/2018/11/05/2018-11-05-DuiLib搭建/</id>
+    <link href="http://blog.dgmddw.xyz/2018/11/05/2018-11-05-DuiLib%E6%90%AD%E5%BB%BA/"/>
+    <id>http://blog.dgmddw.xyz/2018/11/05/2018-11-05-DuiLib搭建/</id>
     <published>2018-11-04T16:00:00.000Z</published>
     <updated>2019-11-08T15:49:32.522Z</updated>
     
@@ -640,10 +640,10 @@
     
     </summary>
     
-      <category term="工具" scheme="http://blog.xwdidi.top/categories/%E5%B7%A5%E5%85%B7/"/>
+      <category term="工具" scheme="http://blog.dgmddw.xyz/categories/%E5%B7%A5%E5%85%B7/"/>
     
     
-      <category term="DuiLib" scheme="http://blog.xwdidi.top/tags/DuiLib/"/>
+      <category term="DuiLib" scheme="http://blog.dgmddw.xyz/tags/DuiLib/"/>
     
   </entry>
   
