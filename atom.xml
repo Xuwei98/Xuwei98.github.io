@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://blog.dgmddw.xyz/"/>
-  <updated>2020-03-22T16:00:00.000Z</updated>
+  <updated>2021-01-06T16:00:00.000Z</updated>
   <id>http://blog.dgmddw.xyz/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>T-pot搭建</title>
+    <link href="http://blog.dgmddw.xyz/2021/01/07/2021-01-07-T-pot%E6%90%AD%E5%BB%BA/"/>
+    <id>http://blog.dgmddw.xyz/2021/01/07/2021-01-07-T-pot搭建/</id>
+    <published>2021-01-06T16:00:00.000Z</published>
+    <updated>2021-01-06T16:00:00.000Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="起因"><a href="#起因" class="headerlink" title="起因"></a>起因</h2><p>最近心血来潮,花了10美刀,vultr送30天的50美刀.<br>最开始想着弄一套HiFish集群,发现无法捕获恶意样本,遂放弃了. (使用<code>iptables -L</code>和<code>iptbles -F</code> 查看和清除规则,centos系统)<br>后面发现T-pot全能,就顺势学着搭建一波.</p><h2 id="操作"><a href="#操作" class="headerlink" title="操作"></a>操作</h2><ol><li><p>安装Debain10,x64. T-bot基于Debain10打包的.选择内存8g的系统,4g内存会卡死.</p></li><li><p>ssh连接.</p></li><li><p>查看iptables,有规则则清除.</p></li><li><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install git</span><br><span class="line">git <span class="built_in">clone</span> https://github.com/telekom-security/tpotce</span><br><span class="line"><span class="built_in">cd</span> tpotce/iso/installer/</span><br><span class="line">./install.sh --<span class="built_in">type</span>=user</span><br></pre></td></tr></table></figure></li><li><p><code>dps.sh</code>,查看服务是否正常,不正常则去排除问题.</p></li><li><p>因为没有使用iso安装,则会没有tsec安装,手动添加.</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">adduser tsec</span><br><span class="line">nano /etc/sudoers</span><br><span class="line"></span><br><span class="line"><span class="string">"tsec    ALL=(ALL:ALL) ALL"</span></span><br></pre></td></tr></table></figure><p><img src="../assets/blog/2021-01-07-T-pot搭建/image-20210107231356631.png" alt="image-20210107231356631"></p></li><li><p>登入<code>https://ip:64294/</code>,打上勾.输入tsec和密码.登陆检查权限,查看是否可以访问dokcer服务.</p></li></ol>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;\assets\css\APlayer.min.css&quot;&gt;&lt;script src=&quot;\assets\js\APlayer.min.js&quot; cla
+      
+    
+    </summary>
+    
+      <category term="工具" scheme="http://blog.dgmddw.xyz/categories/%E5%B7%A5%E5%85%B7/"/>
+    
+    
+      <category term="蜜罐" scheme="http://blog.dgmddw.xyz/tags/%E8%9C%9C%E7%BD%90/"/>
+    
+  </entry>
   
   <entry>
     <title>某黑产攻击分析与简单关联</title>
@@ -619,31 +644,6 @@
       <category term="复习" scheme="http://blog.dgmddw.xyz/tags/%E5%A4%8D%E4%B9%A0/"/>
     
       <category term="基础" scheme="http://blog.dgmddw.xyz/tags/%E5%9F%BA%E7%A1%80/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>DuiLib环境搭建</title>
-    <link href="http://blog.dgmddw.xyz/2018/11/05/2018-11-05-DuiLib%E6%90%AD%E5%BB%BA/"/>
-    <id>http://blog.dgmddw.xyz/2018/11/05/2018-11-05-DuiLib搭建/</id>
-    <published>2018-11-04T16:00:00.000Z</published>
-    <updated>2019-11-08T15:49:32.522Z</updated>
-    
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>今天弄了一天环境,终于编译成功了.如果这篇文章有幸被看到,希望能帮助你少走弯路.</p><ol><li>克隆DuiLib库<code>git clone https://github.com/duilib/duilib.git</code>,duilib中有个大写的DuiLib文件夹,这是我们需要编译的库.</li><li>在VS2015中,创建示例程序是从win32-&gt;win32项目创建的.</li><li>参考DuiLib的<a href="https://github.com/duilib/duilib/wiki/%E6%AD%A3%E7%A1%AE%E7%BC%96%E8%AF%91-Duilib-%E9%9D%99%E6%80%81%E5%BA%93%E7%9A%84%E6%96%B9%E6%B3%95" target="_blank" rel="noopener">wiki</a>,比较重要的是lib的引用:附加依赖项,附加包含目录,附加库目录.</li><li>如果采用的是文件的xml格式的话,一定要将xml与exe同一父目录下,不然会出现编译成功,却DuiLib加载资源失败的提示哦.</li></ol>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;\assets\css\APlayer.min.css&quot;&gt;&lt;script src=&quot;\assets\js\APlayer.min.js&quot; cla
-      
-    
-    </summary>
-    
-      <category term="工具" scheme="http://blog.dgmddw.xyz/categories/%E5%B7%A5%E5%85%B7/"/>
-    
-    
-      <category term="DuiLib" scheme="http://blog.dgmddw.xyz/tags/DuiLib/"/>
     
   </entry>
   

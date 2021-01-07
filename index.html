@@ -145,6 +145,105 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-2021-01-07-T-pot搭建" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/01/07/2021-01-07-T-pot搭建/">T-pot搭建</a>
+    </h1>
+  
+
+        
+        <a href="/2021/01/07/2021-01-07-T-pot搭建/" class="archive-article-date">
+  	<time datetime="2021-01-06T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-01-07</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="起因"><a href="#起因" class="headerlink" title="起因"></a>起因</h2><p>最近心血来潮,花了10美刀,vultr送30天的50美刀.<br>最开始想着弄一套HiFish集群,发现无法捕获恶意样本,遂放弃了. (使用<code>iptables -L</code>和<code>iptbles -F</code> 查看和清除规则,centos系统)<br>后面发现T-pot全能,就顺势学着搭建一波.</p>
+<h2 id="操作"><a href="#操作" class="headerlink" title="操作"></a>操作</h2><ol>
+<li><p>安装Debain10,x64. T-bot基于Debain10打包的.选择内存8g的系统,4g内存会卡死.</p>
+</li>
+<li><p>ssh连接.</p>
+</li>
+<li><p>查看iptables,有规则则清除.</p>
+</li>
+<li><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install git</span><br><span class="line">git <span class="built_in">clone</span> https://github.com/telekom-security/tpotce</span><br><span class="line"><span class="built_in">cd</span> tpotce/iso/installer/</span><br><span class="line">./install.sh --<span class="built_in">type</span>=user</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>dps.sh</code>,查看服务是否正常,不正常则去排除问题.</p>
+</li>
+<li><p>因为没有使用iso安装,则会没有tsec安装,手动添加.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">adduser tsec</span><br><span class="line">nano /etc/sudoers</span><br><span class="line"></span><br><span class="line"><span class="string">"tsec    ALL=(ALL:ALL) ALL"</span></span><br></pre></td></tr></table></figure>
+<p><img src="../assets/blog/2021-01-07-T-pot搭建/image-20210107231356631.png" alt="image-20210107231356631"></p>
+</li>
+<li><p>登入<code>https://ip:64294/</code>,打上勾.输入tsec和密码.登陆检查权限,查看是否可以访问dokcer服务.</p>
+</li>
+</ol>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">蜜罐</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/工具//" class="article-tag-list-link color3">工具</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-2020-03-23 - 某黑产攻击分析与简单关联" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1037,95 +1136,6 @@
 
 
   
-    <article id="post-2019-11-22-密码学逆向分析" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/11/22/2019-11-22-密码学逆向分析/">常用密码学不全概括总览</a>
-    </h1>
-  
-
-        
-        <a href="/2019/11/22/2019-11-22-密码学逆向分析/" class="archive-article-date">
-  	<time datetime="2019-11-21T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-22</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>想作为分析勒索病毒前的密码学接触.</p>
-<p>常用加解密算法的逆向分析中的识别,不做过多算法原理上的叙述,别人讲的好多了.站在巨人的肩膀上.</p>
-<p>这篇文章只作为特征查找用来辅助平时分析用.</p>
-<p>两种工具<code>ida</code>插件<code>FindCrypt2</code>和<code>peid</code>的<code>KANA</code>进行算法识别是很好用的.</p>
-<h3 id="updated"><a href="#updated" class="headerlink" title="updated:"></a>updated:</h3><p>2020-03-10 Salsa20.</p>
-<h3 id="Base64"><a href="#Base64" class="headerlink" title="Base64"></a>Base64</h3><h4 id="历史发展"><a href="#历史发展" class="headerlink" title="历史发展"></a>历史发展</h4><p><code>base64</code>最早就是用来邮件传输协议中的，原因是邮件传输协议只支持 <code>ascii</code> 字符传递，因此如果要传输二进制文件，如：图片、视频是无法实现的。因此 <code>base64</code>就可以用来将二进制文件内容编码为只包含 ascii 字符的内容，这样就可以传输了.</p>
-<p>简单来说为了兼容各种数据格式.</p>
-        
-          <a class="article-more-a" href="/2019/11/22/2019-11-22-密码学逆向分析/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">密码学</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/逆向基础//" class="article-tag-list-link color5">逆向基础</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
@@ -1140,7 +1150,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2020 aWei
+    		&copy; 2021 aWei
     	</div>
       	<div class="footer-right">
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
@@ -1248,7 +1258,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">DuiLib</a>
+                <a href="javascript:void(0)" class="js-tag color3">复习</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">基础</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1268,15 +1282,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">复习</a>
+                <a href="javascript:void(0)" class="js-tag color4">arm</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">基础</a>
+                <a href="javascript:void(0)" class="js-tag color4">gdb</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">实验</a>
+                <a href="javascript:void(0)" class="js-tag color2">DuiLib</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1285,14 +1299,6 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">调试</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">arm</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">gdb</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1312,11 +1318,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Autohotkey</a>
+                <a href="javascript:void(0)" class="js-tag color3">实验</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">密码学</a>
+                <a href="javascript:void(0)" class="js-tag color1">Autohotkey</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1329,6 +1335,14 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">C#</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">密码学</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">蜜罐</a>
               </li>
              
               <li class="article-tag-list-item">
