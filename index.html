@@ -145,207 +145,6 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-2020-07-29-windows异常处理" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="理论铺垫"><a href="#理论铺垫" class="headerlink" title="理论铺垫"></a>理论铺垫</h2><p>在IDT线性表中存储了0x00-&gt;0xFF的终端处理函数,每个在64位系统下是64字节.</p>
-<p>以64位操作系统为主,通过双机调试中的WinDbg进行查看IDT.并且通过英特人手册进行文档查看.<img src="../assets/blog/2020-07-29-windows异常处理/image-20200729161500253.png" alt="image-20200729161500253"></p>
-<p><code>r idtr</code>, 得到 idtr=ffff9780bd0b2000.再使用<code>dd idtr</code>得到线性地址表.<img src="../assets/blog/2020-07-29-windows异常处理/image-20200729161925409.png" alt="image-20200729161925409">由此图可得到从00-&gt;0xFF个中断函数表,我们以00的中断向量函数为引.</p>
-<p><code>ffff9780bd0b2000  00102100 15938e00 fffff803 00000000</code>,从上面的IDT门描述符可得知,函数地址所在地址由63…32+31…16+15…00,可计算出地址为<code>fffff80315932100</code>,再使用<code>!idt -a</code>命令获得idt表,<img src="../assets/blog/2020-07-29-windows异常处理/image-20200729163008310.png" alt="image-20200729163008310">地址符合我们的计算.</p>
-<p>内核KTRAP_FRAME–转化–&gt;CONTEXT结构体线程的上下文保存.</p>
-<p>异常处理函数进一步调用内核的nt!KiDispatchException.此函数将会使用EXCEPTION_RECORD和TrapFrame(存储各类寄存器数值)两个封装结构.并且根据PreviousMode判断调试状态,执行不同的处理过<img src="../assets/blog/2020-07-29-windows异常处理/image-20200729172538494.png" alt="image-20200729172538494" style="zoom:50%;"></p>
-<p>内核态的异常处理:<img src="../assets/blog/2020-07-29-windows异常处理/image-20200729183259561.png" alt="image-20200729183259561"></p>
-<p>用户态的异常处理:<img src="../assets/blog/2020-07-29-windows异常处理/image-20200729194529331.png" alt="image-20200729194529331"></p>
-<h3 id="SEH"><a href="#SEH" class="headerlink" title="SEH"></a>SEH</h3><p>理论铺垫</p>
-<p>TIB是保存线程的基本信息的数据结构.通过FS:[0],64位通过GS:[0]指向TIB数据结构体.</p>
-<p>32位下: <code>r fs</code>获取FS的值,再通过下图进行解析FS的值.<img src="../assets/blog/2020-07-29-windows异常处理/image-20200731124213112.png" alt="image-20200731124213112"></p>
-<p>windbg中得到FS的值为0x00000030,二进制表示为<code>00110000</code>,可得到索引到GDT表,索引号为<code>00110</code>也就是6.使用<code>r gdtr</code>获得GDT表头部地址,使用<code>dq gdtr</code>展开GDT表.得到第七项的地址为<code>834093d4`</code>5c003748`<img src="../assets/blog/2020-07-29-windows异常处理/image-20200731125628370.png" alt="image-20200731125628370" style="zoom:67%;"></p>
-<p>再根据下表解析出段基址为,<code>83d45c00</code><img src="../assets/blog/2020-07-29-windows异常处理/image-20200731162721429.png" alt="image-20200731162721429">使用<code>dg fs</code>可校验计算结果.<img src="../assets/blog/2020-07-29-windows异常处理/image-20200731170032094.png" alt="image-20200731170032094"></p>
-<p>我们想一想FS:[0]到底指向哪呢,通过<code>!pcr</code>查看kpcr可得知相关数据.从下图可知至该地址是指向自身头部的,头部首地址也是TIB的值.所以FS:[0]—&gt;TIB.<img src="../assets/blog/2020-07-29-windows异常处理/image-20200801013519035.png" alt="image-20200801013519035" style="zoom: 80%;"></p>
-<p>64位: ???</p>
-<p>TEB结构下的解析:</p>
-<p><code>_NT_TIB</code>的首部是指向异常处理链表的指针,同时自身内部也存储着当前线程使用的栈的栈底和栈顶.也在底部存放着指向自身结构的指针.</p>
-<p>异常处理链表的结构体为<code>_EXCEPTION_REGISTRATION_RECORD</code>存放指向下一结构体的指针和当前异常处理回调函数的地址.当程序发生异常时会<strong>依次调用</strong>各个链表节点中的异常处理回调函数.<img src="../assets/blog/2020-07-29-windows异常处理/image-20200804173015720.png" alt="image-20200804173015720"></p>
-<p>SEH的作用范围仅限于当前线程,只允许在链表头部进行增加和删除节点操作的单向链表.链表头部同源在FS:[0]处的TEB结构中.</p>
-<p>在发生异常时,操作系统会将异常信息交给用户态进行判断处理.为了使用户态获得用户态和内核态的异常信息操作系统会将<code>EXCEPTION_RECORD</code>(内核态)和<code>CONTEXT</code>(用户态)进行压栈,并放置一个<code>_EXCEPTION_POINTERS</code>结构体指针.该结构体存储着上面两个结构体的结构体指针.</p>
-<h3 id="SEH的安装和卸载"><a href="#SEH的安装和卸载" class="headerlink" title="SEH的安装和卸载"></a>SEH的安装和卸载</h3><p>SEH的异常处理是基于栈帧的.安装时通过两次压栈和对FS:[0]进行赋值,完成对SEH链表的头部添加.而删除就是对之前栈帧进行恢复,恢复FS:[0]处的地址.所以操作就是如下</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">;安装</span><br><span class="line">assume fs:nothing</span><br><span class="line">	push offset SEHandler</span><br><span class="line">	push fs:[0]</span><br><span class="line">	mov	fs:[0],esp</span><br><span class="line">	</span><br><span class="line">; 卸载</span><br><span class="line">mov esp, dword ptr fs:[0]</span><br><span class="line">pop dword ptr fs:[0]</span><br><span class="line">;dword ptr fs:[0] 是指向第一个record的指针</span><br></pre></td></tr></table></figure>
-<h3 id="针对seh-exe的调试"><a href="#针对seh-exe的调试" class="headerlink" title="针对seh.exe的调试"></a>针对seh.exe的调试</h3><p>使用Windbg调试时,为了跟踪系统异常处理过程,需要对相关函数下断点.使用指令<code>bp ntdll!KiUserExceptionDispatcher</code>,再使用gn继续执行,我们再来观察堆栈.<img src="../assets/blog/2020-07-29-windows异常处理/image-20200806150028018.png" alt="image-20200806150028018"></p>
-<p>通过使用<code>dd esp</code>观察栈帧,头部就是一个_EXCEPTION_POINTER结构体,通过<code>dt  _exception_record</code>进行第一个结构体的观察,可得到是0xC0000005的内存访问异常. 地址是在0x401038出现的异常.</p>
-<p><img src="../assets/blog/2020-07-29-windows异常处理/image-20200806153232280.png" alt="image-20200806153232280" style="zoom: 33%;"></p>
-<p>我们再计算下这个结构体的大小:0x14+15*4 =80,加上第一个的地址上的值刚好是_context的头部地址.<img src="../assets/blog/2020-07-29-windows异常处理/image-20200806155416487.png" alt="image-20200806155416487" style="zoom:50%;"></p>
-<p>而在OD中的话,同理我们也可以看到在KiUserExceptionDispatcher断点处的堆栈地址结构.<img src="../assets/blog/2020-07-29-windows异常处理/image-20200806160556117.png" alt="image-20200806160556117"><img src="../assets/blog/2020-07-29-windows异常处理/image-20200806160947942.png" style="zoom:25%"></p>
-<p>编写SEH异常处理程序</p>
-<p><img src="../assets/blog/2020-07-29-windows异常处理/image-20200810012552312.png" alt="image"></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-2020-10-12-从零开始的web学习" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>参考链接:</p>
-<p>菜鸟教程SQL语法: <a href="https://www.runoob.com/sql/sql-tutorial.html" target="_blank" rel="noopener">https://www.runoob.com/sql/sql-tutorial.html</a></p>
-<p>BurpSuite的练习实验室: <a href="https://portswigger.net/web-security/all-labs" target="_blank" rel="noopener">https://portswigger.net/web-security/all-labs</a></p>
-<p>SQL注入备忘单：<a href="https://portswigger.net/web-security/sql-injection/cheat-sheet" target="_blank" rel="noopener">https://portswigger.net/web-security/sql-injection/cheat-sheet</a></p>
-<h1 id="SQL篇"><a href="#SQL篇" class="headerlink" title="SQL篇:"></a>SQL篇:</h1><p>基础知识: <a href="https://portswigger.net/web-security/sql-injection/union-attacks" target="_blank" rel="noopener">https://portswigger.net/web-security/sql-injection/union-attacks</a></p>
-<p>都是用<a href="https://portswigger.net/burp/documentation/desktop/tools/repeater" target="_blank" rel="noopener">Repeater</a>进行手工sql注入。</p>
-<h3 id="通过SQL注入UNION攻击-查询返回的列数"><a href="#通过SQL注入UNION攻击-查询返回的列数" class="headerlink" title="通过SQL注入UNION攻击,查询返回的列数."></a>通过SQL注入UNION攻击,查询返回的列数.</h3><p>SELECT column1,column2,… FROM table; 这是基础语法从表中查询特定列.UNION 内部的每个 SELECT 语句必须拥有相同数量的列,所以使用挨个添加null列名,直到返回正常网页,可得到列的数量. NULL可以兼容所有数据类型。</p>
-<p><code>&#39;+UNION+SELECT+NULL,NULL,NULL--</code></p>
-<p>Repeater窗口</p>
-<p><img src="../assets/blog/2020-10-12-从零开始的web学习/image-20201012014221545.png" alt="image-20201012014221545"></p>
-<h3 id="SQL注入UNION攻击，查找包含文本的列"><a href="#SQL注入UNION攻击，查找包含文本的列" class="headerlink" title="SQL注入UNION攻击，查找包含文本的列"></a>SQL注入UNION攻击，查找包含文本的列</h3><p>使用单引号的字符串,挨个替换NULL的位置,知道正常返回网页,并使用规定的字符串进行查找.</p>
-<p><code>GET /filter?category=Accessories&#39;+UNION+SELECT+NULL,&#39;KY07Dc&#39;,NULL-- HTTP/1.1</code></p>
-<p><img src="../assets/blog/2020-10-12-从零开始的web学习/image-20201012020857787.png" alt="image-20201012020857787"></p>
-<h3 id="SQL注入UNION攻击，从其他表中检索数据"><a href="#SQL注入UNION攻击，从其他表中检索数据" class="headerlink" title="SQL注入UNION攻击，从其他表中检索数据"></a>SQL注入UNION攻击，从其他表中检索数据</h3><p>使用<code>+UNION+SELECT+NULL,NULL--</code>检索得到两个列数，再使用随机字符进行判断该列是否可查询。</p>
-<p><code>+UNION+SELECT+&#39;acasd&#39;,&#39;abc&#39;--</code></p>
-<p>查询用户密码。<code>+UNION+SELECT+username,+password+FROM+users--</code></p>
-<p><img src="../assets/blog/2020-10-12-从零开始的web学习/image-20201012194049955.png" alt="image-20201012194049955"></p>
-<h3 id="SQL注入UNION攻击，在单个列中检索多个值"><a href="#SQL注入UNION攻击，在单个列中检索多个值" class="headerlink" title="SQL注入UNION攻击，在单个列中检索多个值"></a>SQL注入UNION攻击，在单个列中检索多个值</h3><p>使用联合注入判断有两个列后，使用a || ‘~’|| b 进行拼接字符，可以在一个列中查询两个列的字符。</p>
-<p><code>&#39;UNION+SELECT+NULL,username||&#39;~&#39;||password+FROM+users--</code></p>
-<p><img src="../assets/blog/2020-10-12-从零开始的web学习/image-20201012220032815.png" alt="image-20201012220032815"></p>
-<h3 id="SQL注入攻击，在Oracle上查询数据库类型和版本"><a href="#SQL注入攻击，在Oracle上查询数据库类型和版本" class="headerlink" title="SQL注入攻击，在Oracle上查询数据库类型和版本"></a>SQL注入攻击，在Oracle上查询数据库类型和版本</h3><p>注意后面的注释符改为<code>+FROM+DUAL--</code>.</p>
-<p><code>&#39;UNION+SELECT+NULL,NULL+FROM+DUAL--</code></p>
-<p><img src="../assets/blog/2020-10-12-从零开始的web学习/image-20201012231132638.png" alt="image-20201012231132638"></p>
-<p>根据备忘录中查询Oracle版本<img src="../assets/blog/2020-10-12-从零开始的web学习/image-20201012231402949.png" alt="image-20201012231402949"></p>
-<p><img src="../assets/blog/2020-10-12-从零开始的web学习/image-20201012231513279.png" alt="image-20201012231513279"></p>
-<p><code>&#39;UNION+SELECT+NULL,+banner+FROM+v$version--</code></p>
-<h3 id="SQL注入攻击，在MySQL和Microsoft上查询数据库类型和版本"><a href="#SQL注入攻击，在MySQL和Microsoft上查询数据库类型和版本" class="headerlink" title="SQL注入攻击，在MySQL和Microsoft上查询数据库类型和版本"></a>SQL注入攻击，在MySQL和Microsoft上查询数据库类型和版本</h3><p>使用–作为注释符号一直报错换成#，就可以正常返回。</p>
-<p><img src="../assets/blog/2020-10-12-从零开始的web学习/image-20201012230034596.png" alt="image-20201012230034596"></p>
-<p>进行列的字符串返回判断：两个列都能返回字符串。</p>
-<p><img src="../assets/blog/2020-10-12-从零开始的web学习/image-20201012230435697.png" alt="image-20201012230435697"></p>
-<p>进行mysql数据库版本查询：</p>
-<p><code>&#39;+UNION+SELECT+NULL,@@version#</code></p>
-<p><img src="../assets/blog/2020-10-12-从零开始的web学习/image-20201012230812728.png" alt="image-20201012230812728"></p>
-<h3 id="SQL注入攻击，列出非Oracle数据库上的数据库内容"><a href="#SQL注入攻击，列出非Oracle数据库上的数据库内容" class="headerlink" title="SQL注入攻击，列出非Oracle数据库上的数据库内容"></a>SQL注入攻击，列出非Oracle数据库上的数据库内容</h3><p>两列都可以字符</p>
-<p><img src="../assets/blog/2020-10-12-从零开始的web学习/image-20201014020006403.png" alt="image-20201014020006403"></p>
-<p>通过备忘表可得知该数据库的查询表的方法:</p>
-<p><img src="../assets/blog/2020-10-12-从零开始的web学习/image-20201014020625527.png" alt="image-20201014020625527"></p>
-<p><code>&#39;+UNION+SELECT+table_name,+NULL+FROM+information_schema.tables--</code></p>
-<p>并猜测pg_user是关于账号的表.后发现应该是users_sdkytj.</p>
-<p><img src="../assets/blog/2020-10-12-从零开始的web学习/image-20201014021003217.png" alt="image-20201014021003217"></p>
-<p>查询该表中的列得到如下列名:</p>
-<p><code>&#39;+UNION+SELECT+column_name,+NULL+FROM+information_schema.columns+WHERE+table_name=&#39;users_sdkytj&#39;</code></p>
-<p><img src="../assets/blog/2020-10-12-从零开始的web学习/image-20201014023515971.png" alt="image-20201014023515971"></p>
-<p>直接查询用户名和密码:</p>
-<p><code>+UNION+SELECT+password_mbousv,username_vryhgy+FROM+users_sdkytj--</code></p>
-<p><img src="../assets/blog/2020-10-12-从零开始的web学习/image-20201014023652808.png" alt="image-20201014023652808"></p>
-<h2 id="SQL盲注"><a href="#SQL盲注" class="headerlink" title="SQL盲注"></a>SQL盲注</h2><p>教学页面:<a href="https://portswigger.net/web-security/sql-injection/blind" target="_blank" rel="noopener">https://portswigger.net/web-security/sql-injection/blind</a></p>
-<h3 id="带条件响应的SQL盲注"><a href="#带条件响应的SQL盲注" class="headerlink" title="带条件响应的SQL盲注"></a>带条件响应的SQL盲注</h3><p>通过布尔条件验证是否存在盲注.</p>
-<p><code>TrackingId=xyz&#39;UNION SELECT &#39;a&#39; WHERE 1=1--;</code></p>
-<p><img src="../assets/blog/2020-10-12-从零开始的web学习/image-20201025191301225.png" alt="image-20201025191301225"></p>
-<p><code>TrackingId=xyz&#39;UNION SELECT &#39;a&#39; WHERE 1=2--;</code></p>
-<p><img src="../assets/blog/2020-10-12-从零开始的web学习/image-20201025191952298.png" alt="image-20201025191952298"></p>
-<p><code>TrackingId=x&#39;+UNION+SELECT+&#39;a&#39;+FROM+users+WHERE +username=&#39;administrator&#39;--</code></p>
-<p>判断是否存在该账户，然后再去判断密码长度。</p>
-<p><code>TrackingId=x&#39;+UNION+SELECT+&#39;a&#39;+FROM+users+WHERE+username=&#39;administrator&#39;+AND+length(password)=20--;</code> 密码长度为20</p>
-<p><img src="../assets/blog/2020-10-12-从零开始的web学习/image-20201025221239330.png" alt="image-20201025221239330"></p>
-<p>然后使用<a href="https://portswigger.net/burp/documentation/desktop/tools/intruder" target="_blank" rel="noopener">Burp Intruder</a>也就是测试器，使用集束炸弹(clusterbomb).</p>
-<p>首先清楚载荷，然后粘贴payload，并选中字符a，并点击添加。同理，另一个也是。<img src="../assets/blog/2020-10-12-从零开始的web学习/image-20201025225633323.png" alt="image-20201025225633323"></p>
-<p>然后转到有效载荷进行payload的字符选择，选择合适的字符串进行爆破。</p>
-<p><img src="../assets/blog/2020-10-12-从零开始的web学习/image-20201025225533174.png" alt="image-20201025225533174" style="zoom:50%;"></p>
-<p>并在选项中添加过滤字符串<code>Welcome back!</code>.进行攻击最终得到下面的响应结果，登录账户即可成功。</p>
-<p><img src="../assets/blog/2020-10-12-从零开始的web学习/image-20201025225456647.png" alt="image-20201025225456647"></p>
-<h3 id="通过触发SQL错误来诱导条件响应"><a href="#通过触发SQL错误来诱导条件响应" class="headerlink" title="通过触发SQL错误来诱导条件响应"></a>通过触发SQL错误来诱导条件响应</h3><h1 id="常用函数"><a href="#常用函数" class="headerlink" title="常用函数"></a>常用函数</h1><p>length()  获取该列字符串的长度</p>
-<p>以下皆返回’ba’子字符串</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">甲骨文</th>
-<th><code>SUBSTR(&#39;foobar&#39;, 4, 2)</code></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">微软</td>
-<td><code>SUBSTRING(&#39;foobar&#39;, 4, 2)</code></td>
-</tr>
-<tr>
-<td style="text-align:left">PostgreSQL</td>
-<td><code>SUBSTRING(&#39;foobar&#39;, 4, 2)</code></td>
-</tr>
-<tr>
-<td style="text-align:left">MySQL</td>
-<td><code>SUBSTRING(&#39;foobar&#39;, 4, 2)</code></td>
-</tr>
-</tbody>
-</table>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
     <article id="post-2021-01-07-T-pot搭建" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1153,6 +952,192 @@
 
 
   
+    <article id="post-2020-01-15-xRat木马分析" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/01/15/2020-01-15-xRat木马分析/">xRat远控木马分析</a>
+    </h1>
+  
+
+        
+        <a href="/2020/01/15/2020-01-15-xRat木马分析/" class="archive-article-date">
+  	<time datetime="2020-01-14T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-15</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="0x01-样本信息"><a href="#0x01-样本信息" class="headerlink" title="0x01 样本信息"></a>0x01 样本信息</h1><ul>
+<li><p>样本名称: b3ebd2b0ac287940648975bcad2458543679748a15949f246a745c5db926a18d</p>
+</li>
+<li><p>样本大小:  252,416 字节</p>
+</li>
+<li><p>家族: xRat</p>
+</li>
+<li><p>MD5:  2b82375303c9e02ae15b0dd6e2bd0cb1</p>
+</li>
+<li><p>SHA-1: d5dbab5cca2a370dffb7225aecbc3cf65</p>
+</li>
+<li><p>SHA-256: b3ebd2b0ac287940648975bcad2458543679748a15949f246a745c5db926a18d</p>
+</li>
+<li><p>idb与样本地址:  <a href="https://github.com/Xuwei98/malware-analysis-idb/tree/master/Trojan/2020-01-15-xrat" target="_blank" rel="noopener">github</a></p>
+        
+          <a class="article-more-a" href="/2020/01/15/2020-01-15-xRat木马分析/#more">more >></a>
+        
+      
+
+      
+    </li></ul></div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">木马</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">C#</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/样本分析//" class="article-tag-list-link color5">样本分析</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-2019-11-28-DeathRansom勒索病毒预警" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/11/28/2019-11-28-DeathRansom勒索病毒预警/">DeathRansom勒索病毒预警</a>
+    </h1>
+  
+
+        
+        <a href="/2019/11/28/2019-11-28-DeathRansom勒索病毒预警/" class="archive-article-date">
+  	<time datetime="2019-11-27T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-28</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="新勒索软件DeathRansom开始成名"><a href="#新勒索软件DeathRansom开始成名" class="headerlink" title="新勒索软件DeathRansom开始成名"></a>新勒索软件DeathRansom开始成名</h1><p><img src="https://www.bleepstatic.com/content/hl-images/2019/11/25/skull-ransom-encrypt.jpg" alt></p>
+<p>新的勒索软件<code>DeathRansom</code>伴随着坎坷的开始,但是现在已经解决了问题,并且开始感染受害者和加密他们的数据.</p>
+<p>当<code>DeathRansom</code>第一次开始散播的时候,它假装的去加密文件,但是研究者和使用者发现他们可以删除后缀位<code>.wctc</code>的扩展,文件将能再次使用.</p>
+<p>在9月20号左右开始发生,不过,有些事情改变了.</p>
+        
+          <a class="article-more-a" href="/2019/11/28/2019-11-28-DeathRansom勒索病毒预警/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">勒索病毒</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/翻译//" class="article-tag-list-link color3">翻译</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
@@ -1287,18 +1272,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">断点</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">调试</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">DuiLib</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">复习</a>
               </li>
              
@@ -1311,6 +1284,18 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">断点</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">调试</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">DuiLib</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">arm</a>
               </li>
              
@@ -1319,7 +1304,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">实验</a>
+                <a href="javascript:void(0)" class="js-tag color5">VirtualKD</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1331,19 +1316,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">VirtualKD</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Autohotkey</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">密码学</a>
+                <a href="javascript:void(0)" class="js-tag color3">实验</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">VC</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">密码学</a>
               </li>
              
               <li class="article-tag-list-item">
