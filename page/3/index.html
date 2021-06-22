@@ -58,7 +58,7 @@
 			
 				<li><a href="/">主页</a></li>
 	        
-				<li><a href="http://wiki.xwdidi.top/">Wiki</a></li>
+				<li><a href="http://wiki.dgmddw.xyz/">Wiki</a></li>
 	        
 			</ul>
 		</nav>
@@ -128,7 +128,7 @@
 				
 					<li style="width: 50%"><a href="/">主页</a></li>
 		        
-					<li style="width: 50%"><a href="http://wiki.xwdidi.top/">Wiki</a></li>
+					<li style="width: 50%"><a href="http://wiki.dgmddw.xyz/">Wiki</a></li>
 		        
 				</ul>
 			</nav>
@@ -144,6 +144,260 @@
           </div>
           <div id="js-content" class="content-ll">
             
+  
+    <article id="post-2019-04-01-VC线程注入失败" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/04/01/2019-04-01-VC线程注入失败/">VC：执行远程线程注入的代码段导致目标进程崩溃</a>
+    </h1>
+  
+
+        
+        <a href="/2019/04/01/2019-04-01-VC线程注入失败/" class="archive-article-date">
+  	<time datetime="2019-03-31T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-01</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>今天使用植物大战僵尸练习线程注入调用call的时候,一直处于崩溃状态,,后来查阅了教程博客,下面有人指出了问题所在 在此引用下老哥的博客文章.</p>
+<p><a href="https://blog.csdn.net/kk20078733/article/details/5530884" target="_blank" rel="noopener">原文地址</a></p>
+<blockquote>
+<p>以前也曾多次提到远程线程注入导致进程崩溃的现象。</p>
+<p>此次崩溃不同于前几次。</p>
+<p>之前，采用的是dll注入的方式，注入后，由于同一个dll文件在不同的进程中映射的基地址不同，导致远程线程函数的入口地址不同，以至崩溃，这种情况，多数是本进程采用静态链接加载待远程注入的dll文件，而其他进程则动态加载该dll文件，两次加载将在内存中产生两个dll实例。</p>
+<p>此次，需要向远程进程注入代码段，远程线程函数入口地址正确。测试时，为了方便，特地增加了一个消息框MessageBox，远程线程函数仅仅调用这个弹出消息框的函数，然后退出。结果，消息框正常弹出，但是，当点击确定退出消息框后，目标进程立即崩溃。原因不明。</p>
+<p>200807210756注：</p>
+<p>实在不知道问题出哪儿了，于是就想看看注入的VC代码对应的反汇编代码，这时，忽然想到一点，即：我都是在Debug模式下执行的，这可能会有问题。</p>
+<p>进一步思考。Debug版本和Release版本最大的不同在于，每次调用一个函数后，Debug版本会进行堆栈检测。而目标进程显然是处于release模式，此时，如果注入的是Debug版本的代码，那么，调用函数之后，会有一句检测堆栈的机器指令，这很可能就是进程崩溃的原因所在。</p>
+<p>于是，改为release环境测试，一切正常！OK！</p>
+<p>(我用控制台程序实现时没有问题，用MFC程序实现就有问题，因此发现以上内容，将Debug版改为Release版就没问题了)</p>
+<p>另附上远程注入的主要代码段，供参考，有问题望指教！！！</p>
+<p>作者：kk20078733<br>来源：CSDN<br>原文：<a href="https://blog.csdn.net/kk20078733/article/details/5530884" target="_blank" rel="noopener">https://blog.csdn.net/kk20078733/article/details/5530884</a> </p>
+</blockquote>
+<p>Debug版会使用一个检查堆栈平衡的函数_checkesp..</p>
+<p>详细的在小黄书中有讲到.现在记得不是很清楚.</p>
+<p>有机会的话会写上来.</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">植物大战僵尸</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/错误整理//" class="article-tag-list-link color5">错误整理</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-2019-03-13-语言要点复习" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/03/15/2019-03-13-语言要点复习/">语言复习       查漏补缺 不定时更新</a>
+    </h1>
+  
+
+        
+        <a href="/2019/03/15/2019-03-13-语言要点复习/" class="archive-article-date">
+  	<time datetime="2019-03-14T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-15</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="语言要点复习"><a href="#语言要点复习" class="headerlink" title="语言要点复习"></a>语言要点复习</h1><h3 id="内存区域"><a href="#内存区域" class="headerlink" title="内存区域"></a>内存区域</h3><h4 id="bss段"><a href="#bss段" class="headerlink" title=".bss段"></a>.bss段</h4><p> (block started by symbol segmengt) 符号段块的起始位置</p>
+<p>只存在于运行在内存中的可执行文件中.保存程序的起始地址和结束地址.不存在于硬盘的二进制文件中</p>
+<p>因为一般用来存放未初始化的全局变量和静态变量,在程序之行开始时,这段区域的未初始化的都会被初始化为0,</p>
+<p>以便内存区能在运行时分配并被有效地清零.不同架构可能有不同的方法.</p>
+<p>.bss段从可执行文件中得到,链接器得到这个段大小的内存块,紧跟在数据段之后.</p>
+<h4 id="data-段"><a href="#data-段" class="headerlink" title=".data 段"></a>.data 段</h4><p>data segment数据段,存放初始化好的全局变量,静态变量.</p>
+<p>这个位置通常属于只读的.静态常量区.</p>
+<p><code>char *a = &quot;Windows&quot;</code>,这个Windows字符串属于.data段,只读属性.如果运行<code>*a = &#39;a&#39;</code>会造成访问冲突.</p>
+<p>大小在编译链接时自动分配.和全局变量,静态变量,常量有关</p>
+<h3 id="rdata段"><a href="#rdata段" class="headerlink" title=".rdata段"></a>.rdata段</h3><p>包含导入和导出的导出函数信息,还可以存储程序御用的其他只读数据.</p>
+<p>有些文件会包含.idata和.edata用来存储导入导出信息.</p>
+<h3 id="pdata-段"><a href="#pdata-段" class="headerlink" title=".pdata 段"></a>.pdata 段</h3><p>只存在于64位pe文件中,存储异常信息</p>
+<p>.bss+.data=静态存储区.存放静态变量 全局变量 常量(常变量,字符串常量)已经初始化,不可被修改</p>
+<p>局部变量通过指针,引用访问和修改.</p>
+<p>全局变量在静态存储区不可以被间接修改.</p>
+<h4 id="text-段-code段"><a href="#text-段-code段" class="headerlink" title=".text 段 .code段"></a>.text 段 .code段</h4><p>VS中叫.text</p>
+<p>borland的delphi使用.code</p>
+<p>程序代码段, 存放二进制代码,编译后是静态不可变的.</p>
+<p>为什么要设置这个段呢.程序语言文本是只读的,数据不是.每次加载代码,会固定加载到内存中.减少内存的使用,增加的内存的复用.</p>
+<h4 id="stack-栈"><a href="#stack-栈" class="headerlink" title="stack 栈"></a>stack 栈</h4><p>堆栈,存放局部变量的区域,使用<code>push</code>指令压栈.调用函数执行<code>call</code>前,参数压栈,函数返回结果也会压栈放回.</p>
+<p>VS默认栈为1M,64bits的linux栈默认10mb.</p>
+<h4 id="heap-堆"><a href="#heap-堆" class="headerlink" title="heap 堆"></a>heap 堆</h4><p>FIFO的数据结构.用来保障函数内存分布.</p>
+<p>malloc new 申请</p>
+<p>free delete 删除对重指定信息</p>
+<p>malloc 放回void* ,new返回类型指针,并执行构造函数</p>
+<h3 id="rsrc"><a href="#rsrc" class="headerlink" title=".rsrc"></a>.rsrc</h3><p>包含可执行文件所使用的资源.图标\图片\菜单项\字符串</p>
+<p>在.rsrc中经常存储的字符串,是为了提供多语种的支持.</p>
+<h3 id="reloc"><a href="#reloc" class="headerlink" title=".reloc"></a>.reloc</h3><p>包含重定位库文件的信息</p>
+<h3 id="静态变量"><a href="#静态变量" class="headerlink" title="静态变量"></a>静态变量</h3><p>存储在静态存储区,在整个程序运行期间一直占据这些空间. 内存地址是不变的.不过不能在作用域外使用.</p>
+<p>所有全局变量都是静态变量,而局部变量只有定义时加上static修饰符,才能成为局部静态变量.</p>
+<p>不会随着函数的启动和结束而消失.</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">char</span> *<span class="title">strA</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">char</span> str[] = <span class="string">"hello"</span>;</span><br><span class="line">    <span class="keyword">return</span> str;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">char</span> *<span class="title">strA</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">char</span> str* = <span class="string">"hello"</span>;<span class="comment">//字符串位于常量区,处于静态存储区.生命周期内恒定不变的.无法被改变</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> str;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="指针"><a href="#指针" class="headerlink" title="指针"></a>指针</h4><p><code>int c[2][3]</code> 表示数组c有两组3个数字的数组.</p>
+<p><code>c</code>表示数组首地址 表示的是二维数组行指针</p>
+<p><code>*c</code>第一行元素的首地址,是一维指针,是二维数组的列指针.</p>
+<p><code>**c</code>取第一个元素的值.</p>
+<p><code>char (*str)[20]</code>数组指针.执行数组元素的指针</p>
+<p><code>char *str[20]</code>指针数组,数组成员为<code>char *</code>指针</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span>  <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> arr[] = &#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span>&#125;;</span><br><span class="line">    <span class="keyword">int</span> *p=arr;<span class="comment">//首个元素的首地址</span></span><br><span class="line">    </span><br><span class="line">    *(p++)+=<span class="number">123</span>;<span class="comment">//计算完成后 指向第二个元素</span></span><br><span class="line">    </span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d,%d\n"</span>, *p,*(++p)); <span class="comment">//参数从左往右看,此时p指向第三个元素</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这是没有返回值,没有参数的函数</p>
+<p><code>void f(void)</code></p>
+<p>这是一个指向函数的指针,该函数没有返回值和参数</p>
+<p><code>void(*p)(void)</code></p>
+<p>上述指针的类型</p>
+<p><code>void (*)(void)</code></p>
+<p>对该类型的强制转换</p>
+<p><code>(void (*)(void))</code></p>
+<p>对该类型的强制转换</p>
+<p><code>(void (*)(void))0</code></p>
+<h4 id="让程序跳转到绝对地址是0x100000去执行"><a href="#让程序跳转到绝对地址是0x100000去执行" class="headerlink" title="让程序跳转到绝对地址是0x100000去执行"></a>让程序跳转到绝对地址是0x100000去执行</h4><p><code>((void (*)())0x100000)()</code></p>
+<h3 id="const-static"><a href="#const-static" class="headerlink" title="const static"></a>const static</h3><h4 id="先说const"><a href="#先说const" class="headerlink" title="先说const"></a>先说const</h4><p>const 是表示常量的标识符.</p>
+<p>const char * A  A指针指向的变量是不可变的</p>
+<p>char const *A    和上述一样</p>
+<p>char *const A    指针本身是不可变的,所以必须被初始化.而变量可以改变</p>
+<h4 id="static-标识符"><a href="#static-标识符" class="headerlink" title="static 标识符"></a>static 标识符</h4><ul>
+<li><p>如果在全局变量加上static,被限定了作用域,只能在该源文件中使用.从而保证了在其他源文件中不被使用.只被初始化一次.</p>
+<p>改变了作用域和使用范围</p>
+</li>
+<li><p>给局部变量加上的static的话,在局部函数结束后不会消失,且是最新的状态.</p>
+<p>只被初始化一次</p>
+<p>(编译器在该目标编译单元内只有该函数的入口地址,没有函数名,其他编译单元不能通过函数名调用该函数,)</p>
+<p>随着程序结束而消失</p>
+</li>
+<li><p>static函数在内存中只存在一份,普通函数存在复数拷贝</p>
+</li>
+<li><p>类的成员函数中加上,该类的对象同时共用这一个成员函数,成员变量也是.</p>
+</li>
+</ul>
+<h3 id="面向对象"><a href="#面向对象" class="headerlink" title="面向对象"></a>面向对象</h3><p>多态:<a href="https://zh.wikipedia.org/wiki/%E5%A4%9A%E5%9E%8B_(%E7%89%A9%E4%BB%B6%E5%B0%8E%E5%90%91%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88" target="_blank" rel="noopener">多态</a>)（Polymorphism）是指由继承而产生的相关的不同的类，其对象对同一消息会做出不同的响应<a href="https://zh.wikipedia.org/wiki/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1#cite_note-8" target="_blank" rel="noopener">[8]</a></p>
+<p><a href="https://zh.wikipedia.org/wiki/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1" target="_blank" rel="noopener">https://zh.wikipedia.org/wiki/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1</a></p>
+<p>很有意思的讲解</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">复习</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">基础</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/逆向基础//" class="article-tag-list-link color5">逆向基础</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
   
     <article id="post-2018-11-05-DuiLib搭建" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
@@ -647,10 +901,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">IDA</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">字符集</a>
               </li>
              
@@ -660,6 +910,18 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Unicode</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">IDA</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">断点</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">调试</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -679,26 +941,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">断点</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">调试</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">VirtualKD</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">宏代码</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">PowerShell</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">arm</a>
               </li>
              
@@ -711,11 +953,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">VC</a>
+                <a href="javascript:void(0)" class="js-tag color4">宏代码</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">勒索病毒</a>
+                <a href="javascript:void(0)" class="js-tag color1">PowerShell</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">VirtualKD</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Autohotkey</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -723,7 +973,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Autohotkey</a>
+                <a href="javascript:void(0)" class="js-tag color3">VC</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">勒索病毒</a>
               </li>
              
               <li class="article-tag-list-item">

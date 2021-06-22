@@ -17,7 +17,7 @@
 <meta property="og:description" content="最近想学习一下arm指令集,恰好手边有一台多余的二手机.从MIUI刷成原生安卓终于能正常adb push了. 大多数的环境配置与调试是根据这篇文章Android逆向系列之动态调试(五)–gdb调试进行学习的. 补充在这里我做一点补充和效率的提高.  ndk的压缩包从这里下载.  我的压缩包解压后的文件名为android-ndk-r19c 我是小米4的手机.  所以使用的gdbserver在\an">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://i.loli.net/2019/05/24/5ce80487b3f5f27607.png">
-<meta property="og:updated_time" content="2019-11-08T15:49:52.988Z">
+<meta property="og:updated_time" content="2019-11-08T15:49:52.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="arm环境搭建-gdb调试">
 <meta name="twitter:description" content="最近想学习一下arm指令集,恰好手边有一台多余的二手机.从MIUI刷成原生安卓终于能正常adb push了. 大多数的环境配置与调试是根据这篇文章Android逆向系列之动态调试(五)–gdb调试进行学习的. 补充在这里我做一点补充和效率的提高.  ndk的压缩包从这里下载.  我的压缩包解压后的文件名为android-ndk-r19c 我是小米4的手机.  所以使用的gdbserver在\an">
@@ -62,7 +62,7 @@
 			
 				<li><a href="/">主页</a></li>
 	        
-				<li><a href="http://wiki.xwdidi.top/">Wiki</a></li>
+				<li><a href="http://wiki.dgmddw.xyz/">Wiki</a></li>
 	        
 			</ul>
 		</nav>
@@ -132,7 +132,7 @@
 				
 					<li style="width: 50%"><a href="/">主页</a></li>
 		        
-					<li style="width: 50%"><a href="http://wiki.xwdidi.top/">Wiki</a></li>
+					<li style="width: 50%"><a href="http://wiki.dgmddw.xyz/">Wiki</a></li>
 		        
 				</ul>
 			</nav>
@@ -481,10 +481,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">IDA</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">字符集</a>
               </li>
              
@@ -494,6 +490,18 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Unicode</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">IDA</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">断点</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">调试</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -513,26 +521,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">断点</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">调试</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">VirtualKD</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">宏代码</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">PowerShell</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">arm</a>
               </li>
              
@@ -545,11 +533,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">VC</a>
+                <a href="javascript:void(0)" class="js-tag color4">宏代码</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">勒索病毒</a>
+                <a href="javascript:void(0)" class="js-tag color1">PowerShell</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">VirtualKD</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Autohotkey</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -557,7 +553,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Autohotkey</a>
+                <a href="javascript:void(0)" class="js-tag color3">VC</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">勒索病毒</a>
               </li>
              
               <li class="article-tag-list-item">
